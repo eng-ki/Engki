@@ -1,7 +1,8 @@
 # Initially taken from Github's Python gitignore file
 
 # Image Files
-images/
+datasets/images/
+datasets/normalized_images/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
