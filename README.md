@@ -67,9 +67,9 @@ Made by. Team 디키 (Developers for kids)
 - 아이의 학습 진행 상황을 볼 수 있다.
 - 아이의 감정 그래프를 볼 수 있다.
 
-## 유사 서비스
+### [와이어프레임 더 자세히 보기](https://xd.adobe.com/view/42773ad3-b714-4d3e-adca-458036d3732e-1724/)
 
-> 프로젝트와 유사한 서비스들이 있다면 소개해 주고 여러분의 프로젝트 만의 차이점을 기술해주세요
+## 유사 서비스
 
 ### [듀오링고](https://ko.duolingo.com/)
 
@@ -119,15 +119,21 @@ Made by. Team 디키 (Developers for kids)
 
 ### 디렉토리 구조도
 
-> 폴더 구조가 어떻게 되는지 폴더, 파일별 역할들을 간략하게 적어주세요  
-> 너무 자세히 적을 필요는 없습니다
-
 ### 기타
+
+```
+├─ ai-reference : 명세서 프로젝트 폴더
+└─ docs
+   ├─ images : 리드미에 사용된 이미지 폴더
+   ├─ icons
+   ├─ .gitmessage : commit template
+   └─ initial_set.sh : git template 설정하는 shell script
+```
 
 
 
 ## 테스트 방법
-[방문하기](http://j3a510.p.ssafy.io/)
+[방문하기](http://j3a510.p.ssafy.io/) (아직 배포 x…)
 
 ID:
 
