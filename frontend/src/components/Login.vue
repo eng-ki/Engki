@@ -11,9 +11,17 @@
           </div>
           <button class="parents-button">시작하기</button>
           <div class="login-message-box">
-            <span v-on:click="submsg_clicked(1)" class="login-message" v-text="submsg1"></span>
+            <span
+              v-on:click="submsg_clicked(1)"
+              class="login-message"
+              v-text="submsg1"
+            ></span>
             <br />
-            <span v-on:click="submsg_clicked(2)" class="login-message" v-text="submsg2"></span>
+            <span
+              v-on:click="submsg_clicked(2)"
+              class="login-message"
+              v-text="submsg2"
+            ></span>
           </div>
 
           <!-- 1단계: placeholder=이메일을 입력해주세요
@@ -44,26 +52,27 @@
 export default {
   data: function () {
     return {
-      submsg1: "아이디가 생각나지 않으세요?",
+      submsg1: '아이디가 생각나지 않으세요?',
       // submsg1:'비밀번호가 생각나지 않으세요?',
-      submsg2: "아직 회원가입을 하지 않으셨나요?",
+      submsg2: '아직 회원가입을 하지 않으셨나요?',
       // placeholder:'이메일을 입력해주세요',
-      placeholder: "이메일을 다시 입력해주세요",
+      placeholder: '이메일을 다시 입력해주세요',
       // placeholder:'비밀번호를 입력해주세요',
       // placeholder:'비밀번호를 다시 입력해주세요',
-    };
+    }
   },
   methods: {
     submsg_clicked(seq) {
-      alert(seq + "번째 문구 눌림");
+      alert(seq + '번째 문구 눌림')
       // + 현재 상태(아이디 단계인지 비밀번호 단계인지)
     },
   },
-};
+}
 </script>
-
 <style lang="scss">
-@import "../assets/sass/base.scss";
+@import '../assets/sass/base.scss';
+</style>
+<style lang="scss" scoped>
 /* 로그인페이지 틀 */
 .background .box .innerbox .loginpage {
   position: inherit;
@@ -73,7 +82,7 @@ export default {
 .loginpage .title {
   /* 좌표 설정 */
   position: absolute;
-  top: 0%;
+  top: 30vh;
   left: 50%;
   transform: translate(-50%, -50%);
   /* text-align: center; */
@@ -88,7 +97,7 @@ export default {
 .loginpage .subtitle {
   /* 좌표 설정 */
   position: absolute;
-  top: 38%;
+  top: 45vh;
   left: 50%;
   transform: translate(-50%, -50%);
 
@@ -102,7 +111,7 @@ export default {
 .loginpage .input-with-tiki {
   /* 좌표 설정 */
   position: absolute;
-  top: 65%;
+  top: 65vh;
   left: 50%;
   width: 100%;
   text-align: center;
@@ -120,7 +129,7 @@ export default {
 .loginpage .parents-button {
   /* 좌표 설정 */
   position: absolute;
-  top: 83%;
+  top: 83vh;
   left: 50%;
   transform: translate(-50%, -100%);
 }
@@ -129,7 +138,7 @@ export default {
   text-align: center;
   /* 좌표 설정 */
   position: absolute;
-  top: 100%;
+  top: 88vh;
   left: 50%;
   transform: translate(-50%, -25%);
 }

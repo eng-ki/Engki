@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import Login from '@/components/Login.vue';
-import SetEmail from '@/components/SetEmail.vue';
+import Login from '@/components/Login.vue'
+import SetEmail from '@/components/SetEmail.vue'
 
 export default {
   name: 'LoginPage',
@@ -15,5 +15,5 @@ export default {
     Login,
     SetEmail,
   },
-};
+}
 </script>
