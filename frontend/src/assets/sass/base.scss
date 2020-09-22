@@ -1,0 +1,181 @@
+/* ================================================== */
+/* =====================공통 셋팅===================== */
+/* ================================================== */
+
+/* 폰트 다운로드 */
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+@font-face {
+  font-family: 'GmarketSansMedium';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff')
+    format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* 폰트 적용 */
+* {
+  font-family: 'Jua', sans-serif;
+}
+
+/* 크롬에서 div나 버튼 클릭시 테두리 생기는거 제거 */
+*:focus {
+  outline: none;
+}
+
+/* ================================================== */
+/* ================ 레이아웃 / 틀 ==================== */
+/* ================================================== */
+
+/* 배경 이미지 적용, 가장 아래 깔리는 페이지*/
+.background {
+  /* 페이지별로 다른데 일단 하나로 통일 */
+  background: url('../images/background/background1.jpg') no-repeat bottom
+    center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
+  /* 사이즈 fullscreen */
+  min-width: 500px;
+  min-height: 490px;
+  width: 100vw;
+  height: 100vh;
+
+  /* 좌표 설정 */
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  /* 기본 틀 */
+  // .box {
+  //   height: 72vh;
+  //   position: relative;
+  //   // background-color: rgba(34, 34, 34, 0.493);
+  //   margin: 7vh 5vw 7vh 5vw;
+  //   padding: 7vh 5vw 7vh 5vw;
+  // }
+}
+
+/* ================================================== */
+/* ==================각종 UI 컴포넌트================= */
+/* ================================================== */
+
+.parents-button {
+  /* 사이즈 설정 */
+  width: auto;
+  padding: 0px 50px;
+  height: 8vh;
+
+  /* 디자인 */
+  border-radius: 3vh;
+  background-color: rgba(255, 255, 255, 0.65);
+  border: transparent;
+  box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.5);
+  font-family: GmarketSansMedium;
+
+  /* 버튼 내 폰트 좌표 */
+  /* 글자 아래 약간 여백이 있어서 완전 중앙에 놓으려면 위에 패딩 살짝 넣어줘야함 */
+  /* padding-top: 1%; */
+
+  /* 폰트 디자인 */
+  line-height: 9vh;
+  font-size: 4vh;
+  font-display: inherit;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* 로그인페이지 input */
+.inputbox {
+  /* 사이즈 설정 */
+  width: 40vw;
+  max-width: 500px;
+  height: 10vh;
+  /* 디자인 */
+  border-radius: 3vh;
+  background-color: rgba(255, 255, 255, 0.65);
+  border: transparent;
+  box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.5);
+  font-family: GmarketSansMedium;
+
+  /* 폰트 디자인 */
+  text-align: center;
+  vertical-align: middle;
+  font-size: 3.5vh;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  &::placeholder {
+    /* 좌표 틀어짐 보정  */
+    position: absolute;
+    transform: translate(0px, 3px);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+
+    /* 사이즈 설정 */
+    width: 40vw;
+    max-width: 500px;
+    height: 10vh;
+
+    /* 디자인 */
+    border: transparent;
+    font-family: GmarketSansMedium;
+
+    /* 폰트 디자인 */
+    text-align: center;
+    vertical-align: middle;
+    font-size: 3.5vh;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  }
+}
+
+.showbox {
+  /* 사이즈 설정 */
+  width: auto;
+  padding: 1vh 4vw;
+  height: 8vh;
+
+  /* 디자인 */
+  border-radius: 3vh;
+  background-color: rgba(255, 255, 255, 0.65);
+  border: transparent;
+  box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.5);
+
+  /* input 내 폰트 좌표 */
+  /* 글자 아래 약간 여백이 있어서 완전 중앙에 놓으려면 위에 패딩 살짝 넣어줘야함 */
+  padding-top: 2vh;
+
+  /* 버튼 내 폰트 좌표 */
+  /* 글자 아래 약간 여백이 있어서 완전 중앙에 놓으려면 위에 패딩 살짝 넣어줘야함 */
+  /* padding-top: 1%; */
+
+  /* 폰트 디자인 */
+  font-size: 4vw;
+  font-display: inherit;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* 정보 입력 페이지 input */
+.info-inputbox {
+  /* 디자인 */
+  width: 45vw;
+  border-radius: 3vh;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: transparent;
+
+  /* input 내 폰트 좌표 */
+  /* 글자 아래 약간 여백이 있어서 완전 중앙에 놓으려면 위에 패딩 살짝 넣어줘야함 */
+  padding-top: 1%;
+
+  /* 폰트 디자인 */
+  font-family: GmarketSansMedium;
+  padding-left: 3vw;
+  text-align: left;
+  vertical-align: middle;
+  font-size: 4.5vh;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.login-message {
+  color: white;
+  font-size: 20px;
+  font-family: GmarketSansMedium;
+  text-shadow: 3px 3px 5 px rgba(0, 0, 0, 0.5);
+}
