@@ -29,7 +29,8 @@
 /* 배경 이미지 적용, 가장 아래 깔리는 페이지*/
 .background {
   /* 페이지별로 다른데 일단 하나로 통일 */
-  background: url('../images/background1.jpg') no-repeat bottom center fixed;
+  background: url('../images/background/background1.jpg') no-repeat bottom
+    center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

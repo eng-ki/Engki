@@ -1,3 +1,3 @@
 <template>
-  <div>프로필이미지</div>
+  <div></div>
 </template>

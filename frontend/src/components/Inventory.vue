@@ -1,3 +1,3 @@
 <template>
-  <div>인벤토리</div>
+  <div></div>
 </template>
