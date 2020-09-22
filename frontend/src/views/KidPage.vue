@@ -1,68 +1,65 @@
 <template>
   <div class="background">
-    <div class="kid" v-if="!isComponent">
+    <div class="kid" v-if="!isChangeProfile">
       <div class="change-profile-image">
-        <v-btn rounded @click="setComponent(true)">캐릭터 변경</v-btn>
+        <v-btn rounded @click="goProfile()">캐릭터 변경</v-btn>
       </div>
       <div class="profile-image">
         <img src="../images/icon/fairytale/005-witch.png" />
       </div>
-      <div class="inventory-wrap" @click="setInventory(true)">
+      <div class="inventory-wrap" @click="goInventory()">
         <img src="../images/icon/chest.png" />
         <div class="inventory-text">아이템 인벤토리</div>
       </div>
     </div>
     <div class="box">
       <div class="innerbox">
-        <v-btn rounded large dark v-if="isKidPage">학습 시작</v-btn>
-
-        <set-profile-image
-          v-if="isComponent"
-          @returnKidPage="setComponent(false)"
-        />
-        <inventory
-          v-if="isInventory"
-          @returnKidPage="
-            setComponent(false)
-            setInventory(false)
-          "
-        />
+        <button class="parents-button start-button">공부 시작하기</button>
+        <set-profile-image v-if="isChangeProfile" @returnKidPage="goProfile()" />
+        <inventory title="BAG" :itemlist.sync="itemlist" :visible.sync="visible" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import SetProfileImage from '@/components/SetProfileImage.vue'
-import Inventory from '@/components/Inventory.vue'
+import SetProfileImage from "@/components/SetProfileImage.vue";
+import Inventory from "@/components/Inventory.vue";
 
 export default {
-  name: 'KidPage',
+  name: "KidPage",
   components: {
     SetProfileImage,
     Inventory,
   },
   data: () => {
     return {
-      isComponent: false,
-      isInventory: false,
-    }
+      isChangeProfile: false,
+      visible: false,
+      itemlist: [
+        "../images/icon/fairytale/001-knight.png",
+        "../images/icon/fairytale/002-wizard.png",
+        "../images/icon/fairytale/003-dwarf.png",
+      ],
+    };
   },
+  cerated() {},
   methods: {
-    setComponent(flag) {
-      this.isComponent = flag
+    goProfile() {
+      this.isChangeProfile = !this.isChangeProfile;
     },
-    setInventory(flag) {
-      this.isInventory = flag
+    goInventory() {
+      this.visible = !this.visible;
     },
   },
-}
+};
 </script>
 
+
 <style lang="scss">
-@import '../assets/sass/base.scss';
+@import "../assets/sass/base.scss";
 /* 자녀페이지 틀 */
-.background .box .innerbox .loginpage {
+.background .box .innerbox {
   position: inherit;
 }
 
@@ -114,4 +111,15 @@ export default {
   color: white;
   font-size: 2vw;
 }
+
+.start-button {
+  top: 30%;
+  left: 10%;
+  position: absolute;
+  width: 50%;
+  height: 40%;
+  font-size: 6vw;
+  border-radius: 10vh;
+}
 </style>
+
