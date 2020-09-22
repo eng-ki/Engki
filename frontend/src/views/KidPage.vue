@@ -14,7 +14,7 @@
     </div>
     <div class="box">
       <div class="innerbox">
-        <!-- <v-btn rounded large dark v-if="isKidPage">학습 시작</v-btn> -->
+        <v-btn rounded large dark v-if="isKidPage">학습 시작</v-btn>
 
         <set-profile-image
           v-if="isComponent"
