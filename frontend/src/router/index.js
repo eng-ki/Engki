@@ -1,29 +1,51 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import LoginPage from '../views/LoginPage.vue';
+import SelectKidPage from '../views/SelectKidPage.vue';
+import ParentPage from '../views/ParentPage.vue';
+import KidPage from '../views/KidPage.vue';
+import SelectQuizPage from '../views/SelectQuizPage.vue';
+import QuizPage from '../views/QuizPage.vue';
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'LoginPage',
+    component: LoginPage,
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
-]
+    path: '/selectkid',
+    name: 'SelectKidPage',
+    component: SelectKidPage,
+  },
+  {
+    path: '/parent',
+    name: 'ParentPage',
+    component: ParentPage,
+  },
+  {
+    path: '/kid',
+    name: 'KidPage',
+    component: KidPage,
+  },
+  {
+    path: '/selectquiz',
+    name: 'SelectQuizPage',
+    component: SelectQuizPage,
+  },
+  {
+    path: '/quiz',
+    name: 'QuizPage',
+    component: QuizPage,
+  },
+];
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;
