@@ -1,6 +1,6 @@
 <template>
   <div>
-    <login></login>
+    <login class="hello"></login>
     <set-email></set-email>
   </div>
 </template>
@@ -17,3 +17,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.hello {
+  background-color: blue;
+}
+</style>
