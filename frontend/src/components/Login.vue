@@ -6,10 +6,13 @@
           <p class="title">{{ msg }}잉키</p>
           <p class="subtitle">English for kids</p>
           <div class="input-with-tiki">
-            <img class="moving-tiki" src="../static/img/icon/moving_tiki.gif" />
+            <img
+              class="moving-tiki"
+              src="../../public//img/icon/moving_tiki.gif"
+            />
             <!-- <button class="kakao_btn font-weight-bold"  혹시 이런식으로 class에 kakao_btm 한번 넣어보실래요? -->
             <button class="inputbox kakao_btn">
-              <img src="../static/img/kakao.png" class="kakao_img" />
+              <img src="../../public/img/kakao.png" class="kakao_img" />
               <span class="kakao_font">카카오 로그인</span>
             </button>
           </div>
