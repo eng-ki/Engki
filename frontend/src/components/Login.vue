@@ -6,7 +6,7 @@
           <p class="title">잉키</p>
           <p class="subtitle">English for kids</p>
           <div class="input-with-tiki">
-            <img class="moving-tiki" src="../images/icon/moving_tiki.gif" />
+            <img class="moving-tiki" src="../static/img/icon/moving_tiki.gif" />
             <input class="inputbox" type="text" :placeholder="placeholder" />
           </div>
           <button class="parents-button">시작하기</button>
@@ -59,15 +59,15 @@ export default {
       placeholder: '이메일을 다시 입력해주세요',
       // placeholder:'비밀번호를 입력해주세요',
       // placeholder:'비밀번호를 다시 입력해주세요',
-    };
+    }
   },
   methods: {
     submsg_clicked(seq) {
-      alert(seq + '번째 문구 눌림');
+      alert(seq + '번째 문구 눌림')
       // + 현재 상태(아이디 단계인지 비밀번호 단계인지)
     },
   },
-};
+}
 </script>
 <style lang="scss">
 @import '../assets/sass/base.scss';
