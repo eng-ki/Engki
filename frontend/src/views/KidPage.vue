@@ -52,7 +52,7 @@ export default {
       ],
     }
   },
-  cerated() {},
+  created() {},
   methods: {
     goProfile() {
       this.isChangeProfile = !this.isChangeProfile
