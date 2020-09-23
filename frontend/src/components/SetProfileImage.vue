@@ -3,7 +3,7 @@
     <div class="box">
       <div class="innerbox">
         <div class="profile-icon">
-          <img src="../static/img/icon/fairytale/005-witch.png" />
+          <img src="../../public/img/icon/fairytale/005-witch.png" />
           <div>김싸피</div>
         </div>
         <div class="profile-icons">
@@ -18,7 +18,7 @@
                   @click="selectProfileImage((i - 1) * 10 + (j - 1))"
                 >
                   <img
-                    src="../static/img/icon/fairytale/001-knight.png"
+                    src="../../public/img/icon/fairytale/001-knight.png"
                     style="width: 50%"
                   />
                 </td>
@@ -40,7 +40,7 @@ export default {
   name: 'SetProfileImage',
   data: () => {
     return {
-      profileImage: '../static/img/icon/fairytale/005-witch.png',
+      profileImage: '../../public/img/icon/fairytale/005-witch.png',
       selectedIndex: 0,
     }
   },
@@ -49,7 +49,7 @@ export default {
       this.$emit('returnKidPage')
     },
     setProfileImage() {
-      this.profileImage = '../static/img/icon/fairytale/001-knight.png'
+      this.profileImage = '../../public/img/icon/fairytale/001-knight.png'
     },
     selectProfileImage(num) {
       this.selectedIndex = num
@@ -91,7 +91,7 @@ export default {
   margin-left: 10%;
   margin-right: 10%;
   background-color: white;
-  height: 400px;
+  height: 70vh;
   border-radius: 10vh;
   padding: 10vh 2vw 2vh 2vw;
 }
@@ -102,6 +102,6 @@ export default {
   position: absolute;
 }
 .active {
-  border: 4px solid red;
+  border: 4px solid #ff9f9f;
 }
 </style>

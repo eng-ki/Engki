@@ -26,9 +26,9 @@ export default {
   },
   created() {
     if (this.option == 'quiz') {
-      this.msg = '주제를 선택해주세요';
+      this.msg = '주제를 선택해주세요'
     } else if (this.option == 'kid') {
-      this.msg = '자신의 캐릭터를 선택해주세요';
+      this.msg = '자신의 캐릭터를 선택해주세요'
     }
   },
   data: function () {
@@ -38,37 +38,37 @@ export default {
         {
           id: '1',
           name: '손명지',
-          img: '../static/img/icon/kid1.png',
+          img: '../../public/img/icon/kid1.png',
         },
         {
           id: '2',
           name: '서주현',
-          img: '../images/icon/kid2.png',
+          img: '../../public/img/icon/kid2.png',
         },
         {
           id: '3',
           name: '차윤석',
-          img: '../images/icon/kid3.png',
+          img: '../../public/img/icon/kid3.png',
         },
         {
           id: '1',
           name: '손명지',
-          img: '../static/img/icon/kid1.png',
+          img: '../../public/img/icon/kid1.png',
         },
         {
           id: '2',
           name: '서주현',
-          img: '../images/icon/kid2.png',
+          img: '../../public/img/icon/kid2.png',
         },
         {
           id: '3',
           name: '차윤석',
-          img: '../images/icon/kid3.png',
+          img: '../../public/img/icon/kid3.png',
         },
       ],
-    };
+    }
   },
-};
+}
 </script>
 <style lang="scss">
 @import '../assets/sass/base.scss';

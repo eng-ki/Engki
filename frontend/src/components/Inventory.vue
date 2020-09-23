@@ -14,12 +14,13 @@
         </button>
       </header>
       <div class="my-modal__body">
+        <img :src="itemlist[0]" style="width: 10%" />
         <table>
           <tbody id="contacts">
-            <tr>
+            <tr v-for="j in 10" :key="j">
               <td v-for="i in 5" :key="i">
                 <img
-                  src="../static/img/icon/jungle/001-toucan.png"
+                  src="../../public/img/icon/jungle/001-toucan.png"
                   style="width: 50%"
                 />
               </td>
@@ -97,6 +98,17 @@ $module: 'my-modal';
     min-height: 150px;
     max-height: 412px;
     overflow-y: scroll;
+    &::-webkit-scrollbar {
+      width: 10px;
+      background: none;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: white;
+      opacity: 0.4;
+    }
+    &::-webkit-scrollbar-track {
+      background: #62a205;
+    }
   }
 
   table {

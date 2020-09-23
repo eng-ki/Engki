@@ -5,26 +5,35 @@
         <v-btn rounded @click="goProfile()">캐릭터 변경</v-btn>
       </div>
       <div class="profile-image">
-        <img src="../static/img/icon/fairytale/005-witch.png" />
+        <img src="../../public/img/icon/fairytale/005-witch.png" />
       </div>
       <div class="inventory-wrap" @click="goInventory()">
-        <img src="../static/img/icon/chest.png" />
+        <img src="../../public/img/icon/chest.png" />
         <div class="inventory-text">아이템 인벤토리</div>
       </div>
     </div>
     <div class="box">
       <div class="innerbox">
-        <button class="parents-button start-button" @click="kakaoLogin()">공부 시작하기</button>
-        <set-profile-image v-if="isChangeProfile" @returnKidPage="goProfile()" />
-        <inventory title="BAG" :itemlist.sync="itemlist" :visible.sync="visible" />
+        <button class="parents-button start-button" @click="kakaoLogin()">
+          공부 시작하기
+        </button>
+        <set-profile-image
+          v-if="isChangeProfile"
+          @returnKidPage="goProfile()"
+        />
+        <inventory
+          title="BAG"
+          :itemlist.sync="itemlist"
+          :visible.sync="visible"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import SetProfileImage from '@/components/SetProfileImage.vue';
-import Inventory from '@/components/Inventory.vue';
+import SetProfileImage from '@/components/SetProfileImage.vue'
+import Inventory from '@/components/Inventory.vue'
 
 export default {
   name: 'KidPage',
@@ -37,30 +46,30 @@ export default {
       isChangeProfile: false,
       visible: false,
       itemlist: [
-        "../static/img/icon/fairytale/001-knight.png",
-        "../static/img/icon/fairytale/002-wizard.png",
-        "../static/img/icon/fairytale/003-dwarf.png",
+        '/img/icon/fairytale/001-knight.png',
+        '/img/icon/fairytale/002-wizard.png',
+        '/img/icon/fairytale/003-dwarf.png',
       ],
-    };
+    }
   },
   cerated() {},
   methods: {
     goProfile() {
-      this.isChangeProfile = !this.isChangeProfile;
+      this.isChangeProfile = !this.isChangeProfile
     },
     goInventory() {
-      this.visible = !this.visible;
+      this.visible = !this.visible
     },
     kakaoLogin() {
       Kakao.Auth.login({
         success: this.kakaoLoginStore,
-      });
+      })
     },
     kakaoLoginStore(authObj) {
-      alert(authObj.access_token);
+      alert(authObj.access_token)
     },
   },
-};
+}
 </script>
 
 <style lang="scss">
@@ -127,9 +136,8 @@ export default {
   height: 40%;
   font-size: 9vw;
   border-radius: 10vh;
-  font-family: "Jua", sans-serif;
+  font-family: 'Jua', sans-serif;
   padding: 1%;
   color: #24282c;
 }
 </style>
-
