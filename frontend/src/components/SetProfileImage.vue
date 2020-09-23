@@ -3,52 +3,31 @@
     <div class="box">
       <div class="innerbox">
         <div class="profile-icon">
-          <img src="../static/img/icon/fairytale/001-knight.png" />
+          <img src="../static/img/icon/fairytale/005-witch.png" />
           <div>김싸피</div>
         </div>
         <div class="profile-icons">
           <!-- dummy data -->
           <table>
             <tbody id="contacts">
-              <tr v-for="item in 5" :key="item" style="background-color: white;">
-                <td @click="clickIcon(item)">
-                  <img src="../static/img/icon/fairytale/001-knight.png" style="width:50%;" />
-                </td>
-                <td>
-                  <img src="../static/img/icon/fairytale/002-wizard.png" style="width:50%;" />
-                </td>
-                <td>
-                  <img src="../static/img/icon/fairytale/003-dwarf.png" style="width:50%;" />
-                </td>
-                <td>
-                  <img src="../static/img/icon/fairytale/004-elf.png" style="width:50%;" />
-                </td>
-                <td>
-                  <img src="../static/img/icon/fairytale/005-witch.png" style="width:50%;" />
-                </td>
-                <td>
-                  <img src="../static/img/icon/fairytale/006-ogre.png" style="width:50%;" />
-                </td>
-                <td>
-                  <img src="../static/img/icon/fairytale/007-giant.png" style="width:50%;" />
-                </td>
-                <td>
-                  <img src="../static/img/icon/fairytale/008-gnome.png" style="width:50%;" />
-                </td>
-                <td>
+              <tr v-for="i in 5" :key="i" style="background-color: white">
+                <td
+                  v-for="j in 10"
+                  :key="j"
+                  :class="{ active: selectedIndex == (i - 1) * 10 + (j - 1) }"
+                  @click="selectProfileImage((i - 1) * 10 + (j - 1))"
+                >
                   <img
-                    src="../static/img/icon/fairytale/009-little red riding hood.png"
-                    style="width:50%;"
+                    src="../static/img/icon/fairytale/001-knight.png"
+                    style="width: 50%"
                   />
-                </td>
-                <td>
-                  <img src="../static/img/icon/fairytale/010-wolf.png" style="width:50%;" />
                 </td>
               </tr>
             </tbody>
           </table>
           <div class="change-button">
             <v-btn rounded @click="setProfileImage()">변경하기</v-btn>
+            <span style="color: white">ㅡㅡ</span>
             <v-btn rounded @click="returnKidPage()">돌아가기</v-btn>
           </div>
         </div>
@@ -58,22 +37,29 @@
 </template>
 <script>
 export default {
-  name: "SetProfileImage",
+  name: 'SetProfileImage',
+  data: () => {
+    return {
+      profileImage: '../static/img/icon/fairytale/005-witch.png',
+      selectedIndex: 0,
+    }
+  },
   methods: {
     returnKidPage() {
-      this.$emit("returnKidPage");
+      this.$emit('returnKidPage')
     },
     setProfileImage() {
-      alert("HI");
+      this.profileImage = '../static/img/icon/fairytale/001-knight.png'
     },
-    clickIcon() {
-      alert("HIHI");
+    selectProfileImage(num) {
+      this.selectedIndex = num
     },
   },
-};
+}
 </script>
+
 <style lang="scss">
-@import "../assets/sass/base.scss";
+@import '../assets/sass/base.scss';
 </style>
 <style lang="scss" scoped>
 /* 로그인페이지 틀 */
@@ -84,8 +70,8 @@ export default {
   opacity: 0.8;
   border-radius: 17vh;
   background: white;
-  width: 170px;
-  height: 170px;
+  width: 15%;
+  height: 15%;
   top: 20vh;
   left: 50vw;
   position: relative;
@@ -94,7 +80,7 @@ export default {
 }
 
 .profile-icon img {
-  padding: 10%;
+  padding: 7%;
   width: 80%;
   height: 80%;
   opacity: 1;
@@ -102,17 +88,20 @@ export default {
 }
 .profile-icons {
   margin-top: -1%;
-  margin-left: 5%;
-  margin-right: 5%;
+  margin-left: 10%;
+  margin-right: 10%;
   background-color: white;
   height: 400px;
   border-radius: 10vh;
-  padding: 5vh 2vw 2vh 2vw;
+  padding: 10vh 2vw 2vh 2vw;
 }
 
 .profile-icons .change-button {
   left: 42%;
   bottom: 10%;
   position: absolute;
+}
+.active {
+  border: 4px solid red;
 }
 </style>

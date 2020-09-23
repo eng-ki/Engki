@@ -3,115 +3,41 @@
     <div class="my-modal__dialog">
       <header class="my-modal__header">
         <span>
-          <img src="../static/img/icon/chest.png" style="width:10%;" />
-          {{title}}
+          <img src="../static/img/icon/chest.png" style="width: 10%" />
+          {{ title }}
         </span>
-        <button @click="$emit('update:visible', !visible)" style="float:right;">X</button>
+        <button
+          @click="$emit('update:visible', !visible)"
+          style="float: right; color: white"
+        >
+          X
+        </button>
       </header>
       <div class="my-modal__body">
-        <slot>
-          <table>
-            <tbody id="contacts">
-              <tr>
-                <td>
-                  <img src="../static/img/icon/jungle/001-toucan.png" style="width:50%;" />
-                </td>
-                <td>
-                  <img src="../static/img/icon/jungle/002-monkey.png" style="width:50%;" />
-                </td>
-                <td>
-                  <img src="../static/img/icon/jungle/003-waterfall.png" style="width:50%;" />
-                </td>
-                <td>
-                  <img src="../static/img/icon/jungle/004-palm tree.png" style="width:50%;" />
-                </td>
-                <td>
-                  <img src="../static/img/icon/jungle/005-castaway.png" style="width:50%;" />
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <img src="../static/img/icon/jungle/006-jungle.png" style="width:50%;" />
-                </td>
-                <td>
-                  <img src="../static/img/icon/jungle/007-hippopotamus.png" style="width:50%;" />
-                </td>
-                <td>
-                  <img src="../static/img/icon/jungle/008-plant.png" style="width:50%;" />
-                </td>
-                <td>
-                  <img src="../static/img/icon/jungle/009-chameleon.png" style="width:50%;" />
-                </td>
-                <td>
-                  <img src="../static/img/icon/jungle/010-backpack.png" style="width:50%;" />
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <img src="../static/img/icon/jungle/006-jungle.png" style="width:50%;" />
-                </td>
-                <td>
-                  <img src="../static/img/icon/jungle/007-hippopotamus.png" style="width:50%;" />
-                </td>
-                <td>
-                  <img src="../static/img/icon/jungle/008-plant.png" style="width:50%;" />
-                </td>
-                <td>
-                  <img src="../static/img/icon/jungle/009-chameleon.png" style="width:50%;" />
-                </td>
-                <td>
-                  <img src="../static/img/icon/jungle/010-backpack.png" style="width:50%;" />
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <img src="../static/img/icon/jungle/006-jungle.png" style="width:50%;" />
-                </td>
-                <td>
-                  <img src="../static/img/icon/jungle/007-hippopotamus.png" style="width:50%;" />
-                </td>
-                <td>
-                  <img src="../static/img/icon/jungle/008-plant.png" style="width:50%;" />
-                </td>
-                <td>
-                  <img src="../static/img/icon/jungle/009-chameleon.png" style="width:50%;" />
-                </td>
-                <td>
-                  <img src="../static/img/icon/jungle/010-backpack.png" style="width:50%;" />
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <img src="../static/img/icon/jungle/006-jungle.png" style="width:50%;" />
-                </td>
-                <td>
-                  <img src="../static/img/icon/jungle/007-hippopotamus.png" style="width:50%;" />
-                </td>
-                <td>
-                  <img src="../static/img/icon/jungle/008-plant.png" style="width:50%;" />
-                </td>
-                <td>
-                  <img src="../static/img/icon/jungle/009-chameleon.png" style="width:50%;" />
-                </td>
-                <td>
-                  <img src="../static/img/icon/jungle/010-backpack.png" style="width:50%;" />
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <table>
+          <tbody id="contacts">
+            <tr>
+              <td v-for="i in 5" :key="i">
+                <img
+                  src="../static/img/icon/jungle/001-toucan.png"
+                  style="width: 50%"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
-          <!-- real data -->
-          <!-- <div v-for="(item, index) in itemlist" v-bind:key="index">
+        <!-- real data -->
+        <!-- <div v-for="(item, index) in itemlist" v-bind:key="index">
             <img :src="`item`" />
-          </div>-->
-        </slot>
+        </div>-->
       </div>
     </div>
   </div>
 </template>
 <script>
 export default {
-  name: "Inventory",
+  name: 'Inventory',
   props: {
     visible: {
       type: Boolean,
@@ -130,13 +56,13 @@ export default {
   },
   methods: {
     handleWrapperClick() {
-      this.$emit("update:visible", false);
+      this.$emit('update:visible', false)
     },
   },
-};
+}
 </script>
 <style lang="scss">
-$module: "my-modal";
+$module: 'my-modal';
 .#{$module} {
   // This is modal bg
   background-color: rgba(0, 0, 0, 0.7);
@@ -163,17 +89,25 @@ $module: "my-modal";
     line-height: 1.29;
     padding: 16px 16px 0 25px;
     position: relative;
+    color: #8ebf43;
   }
   &__body {
     background: white;
-    padding: 25px;
+    padding: 0px;
     min-height: 150px;
     max-height: 412px;
     overflow-y: scroll;
   }
-}
 
-tr {
-  background-color: lightgray;
+  table {
+    border: bold outset #62a205;
+    background-color: #62a205;
+    padding: 4px;
+  }
+  td {
+    border: thin inset #62a205;
+    background-color: #8ebf43;
+    margin: 4px;
+  }
 }
 </style>
