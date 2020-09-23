@@ -2,47 +2,17 @@
   <div class="background">
     <div class="box">
       <div class="innerbox">
-        <div class="loginpage">
-          <p class="title">잉키</p>
+        <div class="login">
+          <p class="title">{{ msg }}잉키</p>
           <p class="subtitle">English for kids</p>
           <div class="input-with-tiki">
             <img class="moving-tiki" src="../static/img/icon/moving_tiki.gif" />
-            <input class="inputbox" type="text" :placeholder="placeholder" />
+            <!-- <button class="kakao_btn font-weight-bold"  혹시 이런식으로 class에 kakao_btm 한번 넣어보실래요? -->
+            <button class="inputbox kakao_btn">
+              <img src="../static/img/kakao.png" class="kakao_img" />
+              <span class="kakao_font">카카오 로그인</span>
+            </button>
           </div>
-          <button class="parents-button">시작하기</button>
-          <div class="login-message-box">
-            <span
-              v-on:click="submsg_clicked(1)"
-              class="login-message"
-              v-text="submsg1"
-            ></span>
-            <br />
-            <span
-              v-on:click="submsg_clicked(2)"
-              class="login-message"
-              v-text="submsg2"
-            ></span>
-          </div>
-
-          <!-- 1단계: placeholder=이메일을 입력해주세요
-
-            if email 정보 없으면,
-            placeholder=이메일을 다시 입력해주세요. <- 주황글씨
-            시작버튼 하단에 
-            '아이디가 생각나지 않으세요?'
-            '아직 회원가입을 하지 않으셨나요?'
-            else if email 정보 있으면, 다음 단계
-          -->
-
-          <!-- 2단계: placeholder=비밀번호를 입력해주세요.
-
-            if password 정보 없으면,
-            placeholder=비밀번호를 다시 입력해주세요. <- 주황글씨
-            시작버튼 하단에 
-            '비밀번호가 생각나지 않으세요?'
-            else if password  정보 있으면, 
-            placeholder=비밀번호를 입력해주세요. 
-          -->
         </div>
       </div>
     </div>
@@ -50,6 +20,9 @@
 </template>
 <script>
 export default {
+  // props: {
+  //   msg: String,
+  // },
   data: function () {
     return {
       submsg1: '아이디가 생각나지 않으세요?',
@@ -74,30 +47,30 @@ export default {
 </style>
 <style lang="scss" scoped>
 /* 로그인페이지 틀 */
-.background .box .innerbox .loginpage {
+.background .box .innerbox .login {
   position: inherit;
 }
 
 /* 로그인페이지 제목 - 잉키 */
-.loginpage .title {
+.login .title {
   /* 좌표 설정 */
   position: absolute;
-  top: 30vh;
+  top: 38vh;
   left: 50%;
   transform: translate(-50%, -50%);
   /* text-align: center; */
 
   /* 디자인 */
-  font-size: 30vh;
+  font-size: 35vh;
   color: #ff9a00;
   text-shadow: 15px 15px 15px rgba(0, 0, 0, 0.65);
 }
 
 /* 로그인페이지 부제목 - english for kids */
-.loginpage .subtitle {
+.login .subtitle {
   /* 좌표 설정 */
   position: absolute;
-  top: 45vh;
+  top: 55vh;
   left: 50%;
   transform: translate(-50%, -50%);
 
@@ -108,10 +81,10 @@ export default {
 }
 
 /* 로그인페이지 input박스 + tiki */
-.loginpage .input-with-tiki {
+.login .input-with-tiki {
   /* 좌표 설정 */
   position: absolute;
-  top: 65vh;
+  top: 76vh;
   left: 50%;
   width: 100%;
   text-align: center;
@@ -120,26 +93,35 @@ export default {
 }
 
 /* 로그인페이지 tiki*/
-.loginpage .moving-tiki {
+.login .moving-tiki {
   position: relative;
   transform: translate(100%, -50%);
   width: 10vh;
 }
 
-.loginpage .parents-button {
-  /* 좌표 설정 */
-  position: absolute;
-  top: 83vh;
-  left: 50%;
-  transform: translate(-50%, -100%);
+.kakao_btn {
+  color: #333;
+  background-color: #ffe500;
+  font-size: 4vh;
+  line-height: 10vh;
+  // vertical-align: middle;
+  border-radius: 5px;
 }
-
-.login-message-box {
-  text-align: center;
-  /* 좌표 설정 */
-  position: absolute;
-  top: 88vh;
+.kakao_font {
+  margin-top: 0.4vh;
   left: 50%;
-  transform: translate(-50%, -25%);
+  margin-left: -6vh;
+  position: absolute;
+  font-family: GmarketSansMedium;
+
+  // transform: translate(-50%, -100%);
+}
+.kakao_img {
+  float: left;
+  position: inherit;
+  height: 6vh;
+  margin: 2.4vh;
+  // width: 10%;
+  // margin-top: auto;
 }
 </style>

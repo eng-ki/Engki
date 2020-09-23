@@ -1,16 +1,16 @@
 <template>
   <div>
-    <select />
+    <select-sth option="quiz" />
   </div>
 </template>
 
 <script>
-import Select from '@/components/Select.vue';
+import SelectSth from '@/components/SelectSth.vue';
 
 export default {
-  name: 'ParentPage',
+  name: 'SelectQuizPage',
   components: {
-    Select,
+    SelectSth,
   },
 };
 </script>

@@ -1,16 +1,16 @@
 <template>
   <div>
-    <select />
+    <select-sth option="kid" />
   </div>
 </template>
 
 <script>
-import Select from '@/components/Select.vue';
+import SelectSth from '@/components/SelectSth.vue';
 
 export default {
-  name: 'ParentPage',
+  name: 'SelectKidPage',
   components: {
-    Select,
+    SelectSth,
   },
 };
 </script>

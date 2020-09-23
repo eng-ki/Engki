@@ -23,11 +23,11 @@
 </template>
 
 <script>
-import SetProfileImage from "@/components/SetProfileImage.vue";
-import Inventory from "@/components/Inventory.vue";
+import SetProfileImage from '@/components/SetProfileImage.vue';
+import Inventory from '@/components/Inventory.vue';
 
 export default {
-  name: "KidPage",
+  name: 'KidPage',
   components: {
     SetProfileImage,
     Inventory,
@@ -63,9 +63,8 @@ export default {
 };
 </script>
 
-
 <style lang="scss">
-@import "../assets/sass/base.scss";
+@import '../assets/sass/base.scss';
 /* 자녀페이지 틀 */
 .background .box .innerbox {
   position: inherit;
