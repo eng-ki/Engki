@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+        db:
+                image: mariadb
+                container_name: "engki_db"
+                restart: always
+                volumes:
+                         - ./data/mysql:/var/lib/mysql
+                environment:
+                        - MYSQL_ROOT_PASSWORD=
+                        - MYSQL_RANDOM_ROOT_PASSWORD=yes
+                        - MYSQL_DATABASE=ENGKI
+                        - MYSQL_USER=deki
+                        - MYSQL_PASSWORD_FILE=./db_password
+                        - TZ=Asia/Seoula
+                ports:
+                        - 3306:3306
+
+        adminer:
+                image: adminer
+                container_name: "engki_adminer"
+                restart: always
+                ports:
+                        - 8082:8080
+                depends_on:
+                        - db
+        web:
+                image: nginx_engki
+                container_name: "engki_web"
+                ports:
+                        - 80:80
+                environment:
+                        - TZ=Asia/Seoul
