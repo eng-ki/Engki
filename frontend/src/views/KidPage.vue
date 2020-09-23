@@ -14,7 +14,7 @@
     </div>
     <div class="box">
       <div class="innerbox">
-        <button class="parents-button start-button">공부 시작하기</button>
+        <button class="parents-button start-button" @click="kakaoLogin()">공부 시작하기</button>
         <set-profile-image v-if="isChangeProfile" @returnKidPage="goProfile()" />
         <inventory title="BAG" :itemlist.sync="itemlist" :visible.sync="visible" />
       </div>
@@ -50,6 +50,14 @@ export default {
     },
     goInventory() {
       this.visible = !this.visible;
+    },
+    kakaoLogin() {
+      Kakao.Auth.login({
+        success: this.kakaoLoginStore,
+      });
+    },
+    kakaoLoginStore(authObj) {
+      alert(authObj.access_token);
     },
   },
 };
