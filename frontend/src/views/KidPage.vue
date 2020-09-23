@@ -5,10 +5,10 @@
         <v-btn rounded color="primary" dark>Rounded Button</v-btn>
       </div>
       <div class="profile-image">
-        <img src="../images/icon/fairytale/005-witch.png" />
+        <img src="../static/img/icon/fairytale/005-witch.png" />
       </div>
       <div class="open-inventory">
-        <img src="../images/icon/chest.png" />
+        <img src="../static/img/icon/chest.png" />
       </div>
     </div>
     <div class="box">
@@ -21,11 +21,11 @@
 </template>
 
 <script>
-import SetProfileImage from "@/components/SetProfileImage.vue";
-import Inventory from "@/components/Inventory.vue";
+import SetProfileImage from '@/components/SetProfileImage.vue';
+import Inventory from '@/components/Inventory.vue';
 
 export default {
-  name: "KidPage",
+  name: 'KidPage',
   components: {
     SetProfileImage,
     Inventory,
@@ -33,9 +33,8 @@ export default {
 };
 </script>
 
-
 <style lang="scss">
-@import "../assets/sass/base.scss";
+@import '../assets/sass/base.scss';
 /* 자녀페이지 틀 */
 .background .box .innerbox .loginpage {
   position: inherit;
