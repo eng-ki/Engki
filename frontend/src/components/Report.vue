@@ -1,3 +1,3 @@
 <template>
-  <div>리포트</div>
+  <div style="background-color: pink">리포트</div>
 </template>

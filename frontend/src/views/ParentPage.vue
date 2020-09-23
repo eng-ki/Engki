@@ -18,23 +18,38 @@
       </div>
       <img class="add-kid" src="../../public/img/icon/SETTING.png" />
     </div>
-    <div class="parent-board"></div>
+    <div class="parent-board">
+      <v-row no-gutters>
+        <v-col cols="2">
+          <div class="category">
+            <div class="report" @click="selectComponent(true)">감정 그래프</div>
+            <div class="custom" @click="selectComponent(false)">
+              커스텀 학습
+            </div>
+          </div>
+        </v-col>
+        <v-col cols="10">
+          <div class="category-board">
+            <report v-if="isReport" />
+            <upload-picture v-else />
+          </div>
+        </v-col>
+      </v-row>
+    </div>
 
     <!-- <set-kid />
-    <report />
-    <upload-picture />
     <set-email />-->
   </div>
 </template>
 
 <script>
-import SetKid from '@/components/SetKid.vue'
-import Report from '@/components/Report.vue'
-import UploadPicture from '@/components/UploadPicture.vue'
-import SetEmail from '@/components/SetEmail.vue'
+import SetKid from "@/components/SetKid.vue";
+import Report from "@/components/Report.vue";
+import UploadPicture from "@/components/UploadPicture.vue";
+import SetEmail from "@/components/SetEmail.vue";
 
 export default {
-  name: 'ParentPage',
+  name: "ParentPage",
   components: {
     SetKid,
     Report,
@@ -44,29 +59,33 @@ export default {
   data: () => {
     return {
       kids: [
-        { url: '/img/icon/fairytale/001-knight.png', name: '김싸피' },
-        { url: '/img/icon/fairytale/002-wizard.png', name: '김싸파' },
-        { url: '/img/icon/fairytale/003-dwarf.png', name: '김싸푸' },
-        { url: '/img/icon/fairytale/004-elf.png', name: '김싸표' },
-        { url: '/img/icon/fairytale/005-witch.png', name: '김싸패' },
-        { url: '/img/icon/fairytale/006-ogre.png', name: '김싸핑' },
+        { url: "/img/icon/fairytale/001-knight.png", name: "김싸피" },
+        { url: "/img/icon/fairytale/002-wizard.png", name: "김싸파" },
+        { url: "/img/icon/fairytale/003-dwarf.png", name: "김싸푸" },
+        { url: "/img/icon/fairytale/004-elf.png", name: "김싸표" },
+        { url: "/img/icon/fairytale/005-witch.png", name: "김싸패" },
+        { url: "/img/icon/fairytale/006-ogre.png", name: "김싸핑" },
       ],
       selectedIndex: 0,
-    }
+      isReport: true,
+    };
   },
   methods: {
     selectKid(index) {
-      this.selectedIndex = index
+      this.selectedIndex = index;
+    },
+    selectComponent(flag) {
+      this.isReport = flag;
     },
   },
-}
+};
 </script>
 <style lang="scss">
-@import '../assets/sass/base.scss';
+@import "../assets/sass/base.scss";
 </style>
 <style lang="scss" scoped>
 * {
-  font-family: 'GmarketSansMedium';
+  font-family: "GmarketSansMedium";
   color: #4b4b4b;
 }
 /* 로그인페이지 틀 */
@@ -81,7 +100,7 @@ export default {
   background-color: white;
   height: 75vh;
   border-radius: 10vh;
-  padding: 10vh 2vw 2vh 2vw;
+  padding: 15vh 2vw 2vh 2vw;
 }
 
 .add-kid {
@@ -143,5 +162,27 @@ export default {
   margin-bottom: 0.5vh;
   margin-left: 4.5vw;
   border-radius: 10vw;
+}
+
+.category {
+  height: 55vh;
+  font-size: 5vh;
+}
+
+.category .report {
+  top: 8vh;
+  left: 13wh;
+  position: relative;
+}
+
+.category .custom {
+  top: 22vh;
+  left: 13wh;
+  position: relative;
+}
+
+.category-board {
+  height: 55vh;
+  background-color: lightgrey;
 }
 </style>
