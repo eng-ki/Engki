@@ -32,15 +32,15 @@ export default {
       placeholder: '이메일을 다시 입력해주세요',
       // placeholder:'비밀번호를 입력해주세요',
       // placeholder:'비밀번호를 다시 입력해주세요',
-    };
+    }
   },
   methods: {
     submsg_clicked(seq) {
-      alert(seq + '번째 문구 눌림');
+      alert(seq + '번째 문구 눌림')
       // + 현재 상태(아이디 단계인지 비밀번호 단계인지)
     },
   },
-};
+}
 </script>
 <style lang="scss">
 @import '../assets/sass/base.scss';
