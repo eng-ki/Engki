@@ -5,10 +5,10 @@
         <v-btn rounded @click="goProfile()">캐릭터 변경</v-btn>
       </div>
       <div class="profile-image">
-        <img src="../images/icon/fairytale/005-witch.png" />
+        <img src="../static/img/icon/fairytale/005-witch.png" />
       </div>
       <div class="inventory-wrap" @click="goInventory()">
-        <img src="../images/icon/chest.png" />
+        <img src="../static/img/icon/chest.png" />
         <div class="inventory-text">아이템 인벤토리</div>
       </div>
     </div>
@@ -37,9 +37,9 @@ export default {
       isChangeProfile: false,
       visible: false,
       itemlist: [
-        "../images/icon/fairytale/001-knight.png",
-        "../images/icon/fairytale/002-wizard.png",
-        "../images/icon/fairytale/003-dwarf.png",
+        "../static/img/icon/fairytale/001-knight.png",
+        "../static/img/icon/fairytale/002-wizard.png",
+        "../static/img/icon/fairytale/003-dwarf.png",
       ],
     };
   },
@@ -118,8 +118,11 @@ export default {
   position: absolute;
   width: 50%;
   height: 40%;
-  font-size: 6vw;
+  font-size: 9vw;
   border-radius: 10vh;
+  font-family: "Jua", sans-serif;
+  padding: 1%;
+  color: #24282c;
 }
 </style>
 

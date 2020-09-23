@@ -3,23 +3,106 @@
     <div class="my-modal__dialog">
       <header class="my-modal__header">
         <span>
-          <img src="../images/icon/chest.png" style="width:10%;" />
+          <img src="../static/img/icon/chest.png" style="width:10%;" />
           {{title}}
         </span>
         <button @click="$emit('update:visible', !visible)" style="float:right;">X</button>
       </header>
       <div class="my-modal__body">
         <slot>
-          <!-- dummy data -->
-          <img src="../images/icon/fairytale/001-knight.png" style="width:20%;" />
-          <img src="../images/icon/fairytale/002-wizard.png" style="width:20%;" />
-          <img src="../images/icon/fairytale/003-dwarf.png" style="width:20%;" />
-          <img src="../images/icon/fairytale/004-elf.png" style="width:20%;" />
-          <img src="../images/icon/fairytale/005-witch.png" style="width:20%;" />
+          <table>
+            <tbody id="contacts">
+              <tr>
+                <td>
+                  <img src="../static/img/icon/jungle/001-toucan.png" style="width:50%;" />
+                </td>
+                <td>
+                  <img src="../static/img/icon/jungle/002-monkey.png" style="width:50%;" />
+                </td>
+                <td>
+                  <img src="../static/img/icon/jungle/003-waterfall.png" style="width:50%;" />
+                </td>
+                <td>
+                  <img src="../static/img/icon/jungle/004-palm tree.png" style="width:50%;" />
+                </td>
+                <td>
+                  <img src="../static/img/icon/jungle/005-castaway.png" style="width:50%;" />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img src="../static/img/icon/jungle/006-jungle.png" style="width:50%;" />
+                </td>
+                <td>
+                  <img src="../static/img/icon/jungle/007-hippopotamus.png" style="width:50%;" />
+                </td>
+                <td>
+                  <img src="../static/img/icon/jungle/008-plant.png" style="width:50%;" />
+                </td>
+                <td>
+                  <img src="../static/img/icon/jungle/009-chameleon.png" style="width:50%;" />
+                </td>
+                <td>
+                  <img src="../static/img/icon/jungle/010-backpack.png" style="width:50%;" />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img src="../static/img/icon/jungle/006-jungle.png" style="width:50%;" />
+                </td>
+                <td>
+                  <img src="../static/img/icon/jungle/007-hippopotamus.png" style="width:50%;" />
+                </td>
+                <td>
+                  <img src="../static/img/icon/jungle/008-plant.png" style="width:50%;" />
+                </td>
+                <td>
+                  <img src="../static/img/icon/jungle/009-chameleon.png" style="width:50%;" />
+                </td>
+                <td>
+                  <img src="../static/img/icon/jungle/010-backpack.png" style="width:50%;" />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img src="../static/img/icon/jungle/006-jungle.png" style="width:50%;" />
+                </td>
+                <td>
+                  <img src="../static/img/icon/jungle/007-hippopotamus.png" style="width:50%;" />
+                </td>
+                <td>
+                  <img src="../static/img/icon/jungle/008-plant.png" style="width:50%;" />
+                </td>
+                <td>
+                  <img src="../static/img/icon/jungle/009-chameleon.png" style="width:50%;" />
+                </td>
+                <td>
+                  <img src="../static/img/icon/jungle/010-backpack.png" style="width:50%;" />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <img src="../static/img/icon/jungle/006-jungle.png" style="width:50%;" />
+                </td>
+                <td>
+                  <img src="../static/img/icon/jungle/007-hippopotamus.png" style="width:50%;" />
+                </td>
+                <td>
+                  <img src="../static/img/icon/jungle/008-plant.png" style="width:50%;" />
+                </td>
+                <td>
+                  <img src="../static/img/icon/jungle/009-chameleon.png" style="width:50%;" />
+                </td>
+                <td>
+                  <img src="../static/img/icon/jungle/010-backpack.png" style="width:50%;" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
 
           <!-- real data -->
-          <!--<div v-for="(item, index) in itemlist" v-bind:key="index">
-          <img :src="item" />
+          <!-- <div v-for="(item, index) in itemlist" v-bind:key="index">
+            <img :src="`item`" />
           </div>-->
         </slot>
       </div>
@@ -88,5 +171,9 @@ $module: "my-modal";
     max-height: 412px;
     overflow-y: scroll;
   }
+}
+
+tr {
+  background-color: lightgray;
 }
 </style>
