@@ -47,10 +47,18 @@
         <v-row no-gutters>
           <v-col cols="2">
             <div class="category">
-              <div class="report" @click="selectComponent(true)">
+              <div
+                class="report"
+                :class="{ activect: isReport == true }"
+                @click="isReport = true"
+              >
                 감정 그래프
               </div>
-              <div class="custom" @click="selectComponent(false)">
+              <div
+                class="custom"
+                :class="{ activect: isReport == false }"
+                @click="isReport = false"
+              >
                 커스텀 학습
               </div>
             </div>
@@ -87,8 +95,6 @@ export default {
         { url: "/img/icon/fairytale/001-knight.png", name: "김싸피" },
         { url: "/img/icon/fairytale/002-wizard.png", name: "김싸파" },
         { url: "/img/icon/fairytale/003-dwarf.png", name: "김싸푸" },
-        { url: "/img/icon/fairytale/004-elf.png", name: "김싸표" },
-        { url: "/img/icon/fairytale/005-witch.png", name: "김싸패" },
       ],
       selectedIndex: 0,
       isReport: true,
@@ -123,9 +129,6 @@ export default {
       this.kids.push(kid);
       this.isAddKid = false;
     },
-    selectComponent(flag) {
-      this.isReport = flag;
-    },
   },
 };
 </script>
@@ -155,10 +158,10 @@ export default {
 }
 
 .parent {
-  width: 9vw;
+  width: 8vw;
   position: absolute;
   top: 7vh;
-  right: 10vw;
+  right: 12vw;
   font-size: 3vh;
   z-index: 2;
 }
@@ -195,14 +198,14 @@ export default {
 
 .datalist .dataimage {
   position: relative;
-  width: 20vh;
+  width: 18vh;
   vertical-align: middle;
 }
 
 .datalist .dataname {
   padding: 10px 0px;
   position: relative;
-  width: 20h;
+  width: 18h;
   text-align: center;
   vertical-align: middle;
   font-size: 3vh;
@@ -249,20 +252,23 @@ export default {
 
 .category-board {
   height: 55vh;
-  background-color: lightgrey;
   padding: 1vw;
 }
 
 .add-kid {
-  width: 9vw;
+  width: 7.7vw;
   position: absolute;
-  top: 9vh;
-  right: 22vw;
+  top: 9.2vh;
+  right: 23vw;
   font-size: 3vh;
   z-index: 2;
 }
 
 .add-kid img {
-  width: 9vw;
+  width: 8vw;
+}
+
+.activect {
+  background-color: #ffe26d;
 }
 </style>

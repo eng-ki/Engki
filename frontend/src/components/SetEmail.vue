@@ -21,12 +21,13 @@
                 <input class="info-inputbox" v-model="parents.email" />
               </div>
             </div>
-               <div class="col-sm-*" >
-                <div v-if="from=='parent'">
-                <button @click="$emit('visible')" class="parents-button">수정하기</button>
-                </div>
-                <button v-else class="parents-button">가입하기</button>
+            <div class="col-sm-*">
+              <div v-if="from == 'parent'">
+                <button @click="$emit('visible')" class="parents-button">
+                  수정하기
+                </button>
               </div>
+              <button v-else class="parents-button">가입하기</button>
             </div>
           </div>
         </div>
@@ -42,18 +43,18 @@ export default {
   data: function () {
     return {
       parents: {
-        name: '손명지',
-        bday: '1994-04-03',
-        email: 'ji_exitos@naver.com',
-        pwd: '1234567',
-        pwd_re: '1234567',
+        name: "손명지",
+        bday: "1994-04-03",
+        email: "ji_exitos@naver.com",
+        pwd: "1234567",
+        pwd_re: "1234567",
       },
-    }
+    };
   },
-}
+};
 </script>
 <style lang="scss">
-@import '../assets/sass/base.scss';
+@import "../assets/sass/base.scss";
 </style>
 <style lang="scss" scoped>
 .background .box {

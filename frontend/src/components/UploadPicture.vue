@@ -1,8 +1,5 @@
 <template>
-  <div>
-    {{ kid }}
-    <div>커스텀 학습</div>
-  </div>
+  <div></div>
 </template>
 <script>
 export default {

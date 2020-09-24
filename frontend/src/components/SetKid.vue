@@ -18,17 +18,33 @@
                 <p>생일</p>
               </div>
               <div class="col-sm-8">
-                <input class="info-inputbox" placeholder="ex) 2010-01-01" v-model="kid.birthday" />
+                <input
+                  class="info-inputbox"
+                  placeholder="ex) 2010-01-01"
+                  v-model="kid.birthday"
+                />
               </div>
             </div>
-             <div class="row">
+            <div class="row">
               <div class="col-sm-4">
                 <p>성별</p>
               </div>
               <div class="col-sm-8">
-                <button class="gender-button"  @click="kid.gender='female'" :class="{ active: kid.gender=='female' }" >여자</button>
-                <button class="gender-button"  @click="kid.gender='male'" :class="{ active: kid.gender=='male' }" >남자</button>
-                 <!-- <v-btn-toggle
+                <button
+                  class="gender-button"
+                  @click="kid.gender = 'female'"
+                  :class="{ active: kid.gender == 'female' }"
+                >
+                  여자
+                </button>
+                <button
+                  class="gender-button"
+                  @click="kid.gender = 'male'"
+                  :class="{ active: kid.gender == 'male' }"
+                >
+                  남자
+                </button>
+                <!-- <v-btn-toggle
                     v-model="gender"
                     borderless>
           <v-btn value="female">여자 </v-btn>
@@ -36,14 +52,17 @@
                  </v-btn-toggle> -->
               </div>
             </div>
-        
-            </div>
           </div>
         </div>
-             <div class="col-sm-*">
-                <button class="parents-button" @click="register()">등록하기</button>
-                <button class="parents-button return-button" @click="returnParentPage()">돌아가기</button>
-              </div>
+      </div>
+      <div class="col-sm-*">
+        <button class="parents-button" @click="register()">등록하기</button>
+        <button
+          class="parents-button return-button"
+          @click="returnParentPage()"
+        >
+          돌아가기
+        </button>
       </div>
     </div>
   </div>
