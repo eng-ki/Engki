@@ -43,8 +43,11 @@
             </div>
             </div>
             <div class="row">
-              <div class="col-sm-*">
-                <button class="parents-button">가입하기</button>
+              <div class="col-sm-*" >
+                <div v-if="from=='parent'">
+                <button @click="$emit('visible')" class="parents-button">수정하기</button>
+                </div>
+                <button v-else class="parents-button">가입하기</button>
               </div>
             </div>
           </div>
@@ -55,6 +58,9 @@
 </template>
 <script>
 export default {
+    props: {
+      from : null
+    },
   data: function () {
     return {
       parents: {
