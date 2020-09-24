@@ -35,7 +35,7 @@ dependencies {
     }
     testImplementation 'org.springframework.security:spring-security-test'
     compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.6.0'
-    compile group: 'io.springfox', name: 'springfox-swagger2', version: '3.0.0'
+    compile group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
 }
 
 test {
