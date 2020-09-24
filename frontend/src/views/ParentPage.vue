@@ -30,8 +30,8 @@
         </v-col>
         <v-col cols="10">
           <div class="category-board">
-            <report v-if="isReport" />
-            <upload-picture v-else />
+            <report :kid="kids[selectedIndex]" v-if="isReport" />
+            <upload-picture :kid="kids[selectedIndex]" v-else />
           </div>
         </v-col>
       </v-row>
@@ -166,23 +166,22 @@ export default {
 
 .category {
   height: 55vh;
-  font-size: 5vh;
+  font-size: 4vh;
 }
 
 .category .report {
-  top: 8vh;
-  left: 13wh;
+  top: 11vh;
   position: relative;
 }
 
 .category .custom {
-  top: 22vh;
-  left: 13wh;
+  top: 23vh;
   position: relative;
 }
 
 .category-board {
   height: 55vh;
   background-color: lightgrey;
+  padding: 1vw;
 }
 </style>
