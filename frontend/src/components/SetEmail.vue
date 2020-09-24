@@ -6,41 +6,20 @@
         <div class="parent-info-page">
           <div class="container page-text">
             <div class="row">
-              <div class="col-sm-5">
+              <div class="col-sm-4 title">
                 <p>이름</p>
               </div>
-              <div class="col-sm-7">
+              <div class="col-sm-8 sub">
                 <input class="info-inputbox" v-model="parents.name" />
               </div>
             </div>
             <div class="row">
-              <div class="col-sm-5">
-                <p>생일</p>
-              </div>
-              <div class="col-sm-7">
-                <input class="info-inputbox" v-model="parents.bday" />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-5">
+              <div class="col-sm-4">
                 <p>이메일</p>
               </div>
-              <div class="col-sm-7">
+              <div class="col-sm-8">
                 <input class="info-inputbox" v-model="parents.email" />
               </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-5">
-                <p>비밀번호</p>
-              </div>
-              <div class="col-sm-7">
-                <input
-                  class="info-inputbox"
-                  v-model="parents.pwd"
-                  type="password"
-                />
-              </div>
-            </div>
             </div>
             <div class="row">
               <div class="col-sm-*">
@@ -68,8 +47,8 @@ export default {
   },
 };
 </script>
-<style lang="scss" >
-  @import '../assets/sass/base.scss';
+<style lang="scss">
+@import '../assets/sass/base.scss';
 </style>
 <style lang="scss" scoped>
 .background .box {
@@ -84,7 +63,11 @@ export default {
 
 /* 회원가입 페이지 틀 */
 .background .box .innerbox {
-  padding: 3vh;
+  height: 80vh;
+  width: 88vw;
+  padding: 4vh;
+  text-align: left;
+  position: relative;
 }
 
 /* 회원가입 페이지 틀 */
@@ -94,13 +77,13 @@ export default {
 
 /* 회원가입 타이틀 */
 .page-title {
-  /* line-height: 9vh; */
+  // text-align: left;
   font-size: 8vh;
 }
 
 /* 회원가입 내용 */
 .page-text {
-  /* line-height: 9vh; */
+  text-align: left;
 }
 
 .row {

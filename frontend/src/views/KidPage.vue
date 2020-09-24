@@ -32,8 +32,8 @@
 </template>
 
 <script>
-import SetProfileImage from '@/components/SetProfileImage.vue'
-import Inventory from '@/components/Inventory.vue'
+import SetProfileImage from '@/components/SetProfileImage.vue';
+import Inventory from '@/components/Inventory.vue';
 
 export default {
   name: 'KidPage',
@@ -50,26 +50,26 @@ export default {
         '/img/icon/fairytale/002-wizard.png',
         '/img/icon/fairytale/003-dwarf.png',
       ],
-    }
+    };
   },
   cerated() {},
   methods: {
     goProfile() {
-      this.isChangeProfile = !this.isChangeProfile
+      this.isChangeProfile = !this.isChangeProfile;
     },
     goInventory() {
-      this.visible = !this.visible
+      this.visible = !this.visible;
     },
     kakaoLogin() {
       Kakao.Auth.login({
         success: this.kakaoLoginStore,
-      })
+      });
     },
     kakaoLoginStore(authObj) {
-      alert(authObj.access_token)
+      alert(authObj.access_token);
     },
   },
-}
+};
 </script>
 
 <style lang="scss">
