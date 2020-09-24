@@ -93,4 +93,4 @@ dependencies:
     - werkzeug==1.0.1
     - wrapt==1.12.1
     - zipp==3.1.0
-prefix: C:\Users\trist\anaconda3\envs\edge_env
+prefix: /home/team1/anaconda3/envs/yolact_env
