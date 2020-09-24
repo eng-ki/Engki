@@ -42,11 +42,16 @@
               </div>
             </div>
             <div class="row">
-            <div class="col-sm-*">
-                <button v-if="from == 'parent'" @click="$emit('visible')" class="parents-button">
+              <div class="col-sm-*">
+                <button
+                  v-if="from == 'parent'"
+                  @click="$emit('visible')"
+                  class="parents-button"
+                >
                   수정하기
                 </button>
-              <button v-else class="parents-button">저장하기</button>
+                <button v-else class="parents-button">저장하기</button>
+              </div>
             </div>
           </div>
         </div>
@@ -71,7 +76,7 @@ export default {
 };
 </script>
 <style lang="scss">
-@import "../assets/sass/base.scss";
+@import '../assets/sass/base.scss';
 </style>
 <style lang="scss" scoped>
 .background .box {
