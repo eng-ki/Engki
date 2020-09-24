@@ -1,3 +1,20 @@
 <template>
-  <div>업로드이미지</div>
+  <div></div>
 </template>
+<script>
+export default {
+  name: "Report",
+  props: {
+    kid: null,
+  },
+};
+</script>
+<style lang="scss">
+@import "../assets/sass/base.scss";
+</style>
+<style lang="scss" scoped>
+* {
+  font-family: "GmarketSansMedium";
+  color: #4b4b4b;
+}
+</style>
