@@ -13,7 +13,9 @@
             <!-- <button class="kakao_btn font-weight-bold"  혹시 이런식으로 class에 kakao_btm 한번 넣어보실래요? -->
             <button class="inputbox kakao_btn">
               <img src="../../public/img/kakao.png" class="kakao_img" />
-              <span class="kakao_font">카카오 로그인</span>
+              <span class="kakao_font" @click="kakaoLogin()"
+                >카카오 로그인</span
+              >
             </button>
           </div>
         </div>
@@ -41,6 +43,15 @@ export default {
     submsg_clicked(seq) {
       alert(seq + '번째 문구 눌림')
       // + 현재 상태(아이디 단계인지 비밀번호 단계인지)
+    },
+    kakaoLogin() {
+      Kakao.Auth.login({
+        success: this.kakaoLoginStore,
+      })
+    },
+    kakaoLoginStore(authObj) {
+      console.log(authObj.access_token)
+      // 여기서 access_token을 vuex action에 넣구 백엔드와 통신해야함!
     },
   },
 }

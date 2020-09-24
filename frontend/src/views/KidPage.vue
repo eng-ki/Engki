@@ -28,7 +28,7 @@
             padding: 1%;
             color: #24282c;
           "
-          @click="kakaoLogin()"
+          @click="goSelectQuiz()"
         >
           공부 시작하기
         </button>
@@ -75,13 +75,8 @@ export default {
     goInventory() {
       this.visible = !this.visible
     },
-    kakaoLogin() {
-      Kakao.Auth.login({
-        success: this.kakaoLoginStore,
-      })
-    },
-    kakaoLoginStore(authObj) {
-      alert(authObj.access_token)
+    goSelectQuiz() {
+      this.$router.push('/selectquiz')
     },
   },
 }
