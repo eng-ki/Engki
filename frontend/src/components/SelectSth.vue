@@ -1,21 +1,49 @@
 <template>
   <div class="background">
-    <div class="box">
-      <div class="innerbox">
-        <div class="selectsth">
-          <div class="title-with-tiki">
-            <span class="showbox">{{ msg }} </span>
-          </div>
-          <div class="datalist">
-            <div v-for="(data, index) in datas" v-bind:key="index" class="data">
-              <!-- <span>{{kid}}</span> -->
-              <!-- <img class="kidimage" src=kid.img> -->
-              <img class="dataimage" src="../static/img/icon/kid1.png" />
+    <div class="card-carousel-wrapper box">
+      <div class="title-with-tiki">
+        <span class="showbox">{{ msg }} </span>
+      </div>
+      <div
+        class="card-carousel--nav__left"
+        @click="moveCarousel(-1)"
+        :disabled="atHeadOfList"
+      ></div>
+      <div class="card-carousel innerbox">
+        <div class="card-carousel--overflow-container selectsth">
+          <div
+            class="card-carousel-cards datalist"
+            :style="{
+              transform: 'translateX' + '(' + currentOffset + 'px' + ')',
+            }"
+          >
+            <div
+              class="card-carousel--card data"
+              v-for="(data, index) in datas"
+              v-bind:key="index"
+              @click="returnID(data.id)"
+            >
+              <img class="dataimage" :src="data.img" />
               <div class="dataname">{{ data.name }}</div>
+              <!-- <div class="card-carousel--card--footer">
+              <p>{{ item.name }}</p>
+              <p
+                class="tag"
+                v-for="(tag, index) in item.tag"
+                :class="index &gt; 0 ? 'secondary' : ''"
+              >
+                {{ tag }}
+              </p>
+            </div> -->
             </div>
           </div>
         </div>
       </div>
+      <div
+        class="card-carousel--nav__right"
+        @click="moveCarousel(1)"
+        :disabled="atEndOfList"
+      ></div>
     </div>
   </div>
 </template>
@@ -31,6 +59,17 @@ export default {
       this.msg = '자신의 캐릭터를 선택해주세요'
     }
   },
+  computed: {
+    atEndOfList() {
+      return (
+        this.currentOffset <=
+        this.paginationFactor * -1 * (this.datas.length - this.windowSize)
+      )
+    },
+    atHeadOfList() {
+      return this.currentOffset === 0
+    },
+  },
   data: function () {
     return {
       msg: '',
@@ -38,35 +77,54 @@ export default {
         {
           id: '1',
           name: '손명지',
-          img: '../../public/img/icon/kid1.png',
+          img: '/img/icon/kid1.png',
         },
         {
           id: '2',
           name: '서주현',
-          img: '../../public/img/icon/kid2.png',
+          img: '/img/icon/kid2.png',
         },
         {
           id: '3',
           name: '차윤석',
-          img: '../../public/img/icon/kid3.png',
+          img: '/img/icon/kid3.png',
         },
         {
-          id: '1',
+          id: '4',
           name: '손명지',
-          img: '../../public/img/icon/kid1.png',
+          img: '/img/icon/kid1.png',
         },
         {
-          id: '2',
+          id: '5',
           name: '서주현',
-          img: '../../public/img/icon/kid2.png',
+          img: '/img/icon/kid2.png',
         },
         {
-          id: '3',
+          id: '6',
           name: '차윤석',
-          img: '../../public/img/icon/kid3.png',
+          img: '/img/icon/kid3.png',
         },
       ],
+      currentOffset: 0,
+      windowSize: 3, // carousel에 띄워줄 아이콘 갯수! <- 반응형으로 할거면 화면에 몇개 나오는지 계산해서 여기 넣어야 공백 안생길듯
+      paginationFactor: 222,
     }
+  },
+  methods: {
+    returnID(id) {
+      if (this.option == 'quiz') {
+        alert(id + '번째 퀴즈로 이동')
+      } else if (this.option == 'kid') {
+        alert(id + '번째 자녀 계정 로그인')
+      }
+    },
+    moveCarousel(direction) {
+      if (direction === 1 && !this.atEndOfList) {
+        this.currentOffset -= this.paginationFactor
+      } else if (direction === -1 && !this.atHeadOfList) {
+        this.currentOffset += this.paginationFactor
+      }
+    },
   },
 }
 </script>
@@ -75,7 +133,7 @@ export default {
 </style>
 <style lang="scss" scoped>
 /* 로그인페이지 input박스 + tiki */
-.selectsth .title-with-tiki {
+.title-with-tiki {
   /* 좌표 설정 */
   position: absolute;
   top: 20vh;
@@ -83,15 +141,16 @@ export default {
   width: 100%;
   text-align: center;
   transform: translate(-50%, -50%);
-  /* margin-left: -5vh; */
   padding: 50px;
+}
+.box {
+  position: relative;
+  // top: 20vh;
 }
 .datalist {
   position: relative;
-  top: 35vh;
   margin-right: 10vw;
   margin-left: 10vw;
-  overflow: scroll;
   white-space: nowrap;
   width: 80vw;
   &::-webkit-scrollbar {
@@ -113,20 +172,7 @@ export default {
 
 .data {
   display: inline-block;
-  // top: 60vh;
-  /* left:50%; */
   position: relative;
-  width: 30vh;
-  padding: 3vh;
-  // height: 10vh;
-  // transform: translate(0, -50%);
-  // background-color: red;
-}
-
-.datalist .dataimage {
-  position: relative;
-  width: 28vh;
-  vertical-align: middle;
 }
 
 .datalist .dataname {
@@ -136,5 +182,92 @@ export default {
   text-align: center;
   vertical-align: middle;
   font-size: 5vh;
+}
+
+$arrowcolor: #ffffff;
+.card-carousel-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+}
+
+.card-carousel {
+  position: relative;
+  top: 30vh;
+  display: flex;
+  justify-content: center;
+  width: 640px;
+
+  &--overflow-container {
+    overflow: hidden;
+  }
+
+  &--nav__left,
+  &--nav__right {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    padding: 10px;
+    box-sizing: border-box;
+    border-top: 10px solid $arrowcolor;
+    border-right: 10px solid $arrowcolor;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 0 50px;
+    transition: transform 150ms linear;
+    &[disabled] {
+      opacity: 0.3;
+      border-color: white;
+    }
+  }
+
+  &--nav__left {
+    position: relative;
+    top: 30vh;
+    transform: rotate(-135deg);
+    &:active {
+      transform: rotate(-135deg) scale(0.9);
+    }
+  }
+
+  &--nav__right {
+    position: relative;
+    top: 30vh;
+    transform: rotate(45deg);
+    &:active {
+      transform: rotate(45deg) scale(0.9);
+    }
+  }
+}
+
+.card-carousel-cards {
+  display: flex;
+  transition: transform 150ms ease-out;
+  transform: translatex(0px);
+  width: 80vw;
+  .card-carousel--card {
+    margin: 0 10px;
+    cursor: pointer;
+    // background-color: #fff;
+    z-index: 3;
+    &:first-child {
+      margin-left: -10vw;
+    }
+    &:last-child {
+      margin-right: 0;
+    }
+    img {
+      position: relative;
+      width: 28vh;
+      vertical-align: middle;
+      transition: opacity 150ms linear;
+      user-select: none;
+
+      &:hover {
+        opacity: 0.5;
+      }
+    }
+  }
 }
 </style>

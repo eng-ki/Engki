@@ -5,8 +5,13 @@
       from="parent"
       v-if="selectedIndex == -1"
     />
+    <set-kid v-on:update="updateKid" v-else-if="kids.length == 0" />
     <div v-else>
       <div class="kids-header">
+        <!-- <div class="add-kid" v-if="kids.length == 0">
+          <img src="../../public/img/icon/PLUS.png" />
+        </div> -->
+
         <div class="datalist">
           <div
             v-for="(kid, index) in kids"
@@ -55,9 +60,6 @@
           </v-col>
         </v-row>
       </div>
-
-      <!-- <set-kid />
--->
     </div>
   </div>
 </template>
@@ -81,10 +83,9 @@ export default {
       kids: [
         { url: '/img/icon/fairytale/001-knight.png', name: '김싸피' },
         { url: '/img/icon/fairytale/002-wizard.png', name: '김싸파' },
-        { url: '/img/icon/fairytale/003-dwarf.png', name: '김싸푸' },
-        { url: '/img/icon/fairytale/004-elf.png', name: '김싸표' },
-        { url: '/img/icon/fairytale/005-witch.png', name: '김싸패' },
-        { url: '/img/icon/fairytale/006-ogre.png', name: '김싸핑' },
+        // { url: '/img/icon/fairytale/003-dwarf.png', name: '김싸푸' },
+        // { url: '/img/icon/fairytale/004-elf.png', name: '김싸표' },
+        // { url: '/img/icon/fairytale/005-witch.png', name: '김싸패' },
       ],
       selectedIndex: 0,
       isReport: true,
@@ -113,6 +114,9 @@ export default {
         }
       })
     },
+    updateKid: function (kid) {
+      this.kids.push(kid)
+    },
     selectComponent(flag) {
       this.isReport = flag
     },
@@ -133,13 +137,15 @@ export default {
 }
 
 .parent-board {
-  margin-top: -4%;
-  margin-left: 6%;
-  margin-right: 6%;
+  top: 20vh;
+  right: 8vw;
   background-color: white;
+  width: 85vw;
   height: 75vh;
   border-radius: 10vh;
   padding: 15vh 2vw 2vh 2vw;
+  position: absolute;
+  z-index: 1;
 }
 
 .parent {
@@ -148,15 +154,16 @@ export default {
   top: 7vh;
   right: 10vw;
   font-size: 3vh;
+  z-index: 2;
 }
 .datalist {
-  position: relative;
+  z-index: 2;
+  position: absolute;
   top: 5vh;
-  margin-right: 9vw;
   margin-left: 7vw;
   overflow: scroll;
   white-space: nowrap;
-  width: 74vw;
+  width: 75vw;
   &::-webkit-scrollbar {
     width: 10px;
   }
@@ -238,5 +245,18 @@ export default {
   height: 55vh;
   background-color: lightgrey;
   padding: 1vw;
+}
+
+.add-kid {
+  z-index: 2;
+  width: 9vw;
+  position: absolute;
+  top: 7vh;
+  left: 10vw;
+  font-size: 3vh;
+}
+
+.add-kid img {
+  width: 9vw;
 }
 </style>
