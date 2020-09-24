@@ -42,6 +42,7 @@
         </div>
              <div class="col-sm-*">
                 <button class="parents-button" @click="register()">등록하기</button>
+                <button class="parents-button return-button" @click="returnParentPage()">돌아가기</button>
               </div>
       </div>
     </div>
@@ -55,41 +56,45 @@ export default {
   data: function () {
     return {
       kid: {
-        name: '손명지',
-        birthday: '1994-04-03',
-        gender : 'female',
-        url: '/img/icon/fairytale/001-knight.png'
+        name: "손명지",
+        birthday: "1994-04-03",
+        gender: "female",
+        url: "/img/icon/fairytale/001-knight.png",
       },
-    }
+    };
   },
-   methods: {
-     register(){
+  methods: {
+    register() {
       this.$swal({
-        title: '<div style="font-family: GmarketSansMedium;font-size:2vw;">자녀를 등록하시겠습니까?</div>',
-        type: 'warning',
+        title:
+          '<div style="font-family: GmarketSansMedium;font-size:2vw;">자녀를 등록하시겠습니까?</div>',
+        type: "warning",
         showCancelButton: true,
-        confirmButtonText: '등록',
-        cancelButtonText: '취소',
+        confirmButtonText: "등록",
+        cancelButtonText: "취소",
         showCloseButton: true,
         showLoaderOnConfirm: true,
       }).then((result) => {
         if (result.value) {
           // 백엔드 자녀 등록 api
-          
+
           // 등록 완료시 parentpage로 데이터 넘겨줌
-          this.$emit('update', this.kid)
+          this.$emit("update", this.kid);
         }
-      })
-     },
-   }
-}
+      });
+    },
+    returnParentPage() {
+      this.$emit("returnParentPage");
+    },
+  },
+};
 </script>
 <style lang="scss">
-@import '../assets/sass/base.scss';
+@import "../assets/sass/base.scss";
 </style>
 <style lang="scss" scoped>
 * {
-  color:black;
+  color: black;
 }
 .background .box {
   background-color: rgba(255, 255, 255, 0.6);
@@ -119,17 +124,17 @@ export default {
 .innerbox .page-title {
   // text-align: left;
   font-size: 8vh;
-  top:2vh;
-  left:4vw;
-  position:relative;
+  top: 2vh;
+  left: 4vw;
+  position: relative;
   font-family: GmarketSansMedium;
 }
 
 /* 회원가입 내용 */
 .innerbox .page-text {
   text-align: left;
-  margin-top:3vh;
-  margin-left:3vw;
+  margin-top: 3vh;
+  margin-left: 3vw;
 }
 
 .row {
@@ -147,12 +152,12 @@ export default {
 .parents-button {
   /* 좌표 설정 */
   position: absolute;
-  top:80%;
-  left: 50%;
+  top: 80%;
+  left: 41%;
   transform: translate(-50%, -50%);
 }
 
-.gender-button{
+.gender-button {
   width: 10vw;
   border-radius: 3vh;
   background-color: rgba(255, 255, 255, 0.5);
@@ -163,7 +168,7 @@ export default {
   padding-top: 1%;
 
   /* 폰트 디자인 */
-  color:black;
+  color: black;
   font-family: GmarketSansMedium;
   padding-left: 3vw;
   text-align: left;
@@ -171,7 +176,11 @@ export default {
   font-size: 4.5vh;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
-.active{
-  background-color:#FF9A00;
+.active {
+  background-color: #ff9a00;
+}
+
+.return-button {
+  margin-left: 18vw;
 }
 </style>

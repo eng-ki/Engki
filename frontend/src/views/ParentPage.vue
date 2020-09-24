@@ -5,13 +5,13 @@
       from="parent"
       v-if="selectedIndex == -1"
     />
-    <set-kid v-on:update="updateKid" v-else-if="kids.length == 0" />
+    <set-kid
+      v-on:returnParentPage="isAddKid = false"
+      v-on:update="updateKid"
+      v-else-if="kids.length == 0 || isAddKid"
+    />
     <div v-else>
       <div class="kids-header">
-        <!-- <div class="add-kid" v-if="kids.length == 0">
-          <img src="../../public/img/icon/PLUS.png" />
-        </div> -->
-
         <div class="datalist">
           <div
             v-for="(kid, index) in kids"
@@ -34,10 +34,13 @@
             <div :class="{ selected: selectedIndex == index }"></div>
           </div>
         </div>
+        <div class="add-kid" @click="isAddKid = true">
+          <img src="../../public/img/icon/plus.png" style="width: 85%" />
+          <div style="margin-top: -0.3vh">아이 등록</div>
+        </div>
         <div class="parent" @click="selectKid(-1)">
           <img src="../../public/img/icon/couple.png" style="width: 100%" />
           <div style="margin-top: -1vh">내 정보</div>
-          <div :class="{ selected: selectedIndex == -1 }"></div>
         </div>
       </div>
       <div class="parent-board">
@@ -65,13 +68,13 @@
 </template>
 
 <script>
-import SetKid from '@/components/SetKid.vue'
-import Report from '@/components/Report.vue'
-import UploadPicture from '@/components/UploadPicture.vue'
-import SetEmail from '@/components/SetEmail.vue'
+import SetKid from "@/components/SetKid.vue";
+import Report from "@/components/Report.vue";
+import UploadPicture from "@/components/UploadPicture.vue";
+import SetEmail from "@/components/SetEmail.vue";
 
 export default {
-  name: 'ParentPage',
+  name: "ParentPage",
   components: {
     SetKid,
     Report,
@@ -81,28 +84,29 @@ export default {
   data: () => {
     return {
       kids: [
-        { url: '/img/icon/fairytale/001-knight.png', name: '김싸피' },
-        { url: '/img/icon/fairytale/002-wizard.png', name: '김싸파' },
-        // { url: '/img/icon/fairytale/003-dwarf.png', name: '김싸푸' },
-        // { url: '/img/icon/fairytale/004-elf.png', name: '김싸표' },
-        // { url: '/img/icon/fairytale/005-witch.png', name: '김싸패' },
+        { url: "/img/icon/fairytale/001-knight.png", name: "김싸피" },
+        { url: "/img/icon/fairytale/002-wizard.png", name: "김싸파" },
+        { url: "/img/icon/fairytale/003-dwarf.png", name: "김싸푸" },
+        { url: "/img/icon/fairytale/004-elf.png", name: "김싸표" },
+        { url: "/img/icon/fairytale/005-witch.png", name: "김싸패" },
       ],
       selectedIndex: 0,
       isReport: true,
-    }
+      isAddKid: false,
+    };
   },
   methods: {
     selectKid(index) {
-      this.selectedIndex = index
+      this.selectedIndex = index;
     },
     deleteKid(index) {
       this.$swal({
-        title: '자녀를 삭제하시겠습니까?',
-        text: '자녀 데이터가 모두 삭제됩니다',
-        type: 'warning',
+        title: "자녀를 삭제하시겠습니까?",
+        text: "자녀 데이터가 모두 삭제됩니다",
+        type: "warning",
         showCancelButton: true,
-        confirmButtonText: '삭제',
-        cancelButtonText: '취소',
+        confirmButtonText: "삭제",
+        cancelButtonText: "취소",
         showCloseButton: true,
         showLoaderOnConfirm: true,
       }).then((result) => {
@@ -110,25 +114,27 @@ export default {
           // 1. 백엔드에서 삭제
 
           // 2. 처음 받아온 데이터 삭제
-          this.kids.splice(index, 1)
+          this.kids.splice(index, 1);
+          if (this.kids.length != 0) this.selectedIndex = 0;
         }
-      })
+      });
     },
     updateKid: function (kid) {
-      this.kids.push(kid)
+      this.kids.push(kid);
+      this.isAddKid = false;
     },
     selectComponent(flag) {
-      this.isReport = flag
+      this.isReport = flag;
     },
   },
-}
+};
 </script>
 <style lang="scss">
-@import '../assets/sass/base.scss';
+@import "../assets/sass/base.scss";
 </style>
 <style lang="scss" scoped>
 * {
-  font-family: 'GmarketSansMedium';
+  font-family: "GmarketSansMedium";
   color: #4b4b4b;
 }
 /* 로그인페이지 틀 */
@@ -160,10 +166,10 @@ export default {
   z-index: 2;
   position: absolute;
   top: 5vh;
-  margin-left: 7vw;
+  margin-left: 10vw;
   overflow: scroll;
   white-space: nowrap;
-  width: 75vw;
+  width: 45vw;
   &::-webkit-scrollbar {
     width: 10px;
   }
@@ -248,12 +254,12 @@ export default {
 }
 
 .add-kid {
-  z-index: 2;
   width: 9vw;
   position: absolute;
-  top: 7vh;
-  left: 10vw;
+  top: 9vh;
+  right: 22vw;
   font-size: 3vh;
+  z-index: 2;
 }
 
 .add-kid img {
