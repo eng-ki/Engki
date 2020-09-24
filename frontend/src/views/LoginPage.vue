@@ -1,7 +1,7 @@
 <template>
   <div>
-    <!-- <login></login> -->
-    <set-email></set-email>
+    <login></login>
+    <!-- <set-email></set-email> -->
   </div>
 </template>
 
@@ -15,5 +15,5 @@ export default {
     Login,
     SetEmail,
   },
-}
+};
 </script>
