@@ -37,81 +37,81 @@
 </template>
 <script>
 export default {
-  name: "SetProfileImage",
+  name: 'SetProfileImage',
   data: () => {
     return {
-      profileImage: "/img/icon/fairytale/005-witch.png",
+      profileImage: '/img/icon/fairytale/005-witch.png',
       fairytale: [
-        "/img/icon/fairytale/001-knight.png",
-        "/img/icon/fairytale/002-wizard.png",
-        "/img/icon/fairytale/003-dwarf.png",
-        "/img/icon/fairytale/004-elf.png",
-        "/img/icon/fairytale/005-witch.png",
-        "/img/icon/fairytale/006-ogre.png",
-        "/img/icon/fairytale/007-giant.png",
-        "/img/icon/fairytale/008-gnome.png",
-        "/img/icon/fairytale/009-little red riding hood.png",
-        "/img/icon/fairytale/010-wolf.png",
-        "/img/icon/fairytale/001-knight.png",
-        "/img/icon/fairytale/002-wizard.png",
-        "/img/icon/fairytale/003-dwarf.png",
-        "/img/icon/fairytale/004-elf.png",
-        "/img/icon/fairytale/005-witch.png",
-        "/img/icon/fairytale/006-ogre.png",
-        "/img/icon/fairytale/007-giant.png",
-        "/img/icon/fairytale/008-gnome.png",
-        "/img/icon/fairytale/009-little red riding hood.png",
-        "/img/icon/fairytale/010-wolf.png",
-        "/img/icon/fairytale/001-knight.png",
-        "/img/icon/fairytale/002-wizard.png",
-        "/img/icon/fairytale/003-dwarf.png",
-        "/img/icon/fairytale/004-elf.png",
-        "/img/icon/fairytale/005-witch.png",
-        "/img/icon/fairytale/006-ogre.png",
-        "/img/icon/fairytale/007-giant.png",
-        "/img/icon/fairytale/008-gnome.png",
-        "/img/icon/fairytale/009-little red riding hood.png",
-        "/img/icon/fairytale/010-wolf.png",
-        "/img/icon/fairytale/001-knight.png",
-        "/img/icon/fairytale/002-wizard.png",
-        "/img/icon/fairytale/003-dwarf.png",
-        "/img/icon/fairytale/004-elf.png",
-        "/img/icon/fairytale/005-witch.png",
-        "/img/icon/fairytale/006-ogre.png",
-        "/img/icon/fairytale/007-giant.png",
-        "/img/icon/fairytale/008-gnome.png",
-        "/img/icon/fairytale/009-little red riding hood.png",
-        "/img/icon/fairytale/010-wolf.png",
-        "/img/icon/fairytale/001-knight.png",
-        "/img/icon/fairytale/002-wizard.png",
-        "/img/icon/fairytale/003-dwarf.png",
-        "/img/icon/fairytale/004-elf.png",
-        "/img/icon/fairytale/005-witch.png",
-        "/img/icon/fairytale/006-ogre.png",
-        "/img/icon/fairytale/007-giant.png",
-        "/img/icon/fairytale/008-gnome.png",
-        "/img/icon/fairytale/009-little red riding hood.png",
-        "/img/icon/fairytale/010-wolf.png",
+        '/img/icon/fairytale/001-knight.png',
+        '/img/icon/fairytale/002-wizard.png',
+        '/img/icon/fairytale/003-dwarf.png',
+        '/img/icon/fairytale/004-elf.png',
+        '/img/icon/fairytale/005-witch.png',
+        '/img/icon/fairytale/006-ogre.png',
+        '/img/icon/fairytale/007-giant.png',
+        '/img/icon/fairytale/008-gnome.png',
+        '/img/icon/fairytale/009-little red riding hood.png',
+        '/img/icon/fairytale/010-wolf.png',
+        '/img/icon/fairytale/001-knight.png',
+        '/img/icon/fairytale/002-wizard.png',
+        '/img/icon/fairytale/003-dwarf.png',
+        '/img/icon/fairytale/004-elf.png',
+        '/img/icon/fairytale/005-witch.png',
+        '/img/icon/fairytale/006-ogre.png',
+        '/img/icon/fairytale/007-giant.png',
+        '/img/icon/fairytale/008-gnome.png',
+        '/img/icon/fairytale/009-little red riding hood.png',
+        '/img/icon/fairytale/010-wolf.png',
+        '/img/icon/fairytale/001-knight.png',
+        '/img/icon/fairytale/002-wizard.png',
+        '/img/icon/fairytale/003-dwarf.png',
+        '/img/icon/fairytale/004-elf.png',
+        '/img/icon/fairytale/005-witch.png',
+        '/img/icon/fairytale/006-ogre.png',
+        '/img/icon/fairytale/007-giant.png',
+        '/img/icon/fairytale/008-gnome.png',
+        '/img/icon/fairytale/009-little red riding hood.png',
+        '/img/icon/fairytale/010-wolf.png',
+        '/img/icon/fairytale/001-knight.png',
+        '/img/icon/fairytale/002-wizard.png',
+        '/img/icon/fairytale/003-dwarf.png',
+        '/img/icon/fairytale/004-elf.png',
+        '/img/icon/fairytale/005-witch.png',
+        '/img/icon/fairytale/006-ogre.png',
+        '/img/icon/fairytale/007-giant.png',
+        '/img/icon/fairytale/008-gnome.png',
+        '/img/icon/fairytale/009-little red riding hood.png',
+        '/img/icon/fairytale/010-wolf.png',
+        '/img/icon/fairytale/001-knight.png',
+        '/img/icon/fairytale/002-wizard.png',
+        '/img/icon/fairytale/003-dwarf.png',
+        '/img/icon/fairytale/004-elf.png',
+        '/img/icon/fairytale/005-witch.png',
+        '/img/icon/fairytale/006-ogre.png',
+        '/img/icon/fairytale/007-giant.png',
+        '/img/icon/fairytale/008-gnome.png',
+        '/img/icon/fairytale/009-little red riding hood.png',
+        '/img/icon/fairytale/010-wolf.png',
       ],
       selectedIndex: 0,
-    };
+    }
   },
   methods: {
     returnKidPage() {
-      this.$emit("returnKidPage");
+      this.$emit('returnKidPage')
     },
     setProfileImage() {
-      this.profileImage = "../../public/img/icon/fairytale/001-knight.png";
+      this.profileImage = '../../public/img/icon/fairytale/001-knight.png'
     },
     selectProfileImage(num) {
-      this.selectedIndex = num;
+      this.selectedIndex = num
     },
   },
-};
+}
 </script>
 
 <style lang="scss">
-@import "../assets/sass/base.scss";
+@import '../assets/sass/base.scss';
 </style>
 <style lang="scss" scoped>
 /* 로그인페이지 틀 */

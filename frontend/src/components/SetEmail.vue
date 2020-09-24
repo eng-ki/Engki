@@ -71,9 +71,9 @@ export default {
         email: 'ji_exitos@naver.com',
         receive_email: true,
       },
-    };
+    }
   },
-};
+}
 </script>
 <style lang="scss">
 @import '../assets/sass/base.scss';

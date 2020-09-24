@@ -32,23 +32,23 @@
 </template>
 <script>
 export default {
-  name: "Report",
+  name: 'Report',
   props: {
     kid: null,
   },
   data: function () {
     return {
       value: [423, 446, 675, 510, 590, 610, 760],
-    };
+    }
   },
-};
+}
 </script>
 <style lang="scss">
-@import "../assets/sass/base.scss";
+@import '../assets/sass/base.scss';
 </style>
 <style lang="scss" scoped>
 * {
-  font-family: "GmarketSansMedium";
+  font-family: 'GmarketSansMedium';
   color: #4b4b4b;
 }
 

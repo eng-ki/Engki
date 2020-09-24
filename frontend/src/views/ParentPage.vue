@@ -36,7 +36,7 @@
         </div>
         <div class="add-kid" @click="isAddKid = true">
           <img src="../../public/img/icon/plus.png" style="width: 85%" />
-          <div style="margin-top: -0.3vh">아이 등록</div>
+          <div style="margin-top: -0.3vh">자녀 등록</div>
         </div>
         <div class="parent" @click="selectKid(-1)">
           <img src="../../public/img/icon/couple.png" style="width: 100%" />
@@ -76,13 +76,13 @@
 </template>
 
 <script>
-import SetKid from "@/components/SetKid.vue";
-import Report from "@/components/Report.vue";
-import UploadPicture from "@/components/UploadPicture.vue";
-import SetEmail from "@/components/SetEmail.vue";
+import SetKid from '@/components/SetKid.vue'
+import Report from '@/components/Report.vue'
+import UploadPicture from '@/components/UploadPicture.vue'
+import SetEmail from '@/components/SetEmail.vue'
 
 export default {
-  name: "ParentPage",
+  name: 'ParentPage',
   components: {
     SetKid,
     Report,
@@ -92,27 +92,27 @@ export default {
   data: () => {
     return {
       kids: [
-        { url: "/img/icon/fairytale/001-knight.png", name: "김싸피" },
-        { url: "/img/icon/fairytale/002-wizard.png", name: "김싸파" },
-        { url: "/img/icon/fairytale/003-dwarf.png", name: "김싸푸" },
+        { url: '/img/icon/fairytale/001-knight.png', name: '김싸피' },
+        { url: '/img/icon/fairytale/002-wizard.png', name: '김싸파' },
+        { url: '/img/icon/fairytale/003-dwarf.png', name: '김싸푸' },
       ],
       selectedIndex: 0,
       isReport: true,
       isAddKid: false,
-    };
+    }
   },
   methods: {
     selectKid(index) {
-      this.selectedIndex = index;
+      this.selectedIndex = index
     },
     deleteKid(index) {
       this.$swal({
-        title: "자녀를 삭제하시겠습니까?",
-        text: "자녀 데이터가 모두 삭제됩니다",
-        type: "warning",
+        title: '자녀를 삭제하시겠습니까?',
+        text: '자녀 데이터가 모두 삭제됩니다',
+        type: 'warning',
         showCancelButton: true,
-        confirmButtonText: "삭제",
-        cancelButtonText: "취소",
+        confirmButtonText: '삭제',
+        cancelButtonText: '취소',
         showCloseButton: true,
         showLoaderOnConfirm: true,
       }).then((result) => {
@@ -120,24 +120,24 @@ export default {
           // 1. 백엔드에서 삭제
 
           // 2. 처음 받아온 데이터 삭제
-          this.kids.splice(index, 1);
-          if (this.kids.length != 0) this.selectedIndex = 0;
+          this.kids.splice(index, 1)
+          if (this.kids.length != 0) this.selectedIndex = 0
         }
-      });
+      })
     },
     updateKid: function (kid) {
-      this.kids.push(kid);
-      this.isAddKid = false;
+      this.kids.push(kid)
+      this.isAddKid = false
     },
   },
-};
+}
 </script>
 <style lang="scss">
-@import "../assets/sass/base.scss";
+@import '../assets/sass/base.scss';
 </style>
 <style lang="scss" scoped>
 * {
-  font-family: "GmarketSansMedium";
+  font-family: 'GmarketSansMedium';
   color: #4b4b4b;
 }
 /* 로그인페이지 틀 */

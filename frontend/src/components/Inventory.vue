@@ -34,7 +34,7 @@
 </template>
 <script>
 export default {
-  name: "Inventory",
+  name: 'Inventory',
   props: {
     visible: {
       type: Boolean,
@@ -53,13 +53,13 @@ export default {
   },
   methods: {
     handleWrapperClick() {
-      this.$emit("update:visible", false);
+      this.$emit('update:visible', false)
     },
   },
-};
+}
 </script>
 <style lang="scss">
-$module: "my-modal";
+$module: 'my-modal';
 .#{$module} {
   // This is modal bg
   background-color: rgba(0, 0, 0, 0.7);
