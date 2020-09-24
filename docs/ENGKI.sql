@@ -1,247 +1,109 @@
-create database ENGKI;
-use ENGKI;
--- 부모
-CREATE TABLE PARENT (
-	parent_id INTEGER 		PRIMARY KEY AUTO_INCREMENT, -- 부모_아이디
-	email     VARCHAR(50)   NOT NULL, -- 비밀번호
-	password  CHARACTER(64) NOT NULL, -- 이메일
-	bitrhday  DATE          NOT NULL, -- 생일
-	is_vaild  BOOLEAN       DEFAULT FALSE      -- 이메일인증
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE DATABASE `ENGKI`;
+USE `ENGKI`;
 
--- 자녀
-CREATE TABLE KID (
-	kid_id    INTEGER 		PRIMARY KEY AUTO_INCREMENT, -- 자녀_아이디
-	parent_id INTEGER     NOT NULL, -- 부모_아이디
-	bitrhday  DATE        NOT NULL, -- 생일
-	icon      VARCHAR(20) NULL      -- 아이콘
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+SET NAMES utf8;
+SET time_zone = '+09:00';
 
--- 스티커
-CREATE TABLE STICKER (
-	sticker_id INTEGER 		PRIMARY KEY AUTO_INCREMENT, -- 스티커_아이디
-	file_path  VARCHAR(40) NULL      -- 이미지 경로
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `parent`
+(
+    `id`                 bigint      NOT NULL,
+    `name`               varchar(20) NOT NULL,
+    `email`              varchar(50),
+    `receive_email_flag` bool        NOT NULL DEFAULT FALSE,
+    CONSTRAINT `parent_pk` PRIMARY KEY (`id`),
+    CONSTRAINT `parent_ck_email_lower_case` CHECK ( email = LOWER(email) ),
+    CONSTRAINT `parent_ck_receive_email_flag_true_needs_not_null_email` CHECK (
+            (receive_email_flag is true and email is not null) or receive_email_flag is false )
+);
 
--- 자녀_감정
-CREATE TABLE KID_EMOTION (
-	kid_id    INTEGER      NOT NULL, -- 자녀_아이디
-	timestamp TIMESTAMP    NULL,     -- 타임스탬프
-	emotion   VARCHAR(200) NULL      -- 감정
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `kid`
+(
+    `id`        bigint      NOT NULL AUTO_INCREMENT,
+    `parent_id` bigint      NOT NULL,
+    `name`      varchar(20) NOT NULL,
+    `birthday`  date        NOT NULL,
+    `icon`      varchar(20) NOT NULL,
+    CONSTRAINT `kid_pk` PRIMARY KEY (`id`),
+    CONSTRAINT `kid_parent_id_fk` FOREIGN KEY (`parent_id`) REFERENCES `parent` (`id`)
+);
 
--- 자녀_감정
-ALTER TABLE KID_EMOTION
-	ADD
-		CONSTRAINT PK_KID_EMOTION -- 자녀_감정 기본키
-		PRIMARY KEY (
-			kid_id -- 자녀_아이디
-		);
+CREATE TABLE `kid_emotion`
+(
+    `id`            bigint       NOT NULL AUTO_INCREMENT,
+    `kid_id`        bigint       NOT NULL,
+    `evaluate_time` timestamp    NOT NULL DEFAULT current_timestamp(),
+    `emotion`       varchar(200) NOT NULL,
+    CONSTRAINT `kid_emotion_pk` PRIMARY KEY (`id`),
+    CONSTRAINT `kid_emotion_kid_id_fk` FOREIGN KEY (`kid_id`) REFERENCES `kid` (`id`)
+);
 
--- 자녀_단어
-CREATE TABLE KID_WORD (
-	kid_id      INTEGER NOT NULL, -- 자녀_아이디
-	word_id     INTEGER NOT NULL, -- 단어_아이디
-	count       INTEGER DEFAULT 1,     -- 횟수
-	recent_date DATE    NULL      -- 최근학습시간
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `theme`
+(
+    `id`   bigint      NOT NULL AUTO_INCREMENT,
+    `name` varchar(20) NOT NULL,
+    `icon` varchar(40) NOT NULL,
+    CONSTRAINT `theme_pk` PRIMARY KEY (`id`)
+);
 
--- 자녀_단어
-ALTER TABLE KID_WORD
-	ADD
-		CONSTRAINT PK_KID_WORD -- 자녀_단어 기본키
-		PRIMARY KEY (
-			kid_id,  -- 자녀_아이디
-			word_id  -- 단어_아이디
-		);
+CREATE TABLE `word`
+(
+    `id`       bigint      NOT NULL AUTO_INCREMENT,
+    `theme_id` bigint      NOT NULL,
+    `word`     varchar(20) NOT NULL,
+    CONSTRAINT `word_pk` PRIMARY KEY (`id`),
+    CONSTRAINT `word_theme_id_fk` FOREIGN KEY (`theme_id`) REFERENCES `theme` (`id`)
+);
 
--- 자녀_스티커
-CREATE TABLE KID_STICKER (
-	kid_id     INTEGER NOT NULL, -- 자녀_아이디
-	sticker_id INTEGER NOT NULL  -- 스티커_아이디
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `kid_word`
+(
+    `kid_id`      bigint NOT NULL,
+    `word_id`     bigint NOT NULL,
+    `count`       int    NOT NULL DEFAULT 0,
+    `recent_date` date            DEFAULT NULL,
+    CONSTRAINT `kid_word_pk` PRIMARY KEY (`kid_id`, `word_id`),
+    CONSTRAINT `kid_word_kid_id_fk` FOREIGN KEY (`kid_id`) REFERENCES `kid` (`id`),
+    CONSTRAINT `kid_word_word_id_fk` FOREIGN KEY (`word_id`) REFERENCES `word` (`id`)
+);
 
--- 자녀_스티커
-ALTER TABLE KID_STICKER
-	ADD
-		CONSTRAINT PK_KID_STICKER -- 자녀_스티커 기본키
-		PRIMARY KEY (
-			kid_id,     -- 자녀_아이디
-			sticker_id  -- 스티커_아이디
-		);
+CREATE TABLE `image`
+(
+    `id`        bigint      NOT NULL AUTO_INCREMENT,
+    `file_path` varchar(40) NOT NULL,
+    CONSTRAINT `image_pk` PRIMARY KEY (`id`)
+);
 
--- 단어_테마
-CREATE TABLE WORD (
-	word_id  INTEGER	 PRIMARY KEY AUTO_INCREMENT, -- 단어_아이디
-	theme_id INTEGER     NOT NULL, -- 테마_아이디
-	word     VARCHAR(20) NULL      -- 단어
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `image_word`
+(
+    `image_id` bigint       NOT NULL,
+    `word_id`  bigint       NOT NULL,
+    `boundary` varchar(100) NOT NULL,
+    CONSTRAINT `image_word_pk` PRIMARY KEY (`image_id`, `word_id`),
+    CONSTRAINT `image_word_image_id_fk` FOREIGN KEY (`image_id`) REFERENCES `image` (`id`),
+    CONSTRAINT `image_word_word_id_fk` FOREIGN KEY (`word_id`) REFERENCES `word` (`id`)
+);
 
--- 테마
-CREATE TABLE THEME (
-	theme_id INTEGER 	 PRIMARY KEY AUTO_INCREMENT, -- 테마_아이디
-	name     VARCHAR(20) NULL,     -- 이름
-	icon     VARCHAR(40) NULL      -- 아이콘
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `image_caption`
+(
+    `image_id` bigint       NOT NULL,
+    `word_id`  bigint       NOT NULL,
+    `caption`  varchar(100) NOT NULL,
+    CONSTRAINT `image_caption_pk` PRIMARY KEY (`image_id`, `word_id`),
+    CONSTRAINT `image_caption_image_id_fk` FOREIGN KEY (`image_id`) REFERENCES `image` (`id`),
+    CONSTRAINT `image_caption_word_id_fk` FOREIGN KEY (`word_id`) REFERENCES `word` (`id`)
+);
 
--- 이미지_바운더리
-CREATE TABLE IMAGE_WORD (
-	image_id INTEGER      NOT NULL, -- 이미지_아이디
-	word_id  INTEGER      NOT NULL, -- 단어_아이디
-	boundary VARCHAR(100) NOT NULL  -- 바운더리
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `sticker`
+(
+    `id`        bigint      NOT NULL AUTO_INCREMENT,
+    `file_path` varchar(40) NOT NULL,
+    CONSTRAINT `sticker_pk` PRIMARY KEY (`id`)
+);
 
--- 이미지_바운더리
-ALTER TABLE IMAGE_WORD
-	ADD
-		CONSTRAINT PK_IMAGE_WORD -- 이미지_바운더리 기본키
-		PRIMARY KEY (
-			image_id, -- 이미지_아이디
-			word_id   -- 단어_아이디
-		);
-
--- 이미지
-CREATE TABLE IMAGE (
-	image_id  INTEGER 	  PRIMARY KEY AUTO_INCREMENT, -- 이미지_아이디
-	file_path VARCHAR(40) NULL      -- 이미지_경로
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- 이미지_캡션
-CREATE TABLE IMAGE_CAPTION (
-	image_id INTEGER      NOT NULL, -- 이미지_아이디
-	word_id  INTEGER      NOT NULL, -- 단어_아이디
-	caption  VARCHAR(100) NULL      -- 캡션
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- 이미지_캡션
-ALTER TABLE IMAGE_CAPTION
-	ADD
-		CONSTRAINT PK_IMAGE_CAPTION -- 이미지_캡션 기본키
-		PRIMARY KEY (
-			image_id, -- 이미지_아이디
-			word_id   -- 단어_아이디
-		);
-
--- 이메일인증
-CREATE TABLE AUTH (
-	parent_id INTEGER     NOT NULL, -- 부모_아이디
-	rand      VARCHAR(20) NULL      -- 난수
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- 이메일인증
-ALTER TABLE AUTH
-	ADD
-		CONSTRAINT PK_AUTH -- 이메일인증 기본키
-		PRIMARY KEY (
-			parent_id -- 부모_아이디
-		);
-
--- 자녀
-ALTER TABLE KID
-	ADD
-		CONSTRAINT FK_PARENT_TO_KID -- 부모 -> 자녀
-		FOREIGN KEY (
-			parent_id -- 부모_아이디
-		)
-		REFERENCES PARENT ( -- 부모
-			parent_id -- 부모_아이디
-		);
-
--- 자녀_감정
-ALTER TABLE KID_EMOTION
-	ADD
-		CONSTRAINT FK_KID_TO_KID_EMOTION -- 자녀 -> 자녀_감정
-		FOREIGN KEY (
-			kid_id -- 자녀_아이디
-		)
-		REFERENCES KID ( -- 자녀
-			kid_id -- 자녀_아이디
-		);
-
--- 자녀_단어
-ALTER TABLE KID_WORD
-	ADD
-		CONSTRAINT FK_KID_TO_KID_WORD -- 자녀 -> 자녀_단어
-		FOREIGN KEY (
-			kid_id -- 자녀_아이디
-		)
-		REFERENCES KID ( -- 자녀
-			kid_id -- 자녀_아이디
-		);
-
--- 자녀_단어
-ALTER TABLE KID_WORD
-	ADD
-		CONSTRAINT FK_WORD_TO_KID_WORD -- 단어_테마 -> 자녀_단어
-		FOREIGN KEY (
-			word_id -- 단어_아이디
-		)
-		REFERENCES WORD ( -- 단어_테마
-			word_id -- 단어_아이디
-		);
-
--- 자녀_스티커
-ALTER TABLE KID_STICKER
-	ADD
-		CONSTRAINT FK_STICKER_TO_KID_STICKER -- 스티커 -> 자녀_스티커
-		FOREIGN KEY (
-			sticker_id -- 스티커_아이디
-		)
-		REFERENCES STICKER ( -- 스티커
-			sticker_id -- 스티커_아이디
-		);
-
--- 자녀_스티커
-ALTER TABLE KID_STICKER
-	ADD
-		CONSTRAINT FK_KID_TO_KID_STICKER -- 자녀 -> 자녀_스티커
-		FOREIGN KEY (
-			kid_id -- 자녀_아이디
-		)
-		REFERENCES KID ( -- 자녀
-			kid_id -- 자녀_아이디
-		);
-
--- 단어_테마
-ALTER TABLE WORD
-	ADD
-		CONSTRAINT FK_THEME_TO_WORD -- 테마 -> 단어_테마
-		FOREIGN KEY (
-			theme_id -- 테마_아이디
-		)
-		REFERENCES THEME ( -- 테마
-			theme_id -- 테마_아이디
-		);
-
--- 이미지_바운더리
-ALTER TABLE IMAGE_WORD
-	ADD
-		CONSTRAINT FK_IMAGE_TO_IMAGE_WORD -- 이미지 -> 이미지_바운더리
-		FOREIGN KEY (
-			image_id -- 이미지_아이디
-		)
-		REFERENCES IMAGE ( -- 이미지
-			image_id -- 이미지_아이디
-		);
-
--- 이미지_캡션
-ALTER TABLE IMAGE_CAPTION
-	ADD
-		CONSTRAINT FK_IMAGE_TO_IMAGE_CAPTION -- 이미지 -> 이미지_캡션
-		FOREIGN KEY (
-			image_id -- 이미지_아이디
-		)
-		REFERENCES IMAGE ( -- 이미지
-			image_id -- 이미지_아이디
-		);
-
--- 이메일인증
-ALTER TABLE AUTH
-	ADD
-		CONSTRAINT FK_PARENT_TO_AUTH -- 부모 -> 이메일인증
-		FOREIGN KEY (
-			parent_id -- 부모_아이디
-		)
-		REFERENCES PARENT ( -- 부모
-			parent_id -- 부모_아이디
-		);
+CREATE TABLE `kid_sticker`
+(
+    `kid_id`     bigint NOT NULL,
+    `sticker_id` bigint NOT NULL,
+    CONSTRAINT `kid_sticker_pk` PRIMARY KEY (`kid_id`, `sticker_id`),
+    CONSTRAINT `kid_sticker_kid_id_fk` FOREIGN KEY (`kid_id`) REFERENCES `kid` (`id`),
+    CONSTRAINT `kid_sticker_sticker_id_fk` FOREIGN KEY (`sticker_id`) REFERENCES `sticker` (`id`)
+);
