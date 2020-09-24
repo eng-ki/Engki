@@ -14,15 +14,11 @@
         </button>
       </header>
       <div class="my-modal__body">
-        <img :src="itemlist[0]" style="width: 10%" />
         <table>
           <tbody id="contacts">
             <tr v-for="j in 10" :key="j">
               <td v-for="i in 5" :key="i">
-                <img
-                  src="../../public/img/icon/jungle/001-toucan.png"
-                  style="width: 50%"
-                />
+                <img :src="itemlist[0]" style="width: 50%" />
               </td>
             </tr>
           </tbody>
@@ -38,7 +34,7 @@
 </template>
 <script>
 export default {
-  name: 'Inventory',
+  name: "Inventory",
   props: {
     visible: {
       type: Boolean,
@@ -57,13 +53,13 @@ export default {
   },
   methods: {
     handleWrapperClick() {
-      this.$emit('update:visible', false)
+      this.$emit("update:visible", false);
     },
   },
-}
+};
 </script>
 <style lang="scss">
-$module: 'my-modal';
+$module: "my-modal";
 .#{$module} {
   // This is modal bg
   background-color: rgba(0, 0, 0, 0.7);

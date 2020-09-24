@@ -42,9 +42,11 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-sm-*">
-                <button class="parents-button">저장하기</button>
-              </div>
+            <div class="col-sm-*">
+                <button v-if="from == 'parent'" @click="$emit('visible')" class="parents-button">
+                  수정하기
+                </button>
+              <button v-else class="parents-button">저장하기</button>
             </div>
           </div>
         </div>
@@ -54,14 +56,14 @@
 </template>
 <script>
 export default {
+  props: {
+    from: null,
+  },
   data: function () {
     return {
       parents: {
         name: '손명지',
-        bday: '1994-04-03',
         email: 'ji_exitos@naver.com',
-        pwd: '1234567',
-        pwd_re: '1234567',
         receive_email: true,
       },
     };
@@ -69,7 +71,7 @@ export default {
 };
 </script>
 <style lang="scss">
-@import '../assets/sass/base.scss';
+@import "../assets/sass/base.scss";
 </style>
 <style lang="scss" scoped>
 .background .box {

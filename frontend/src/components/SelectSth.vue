@@ -54,9 +54,9 @@ export default {
   },
   created() {
     if (this.option == 'quiz') {
-      this.msg = '주제를 선택해주세요';
+      this.msg = '주제를 선택해주세요'
     } else if (this.option == 'kid') {
-      this.msg = '자신의 캐릭터를 선택해주세요';
+      this.msg = '자신의 캐릭터를 선택해주세요'
     }
   },
   computed: {
@@ -64,10 +64,10 @@ export default {
       return (
         this.currentOffset <=
         this.paginationFactor * -1 * (this.datas.length - this.windowSize)
-      );
+      )
     },
     atHeadOfList() {
-      return this.currentOffset === 0;
+      return this.currentOffset === 0
     },
   },
   data: function () {
@@ -108,25 +108,25 @@ export default {
       currentOffset: 0,
       windowSize: 3, // carousel에 띄워줄 아이콘 갯수! <- 반응형으로 할거면 화면에 몇개 나오는지 계산해서 여기 넣어야 공백 안생길듯
       paginationFactor: 222,
-    };
+    }
   },
   methods: {
     returnID(id) {
       if (this.option == 'quiz') {
-        alert(id + '번째 퀴즈로 이동');
+        alert(id + '번째 퀴즈로 이동')
       } else if (this.option == 'kid') {
-        alert(id + '번째 자녀 계정 로그인');
+        alert(id + '번째 자녀 계정 로그인')
       }
     },
     moveCarousel(direction) {
       if (direction === 1 && !this.atEndOfList) {
-        this.currentOffset -= this.paginationFactor;
+        this.currentOffset -= this.paginationFactor
       } else if (direction === -1 && !this.atHeadOfList) {
-        this.currentOffset += this.paginationFactor;
+        this.currentOffset += this.paginationFactor
       }
     },
   },
-};
+}
 </script>
 <style lang="scss">
 @import '../assets/sass/base.scss';
