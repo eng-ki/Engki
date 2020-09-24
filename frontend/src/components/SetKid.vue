@@ -75,22 +75,22 @@ export default {
   data: function () {
     return {
       kid: {
-        name: "손명지",
-        birthday: "1994-04-03",
-        gender: "female",
-        url: "/img/icon/fairytale/001-knight.png",
+        name: '손명지',
+        birthday: '1994-04-03',
+        gender: 'female',
+        url: '/img/icon/fairytale/001-knight.png',
       },
-    };
+    }
   },
   methods: {
     register() {
       this.$swal({
         title:
           '<div style="font-family: GmarketSansMedium;font-size:2vw;">자녀를 등록하시겠습니까?</div>',
-        type: "warning",
+        type: 'warning',
         showCancelButton: true,
-        confirmButtonText: "등록",
-        cancelButtonText: "취소",
+        confirmButtonText: '등록',
+        cancelButtonText: '취소',
         showCloseButton: true,
         showLoaderOnConfirm: true,
       }).then((result) => {
@@ -98,18 +98,18 @@ export default {
           // 백엔드 자녀 등록 api
 
           // 등록 완료시 parentpage로 데이터 넘겨줌
-          this.$emit("update", this.kid);
+          this.$emit('update', this.kid)
         }
-      });
+      })
     },
     returnParentPage() {
-      this.$emit("returnParentPage");
+      this.$emit('returnParentPage')
     },
   },
-};
+}
 </script>
 <style lang="scss">
-@import "../assets/sass/base.scss";
+@import '../assets/sass/base.scss';
 </style>
 <style lang="scss" scoped>
 * {

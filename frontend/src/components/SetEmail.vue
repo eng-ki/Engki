@@ -43,18 +43,18 @@ export default {
   data: function () {
     return {
       parents: {
-        name: "손명지",
-        bday: "1994-04-03",
-        email: "ji_exitos@naver.com",
-        pwd: "1234567",
-        pwd_re: "1234567",
+        name: '손명지',
+        bday: '1994-04-03',
+        email: 'ji_exitos@naver.com',
+        pwd: '1234567',
+        pwd_re: '1234567',
       },
-    };
+    }
   },
-};
+}
 </script>
 <style lang="scss">
-@import "../assets/sass/base.scss";
+@import '../assets/sass/base.scss';
 </style>
 <style lang="scss" scoped>
 .background .box {

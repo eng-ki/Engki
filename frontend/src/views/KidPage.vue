@@ -14,7 +14,22 @@
     </div>
     <div class="box">
       <div class="innerbox">
-        <button class="parents-button start-button" @click="kakaoLogin()">
+        <button
+          class="parents-button start-button"
+          style="
+            top: 30%;
+            left: 10%;
+            position: absolute;
+            width: 50%;
+            height: 40%;
+            font-size: 9vw;
+            border-radius: 10vh;
+            font-family: 'Jua', sans-serif;
+            padding: 1%;
+            color: #24282c;
+          "
+          @click="kakaoLogin()"
+        >
           공부 시작하기
         </button>
         <set-profile-image
