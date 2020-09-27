@@ -203,13 +203,18 @@ def prep_display(dets_out, img, h, w, undo_transform=True, class_color=False, ma
             1, 1, 1, 3) for j in range(num_dets_to_consider)], dim=0)
         masks_color = masks.repeat(1, 1, 1, 3) * colors * mask_alpha
 
+
         # This is 1 everywhere except for 1-mask_alpha where the mask is
         inv_alph_masks = masks * (-mask_alpha) + 1
 
         # I did the math for this on pen and paper. This whole block should be equivalent to:
         if args.mask_order < num_dets_to_consider:
+<<<<<<< HEAD
             img_gpu = img_gpu * \
                 inv_alph_masks[args.mask_order] + masks_color[args.mask_order]
+=======
+            img_gpu = img_gpu * inv_alph_masks[args.mask_order] + masks_color[args.mask_order]
+>>>>>>> 2e743fe73d26dbb6efb039bcb591242e4cd00264
         else:
             return
 
@@ -220,7 +225,11 @@ def prep_display(dets_out, img, h, w, undo_transform=True, class_color=False, ma
         #     masks_color_summand = masks_color_cumul.sum(dim=0)
 
         # img_gpu = img_gpu * inv_alph_masks.prod(dim=0) + masks_color_summand
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 2e743fe73d26dbb6efb039bcb591242e4cd00264
     if args.display_fps:
         # Draw the box for the fps on the GPU
         font_face = cv2.FONT_HERSHEY_DUPLEX
@@ -271,6 +280,7 @@ def prep_display(dets_out, img, h, w, undo_transform=True, class_color=False, ma
                 text_pt = (x1, y1 - 3)
                 text_color = [255, 255, 255]
 
+<<<<<<< HEAD
                 cv2.rectangle(img_numpy, (x1, y1),
                               (x1 + text_w, y1 - text_h - 4), color, -1)
                 cv2.putText(img_numpy, text_str, text_pt, font_face,
@@ -278,6 +288,13 @@ def prep_display(dets_out, img, h, w, undo_transform=True, class_color=False, ma
 
     return img_numpy, classes
 
+=======
+                cv2.rectangle(img_numpy, (x1, y1), (x1 + text_w, y1 - text_h - 4), color, -1)
+                cv2.putText(img_numpy, text_str, text_pt, font_face, font_scale, text_color, font_thickness, cv2.LINE_AA)
+            
+    
+    return img_numpy,classes
+>>>>>>> 2e743fe73d26dbb6efb039bcb591242e4cd00264
 
 def prep_benchmark(dets_out, h, w):
     with timer.env('Postprocess'):
@@ -629,6 +646,7 @@ def evalimage(net: Yolact, path: str, save_path: str = None):
     batch = FastBaseTransform()(frame.unsqueeze(0))
     preds = net(batch)
 
+<<<<<<< HEAD
     img_numpy, classes = prep_display(
         preds, frame, None, None, undo_transform=False)
     _class = cfg.dataset.class_names[classes[args.mask_order]]
@@ -639,6 +657,11 @@ def evalimage(net: Yolact, path: str, save_path: str = None):
     writer = csv.writer(f)
     writer.writerow([path, save_path, _class])
     f.close()
+=======
+    img_numpy,classes = prep_display(preds, frame, None, None, undo_transform=False)
+    _class = cfg.dataset.class_names[classes[args.mask_order]]
+
+>>>>>>> 2e743fe73d26dbb6efb039bcb591242e4cd00264
     save_path = save_path[:-4] + '_class_'+_class + '.png'
     if img_numpy is None:
         return
@@ -652,7 +675,10 @@ def evalimage(net: Yolact, path: str, save_path: str = None):
     else:
         if not os.path.isfile(save_path):
             cv2.imwrite(save_path, img_numpy)
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2e743fe73d26dbb6efb039bcb591242e4cd00264
 
 def evalimages(net: Yolact, input_folder: str, output_folder: str):
     if not os.path.exists(output_folder):
@@ -669,6 +695,12 @@ def evalimages(net: Yolact, input_folder: str, output_folder: str):
         # print(path + ' -> ' + out_path)
     print('Done.')
 
+<<<<<<< HEAD
+=======
+
+from multiprocessing.pool import ThreadPool
+from queue import Queue
+>>>>>>> 2e743fe73d26dbb6efb039bcb591242e4cd00264
 
 class CustomDataParallel(torch.nn.DataParallel):
     """ A Custom Data Parallel class that properly gathers lists of dictionaries. """
