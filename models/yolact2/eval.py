@@ -113,7 +113,8 @@ def parse_args(argv=None):
                         help='When displaying / saving video, draw the FPS on the frame')
     parser.add_argument('--emulate_playback', default=False, dest='emulate_playback', action='store_true',
                         help='When saving a video, emulate the framerate that you\'d get running in real-time mode.')
-
+    parser.add_argument('--mask_order', default=0, type=int,
+                        help='Select Object index to draw mask')
     parser.set_defaults(no_bar=False, display=False, resume=False, output_coco_json=False, output_web_json=False, shuffle=False,
                         benchmark=False, no_sort=False, no_hash=False, mask_proto_debug=False, crop=True, detect=False, display_fps=False,
                         emulate_playback=False)
@@ -194,19 +195,23 @@ def prep_display(dets_out, img, h, w, undo_transform=True, class_color=False, ma
         colors = torch.cat([get_color(j, on_gpu=img_gpu.device.index).view(1, 1, 1, 3) for j in range(num_dets_to_consider)], dim=0)
         masks_color = masks.repeat(1, 1, 1, 3) * colors * mask_alpha
 
+
         # This is 1 everywhere except for 1-mask_alpha where the mask is
         inv_alph_masks = masks * (-mask_alpha) + 1
         
         # I did the math for this on pen and paper. This whole block should be equivalent to:
-        #    for j in range(num_dets_to_consider):
-        #        img_gpu = img_gpu * inv_alph_masks[j] + masks_color[j]
-        masks_color_summand = masks_color[0]
-        if num_dets_to_consider > 1:
-            inv_alph_cumul = inv_alph_masks[:(num_dets_to_consider-1)].cumprod(dim=0)
-            masks_color_cumul = masks_color[1:] * inv_alph_cumul
-            masks_color_summand += masks_color_cumul.sum(dim=0)
+        if args.mask_order < num_dets_to_consider:
+            img_gpu = img_gpu * inv_alph_masks[args.mask_order] + masks_color[args.mask_order]
+        else:
+            return
 
-        img_gpu = img_gpu * inv_alph_masks.prod(dim=0) + masks_color_summand
+        # masks_color_summand = masks_color[0]
+        # if num_dets_to_consider > 1:
+        #     inv_alph_cumul = inv_alph_masks[:(num_dets_to_consider-1)].cumprod(dim=0)
+        #     masks_color_cumul = masks_color[1:] * inv_alph_cumul
+        #     masks_color_summand = masks_color_cumul.sum(dim=0)
+
+        # img_gpu = img_gpu * inv_alph_masks.prod(dim=0) + masks_color_summand
     
     if args.display_fps:
             # Draw the box for the fps on the GPU
@@ -259,7 +264,7 @@ def prep_display(dets_out, img, h, w, undo_transform=True, class_color=False, ma
                 cv2.putText(img_numpy, text_str, text_pt, font_face, font_scale, text_color, font_thickness, cv2.LINE_AA)
             
     
-    return img_numpy
+    return img_numpy,classes
 
 def prep_benchmark(dets_out, h, w):
     with timer.env('Postprocess'):
@@ -597,8 +602,12 @@ def evalimage(net:Yolact, path:str, save_path:str=None):
     batch = FastBaseTransform()(frame.unsqueeze(0))
     preds = net(batch)
 
-    img_numpy = prep_display(preds, frame, None, None, undo_transform=False)
-    
+    img_numpy,classes = prep_display(preds, frame, None, None, undo_transform=False)
+    _class = cfg.dataset.class_names[classes[args.mask_order]]
+
+    save_path = save_path[:-4] + '_class_'+_class + '.png'
+    if img_numpy is None:
+        return
     if save_path is None:
         img_numpy = img_numpy[:, :, (2, 1, 0)]
 
@@ -607,7 +616,8 @@ def evalimage(net:Yolact, path:str, save_path:str=None):
         plt.title(path)
         plt.show()
     else:
-        cv2.imwrite(save_path, img_numpy)
+        if not os.path.isfile(save_path):
+            cv2.imwrite(save_path, img_numpy)
 
 def evalimages(net:Yolact, input_folder:str, output_folder:str):
     if not os.path.exists(output_folder):
@@ -621,8 +631,9 @@ def evalimages(net:Yolact, input_folder:str, output_folder:str):
         out_path = os.path.join(output_folder, name)
 
         evalimage(net, path, out_path)
-        print(path + ' -> ' + out_path)
+        # print(path + ' -> ' + out_path)
     print('Done.')
+
 
 from multiprocessing.pool import ThreadPool
 from queue import Queue
