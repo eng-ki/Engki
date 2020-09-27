@@ -203,7 +203,8 @@ def prep_display(dets_out, img, h, w, undo_transform=True, class_color=False, ma
         if args.mask_order < num_dets_to_consider:
             img_gpu = img_gpu * inv_alph_masks[args.mask_order] + masks_color[args.mask_order]
         else:
-            return
+            classes = []
+            return img_gpu, classes
 
         # masks_color_summand = masks_color[0]
         # if num_dets_to_consider > 1:
@@ -234,11 +235,12 @@ def prep_display(dets_out, img, h, w, undo_transform=True, class_color=False, ma
         text_color = [255, 255, 255]
 
         cv2.putText(img_numpy, fps_str, text_pt, font_face, font_scale, text_color, font_thickness, cv2.LINE_AA)
-    
-    if num_dets_to_consider == 0:
-        return img_numpy
 
-    if args.display_text or args.display_bboxes:
+    if num_dets_to_consider == 0:
+        classes = []
+        return img_numpy,classes
+
+    if args.display_text or args.display_bboxes :
         for j in reversed(range(num_dets_to_consider)):
             x1, y1, x2, y2 = boxes[j, :]
             color = get_color(j)
@@ -260,10 +262,9 @@ def prep_display(dets_out, img, h, w, undo_transform=True, class_color=False, ma
                 text_pt = (x1, y1 - 3)
                 text_color = [255, 255, 255]
 
-                cv2.rectangle(img_numpy, (x1, y1), (x1 + text_w, y1 - text_h - 4), color, -1)
-                cv2.putText(img_numpy, text_str, text_pt, font_face, font_scale, text_color, font_thickness, cv2.LINE_AA)
-            
-    
+                # cv2.rectangle(img_numpy, (x1, y1), (x1 + text_w, y1 - text_h - 4), color, -1)
+                # cv2.putText(img_numpy, text_str, text_pt, font_face, font_scale, text_color, font_thickness, cv2.LINE_AA)
+
     return img_numpy,classes
 
 def prep_benchmark(dets_out, h, w):
@@ -603,9 +604,14 @@ def evalimage(net:Yolact, path:str, save_path:str=None):
     preds = net(batch)
 
     img_numpy,classes = prep_display(preds, frame, None, None, undo_transform=False)
+
+    if len(classes) == 0:
+        return
     _class = cfg.dataset.class_names[classes[args.mask_order]]
 
     save_path = save_path[:-4] + '_class_'+_class + '.png'
+    print(path)
+    print(save_path)
     if img_numpy is None:
         return
     if save_path is None:
