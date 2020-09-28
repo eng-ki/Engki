@@ -198,7 +198,7 @@ export default {
 }
 
 .whiteboard .difficult {
-  bottom: 14.8vh;
+  bottom: 12vh;
   right: 14vw;
   position: absolute;
   z-index: 3;
