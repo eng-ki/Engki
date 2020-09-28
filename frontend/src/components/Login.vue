@@ -3,7 +3,7 @@
     <div class="box">
       <div class="innerbox">
         <div class="login">
-          <p class="title">{{ msg }}잉키</p>
+          <p class="title">잉키</p>
           <p class="subtitle">English for kids</p>
           <div class="input-with-tiki">
             <img
@@ -26,32 +26,30 @@
 <script>
 export default {
   // props: {
-  //   msg: String,
+  //   isNew: false,
   // },
   data: function () {
     return {
-      submsg1: '아이디가 생각나지 않으세요?',
-      // submsg1:'비밀번호가 생각나지 않으세요?',
-      submsg2: '아직 회원가입을 하지 않으셨나요?',
-      // placeholder:'이메일을 입력해주세요',
-      placeholder: '이메일을 다시 입력해주세요',
-      // placeholder:'비밀번호를 입력해주세요',
-      // placeholder:'비밀번호를 다시 입력해주세요',
+      // submsg1: '아이디가 생각나지 않으세요?',
     }
   },
   methods: {
-    submsg_clicked(seq) {
-      alert(seq + '번째 문구 눌림')
-      // + 현재 상태(아이디 단계인지 비밀번호 단계인지)
-    },
     kakaoLogin() {
       Kakao.Auth.login({
         success: this.kakaoLoginStore,
       })
     },
     kakaoLoginStore(authObj) {
-      console.log(authObj.access_token)
-      // 여기서 access_token을 vuex action에 넣구 백엔드와 통신해야함!
+      console.log(authObj.access_token);
+      // 여기서 access_token을 vuex action에 넣구 백엔드와 통신해야함!     
+      
+
+      // access_token 보내서 값이 돌아오면 /kid로
+      // this.$router.push('/kid');
+
+      // 돌아오지않으면 저장하고 /setEmail 켜주기
+      // 비회원이 카카오로그인을 한 경우
+      this.$emit("child",true);
     },
   },
 }

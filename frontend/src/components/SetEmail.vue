@@ -45,12 +45,14 @@
               <div class="col-sm-*">
                 <button
                   v-if="from == 'parent'"
-                  @click="$emit('visible')"
+                  @click="saveInfo()"
                   class="parents-button"
                 >
                   수정하기
                 </button>
-                <button v-else class="parents-button">저장하기</button>
+                <button v-else 
+                @click="saveInfo()"
+                class="parents-button">가입하기</button>
               </div>
             </div>
           </div>
@@ -73,6 +75,49 @@ export default {
       },
     }
   },
+  methods : {
+    saveInfo(){
+      if(this.from==null){
+        this.$swal({
+          title:
+            '<div style="font-family: GmarketSansMedium;font-size:2vw;">이메일을 등록하시겠습니까??</div>',
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonText: '확인',
+          cancelButtonText: '취소',
+          showCloseButton: true,
+          showLoaderOnConfirm: true,
+        }).then((result) => {
+          if (result.value) {
+            // 백엔드 부모 정보 insert API
+
+            // 등록 완료시 parentpage로 가서 자녀 등록하게
+            this.$router.push('/parent');
+            // this.$router.push('/parent?isNew=true');
+          }
+        })
+      }else if(this.from=='parent'){
+        this.$swal({
+          title:
+            '<div style="font-family: GmarketSansMedium;font-size:2vw;">이메일을 수정하시겠습니까??</div>',
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonText: '확인',
+          cancelButtonText: '취소',
+          showCloseButton: true,
+          showLoaderOnConfirm: true,
+        }).then((result) => {
+          if (result.value) {
+            // 백엔드 부모 정보 update API
+
+            // 로그인 할 때 parent 정보 불러왔다면, 거기에 저장된 값도 수정해주기.
+            // or db 업데이트하고 통째로 다시 불러와서 parent 정보 갱신
+            this.$emit('visible');
+          }
+        })
+      }
+    }
+   },
 }
 </script>
 <style lang="scss">

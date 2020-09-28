@@ -34,8 +34,9 @@ dependencies {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
     testImplementation 'org.springframework.security:spring-security-test'
+    compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
     compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.6.0'
-    compile group: 'io.springfox', name: 'springfox-swagger2', version: '3.0.0'
+    compile group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
 }
 
 test {
@@ -57,4 +58,9 @@ checkstyle {
     configFile = file("${rootDir}/naver-checkstyle-rules.xml")
     configProperties = ["suppressionFile": "${rootDir}/naver-checkstyle-suppressions.xml"]
     toolVersion = "8.24"  // checkstyle 버전 8.24 이상 선언
+}
+
+bootRun {
+    String activeProfile = System.properties['spring.profiles.active']
+    systemProperty "spring.profiles.active", activeProfile
 }
