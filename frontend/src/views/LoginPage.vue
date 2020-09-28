@@ -1,7 +1,7 @@
 <template>
   <div>
-    <login></login>
-    <!-- <set-email></set-email> -->
+    <login :isNew="isNew" v-if="isNew == false" @child="showSetEmail"></login>
+    <set-email v-if="isNew == true"  v-on:isNew="showSetEmail()"></set-email>
   </div>
 </template>
 
@@ -14,6 +14,16 @@ export default {
   components: {
     Login,
     SetEmail,
+  }, 
+  data: () => {
+    return {
+      isNew: false,
+    }
   },
+   methods : {
+    showSetEmail(){
+      this.isNew=true;
+    }
+   },
 };
 </script>
