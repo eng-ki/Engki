@@ -13,7 +13,10 @@ import lombok.RequiredArgsConstructor;
 
 import com.ssafy.engki.config.security.JwtTokenProvider;
 import com.ssafy.engki.dto.KakaoUserDto;
+import com.ssafy.engki.dto.ParentDto;
 import com.ssafy.engki.entity.Parent;
+import com.ssafy.engki.exception.ParentNotFoundException;
+import com.ssafy.engki.mapper.ParentMapper;
 import com.ssafy.engki.repository.ParentRepository;
 
 @RequiredArgsConstructor
@@ -60,4 +63,10 @@ public class ParentService {
 
 		return gson.fromJson(ret, KakaoUserDto.class);
 	}
+
+	public ParentDto.Info findById(long parentId) {
+		return ParentMapper.INSTANCE.to(parentRepository.findById(parentId)
+			.orElseThrow(() -> new ParentNotFoundException(parentId)));
+	}
+
 }
