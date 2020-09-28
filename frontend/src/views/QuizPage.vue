@@ -1,8 +1,14 @@
 <template>
   <div class="background">
+    <!-- etc : 종료 화면 / pause 화면 컴포넌트들 들어갈 자리-->
+    <etc
+      v-if="isBreakTime || isFinish"
+      :isBreakTime="isBreakTime"
+      :isFinish="isFinish"
+      v-on:continue="isBreakTime = false"
+    />
     <div class="whiteboard">
       <div class="board">
-        <!-- 퀴즈 컴포넌트 들어갈 자리  stage / 0~5 : 퀴즈 , 6: 종료-->
         <quiz-a-c
           :isDone="isDone"
           :stage="stage"
@@ -59,8 +65,13 @@
         >{{ subject }}</span
       >
 
-      <!-- 얘는.. 그냥 티키입니다 -->
-      <img class="tiki" src="../../public/img/icon/moving_tiki.gif" />
+      <!-- 잠깐 티키 눌렀을때 ETC (휴식) 페이지로 이동하게 해놓음 -->
+      <img
+        v-if="!isBreakTime && !isFinish"
+        @click="isBreakTime = true"
+        class="tiki"
+        src="../../public/img/icon/moving_tiki.gif"
+      />
 
       <!--다했어요 버튼 눌렀을때 1. isDone 변경 -> 2. 컴포넌트에서 정답인지 확인 -> 3. 다음 스테이지로-->
       <img
@@ -70,9 +81,6 @@
       />
       <!-- 모르겠어요 버튼 눌렀을때 props로 설정 줘야하는데 아직 안줌 -->
       <img class="difficult" src="../../public/img/icon/difficult.png" />
-
-      <!-- etc : 종료 화면 / pause 화면 컴포넌트들 들어갈 자리-->
-      <!--<etc />-->
     </div>
   </div>
 </template>
@@ -97,8 +105,11 @@ export default {
   },
   data: () => {
     return {
-      isDone: false,
-      stage: 0,
+      isDone: false, // 다했어요
+      isHint: false, // 모르겠어요
+      isBreakTime: false, // 쉬는시간
+      isFinish: false, // 퀴즈 종료
+      stage: 0, // stage 0~5 : 퀴즈
       subjects: [
         '사진 속 단어를 배워보세요',
         '단어에 해당하는 그림을 모두 선택해주세요',
@@ -115,7 +126,11 @@ export default {
       // 정답일 경우 다음 스테이지
       if (flag) this.stage++
       // 모든 퀴즈가 끝날 경우 일단 자녀 페이지로 가게 해뒀습니다. (원래는 Etc-GoldBox 및 Finish 컴포넌트를 띄워야함)
-      if (this.stage == 6) this.$router.push('/kid')
+      if (this.stage == 6) {
+        this.stage = 5
+        this.isFinish = true
+      }
+      // this.$router.push('/kid')
     },
   },
 }
