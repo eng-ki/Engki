@@ -155,3 +155,7 @@ vid/
 vidres/
 
 _.py
+
+# 입출력 파일
+inputs/
+outputs/
