@@ -7,6 +7,7 @@
       :isFinish="isFinish"
       v-on:continue="isBreakTime = false"
     />
+
     <div class="whiteboard">
       <div class="board">
         <quiz-a-c
@@ -157,9 +158,9 @@ export default {
 .quiz {
   float: left;
   position: absolute;
-  left: 9vw;
+  left: 8vw;
   top: 10vh;
-  width: 65vw;
+  width: 68vw;
   height: 60vh;
   z-index: 1000;
   padding: 5px;
