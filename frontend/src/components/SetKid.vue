@@ -172,11 +172,15 @@ export default {
   /* 좌표 설정 */
   position: absolute;
   top: 80%;
-  left: 41%;
+  left: 39vw;
+  width: 20vw;
   transform: translate(-50%, -50%);
 }
-
+.return-button{
+  left: 61vw;
+}
 .gender-button {
+  margin-right:1vw;
   width: 10vw;
   border-radius: 3vh;
   background-color: rgba(255, 255, 255, 0.5);
@@ -189,8 +193,9 @@ export default {
   /* 폰트 디자인 */
   color: black;
   font-family: GmarketSansMedium;
-  padding-left: 3vw;
-  text-align: left;
+  // padding-left: 3vw;
+
+  text-align: center;
   vertical-align: middle;
   font-size: 4.5vh;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
@@ -199,7 +204,7 @@ export default {
   background-color: #ff9a00;
 }
 
-.return-button {
-  margin-left: 18vw;
-}
+// .return-button {
+//   margin-left: 18vw;
+// }
 </style>

@@ -10,7 +10,7 @@
 
     <div class="whiteboard">
       <div class="board">
-        <quiz-a-c
+        <quiz-a
           :isDone="isDone"
           :stage="stage"
           v-on:correct="isNextStage(true)"
@@ -25,7 +25,7 @@
           class="quiz"
           v-if="stage == 1"
         />
-        <quiz-a-c
+        <quiz-c
           :isDone="isDone"
           :stage="stage"
           v-on:correct="isNextStage(true)"
@@ -87,8 +87,9 @@
 </template>
 
 <script>
-import QuizAC from '@/components/QuizAC.vue'
+import QuizA from '@/components/QuizA.vue'
 import QuizB from '@/components/QuizB.vue'
+import QuizC from '@/components/QuizC.vue'
 import QuizD from '@/components/QuizD.vue'
 import QuizE from '@/components/QuizE.vue'
 import QuizF from '@/components/QuizF.vue'
@@ -97,8 +98,9 @@ import Etc from '@/components/Etc.vue'
 export default {
   name: 'ParentPage',
   components: {
-    QuizAC,
+    QuizA,
     QuizB,
+    QuizC,
     QuizD,
     QuizE,
     QuizF,
