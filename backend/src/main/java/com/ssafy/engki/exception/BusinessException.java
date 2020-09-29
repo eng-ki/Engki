@@ -1,24 +1,21 @@
 package com.ssafy.engki.exception;
 
+import org.springframework.http.HttpStatus;
+
 // Exception Handling을 위한 Custom Exception Class
 public class BusinessException extends RuntimeException {
-	public BusinessException() {
-	}
+	HttpStatus code = HttpStatus.NOT_FOUND;
 
 	public BusinessException(String message) {
 		super(message);
 	}
 
-	public BusinessException(String message, Throwable cause) {
-		super(message, cause);
+	public BusinessException(String message, HttpStatus code) {
+		super(message);
+		this.code = code;
 	}
 
-	public BusinessException(Throwable cause) {
-		super(cause);
-	}
-
-	public BusinessException(String message, Throwable cause, boolean enableSuppression,
-		boolean writableStackTrace) {
-		super(message, cause, enableSuppression, writableStackTrace);
+	public HttpStatus getCode() {
+		return code;
 	}
 }
