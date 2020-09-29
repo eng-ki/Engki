@@ -10,5 +10,5 @@ import com.ssafy.engki.entity.Parent;
 public interface ParentMapper {
 	ParentMapper INSTANCE = Mappers.getMapper(ParentMapper.class);
 
-	ParentDto.Info to(Parent parent);
+	ParentDto.ParentInfo to(Parent parent);
 }

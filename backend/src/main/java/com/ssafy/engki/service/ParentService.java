@@ -64,12 +64,12 @@ public class ParentService {
 		return gson.fromJson(ret, KakaoUserDto.class);
 	}
 
-	public ParentDto.Info findById(long parentId) {
+	public ParentDto.ParentInfo findById(long parentId) {
 		return ParentMapper.INSTANCE.to(parentRepository.findById(parentId)
 			.orElseThrow(() -> new ParentNotFoundException(parentId)));
 	}
 
-	public ParentDto.Info update(long parentId, ParentDto.Request parentReq) {
+	public ParentDto.ParentInfo update(long parentId, ParentDto.ParentRequest parentReq) {
 		Parent parent = new Parent(parentId, parentReq.getName(), parentReq.getEmail(),
 			!parentReq.getEmail().isBlank() && parentReq.isReceiveEmailFlag());
 		return ParentMapper.INSTANCE.to(parentRepository.save(parent));
