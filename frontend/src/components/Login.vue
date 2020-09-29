@@ -40,16 +40,15 @@ export default {
       })
     },
     kakaoLoginStore(authObj) {
-      console.log(authObj.access_token);
-      // 여기서 access_token을 vuex action에 넣구 백엔드와 통신해야함!     
-      
+      console.log(authObj.access_token)
+      // 여기서 access_token을 vuex action에 넣구 백엔드와 통신해야함!
 
       // access_token 보내서 값이 돌아오면 /kid로
       // this.$router.push('/kid');
 
       // 돌아오지않으면 저장하고 /setEmail 켜주기
       // 비회원이 카카오로그인을 한 경우
-      this.$emit("child",true);
+      this.$emit('child', true)
     },
   },
 }

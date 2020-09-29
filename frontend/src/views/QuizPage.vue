@@ -7,6 +7,7 @@
       :isFinish="isFinish"
       v-on:continue="isBreakTime = false"
     />
+
     <div class="whiteboard">
       <div class="board">
         <quiz-a-c
@@ -125,12 +126,10 @@ export default {
       this.isDone = false
       // 정답일 경우 다음 스테이지
       if (flag) this.stage++
-      // 모든 퀴즈가 끝날 경우 일단 자녀 페이지로 가게 해뒀습니다. (원래는 Etc-GoldBox 및 Finish 컴포넌트를 띄워야함)
       if (this.stage == 6) {
         this.stage = 5
         this.isFinish = true
       }
-      // this.$router.push('/kid')
     },
   },
 }
@@ -157,9 +156,9 @@ export default {
 .quiz {
   float: left;
   position: absolute;
-  left: 9vw;
+  left: 8vw;
   top: 10vh;
-  width: 65vw;
+  width: 68vw;
   height: 60vh;
   z-index: 1000;
   padding: 5px;
