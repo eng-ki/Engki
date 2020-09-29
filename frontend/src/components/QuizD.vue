@@ -13,8 +13,12 @@
           <!-- 질문 빈칸 영역 -->
           <span class="quiz-blank" v-if="word == quiz.word">
             <span v-if="selectedIndex == -1"
-              ><span v-for="i in word.length" v-bind:key="i">?</span></span
-            >
+              ><span
+                v-for="i in word.length"
+                v-bind:key="i"
+                v-html="blank"
+              ></span
+            ></span>
             <span v-else>{{ quiz.words[selectedIndex] }}</span>
           </span>
           <span v-else>&nbsp;{{ word }}&nbsp;</span>
@@ -48,6 +52,7 @@ export default {
     return {
       quiz: null,
       selectedIndex: -1,
+      blank: '<span>&nbsp;&nbsp;</span>',
     }
   },
   mounted() {
