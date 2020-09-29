@@ -4,6 +4,7 @@ import org.mariadb.jdbc.internal.logging.Logger;
 import org.mariadb.jdbc.internal.logging.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -80,4 +81,19 @@ public class ParentController {
 		return new ResponseEntity<>(parentService.update(parentId, parentReq), HttpStatus.OK);
 	}
 
+	@DeleteMapping("{parentId}")
+	@ApiOperation(value = "회원 탈퇴", notes = "부모 id로 정보를 삭제한다.")
+	@ApiResponses(value = {
+		@ApiResponse(code = 204, message = "No Content"),
+		@ApiResponse(code = 400, message = "Bad Request"),
+		@ApiResponse(code = 401, message = "Unauthorized"),
+		@ApiResponse(code = 403, message = "Forbidden"),
+		@ApiResponse(code = 404, message = "Not Found")
+	})
+	private ResponseEntity<?> withdrawal(
+		@ApiParam(value = "부모 id", required = true) @PathVariable long parentId) {
+		logger.debug(String.format("withdrawal with %d 호출", parentId));
+		parentService.withdrawal(parentId);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
 }

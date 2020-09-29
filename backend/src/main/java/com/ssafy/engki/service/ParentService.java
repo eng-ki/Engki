@@ -74,4 +74,8 @@ public class ParentService {
 			!parentReq.getEmail().isBlank() && parentReq.isReceiveEmailFlag());
 		return ParentMapper.INSTANCE.to(parentRepository.save(parent));
 	}
+
+	public void withdrawal(long parentId) {
+		parentRepository.deleteById(parentId);
+	}
 }
