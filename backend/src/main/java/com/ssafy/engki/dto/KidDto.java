@@ -17,9 +17,6 @@ public class KidDto {
 		@ApiModelProperty(value = "Kid id", example = "1")
 		private long id;
 
-		@ApiModelProperty(value = "Parent id", example = "1486633352")
-		private long parentId;
-
 		@ApiModelProperty(value = "Kid name", example = "김아가")
 		private String name;
 

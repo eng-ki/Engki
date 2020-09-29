@@ -1,5 +1,7 @@
 package com.ssafy.engki.controller;
 
+import java.util.List;
+
 import org.mariadb.jdbc.internal.logging.Logger;
 import org.mariadb.jdbc.internal.logging.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -95,5 +97,20 @@ public class ParentController {
 		logger.debug(String.format("withdrawal with %d 호출", parentId));
 		parentService.withdrawal(parentId);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+
+	@GetMapping("{parentId}/kids")
+	@ApiOperation(value = "아이 목록 조회", notes = "부모 id로 아이 목록을 조회한다.", response = List.class)
+	@ApiResponses(value = {
+		@ApiResponse(code = 200, message = "OK"),
+		@ApiResponse(code = 400, message = "Bad Request"),
+		@ApiResponse(code = 401, message = "Unauthorized"),
+		@ApiResponse(code = 403, message = "Forbidden"),
+		@ApiResponse(code = 404, message = "Not Found")
+	})
+	private ResponseEntity<?> getKids(
+		@ApiParam(value = "부모 id", required = true) @PathVariable long parentId) {
+		logger.debug("아이 목록 조회 with %d", parentId);
+		return new ResponseEntity<>(parentService.getKidList(parentId), HttpStatus.OK);
 	}
 }

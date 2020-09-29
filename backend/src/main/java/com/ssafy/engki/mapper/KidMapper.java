@@ -1,5 +1,7 @@
 package com.ssafy.engki.mapper;
 
+import java.util.List;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -11,4 +13,6 @@ public interface KidMapper {
 	KidMapper INSTANCE = Mappers.getMapper(KidMapper.class);
 
 	KidDto.KidInfo to(Kid kid);
+
+	List<KidDto.KidInfo> to(List<Kid> kids);
 }

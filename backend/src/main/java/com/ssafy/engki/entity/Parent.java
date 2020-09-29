@@ -1,8 +1,13 @@
 package com.ssafy.engki.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -26,4 +31,9 @@ public class Parent {
 
 	@Column(nullable = false)
 	private boolean receiveEmailFlag;
+
+	@OneToMany(
+		cascade = CascadeType.ALL,
+		mappedBy = "parentId")
+	private List<Kid> kids = new ArrayList<>();
 }

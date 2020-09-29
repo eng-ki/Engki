@@ -1,5 +1,7 @@
 package com.ssafy.engki.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -13,9 +15,11 @@ import lombok.RequiredArgsConstructor;
 
 import com.ssafy.engki.config.security.JwtTokenProvider;
 import com.ssafy.engki.dto.KakaoUserDto;
+import com.ssafy.engki.dto.KidDto;
 import com.ssafy.engki.dto.ParentDto;
 import com.ssafy.engki.entity.Parent;
 import com.ssafy.engki.exception.ParentNotFoundException;
+import com.ssafy.engki.mapper.KidMapper;
 import com.ssafy.engki.mapper.ParentMapper;
 import com.ssafy.engki.repository.ParentRepository;
 
@@ -71,11 +75,15 @@ public class ParentService {
 
 	public ParentDto.ParentInfo update(long parentId, ParentDto.ParentRequest parentReq) {
 		Parent parent = new Parent(parentId, parentReq.getName(), parentReq.getEmail(),
-			!parentReq.getEmail().isBlank() && parentReq.isReceiveEmailFlag());
+			!parentReq.getEmail().isBlank() && parentReq.isReceiveEmailFlag(), null);
 		return ParentMapper.INSTANCE.to(parentRepository.save(parent));
 	}
 
 	public void withdrawal(long parentId) {
 		parentRepository.deleteById(parentId);
+	}
+
+	public List<KidDto.KidInfo> getKidList(long parentId) {
+		return KidMapper.INSTANCE.to(parentRepository.getOne(parentId).getKids());
 	}
 }
