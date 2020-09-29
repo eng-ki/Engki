@@ -69,4 +69,9 @@ public class ParentService {
 			.orElseThrow(() -> new ParentNotFoundException(parentId)));
 	}
 
+	public ParentDto.Info update(long parentId, ParentDto.Request parentReq) {
+		Parent parent = new Parent(parentId, parentReq.getName(), parentReq.getEmail(),
+			!parentReq.getEmail().isBlank() && parentReq.isReceiveEmailFlag());
+		return ParentMapper.INSTANCE.to(parentRepository.save(parent));
+	}
 }

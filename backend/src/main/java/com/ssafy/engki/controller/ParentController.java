@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -57,10 +58,26 @@ public class ParentController {
 		@ApiResponse(code = 403, message = "Forbidden"),
 		@ApiResponse(code = 404, message = "Not Found")
 	})
-	private ResponseEntity<ParentDto.Info> getParent(
+	private ResponseEntity<ParentDto.Info> getParentInfo(
 		@ApiParam(value = "부모 id", required = true) @PathVariable long parentId) {
-		logger.debug(String.format("readById with %d 호출", parentId));
+		logger.debug(String.format("get info with %d 호출", parentId));
 		return new ResponseEntity<>(parentService.findById(parentId), HttpStatus.OK);
+	}
+
+	@PutMapping("{parentId}")
+	@ApiOperation(value = "회원 정보 수정", notes = "부모 id로 개인정보를 수정한다.", response = ParentDto.Info.class)
+	@ApiResponses(value = {
+		@ApiResponse(code = 200, message = "OK"),
+		@ApiResponse(code = 400, message = "Bad Request"),
+		@ApiResponse(code = 401, message = "Unauthorized"),
+		@ApiResponse(code = 403, message = "Forbidden"),
+		@ApiResponse(code = 404, message = "Not Found")
+	})
+	private ResponseEntity<ParentDto.Info> updateParentInfo(
+		@ApiParam(value = "부모 id", required = true) @PathVariable long parentId,
+		@ApiParam(value = "업데이트할 부모 정보", required = true) @RequestBody ParentDto.Request parentReq) {
+		logger.debug(String.format("update info with %d 호출", parentId));
+		return new ResponseEntity<>(parentService.update(parentId, parentReq), HttpStatus.OK);
 	}
 
 }
