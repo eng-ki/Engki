@@ -10,40 +10,64 @@
       v-on:update="updateKid"
       v-else-if="kids.length == 0 || isAddKid"
     />
-    <div v-else>
-      <div class="kids-header">
-        <div class="datalist">
-          <div
-            v-for="(kid, index) in kids"
-            v-bind:key="index"
-            class="data"
-            @click="selectKid(index)"
-          >
-            <img class="dataimage" :src="kid.url" />
-
-            <div class="dataname">
-              {{ kid.name }}
-            </div>
-            <div
-              @click="deleteKid(index)"
-              class="deletemark"
-              v-if="selectedIndex == index"
-            >
-              X
-            </div>
-            <div :class="{ selected: selectedIndex == index }"></div>
+    <div v-else class="board">
+      <div class="board-header">
+        <div class="board-header-kid">
+          <div class="card-carousel-wrapper">
+              <div
+                class="card-carousel--nav__left"
+                @click="moveCarousel(-1)"
+                :disabled="atHeadOfList"
+              ></div>
+              <div class="card-carousel">
+                <div class="card-carousel--overflow-container">
+                  <div
+                    class="card-carousel-cards"
+                    :style="{
+                      transform: 'translateX' + '(' + currentOffset + 'px' + ')',
+                    }"
+                  >
+                    <div
+                      class="card-carousel--card"
+                      v-for="(kid, index) in kids"
+                      v-bind:key="index"
+                      @click="selectKid(index)"
+                    >
+                      <img :src="kid.url" />
+                      <div :class="{ selected: selectedIndex == index }">
+                        <div class="dataname">{{ kid.name }}</div>
+                        <div
+                        @click="deleteKid(index)"
+                        class="deletemark"
+                        v-if="selectedIndex == index"
+                      >
+                      X
+                      </div>
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="card-carousel--nav__right"
+                @click="moveCarousel(1)"
+                :disabled="atEndOfList"
+              ></div>
           </div>
         </div>
-        <div class="add-kid" @click="isAddKid = true">
-          <img src="../../public/img/icon/plus.png" style="width: 85%" />
-          <div style="margin-top: -0.3vh">자녀 등록</div>
-        </div>
-        <div class="parent" @click="selectKid(-1)">
-          <img src="../../public/img/icon/couple.png" style="width: 100%" />
-          <div style="margin-top: -1vh">내 정보</div>
+        <div class="board-header-parent">
+          <div class="add-kid" @click="isAddKid = true">
+            <img src="../../public/img/icon/plus3.png" />
+            <div >자녀 등록</div>
+          </div>
+          <div class="parent" @click="selectKid(-1)">
+            <img src="../../public/img/icon/couple.png" />
+            <div >내 정보</div>
+          </div>
         </div>
       </div>
-      <div class="parent-board">
+      <div class="board-body">
         <v-row no-gutters>
           <v-col cols="2">
             <div class="category">
@@ -99,7 +123,21 @@ export default {
       selectedIndex: 0,
       isReport: true,
       isAddKid: false,
+      currentOffset: 0,
+      windowSize: 5, // carousel에 띄워줄 아이콘 갯수! <- 반응형으로 할거면 화면에 몇개 나오는지 계산해서 여기 넣어야 공백 안생길듯
+      paginationFactor: 50,
     }
+  },
+  computed: {
+    atEndOfList() {
+      return (
+        this.currentOffset <=
+        this.paginationFactor * -1 * (this.kids.length - this.windowSize)
+      )
+    },
+    atHeadOfList() {
+      return this.currentOffset === 0
+    },
   },
   methods: {
     selectKid(index) {
@@ -129,6 +167,13 @@ export default {
       this.kids.push(kid)
       this.isAddKid = false
     },
+    moveCarousel(direction) {
+      if (direction === 1 && !this.atEndOfList) {
+        this.currentOffset -= this.paginationFactor
+      } else if (direction === -1 && !this.atHeadOfList) {
+        this.currentOffset += this.paginationFactor
+      }
+    },
   },
 }
 </script>
@@ -136,103 +181,206 @@ export default {
 @import '../assets/sass/base.scss';
 </style>
 <style lang="scss" scoped>
+
+$top-margin : 20vh;
+$left-margin : 5.5vw;
+$display-width: 85vw;
+$board-height:75vh;
+$header-height:15vh;
+$body-height:$board-height - $header-height;
+
+$icon-size:12vh;
+$font-size:2.5vh;
+$arrowcolor: black;
+
 * {
   font-family: 'GmarketSansMedium';
   color: #4b4b4b;
 }
-/* 로그인페이지 틀 */
-.background .box .innerbox {
-  position: inherit;
-}
 
-.parent-board {
-  top: 20vh;
-  right: 8vw;
+.board {
+  top: $top-margin;
+  left: $left-margin;
   background-color: white;
-  width: 85vw;
-  height: 75vh;
+  opacity: 100%;
+  width: $display-width;
+  height: $board-height;
   border-radius: 10vh;
-  padding: 15vh 2vw 2vh 2vw;
+  padding: 0vh 2vw 2vh 2vw;
   position: absolute;
   z-index: 1;
 }
 
-.parent {
-  width: 8vw;
-  position: absolute;
-  top: 7vh;
-  right: 12vw;
-  font-size: 3vh;
-  z-index: 2;
-}
-.datalist {
-  z-index: 2;
-  position: absolute;
-  top: 5vh;
-  margin-left: 10vw;
-  overflow: scroll;
-  white-space: nowrap;
-  width: 45vw;
-  &::-webkit-scrollbar {
-    width: 10px;
+.board-header{
+  top: - 1/2 * $header-height;
+  width:$display-width;
+  height: $header-height;
+  position:absolute;
+  z-index:3;
+  // background-color :red;
+  // opacity:50%;
+  .board-header-kid{
+    float:left;
+    // margin:10px;
+    display:inline-block;
+    // background:yellow;
+    width:60%;
+    .card-carousel-wrapper { 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .card-carousel {
+        position: relative;
+        // display: flex;
+        justify-content: center;
+        width: 85%;
+
+        &--overflow-container {
+          overflow: hidden;
+        }
+
+        &--nav__left,
+        &--nav__right {
+          display: inline-block;
+          width: 15px;
+          height: 15px;
+          padding: 5px;
+          box-sizing: border-box;
+          border-top: 7px solid $arrowcolor;
+          border-right: 7px solid $arrowcolor;
+          opacity: 50%;
+          border-radius: 4px;
+          cursor: pointer;
+          margin: 0 10px;
+          transition: transform 150ms linear;
+          &[disabled] {
+            opacity: 0;
+          }
+        }
+
+        &--nav__left {
+          position: relative;
+          // top: 3vh;
+          transform: rotate(-135deg);
+          &:active {
+            transform: rotate(-135deg) scale(0.9);
+          }
+        }
+
+        &--nav__right {
+          position: relative;
+          // top: 10vh;
+          transform: rotate(45deg);
+          &:active {
+            transform: rotate(45deg) scale(0.9);
+          }
+        }
+      }
+      .card-carousel-cards {
+          display: flex;
+          transition: transform 150ms ease-out;
+          transform: translatex(0px);
+          position: relative;
+          margin-right: 10vw;
+          margin-left: 10vw;
+          white-space: nowrap;
+          // width: 40vw;
+          .card-carousel--card {
+            margin: 0 10px;
+            display: inline-block;
+            position: relative;
+            .dataname {
+            display: inline-block;
+              padding: 10px 0px;
+              position: relative;
+              text-align: center;
+              vertical-align: middle;
+              font-size: $font-size;
+              // font-size: auto;
+              width:100%;
+            }
+            .selected {
+              // margin:0px 15%;
+              height:5%;
+              // padding:-10px 0px;
+              // wdith:70%;
+              background-color: #ffe26d;
+              // height:10px;
+              // vertical-align:bottom;
+
+              // position: relative;
+              // left: -7.5vh;
+              // top : 1vh;
+              // border-bottom: 5px solid #ffe26d;
+              // width: 155%;
+              // text-align: center;
+              // border-radius: 10vh;
+            }
+            .deletemark {
+            display: inline-block;
+              position: relative;
+              // top:$font-size/5*6;
+              // right: -10vh;
+              // width:10px;
+              font-size: $font-size;
+              // width: 40%;
+              color:lightgray;
+              // background-color:red;
+            }
+            cursor: pointer;
+            // background-color: #fff;
+            z-index: 3;
+            &:first-child {
+              margin-left: -10vw;
+            }
+            &:last-child {
+              margin-right: 0;
+            }
+            img {
+              position: relative;
+              width: $icon-size;
+              vertical-align: middle;
+              transition: opacity 150ms linear;
+              user-select: none;
+
+              &:hover {
+                opacity: 0.5;
+              }
+            }
+          }
+        }
+    }
   }
-  &::-webkit-scrollbar-thumb {
-    width: 10px;
-    background-color: rgba(220, 219, 223, 0.486);
-    border-radius: 30px;
-    background-clip: padding-box;
-    border: 6px solid transparent;
+  .board-header-parent{
+    display:inline-block;
+    width:30%;
+    margin-top:0.5vh;
+    // float:right;
+    .add-kid {
+      margin-right:10%;
+      display:inline-block;
+      width: $icon-size*0.9;
+      font-size: $font-size*0.9;
+      z-index: 2;
+      img {
+        width: $icon-size;
+      }
+    }
+    .parent {
+      display:inline-block;
+      width: $icon-size*0.9;
+      font-size: $font-size*0.9;
+      z-index: 2;
+      img {
+        width: $icon-size;
+      }
+    }
   }
-  &::-webkit-scrollbar-track {
-    width: 5px;
-    background-color: transparent;
-    border-radius: 30px;
-  }
 }
 
-.data {
-  display: inline-block;
+.board-body{
   position: relative;
-  width: 30vh;
-}
-
-.datalist .dataimage {
-  position: relative;
-  width: 18vh;
-  vertical-align: middle;
-}
-
-.datalist .dataname {
-  padding: 10px 0px;
-  position: relative;
-  width: 18h;
-  text-align: center;
-  vertical-align: middle;
-  font-size: 3vh;
-}
-.datalist .selected {
-  border-bottom: 0.5vw solid #ffe26d;
-  width: 40%;
-  text-align: center;
-  margin-top: -1vh;
-  margin-bottom: 0.5vh;
-  margin-left: 4.5vw;
-  border-radius: 10vw;
-}
-
-.datalist .deletemark {
-  margin-top: -5vh;
-  right: 1vw;
-  position: absolute;
-  width: 40%;
-}
-
-.parent .selected {
-  border-bottom: 0.5vw solid #ffe26d;
-  width: 70%;
-  margin-left: 1.5vw;
-  text-align: center;
-  border-radius: 10vw;
+  margin-top: $header-height;
 }
 
 .category {
@@ -255,20 +403,8 @@ export default {
   padding: 1vw;
 }
 
-.add-kid {
-  width: 7.7vw;
-  position: absolute;
-  top: 9.2vh;
-  right: 23vw;
-  font-size: 3vh;
-  z-index: 2;
-}
-
-.add-kid img {
-  width: 8vw;
-}
-
 .activect {
   background-color: #ffe26d;
 }
+
 </style>
