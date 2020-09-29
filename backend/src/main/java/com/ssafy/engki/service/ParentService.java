@@ -42,19 +42,19 @@ public class ParentService {
 		if (!parentRepository.existsById(kakaoUserDto.getId())) {
 			save(kakaoUserDto.getId(), // id
 				kakaoUserDto.getKakaoAccount().getProfile().getNickname(), // name
-				kakaoUserDto.getKakaoAccount().getEmail(), // email
-				true // initially true
+				kakaoUserDto.getKakaoAccount().getEmail() // email
 			);
 		}
 
 		return jwtTokenProvider.createToken(kakaoUserDto.getId());
 	}
 
-	private Parent save(long id, String name, String email, boolean isAgreeToReceiveEmailReport) {
+	private void save(long id, String name, String email) {
 		Parent parent = new Parent(id, name, email,
-			!email.isBlank() && isAgreeToReceiveEmailReport //if email is blank, flag should be false
+			!email.isBlank(), // initially true, but if email is blank, flag should be false
+			null
 		);
-		return parentRepository.save(parent);
+		parentRepository.save(parent);
 	}
 
 	private KakaoUserDto getUserIdFromKakao(String accessToken) {
