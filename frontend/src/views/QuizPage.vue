@@ -126,12 +126,10 @@ export default {
       this.isDone = false
       // 정답일 경우 다음 스테이지
       if (flag) this.stage++
-      // 모든 퀴즈가 끝날 경우 일단 자녀 페이지로 가게 해뒀습니다. (원래는 Etc-GoldBox 및 Finish 컴포넌트를 띄워야함)
       if (this.stage == 6) {
         this.stage = 5
         this.isFinish = true
       }
-      // this.$router.push('/kid')
     },
   },
 }
