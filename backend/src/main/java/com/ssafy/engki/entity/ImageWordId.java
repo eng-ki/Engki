@@ -5,9 +5,6 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
-import lombok.Data;
-
-@Data
 @Embeddable
 public class ImageWordId implements Serializable {
 	@Column(nullable = false, updatable = false)
