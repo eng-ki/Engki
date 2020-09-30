@@ -1,20 +1,168 @@
 <template>
-  <div></div>
+  <div>
+    <div v-if="isUploaded">
+      <div class="custom-edu">
+        <img class="custom-img" :src="img" />
+        <span class="title"
+          >아이가 학습할 문장과 단어를 커스터마이징 하세요!</span
+        >
+        <div
+          class="sentences"
+          v-for="(sentence, index) in sentences"
+          v-bind:key="index"
+        >
+          <div class="sentence">
+            <!-- <img src="../../public/img/icon/checked.png" class="btn-update" /> -->
+            <input
+              :value="sentence"
+              size="53vh"
+              @click="readS = true"
+              :readonly="readS"
+            />
+          </div>
+        </div>
+      </div>
+      <span class="word" v-for="(word, index) in words" v-bind:key="index">
+        <input value="word" @click="readW = true" :readonly="readW"
+      /></span>
+      <div class="custom-start">
+        <img
+          v-bind="attrs"
+          v-on="on"
+          @click="test()"
+          src="../../public/img/icon/next.png"
+        />
+      </div>
+    </div>
+  </div>
 </template>
 <script>
 export default {
-  name: "Report",
+  name: 'Report',
   props: {
     kid: null,
   },
-};
+  data: () => {
+    return {
+      img: '/img/etc/womanpuppy.jpg',
+      sentences: [
+        'The dog and the woman are running',
+        'There are dogs and women in the sea',
+        'A woman takes a walk',
+        'There is a dog',
+        'The dog and its owner are running together',
+      ],
+      words: ['dog', 'woman', 'sea'],
+      isUploaded: true,
+    }
+  },
+  methods: {
+    test() {
+      alert(this.words)
+    },
+  },
+}
 </script>
 <style lang="scss">
-@import "../assets/sass/base.scss";
+@import '../assets/sass/base.scss';
 </style>
 <style lang="scss" scoped>
 * {
-  font-family: "GmarketSansMedium";
+  font-family: 'GmarketSansMedium';
+}
+.custom-edu {
+  position: absolute;
+  left: 16.5vw;
+  display: inline-block;
+}
+.custom-edu .custom-img {
+  width: 22vw;
+  float: left;
+  border-radius: 1vw;
+  margin-right: 2vw;
+}
+
+.title {
+  font-size: 1.5vw;
+  float: left;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.sentences {
+  float: left;
+  width: 33vw;
+  font-size: 1.1vw;
+  margin-top: 1.6vw;
+  text-align: left;
+}
+
+.sentence input {
+  padding-bottom: 0.3vw;
   color: #4b4b4b;
+  &:hover {
+    opacity: 0.8;
+    transition: all 0.1s;
+  }
+
+  &:focus {
+    opacity: 0.8;
+    transition: all 0.1s;
+    color: green;
+  }
+}
+
+.custom-start {
+  position: absolute;
+  right: 0vw;
+  top: 18vh;
+}
+
+.custom-start img {
+  width: 4vw;
+  &:hover {
+    opacity: 0.6;
+  }
+}
+// .sentence .btn-update {
+//   opacity: 0;
+//   width: 1vw;
+//   float: left;
+// }
+// .sentence:hover .btn-update {
+//   opacity: 1;
+//   transform: scale(1vw);
+//   float: left;
+// }
+
+.word {
+  position: relative;
+  top: 45vh;
+  left: 2vw;
+  float: left;
+  margin-right: 1.4vw;
+
+  width: 9vw;
+  height: 7vh;
+
+  /* 디자인 */
+  border-radius: 7vw;
+  background-color: #dfdfdf;
+
+  /* 폰트 */
+  font-size: 2.6vh;
+  padding-top: 1.9vh;
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.word input {
+  color: #4b4b4b;
+
+  &:focus {
+    color: green;
+  }
+  vertical-align: middle;
+  // text-align: center;
 }
 </style>

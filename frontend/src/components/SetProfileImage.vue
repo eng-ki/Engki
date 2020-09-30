@@ -101,10 +101,25 @@ export default {
       this.$emit('returnKidPage')
     },
     setProfileImage() {
-      this.profileImage = '../../public/img/icon/fairytale/001-knight.png'
+      this.$swal({
+        title: '선택된 아바타로 변경하시겠습니까?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: '네',
+        cancelButtonText: '아니오',
+        showCloseButton: true,
+        showLoaderOnConfirm: true,
+      }).then((result) => {
+        if (result.value) {
+          // 변경 api 호출 후
+          // 인벤토리로
+          this.returnKidPage()
+        }
+      })
     },
     selectProfileImage(num) {
       this.selectedIndex = num
+      this.profileImage = this.fairytale[this.selectedIndex]
     },
   },
 }
