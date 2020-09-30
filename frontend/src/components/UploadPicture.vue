@@ -12,10 +12,10 @@
           v-bind:key="index"
         >
           <div class="sentence">
-            <!-- <img src="../../public/img/icon/checked.png" class="btn-update" /> -->
+            <img src="../../public/img/icon/pencil.png" class="btn-update" />
             <input
               :value="sentence"
-              size="53vh"
+              size="50vh"
               @click="readS = true"
               :readonly="readS"
             />
@@ -23,7 +23,12 @@
         </div>
       </div>
       <span class="word" v-for="(word, index) in words" v-bind:key="index">
-        <input value="word" @click="readW = true" :readonly="readW"
+        <input
+          :value="word"
+          size="10vh"
+          @click="readW = true"
+          :readonly="readW" />
+        <img src="../../public/img/icon/pencil.png" class="btn-update2"
       /></span>
       <div class="custom-start">
         <img
@@ -90,8 +95,8 @@ export default {
 
 .sentences {
   float: left;
-  width: 33vw;
-  font-size: 1.1vw;
+  width: 32vw;
+  font-size: 0.9vw;
   margin-top: 1.6vw;
   text-align: left;
 }
@@ -109,6 +114,17 @@ export default {
     transition: all 0.1s;
     color: green;
   }
+  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+}
+.sentence .btn-update {
+  opacity: 0;
+  width: 1vw;
+  float: right;
+}
+.sentence:hover .btn-update {
+  opacity: 1;
+  transform: scale(1vw);
+  float: right;
 }
 
 .custom-start {
@@ -123,34 +139,23 @@ export default {
     opacity: 0.6;
   }
 }
-// .sentence .btn-update {
-//   opacity: 0;
-//   width: 1vw;
-//   float: left;
-// }
-// .sentence:hover .btn-update {
-//   opacity: 1;
-//   transform: scale(1vw);
-//   float: left;
-// }
 
 .word {
   position: relative;
   top: 45vh;
   left: 2vw;
   float: left;
-  margin-right: 1.4vw;
-
-  width: 9vw;
-  height: 7vh;
-
+  margin-right: 1.5vw;
+  padding-right: 1vw;
+  width: 10vw;
+  height: 5.5vh;
   /* 디자인 */
   border-radius: 7vw;
   background-color: #dfdfdf;
+  padding-top: 1.4vh;
 
   /* 폰트 */
-  font-size: 2.6vh;
-  padding-top: 1.9vh;
+  font-size: 1vw;
   &:hover {
     opacity: 0.8;
   }
@@ -158,11 +163,15 @@ export default {
 
 .word input {
   color: #4b4b4b;
-
-  &:focus {
-    color: green;
-  }
-  vertical-align: middle;
-  // text-align: center;
+}
+.word .btn-update2 {
+  opacity: 0;
+  width: 1vw;
+  float: right;
+}
+.word:hover .btn-update2 {
+  opacity: 1;
+  transform: scale(1vw);
+  float: right;
 }
 </style>
