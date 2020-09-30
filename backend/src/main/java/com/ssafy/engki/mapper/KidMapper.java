@@ -7,12 +7,13 @@ import org.mapstruct.factory.Mappers;
 
 import com.ssafy.engki.dto.KidDto;
 import com.ssafy.engki.entity.Kid;
+import com.ssafy.engki.entity.Sticker;
 
 @Mapper
 public interface KidMapper {
 	KidMapper INSTANCE = Mappers.getMapper(KidMapper.class);
 
-	KidDto.KidInfo to(Kid kid);
+	List<KidDto.KidInfo> toInfo(List<Kid> kids);
 
-	List<KidDto.KidInfo> to(List<Kid> kids);
+	List<KidDto.KidSticker> toSticker(List<Sticker> stickers);
 }

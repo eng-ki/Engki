@@ -90,6 +90,6 @@ public class ParentService {
 	}
 
 	public List<KidDto.KidInfo> getKidList(long parentId) {
-		return KidMapper.INSTANCE.to(parentRepository.getOne(parentId).getKids());
+		return KidMapper.INSTANCE.toInfo(parentRepository.getOne(parentId).getKids());
 	}
 }
