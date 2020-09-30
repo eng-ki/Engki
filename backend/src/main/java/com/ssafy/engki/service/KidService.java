@@ -20,6 +20,12 @@ public class KidService {
 
 	}
 
+	public String updateIcon(long kidId, KidDto.KidIcon icon) {
+		Kid kid = kidRepository.getOne(kidId);
+		kid.updateIcon(icon.getIcon());
+		return kidRepository.save(kid).getIcon();
+	}
+
 	public void delete(long kidId) {
 		kidRepository.deleteById(kidId);
 	}

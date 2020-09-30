@@ -32,6 +32,10 @@ public class Kid {
 	@Column(nullable = false, updatable = false)
 	private Date birthday;
 
-	@Column(nullable = false, length = 20)
+	@Column(nullable = false, length = 50)
 	private String icon;
+
+	public void updateIcon(String icon) {
+		this.icon = icon;
+	}
 }

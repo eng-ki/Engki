@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,6 +46,22 @@ public class KidController {
 		@ApiParam(value = "추가하고 싶은 아이 정보", required = true) @RequestBody KidDto.KidRequest kidRequest) {
 		logger.debug("add kid 호출\n" + kidRequest.toString());
 		return new ResponseEntity<>(kidService.add(kidRequest), HttpStatus.CREATED);
+	}
+
+	@PutMapping("{kidId}")
+	@ApiOperation(value = "아이콘 수정", notes = "아이의 아이콘 정보를 수정한다..")
+	@ApiResponses(value = {
+		@ApiResponse(code = 200, message = "OK"),
+		@ApiResponse(code = 400, message = "Bad Request"),
+		@ApiResponse(code = 401, message = "Unauthorized"),
+		@ApiResponse(code = 403, message = "Forbidden"),
+		@ApiResponse(code = 404, message = "Not Found")
+	})
+	private ResponseEntity<?> updateKidIcon(
+		@ApiParam(value = "아이 id", required = true) @PathVariable long kidId,
+		@ApiParam(value = "업데이트할 아이 아이콘 파일 경로", required = true) @RequestBody KidDto.KidIcon icon) {
+		logger.debug(String.format("update Kid {%d} to icon {%s} 호출", kidId, icon.getIcon()));
+		return new ResponseEntity<>(kidService.updateIcon(kidId, icon), HttpStatus.OK);
 	}
 
 	@DeleteMapping("{kidId}")

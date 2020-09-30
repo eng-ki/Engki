@@ -24,7 +24,7 @@ public class KidDto {
 		@ApiModelProperty(value = "Kid birthday", example = "2015-03-28")
 		private Date birthday;
 
-		@ApiModelProperty(value = "Kid icon file name", example = "princess")
+		@ApiModelProperty(value = "Kid icon file path", example = "/img/icon/fairytale/002-wizard.png")
 		private String icon;
 	}
 
@@ -42,7 +42,15 @@ public class KidDto {
 		@ApiModelProperty(value = "Kid birthday", example = "2015-03-28")
 		private Date birthday;
 
-		@ApiModelProperty(value = "Kid icon file name", example = "princess")
+		@ApiModelProperty(value = "Kid icon file path", example = "/img/icon/fairytale/002-wizard.png")
+		private String icon;
+	}
+
+	@Data
+	@AllArgsConstructor
+	@NoArgsConstructor
+	public static class KidIcon {
+		@ApiModelProperty(value = "Kid icon file path", example = "/img/icon/fairytale/002-wizard.png")
 		private String icon;
 	}
 }
