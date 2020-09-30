@@ -21,7 +21,6 @@ public class KidService {
 			.icon(kidRequest.getIcon())
 			.build();
 		return kidRepository.save(kid).getId();
-
 	}
 
 	public String updateIcon(long kidId, KidDto.KidIcon icon) {

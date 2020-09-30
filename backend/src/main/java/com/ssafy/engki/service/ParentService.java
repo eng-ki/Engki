@@ -76,8 +76,12 @@ public class ParentService {
 	}
 
 	public ParentDto.ParentInfo update(long parentId, ParentDto.ParentRequest parentReq) {
-		Parent parent = new Parent(parentId, parentReq.getName(), parentReq.getEmail(),
-			!parentReq.getEmail().isBlank() && parentReq.isReceiveEmailFlag(), null);
+		Parent parent = Parent.builder()
+			.id(parentId)
+			.name(parentReq.getName())
+			.email(parentReq.getEmail())
+			.receiveEmailFlag(!parentReq.getEmail().isBlank() && parentReq.isReceiveEmailFlag())
+			.build();
 		return ParentMapper.INSTANCE.to(parentRepository.save(parent));
 	}
 

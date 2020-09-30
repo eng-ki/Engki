@@ -58,7 +58,7 @@ public class KidController {
 		@ApiResponse(code = 404, message = "Not Found")
 	})
 	private ResponseEntity<?> updateKidIcon(
-		@ApiParam(value = "아이 id", required = true) @PathVariable long kidId,
+		@ApiParam(value = "아이 id", required = true, example = "1") @PathVariable long kidId,
 		@ApiParam(value = "업데이트할 아이 아이콘 파일 경로", required = true) @RequestBody KidDto.KidIcon icon) {
 		logger.debug(String.format("update Kid {%d} to icon {%s} 호출", kidId, icon.getIcon()));
 		return new ResponseEntity<>(kidService.updateIcon(kidId, icon), HttpStatus.OK);
@@ -74,7 +74,7 @@ public class KidController {
 		@ApiResponse(code = 404, message = "Not Found")
 	})
 	private ResponseEntity<?> deleteKid(
-		@ApiParam(value = "아이 id", required = true) @PathVariable long kidId) {
+		@ApiParam(value = "아이 id", required = true, example = "1") @PathVariable long kidId) {
 		logger.debug(String.format("delete Kid with %d 호출", kidId));
 		kidService.delete(kidId);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);

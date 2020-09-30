@@ -62,7 +62,7 @@ public class ParentController {
 		@ApiResponse(code = 404, message = "Not Found")
 	})
 	private ResponseEntity<ParentDto.ParentInfo> getParentInfo(
-		@ApiParam(value = "부모 id", required = true) @PathVariable long parentId) {
+		@ApiParam(value = "부모 id", required = true, example = "1486633352") @PathVariable long parentId) {
 		logger.debug(String.format("get info with %d 호출", parentId));
 		return new ResponseEntity<>(parentService.findById(parentId), HttpStatus.OK);
 	}
@@ -77,7 +77,7 @@ public class ParentController {
 		@ApiResponse(code = 404, message = "Not Found")
 	})
 	private ResponseEntity<ParentDto.ParentInfo> updateParentInfo(
-		@ApiParam(value = "부모 id", required = true) @PathVariable long parentId,
+		@ApiParam(value = "부모 id", required = true, example = "1486633352") @PathVariable long parentId,
 		@ApiParam(value = "업데이트할 부모 정보", required = true) @RequestBody ParentDto.ParentRequest parentReq) {
 		logger.debug(String.format("update info with %d 호출", parentId));
 		return new ResponseEntity<>(parentService.update(parentId, parentReq), HttpStatus.OK);
@@ -93,7 +93,7 @@ public class ParentController {
 		@ApiResponse(code = 404, message = "Not Found")
 	})
 	private ResponseEntity<?> withdrawal(
-		@ApiParam(value = "부모 id", required = true) @PathVariable long parentId) {
+		@ApiParam(value = "부모 id", required = true, example = "1486633352") @PathVariable long parentId) {
 		logger.debug(String.format("withdrawal with %d 호출", parentId));
 		parentService.withdrawal(parentId);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -109,7 +109,7 @@ public class ParentController {
 		@ApiResponse(code = 404, message = "Not Found")
 	})
 	private ResponseEntity<?> getKids(
-		@ApiParam(value = "부모 id", required = true) @PathVariable long parentId) {
+		@ApiParam(value = "부모 id", required = true, example = "1486633352") @PathVariable long parentId) {
 		logger.debug("아이 목록 조회 with %d", parentId);
 		return new ResponseEntity<>(parentService.getKidList(parentId), HttpStatus.OK);
 	}
