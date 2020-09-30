@@ -1,5 +1,7 @@
 package com.ssafy.engki.controller;
 
+import java.util.List;
+
 import org.mariadb.jdbc.internal.logging.Logger;
 import org.mariadb.jdbc.internal.logging.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -51,7 +53,7 @@ public class ParentController {
 	}
 
 	@GetMapping("{parentId}")
-	@ApiOperation(value = "회원 정보 조회", notes = "부모 id로 개인정보를 조회한다.", response = ParentDto.Info.class)
+	@ApiOperation(value = "회원 정보 조회", notes = "부모 id로 개인정보를 조회한다.", response = ParentDto.ParentInfo.class)
 	@ApiResponses(value = {
 		@ApiResponse(code = 200, message = "OK"),
 		@ApiResponse(code = 400, message = "Bad Request"),
@@ -59,14 +61,14 @@ public class ParentController {
 		@ApiResponse(code = 403, message = "Forbidden"),
 		@ApiResponse(code = 404, message = "Not Found")
 	})
-	private ResponseEntity<ParentDto.Info> getParentInfo(
-		@ApiParam(value = "부모 id", required = true) @PathVariable long parentId) {
+	private ResponseEntity<ParentDto.ParentInfo> getParentInfo(
+		@ApiParam(value = "부모 id", required = true, example = "1486633352") @PathVariable long parentId) {
 		logger.debug(String.format("get info with %d 호출", parentId));
 		return new ResponseEntity<>(parentService.findById(parentId), HttpStatus.OK);
 	}
 
 	@PutMapping("{parentId}")
-	@ApiOperation(value = "회원 정보 수정", notes = "부모 id로 개인정보를 수정한다.", response = ParentDto.Info.class)
+	@ApiOperation(value = "회원 정보 수정", notes = "부모 id로 개인정보를 수정한다.", response = ParentDto.ParentInfo.class)
 	@ApiResponses(value = {
 		@ApiResponse(code = 200, message = "OK"),
 		@ApiResponse(code = 400, message = "Bad Request"),
@@ -74,9 +76,9 @@ public class ParentController {
 		@ApiResponse(code = 403, message = "Forbidden"),
 		@ApiResponse(code = 404, message = "Not Found")
 	})
-	private ResponseEntity<ParentDto.Info> updateParentInfo(
-		@ApiParam(value = "부모 id", required = true) @PathVariable long parentId,
-		@ApiParam(value = "업데이트할 부모 정보", required = true) @RequestBody ParentDto.Request parentReq) {
+	private ResponseEntity<ParentDto.ParentInfo> updateParentInfo(
+		@ApiParam(value = "부모 id", required = true, example = "1486633352") @PathVariable long parentId,
+		@ApiParam(value = "업데이트할 부모 정보", required = true) @RequestBody ParentDto.ParentRequest parentReq) {
 		logger.debug(String.format("update info with %d 호출", parentId));
 		return new ResponseEntity<>(parentService.update(parentId, parentReq), HttpStatus.OK);
 	}
@@ -91,9 +93,24 @@ public class ParentController {
 		@ApiResponse(code = 404, message = "Not Found")
 	})
 	private ResponseEntity<?> withdrawal(
-		@ApiParam(value = "부모 id", required = true) @PathVariable long parentId) {
+		@ApiParam(value = "부모 id", required = true, example = "1486633352") @PathVariable long parentId) {
 		logger.debug(String.format("withdrawal with %d 호출", parentId));
 		parentService.withdrawal(parentId);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+
+	@GetMapping("{parentId}/kids")
+	@ApiOperation(value = "아이 목록 조회", notes = "부모 id로 아이 목록을 조회한다.", response = List.class)
+	@ApiResponses(value = {
+		@ApiResponse(code = 200, message = "OK"),
+		@ApiResponse(code = 400, message = "Bad Request"),
+		@ApiResponse(code = 401, message = "Unauthorized"),
+		@ApiResponse(code = 403, message = "Forbidden"),
+		@ApiResponse(code = 404, message = "Not Found")
+	})
+	private ResponseEntity<?> getKids(
+		@ApiParam(value = "부모 id", required = true, example = "1486633352") @PathVariable long parentId) {
+		logger.debug("아이 목록 조회 with %d", parentId);
+		return new ResponseEntity<>(parentService.getKidList(parentId), HttpStatus.OK);
 	}
 }

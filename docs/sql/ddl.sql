@@ -22,7 +22,7 @@ CREATE TABLE `kid`
     `parent_id` bigint      NOT NULL,
     `name`      varchar(20) NOT NULL,
     `birthday`  date        NOT NULL,
-    `icon`      varchar(20) NOT NULL,
+    `icon`      varchar(50) NOT NULL,
     CONSTRAINT `kid_pk` PRIMARY KEY (`id`),
     CONSTRAINT `kid_parent_id_fk` FOREIGN KEY (`parent_id`) REFERENCES `parent` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );

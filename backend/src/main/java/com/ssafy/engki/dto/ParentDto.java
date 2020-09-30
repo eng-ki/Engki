@@ -9,7 +9,7 @@ public class ParentDto {
 	@Data
 	@AllArgsConstructor
 	@NoArgsConstructor
-	public static class Info {
+	public static class ParentInfo {
 		@ApiModelProperty(value = "Parent id", example = "1486633352")
 		private long id;
 
@@ -26,7 +26,7 @@ public class ParentDto {
 	@Data
 	@AllArgsConstructor
 	@NoArgsConstructor
-	public static class Request {
+	public static class ParentRequest {
 		@ApiModelProperty(value = "Parent name", example = "김싸피")
 		private String name;
 
