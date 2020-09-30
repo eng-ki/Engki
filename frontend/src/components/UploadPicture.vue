@@ -57,13 +57,26 @@ export default {
         'There is a dog',
         'The dog and its owner are running together',
       ],
-      words: ['dog', 'woman', 'sea'],
+      words: ['dog', 'woman', 'sea', 'sand'],
       isUploaded: true,
     }
   },
   methods: {
     test() {
-      alert(this.words)
+      this.$swal({
+        title:
+          '<span style="font-family: GmarketSansMedium;font-size:1.5vw;">현재 데이터로 학습을 시작하시겠습니까?</span>',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: '네',
+        cancelButtonText: '아니요',
+        showCloseButton: true,
+        showLoaderOnConfirm: true,
+      }).then((result) => {
+        if (result.value) {
+          this.$router.push('/quiz')
+        }
+      })
     },
   },
 }
@@ -97,7 +110,7 @@ export default {
   float: left;
   width: 32vw;
   font-size: 0.9vw;
-  margin-top: 1.6vw;
+  margin-top: 1.7vw;
   text-align: left;
 }
 
@@ -142,10 +155,11 @@ export default {
 
 .word {
   position: relative;
-  top: 45vh;
+  top: 43vh;
   left: 2vw;
   float: left;
   margin-right: 1.5vw;
+  margin-bottom: 1.5vh;
   padding-right: 1vw;
   width: 10vw;
   height: 5.5vh;
