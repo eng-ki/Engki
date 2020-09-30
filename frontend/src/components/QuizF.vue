@@ -12,7 +12,17 @@
       <!-- 사진 영역 -->
       <img :src="quiz.url" />
       <!-- 사진 영역 끝-->
+
       <div class="quiz-lines">
+        <draggable v-model="answers" :options="{ group: 'answers' }">
+          <div
+            class="quiz-button"
+            v-for="(answer, index) in answers"
+            v-bind:key="index"
+          >
+            {{ answer }}
+          </div>
+        </draggable>
         <div class="quiz-line"></div>
         <div class="quiz-line"></div>
       </div>
@@ -20,19 +30,23 @@
     <!-- 답변 영역 끝 -->
     <!-- 버튼 영역 -->
     <div class="quiz-buttons">
-      <div
-        class="quiz-button"
-        v-for="(answer, index) in quiz.answers"
-        v-bind:key="index"
-      >
-        {{ answer }}
-      </div>
+      <draggable v-model="quiz.answers" :options="{ group: 'answers' }">
+        <div
+          class="quiz-button"
+          v-for="(answer, index) in quiz.answers"
+          v-bind:key="index"
+        >
+          {{ answer }}
+        </div>
+      </draggable>
     </div>
     <!-- 버튼 영역 끝 -->
   </div>
 </template>
 <script>
+import draggable from 'vuedraggable'
 export default {
+  components: { draggable },
   props: {
     isDone: false,
   },
@@ -40,6 +54,7 @@ export default {
     return {
       quiz: null,
       selectedIndex: -1,
+      answers: [],
     }
   },
   mounted() {
@@ -59,10 +74,16 @@ export default {
   },
   methods: {
     isCorrect() {
+      // if (this.answers.join(' ') == this.quiz.sentence) return true
+      // else return false
       return true
     },
     soundAndTranslation(sentence) {
       speech(sentence)
+    },
+    go(answer) {
+      this.quiz.answers.splice(answer, 1)
+      this.answers.push(answer)
     },
   },
 }
@@ -158,10 +179,11 @@ function speech(txt) {
 .quiz-answer .quiz-lines {
   width: 40vw;
   float: left;
+  margin-top: 3vh;
 }
 
 .quiz-line {
-  margin-top: 11vh;
+  margin-top: 9vh;
   border-bottom: 2px solid gray;
 }
 .quiz-buttons {
@@ -185,8 +207,13 @@ function speech(txt) {
 
   /* 폰트 */
   font-size: 3vh;
-  text-align: center;
   color: black;
   float: left;
+  vertical-align: middle;
+  text-align: center;
+  padding-top: 1.5vh;
+  &:hover {
+    opacity: 0.5;
+  }
 }
 </style>
