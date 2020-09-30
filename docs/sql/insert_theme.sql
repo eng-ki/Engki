@@ -1,6 +1,6 @@
 INSERT INTO `theme` (`name`, `icon`)
 VALUES ('vehicle', 'theme/transportation.png'),
-       ('animal', 'tmeme/cat.png'),
+       ('animal', 'theme/cat.png'),
        ('food', 'theme/fruit.png'),
        ('sports', 'theme/cat.png'),
        ('object', 'theme/desk.png'),
