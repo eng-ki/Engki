@@ -14,8 +14,12 @@ public class KidService {
 	private final KidRepository kidRepository;
 
 	public long add(KidDto.KidRequest kidRequest) {
-		Kid kid = new Kid(0, kidRequest.getParentId(), kidRequest.getName(), kidRequest.getBirthday(),
-			kidRequest.getIcon());
+		Kid kid = Kid.builder()
+			.parentId(kidRequest.getParentId())
+			.name(kidRequest.getName())
+			.birthday(kidRequest.getBirthday())
+			.icon(kidRequest.getIcon())
+			.build();
 		return kidRepository.save(kid).getId();
 
 	}

@@ -50,10 +50,12 @@ public class ParentService {
 	}
 
 	private void save(long id, String name, String email) {
-		Parent parent = new Parent(id, name, email,
-			!email.isBlank(), // initially true, but if email is blank, flag should be false
-			null
-		);
+		Parent parent = Parent.builder()
+			.id(id)
+			.name(name)
+			.email(email)
+			.receiveEmailFlag(!email.isBlank()) // initially true, but if email is blank, flag should be false
+			.build();
 		parentRepository.save(parent);
 	}
 

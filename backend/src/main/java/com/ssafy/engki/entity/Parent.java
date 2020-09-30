@@ -1,6 +1,5 @@
 package com.ssafy.engki.entity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,10 +10,12 @@ import javax.persistence.OneToMany;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
@@ -35,5 +36,5 @@ public class Parent {
 	@OneToMany(
 		cascade = CascadeType.ALL,
 		mappedBy = "parentId")
-	private List<Kid> kids = new ArrayList<>();
+	private List<Kid> kids;
 }
