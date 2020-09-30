@@ -19,4 +19,8 @@ public class KidService {
 		return kidRepository.save(kid).getId();
 
 	}
+
+	public void delete(long kidId) {
+		kidRepository.deleteById(kidId);
+	}
 }

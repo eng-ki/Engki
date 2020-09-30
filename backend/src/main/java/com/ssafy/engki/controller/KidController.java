@@ -4,6 +4,8 @@ import org.mariadb.jdbc.internal.logging.Logger;
 import org.mariadb.jdbc.internal.logging.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,5 +45,21 @@ public class KidController {
 		@ApiParam(value = "추가하고 싶은 아이 정보", required = true) @RequestBody KidDto.KidRequest kidRequest) {
 		logger.debug("add kid 호출\n" + kidRequest.toString());
 		return new ResponseEntity<>(kidService.add(kidRequest), HttpStatus.CREATED);
+	}
+
+	@DeleteMapping("{kidId}")
+	@ApiOperation(value = "아이 삭제", notes = "아이 정보를 삭제한다.")
+	@ApiResponses(value = {
+		@ApiResponse(code = 204, message = "No Content"),
+		@ApiResponse(code = 400, message = "Bad Request"),
+		@ApiResponse(code = 401, message = "Unauthorized"),
+		@ApiResponse(code = 403, message = "Forbidden"),
+		@ApiResponse(code = 404, message = "Not Found")
+	})
+	private ResponseEntity<?> deleteKid(
+		@ApiParam(value = "아이 id", required = true) @PathVariable long kidId) {
+		logger.debug(String.format("delete Kid with %d 호출", kidId));
+		kidService.delete(kidId);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 }
