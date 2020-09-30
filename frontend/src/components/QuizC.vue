@@ -1,36 +1,34 @@
 <template>
   <div>
     <div class="left">
-        <div class="quiz-img">
-        <img :src="url" id="test"/>
-        </div>
+      <div class="quiz-img">
+        <img :src="url" id="test" />
+      </div>
     </div>
     <div class="right">
-        <button
-          v-for="(word, index) in quiz.words"
-          v-bind:key="index"
-          class="quiz-button"
-          :class="{ selected: selectedIndex == index }"
-          @click="select(index)"
-        >
-          {{ word }}
-        </button>
+      <button
+        v-for="(word, index) in quiz.words"
+        v-bind:key="index"
+        class="quiz-button"
+        :class="{ selected: selectedIndex == index }"
+        @click="select(index)"
+      >
+        {{ word }}
+      </button>
     </div>
   </div>
-
 </template>
 <script>
 export default {
   props: {
     isDone: false,
-    stage: 0, // 0일때 quiz A, 2일때 quiz C (AC에만 있는 props)
   },
   data: () => {
     return {
       quiz: null,
       selectedIndex: -1,
       showKorean: false,
-      url:'/img/etc/twoanimals1.png',
+      url: '/img/etc/twoanimals1.png',
     }
   },
   created() {
@@ -44,11 +42,11 @@ export default {
   },
   mounted() {
     // alert(this.stage);
-    if(this.stage==2){
-      setTimeout(()=>{
-      // alert("바뀐다");
-      this.url=this.quiz.url2;
-      }, 500);
+    if (this.stage == 2) {
+      setTimeout(() => {
+        // alert("바뀐다");
+        this.url = this.quiz.url2
+      }, 500)
     }
   },
   watch: {
@@ -56,14 +54,14 @@ export default {
       if (this.isCorrect()) this.$emit('correct')
       else this.$emit('wrong')
     },
-    url: function(val){
-      if(this.url==this.quiz.url1){
-        setTimeout(()=>{
-        this.url=this.quiz.url2;
+    url: function (val) {
+      if (this.url == this.quiz.url1) {
+        setTimeout(() => {
+          this.url = this.quiz.url2
         }, 500)
-      }else if(this.url==this.quiz.url2){
-        setTimeout(()=>{
-        this.url=this.quiz.url1;
+      } else if (this.url == this.quiz.url2) {
+        setTimeout(() => {
+          this.url = this.quiz.url1
         }, 500)
       }
     },
@@ -76,7 +74,7 @@ export default {
         return false
       }
     },
-     select(index) {
+    select(index) {
       this.selectedIndex = index
     },
   },
@@ -84,11 +82,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.left{
+.left {
   position: absolute;
   top: 30vh;
   left: 25vw;
-  width:60vw;
+  width: 60vw;
   transform: translate(-50%, -50%);
   img {
     position: relative;
@@ -97,14 +95,14 @@ export default {
     border: 1vw solid #d5d5d5;
   }
 }
-.right{
+.right {
   position: absolute;
   top: 30vh;
   left: 60vw;
-  width:30vw;
+  width: 30vw;
   transform: translate(-50%, -50%);
   .quiz-button {
-    display:block;
+    display: block;
     /* 사이즈 설정 */
     width: 20vw;
     height: 14vh;

@@ -12,7 +12,6 @@
       <div class="board">
         <quiz-a
           :isDone="isDone"
-          :stage="stage"
           v-on:correct="isNextStage(true)"
           v-on:wrong="isNextStage(false)"
           class="quiz"
@@ -27,7 +26,6 @@
         />
         <quiz-c
           :isDone="isDone"
-          :stage="stage"
           v-on:correct="isNextStage(true)"
           v-on:wrong="isNextStage(false)"
           class="quiz"
