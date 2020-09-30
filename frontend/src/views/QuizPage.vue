@@ -10,14 +10,13 @@
 
     <div class="whiteboard">
       <div class="board">
-        <quiz-a
+        <!-- <quiz-a
           :isDone="isDone"
-          :stage="stage"
           v-on:correct="isNextStage(true)"
           v-on:wrong="isNextStage(false)"
           class="quiz"
           v-if="stage == 0"
-        />
+        /> -->
         <quiz-b
           :isDone="isDone"
           v-on:correct="isNextStage(true)"
@@ -27,7 +26,6 @@
         />
         <quiz-c
           :isDone="isDone"
-          :stage="stage"
           v-on:correct="isNextStage(true)"
           v-on:wrong="isNextStage(false)"
           class="quiz"
@@ -52,7 +50,7 @@
           v-on:correct="isNextStage(true)"
           v-on:wrong="isNextStage(false)"
           class="quiz"
-          v-if="stage == 5"
+          v-if="stage == 0"
         />
 
         <img src="../../public/img/etc/whiteboard.png" />

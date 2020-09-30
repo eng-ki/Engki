@@ -14,56 +14,55 @@
       <div class="board-header">
         <div class="board-header-kid">
           <div class="card-carousel-wrapper">
-              <div
-                class="card-carousel--nav__left"
-                @click="moveCarousel(-1)"
-                :disabled="atHeadOfList"
-              ></div>
-              <div class="card-carousel">
-                <div class="card-carousel--overflow-container">
+            <div
+              class="card-carousel--nav__left"
+              @click="moveCarousel(-1)"
+              :disabled="atHeadOfList"
+            ></div>
+            <div class="card-carousel">
+              <div class="card-carousel--overflow-container">
+                <div
+                  class="card-carousel-cards"
+                  :style="{
+                    transform: 'translateX' + '(' + currentOffset + 'px' + ')',
+                  }"
+                >
                   <div
-                    class="card-carousel-cards"
-                    :style="{
-                      transform: 'translateX' + '(' + currentOffset + 'px' + ')',
-                    }"
+                    class="card-carousel--card"
+                    v-for="(kid, index) in kids"
+                    v-bind:key="index"
+                    @click="selectKid(index)"
                   >
-                    <div
-                      class="card-carousel--card"
-                      v-for="(kid, index) in kids"
-                      v-bind:key="index"
-                      @click="selectKid(index)"
-                    >
-                      <img :src="kid.url" />
-                      <div :class="{ selected: selectedIndex == index }">
-                        <div class="dataname">{{ kid.name }}</div>
-                        <div
+                    <img :src="kid.url" />
+                    <div :class="{ selected: selectedIndex == index }">
+                      <div class="dataname">{{ kid.name }}</div>
+                      <div
                         @click="deleteKid(index)"
                         class="deletemark"
                         v-if="selectedIndex == index"
                       >
-                      X
+                        X
                       </div>
-                      </div>
-                      
                     </div>
                   </div>
                 </div>
               </div>
-              <div
-                class="card-carousel--nav__right"
-                @click="moveCarousel(1)"
-                :disabled="atEndOfList"
-              ></div>
+            </div>
+            <div
+              class="card-carousel--nav__right"
+              @click="moveCarousel(1)"
+              :disabled="atEndOfList"
+            ></div>
           </div>
         </div>
         <div class="board-header-parent">
           <div class="add-kid" @click="isAddKid = true">
             <img src="../../public/img/icon/plus3.png" />
-            <div >자녀 등록</div>
+            <div>자녀 등록</div>
           </div>
           <div class="parent" @click="selectKid(-1)">
             <img src="../../public/img/icon/couple.png" />
-            <div >내 정보</div>
+            <div>내 정보</div>
           </div>
         </div>
       </div>
@@ -181,16 +180,15 @@ export default {
 @import '../assets/sass/base.scss';
 </style>
 <style lang="scss" scoped>
-
-$top-margin : 20vh;
-$left-margin : 5.5vw;
+$top-margin: 16vh;
+$left-margin: 7vw;
 $display-width: 85vw;
-$board-height:75vh;
-$header-height:15vh;
-$body-height:$board-height - $header-height;
+$board-height: 78vh;
+$header-height: 15vh;
+$body-height: $board-height - $header-height;
 
-$icon-size:12vh;
-$font-size:2.5vh;
+$icon-size: 12vh;
+$font-size: 2.5vh;
 $arrowcolor: black;
 
 * {
@@ -211,21 +209,21 @@ $arrowcolor: black;
   z-index: 1;
 }
 
-.board-header{
-  top: - 1/2 * $header-height;
-  width:$display-width;
+.board-header {
+  top: -1/2 * $header-height;
+  width: $display-width;
   height: $header-height;
-  position:absolute;
-  z-index:3;
+  position: absolute;
+  z-index: 3;
   // background-color :red;
   // opacity:50%;
-  .board-header-kid{
-    float:left;
+  .board-header-kid {
+    float: left;
     // margin:10px;
-    display:inline-block;
+    display: inline-block;
     // background:yellow;
-    width:60%;
-    .card-carousel-wrapper { 
+    width: 60%;
+    .card-carousel-wrapper {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -277,99 +275,82 @@ $arrowcolor: black;
         }
       }
       .card-carousel-cards {
-          display: flex;
-          transition: transform 150ms ease-out;
-          transform: translatex(0px);
+        display: flex;
+        transition: transform 150ms ease-out;
+        transform: translatex(0px);
+        position: relative;
+        margin-right: 10vw;
+        margin-left: 10vw;
+        white-space: nowrap;
+        // width: 40vw;
+        .card-carousel--card {
+          margin: 0 10px;
+          display: inline-block;
           position: relative;
-          margin-right: 10vw;
-          margin-left: 10vw;
-          white-space: nowrap;
-          // width: 40vw;
-          .card-carousel--card {
-            margin: 0 10px;
+          .dataname {
+            display: inline-block;
+            padding: 10px 0px;
+            position: relative;
+            text-align: center;
+            vertical-align: middle;
+            font-size: $font-size;
+            // font-size: auto;
+            width: 100%;
+            z-index: 2;
+          }
+          .selected {
+            height: 30%;
+            border-bottom: 5px solid #ffe26d;
+            z-index: 1;
+          }
+          .deletemark {
             display: inline-block;
             position: relative;
-            .dataname {
-            display: inline-block;
-              padding: 10px 0px;
-              position: relative;
-              text-align: center;
-              vertical-align: middle;
-              font-size: $font-size;
-              // font-size: auto;
-              width:100%;
-            }
-            .selected {
-              // margin:0px 15%;
-              height:5%;
-              // padding:-10px 0px;
-              // wdith:70%;
-              background-color: #ffe26d;
-              // height:10px;
-              // vertical-align:bottom;
+            font-size: $font-size;
+            color: lightgray;
+          }
+          cursor: pointer;
+          z-index: 3;
+          &:first-child {
+            margin-left: -10vw;
+          }
+          &:last-child {
+            margin-right: 0;
+          }
+          img {
+            position: relative;
+            width: $icon-size;
+            vertical-align: middle;
+            transition: opacity 150ms linear;
+            user-select: none;
 
-              // position: relative;
-              // left: -7.5vh;
-              // top : 1vh;
-              // border-bottom: 5px solid #ffe26d;
-              // width: 155%;
-              // text-align: center;
-              // border-radius: 10vh;
-            }
-            .deletemark {
-            display: inline-block;
-              position: relative;
-              // top:$font-size/5*6;
-              // right: -10vh;
-              // width:10px;
-              font-size: $font-size;
-              // width: 40%;
-              color:lightgray;
-              // background-color:red;
-            }
-            cursor: pointer;
-            // background-color: #fff;
-            z-index: 3;
-            &:first-child {
-              margin-left: -10vw;
-            }
-            &:last-child {
-              margin-right: 0;
-            }
-            img {
-              position: relative;
-              width: $icon-size;
-              vertical-align: middle;
-              transition: opacity 150ms linear;
-              user-select: none;
-
-              &:hover {
-                opacity: 0.5;
-              }
+            &:hover {
+              opacity: 0.5;
             }
           }
         }
+      }
     }
   }
-  .board-header-parent{
-    display:inline-block;
-    width:30%;
-    margin-top:0.5vh;
+  .board-header-parent {
+    display: inline-block;
+    width: 30%;
+    margin-top: 0.5vh;
     // float:right;
     .add-kid {
-      margin-right:10%;
-      display:inline-block;
-      width: $icon-size*0.9;
-      font-size: $font-size*0.9;
+      margin-right: 10%;
+      display: inline-block;
+      width: $icon-size * 0.9;
+      font-size: $font-size * 0.9;
       z-index: 2;
       img {
         width: $icon-size;
       }
     }
     .parent {
-      display:inline-block;
-      width: $icon-size*0.9;
-      font-size: $font-size*0.9;
+      display: inline-block;
+      width: $icon-size * 0.9;
+      font-size: $font-size * 0.9;
       z-index: 2;
       img {
         width: $icon-size;
@@ -378,7 +359,7 @@ $arrowcolor: black;
   }
 }
 
-.board-body{
+.board-body {
   position: relative;
   margin-top: $header-height;
 }
@@ -406,5 +387,4 @@ $arrowcolor: black;
 .activect {
   background-color: #ffe26d;
 }
-
 </style>

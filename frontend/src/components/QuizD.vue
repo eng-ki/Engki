@@ -12,14 +12,13 @@
         <span v-for="(word, index) in quiz.sentence" v-bind:key="index">
           <!-- 질문 빈칸 영역 -->
           <span class="quiz-blank" v-if="word == quiz.word">
-            <span v-if="selectedIndex == -1"
+            <span
               ><span
                 v-for="i in word.length"
                 v-bind:key="i"
                 v-html="blank"
               ></span
             ></span>
-            <span v-else>{{ quiz.words[selectedIndex] }}</span>
           </span>
           <span v-else>&nbsp;{{ word }}&nbsp;</span>
           <!-- 질문 빈칸 영역 끝 -->
@@ -59,7 +58,7 @@ export default {
     //api 호출
     this.quiz = {
       url: '/img/etc/puppy.jpg',
-      sentence: 'A dog is running',
+      sentence: 'A little dog is running on the ground',
       word: 'dog',
       words: ['dog', 'cat', 'bird', 'cow'],
     }
@@ -108,23 +107,26 @@ export default {
 
 .quiz-text .quiz-question {
   margin-top: 3vh;
+  margin-left: 1vw;
   height: 15vh;
   word-break: break-all;
   display: inline-block;
-  font-size: 4vw;
+  font-size: 2.9vw;
+  text-align: left;
+  line-height: 10vh;
 }
 
 .quiz-answer {
-  margin-top: 1vh;
+  margin-top: 2vh;
 }
 
 .quiz-button {
   /* 사이즈 설정 */
-  width: 14.5vw;
-  height: 14vh;
-  margin: 1vw;
+  width: 15.5vw;
+  height: 13vh;
   /* 디자인 */
   border-radius: 15vw;
+  margin: 1vw;
   background-color: #dfdfdf;
 
   /* 폰트 */
