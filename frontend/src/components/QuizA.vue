@@ -1,16 +1,14 @@
 <template>
   <div>
     <div class="quiz-img">
-      <img :src="quiz.url" @click="soundAndTranslation(word)" />
+      <img :src="quiz.url" @click="soundAndTranslation()" />
       <div class="quiz-text">{{ word }}</div>
     </div>
   </div>
 </template>
 <script>
 export default {
-  props: {
-    isDone: false,
-  },
+  props: ['isDone','answer'],
   data: () => {
     return {
       quiz: null,
@@ -23,15 +21,20 @@ export default {
     //api 호출
     this.quiz = {
       url: '/img/etc/puppy.jpg',
-      word_eng: 'puppy',
+      word_eng: 'dog',
       word_kor: '강아지',
     }
     this.word = this.quiz.word_eng
+    this.answer = this.quiz.word_eng
   },
   watch: {
+    answer:function(val){
+      this.$emit('set-answer',this.answer)
+    },
     isDone: function (val) {
-      if (this.isCorrect()) this.$emit('correct')
-      else this.$emit('wrong')
+      this.$emit('correct')
+      // if (this.isCorrect()) this.$emit('correct')
+      // else this.$emit('wrong')
     },
     showKorean: function (val) {
       if (this.showKorean) {
@@ -42,13 +45,13 @@ export default {
     },
   },
   methods: {
-    isCorrect() {
-      // 다했어요 버튼이 클릭됐을때 호출되는 함수, 정답이 맞으면 true, 틀리면 false 리턴
-      return true
-    },
-    soundAndTranslation(word) {
+    // isCorrect() {
+    //   // 다했어요 버튼이 클릭됐을때 호출되는 함수, 정답이 맞으면 true, 틀리면 false 리턴
+    //   return true
+    // },
+    soundAndTranslation() {
       this.showKorean = true
-      speech(word)
+      speech(this.quiz.word_eng)
       setTimeout(() => {
         this.showKorean = false
       }, 1000)

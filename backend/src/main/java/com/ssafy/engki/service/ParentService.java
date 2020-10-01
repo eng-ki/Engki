@@ -1,5 +1,7 @@
 package com.ssafy.engki.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -13,9 +15,11 @@ import lombok.RequiredArgsConstructor;
 
 import com.ssafy.engki.config.security.JwtTokenProvider;
 import com.ssafy.engki.dto.KakaoUserDto;
+import com.ssafy.engki.dto.KidDto;
 import com.ssafy.engki.dto.ParentDto;
 import com.ssafy.engki.entity.Parent;
 import com.ssafy.engki.exception.ParentNotFoundException;
+import com.ssafy.engki.mapper.KidMapper;
 import com.ssafy.engki.mapper.ParentMapper;
 import com.ssafy.engki.repository.ParentRepository;
 
@@ -38,19 +42,21 @@ public class ParentService {
 		if (!parentRepository.existsById(kakaoUserDto.getId())) {
 			save(kakaoUserDto.getId(), // id
 				kakaoUserDto.getKakaoAccount().getProfile().getNickname(), // name
-				kakaoUserDto.getKakaoAccount().getEmail(), // email
-				true // initially true
+				kakaoUserDto.getKakaoAccount().getEmail() // email
 			);
 		}
 
 		return jwtTokenProvider.createToken(kakaoUserDto.getId());
 	}
 
-	private Parent save(long id, String name, String email, boolean isAgreeToReceiveEmailReport) {
-		Parent parent = new Parent(id, name, email,
-			!email.isBlank() && isAgreeToReceiveEmailReport //if email is blank, flag should be false
-		);
-		return parentRepository.save(parent);
+	private void save(long id, String name, String email) {
+		Parent parent = Parent.builder()
+			.id(id)
+			.name(name)
+			.email(email)
+			.receiveEmailFlag(!email.isBlank()) // initially true, but if email is blank, flag should be false
+			.build();
+		parentRepository.save(parent);
 	}
 
 	private KakaoUserDto getUserIdFromKakao(String accessToken) {
@@ -64,9 +70,26 @@ public class ParentService {
 		return gson.fromJson(ret, KakaoUserDto.class);
 	}
 
-	public ParentDto.Info findById(long parentId) {
+	public ParentDto.ParentInfo findById(long parentId) {
 		return ParentMapper.INSTANCE.to(parentRepository.findById(parentId)
 			.orElseThrow(() -> new ParentNotFoundException(parentId)));
 	}
 
+	public ParentDto.ParentInfo update(long parentId, ParentDto.ParentRequest parentReq) {
+		Parent parent = Parent.builder()
+			.id(parentId)
+			.name(parentReq.getName())
+			.email(parentReq.getEmail())
+			.receiveEmailFlag(!parentReq.getEmail().isBlank() && parentReq.isReceiveEmailFlag())
+			.build();
+		return ParentMapper.INSTANCE.to(parentRepository.save(parent));
+	}
+
+	public void withdrawal(long parentId) {
+		parentRepository.deleteById(parentId);
+	}
+
+	public List<KidDto.KidInfo> getKidList(long parentId) {
+		return KidMapper.INSTANCE.toInfo(parentRepository.getOne(parentId).getKids());
+	}
 }

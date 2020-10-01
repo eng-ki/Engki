@@ -12,6 +12,8 @@
       <div class="board">
         <quiz-a
           :isDone="isDone"
+          :answer="answer"
+          @set-answer="setAnswer"
           v-on:correct="isNextStage(true)"
           v-on:wrong="isNextStage(false)"
           class="quiz"
@@ -19,6 +21,7 @@
         />
         <quiz-b
           :isDone="isDone"
+          :answer="answer"
           v-on:correct="isNextStage(true)"
           v-on:wrong="isNextStage(false)"
           class="quiz"
@@ -26,6 +29,7 @@
         />
         <quiz-c
           :isDone="isDone"
+          :answer="answer"
           v-on:correct="isNextStage(true)"
           v-on:wrong="isNextStage(false)"
           class="quiz"
@@ -33,6 +37,7 @@
         />
         <quiz-d
           :isDone="isDone"
+          :answer="answer"
           v-on:correct="isNextStage(true)"
           v-on:wrong="isNextStage(false)"
           class="quiz"
@@ -40,6 +45,7 @@
         />
         <quiz-e
           :isDone="isDone"
+          :answer="answer"
           v-on:correct="isNextStage(true)"
           v-on:wrong="isNextStage(false)"
           class="quiz"
@@ -47,6 +53,7 @@
         />
         <quiz-f
           :isDone="isDone"
+          :answer="answer"
           v-on:correct="isNextStage(true)"
           v-on:wrong="isNextStage(false)"
           class="quiz"
@@ -106,6 +113,7 @@ export default {
   },
   data: () => {
     return {
+      answer: '',
       isDone: false, // 다했어요
       isHint: false, // 모르겠어요
       isBreakTime: false, // 쉬는시간
@@ -121,16 +129,28 @@ export default {
       ],
     }
   },
+  // watch:{
+  //   answer:function(val){
+  //     alert("바뀜");
+  //   },
+  // },
   methods: {
     isNextStage(flag) {
+      // alert("눌림" + this.isDone)
       this.isDone = false
       // 정답일 경우 다음 스테이지
-      if (flag) this.stage++
+      if (flag){
+        this.stage++
+      } 
       if (this.stage == 6) {
         this.stage = 5
         this.isFinish = true
       }
     },
+    setAnswer(answer){
+      // alert("바뀜");
+      this.answer=answer;
+    }
   },
 }
 </script>

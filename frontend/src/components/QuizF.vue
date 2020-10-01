@@ -47,9 +47,7 @@
 import draggable from "vuedraggable";
 export default {
   components: { draggable },
-  props: {
-    isDone: false,
-  },
+  props: ['isDone','answer'],
   data: () => {
     return {
       quiz: null,
@@ -57,7 +55,7 @@ export default {
       answers: [],
     };
   },
-  mounted() {
+  created() {
     //api 호출
     this.quiz = {
       url: "/img/etc/puppy2.jpg",

@@ -24,16 +24,14 @@
 </template>
 <script>
 export default {
-  props: {
-    isDone: false,
-  },
+  props: ['isDone','answer'],
   data: () => {
     return {
       quiz: null,
       selectedIndex: -1,
     }
   },
-  mounted() {
+  created() {
     //api 호출
     this.quiz = {
       url: '/img/etc/puppy2.jpg',

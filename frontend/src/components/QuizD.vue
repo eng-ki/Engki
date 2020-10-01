@@ -44,9 +44,7 @@
 </template>
 <script>
 export default {
-  props: {
-    isDone: false,
-  },
+  props: ['isDone','answer'],
   data: () => {
     return {
       quiz: null,
@@ -54,7 +52,7 @@ export default {
       blank: '<span>&nbsp;&nbsp;</span>',
     }
   },
-  mounted() {
+  created() {
     //api 호출
     this.quiz = {
       url: '/img/etc/puppy.jpg',
