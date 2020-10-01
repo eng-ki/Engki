@@ -11,14 +11,8 @@
           v-for="(sentence, index) in sentences"
           v-bind:key="index"
         >
-          <div class="sentence">
-            <img src="../../public/img/icon/pencil.png" class="btn-update" />
-            <input
-              :value="sentence"
-              size="50vh"
-              @click="readS = true"
-              :readonly="readS"
-            />
+          <div class="sentence" @click="selectedSentence(index)">
+            <input :value="sentence" size="34vh" :readonly="!readS" />
           </div>
         </div>
       </div>
@@ -26,9 +20,12 @@
         <input
           :value="word"
           size="10vh"
-          @click="readW = true"
-          :readonly="readW" />
-        <img src="../../public/img/icon/pencil.png" class="btn-update2"
+          @click="selectedWord(index)"
+          :readonly="!readW" />
+        <img
+          src="../../public/img/icon/pencil.png"
+          :class="{ selectedpencil: selectedPencil == index }"
+          class="btn-update2"
       /></span>
       <div class="custom-start">
         <img
@@ -38,6 +35,13 @@
           src="../../public/img/icon/next.png"
         />
       </div>
+    </div>
+    <div v-else>
+      <input ref="imageInput" type="file" hidden @change="onChangeImages" />
+      <v-btn type="button" @click="onClickImageUpload" large
+        >학습에 사용할 이미지를 등록해주세요</v-btn
+      >
+      <v-img v-if="imageUrl" :src="imageUrl"></v-img>
     </div>
   </div>
 </template>
@@ -50,15 +54,13 @@ export default {
   data: () => {
     return {
       img: '/img/etc/womanpuppy.jpg',
-      sentences: [
-        'The dog and the woman are running',
-        'There are dogs and women in the sea',
-        'A woman takes a walk',
-        'There is a dog',
-        'The dog and its owner are running together',
-      ],
+      sentences: ['The dog and the woman are running'],
       words: ['dog', 'woman', 'sea', 'sand'],
-      isUploaded: true,
+      isUploaded: false, // 이미지 등록시
+      selectedPencil: -1,
+      imageUrl: null,
+      ReadS: false,
+      ReadW: false,
     }
   },
   methods: {
@@ -78,6 +80,23 @@ export default {
         }
       })
     },
+    selectedSentence(index) {
+      this.readS = true
+      this.selectedCheck = index
+    },
+    selectedWord(index) {
+      this.readW = true
+      this.selectedPencil = index
+    },
+    onClickImageUpload() {
+      this.$refs.imageInput.click()
+    },
+    onChangeImages(e) {
+      console.log(e.target.files)
+      const file = e.target.files[0]
+      this.isUploaded = true
+      this.img = URL.createObjectURL(file)
+    },
   },
 }
 </script>
@@ -94,7 +113,7 @@ export default {
   display: inline-block;
 }
 .custom-edu .custom-img {
-  width: 22vw;
+  width: 20vw;
   float: left;
   border-radius: 1vw;
   margin-right: 2vw;
@@ -108,15 +127,16 @@ export default {
 
 .sentences {
   float: left;
-  width: 32vw;
-  font-size: 0.9vw;
-  margin-top: 1.7vw;
+  font-size: 1.5vw;
+  margin-top: 3vw;
   text-align: left;
 }
 
 .sentence input {
   padding-bottom: 0.3vw;
   color: #4b4b4b;
+  margin-right: 0.5vw;
+  height: 10vh;
   &:hover {
     opacity: 0.8;
     transition: all 0.1s;
@@ -129,16 +149,22 @@ export default {
   }
   box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
 }
-.sentence .btn-update {
-  opacity: 0;
-  width: 1vw;
-  float: right;
-}
-.sentence:hover .btn-update {
-  opacity: 1;
-  transform: scale(1vw);
-  float: right;
-}
+// .sentence .btn-update {
+//   opacity: 0;
+//   width: 1.5vw;
+//   float: right;
+// }
+// .sentence:hover .btn-update {
+//   opacity: 1;
+//   transform: scale(3vw);
+//   float: right;
+// }
+
+// .sentence .selectedcheck {
+//   opacity: 1;
+//   transform: scale(3vw);
+//   float: right;
+// }
 
 .custom-start {
   position: absolute;
@@ -155,7 +181,7 @@ export default {
 
 .word {
   position: relative;
-  top: 43vh;
+  top: 45vh;
   left: 2vw;
   float: left;
   margin-right: 1.5vw;
@@ -184,6 +210,12 @@ export default {
   float: right;
 }
 .word:hover .btn-update2 {
+  opacity: 1;
+  transform: scale(1vw);
+  float: right;
+}
+
+.word .selectedpencil {
   opacity: 1;
   transform: scale(1vw);
   float: right;

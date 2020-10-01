@@ -10,7 +10,7 @@
 
     <div class="whiteboard">
       <div class="board">
-        <!-- <quiz-a
+        <quiz-a
           :isDone="isDone"
           :answer="answer"
           @set-answer="setAnswer"
@@ -18,7 +18,7 @@
           v-on:wrong="isNextStage(false)"
           class="quiz"
           v-if="stage == 0"
-        /> -->
+        />
         <quiz-b
           :isDone="isDone"
           :answer="answer"
@@ -57,7 +57,7 @@
           v-on:correct="isNextStage(true)"
           v-on:wrong="isNextStage(false)"
           class="quiz"
-          v-if="stage == 0"
+          v-if="stage == 5"
         />
 
         <img src="../../public/img/etc/whiteboard.png" />

@@ -103,7 +103,7 @@ import SetKid from '@/components/SetKid.vue'
 import Report from '@/components/Report.vue'
 import UploadPicture from '@/components/UploadPicture.vue'
 import SetEmail from '@/components/SetEmail.vue'
-
+import http from '../utils/http-common.js'
 export default {
   name: 'ParentPage',
   components: {
@@ -126,6 +126,16 @@ export default {
       windowSize: 5, // carousel에 띄워줄 아이콘 갯수! <- 반응형으로 할거면 화면에 몇개 나오는지 계산해서 여기 넣어야 공백 안생길듯
       paginationFactor: 50,
     }
+  },
+  created() {
+    // P005 자녀 목록 조회
+    // http
+    //   .get('/parents/{parent_id}/kids', {
+    //     headers: { Authorization: access_token },
+    //   })
+    //   .then(({ data }) => {
+    //     this.kids = data
+    //   })
   },
   computed: {
     atEndOfList() {
@@ -155,8 +165,12 @@ export default {
         showLoaderOnConfirm: true,
       }).then((result) => {
         if (result.value) {
-          // 1. 백엔드에서 삭제
-
+          // K002
+          // http
+          //   .delete('/kids/' + this.kid_id, {
+          //     headers: { Authorization: access_token },
+          //   })
+          //   .then(({ data }) => {})
           // 2. 처음 받아온 데이터 삭제
           this.kids.splice(index, 1)
           if (this.kids.length != 0) this.selectedIndex = 0
