@@ -2,7 +2,11 @@
 
 # Image Files
 datasets/images/
-datasets/normalized_images/
+ai-reference/datasets/normalized_images/
+ai-reference/datasets/aug_images/
+
+#config Files
+ai-reference/datasets/configs/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

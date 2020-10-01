@@ -1,0 +1,1590 @@
+inputs\person\person0.jpg,outputs/person\person0_class_person.png,person
+inputs\person\person1.jpg,outputs/person\person1_class_person.png,person
+inputs\person\person10.jpg,outputs/person\person10_class_person.png,person
+inputs\person\person11.jpg,outputs/person\person11_class_person.png,person
+inputs\person\person12.jpg,outputs/person\person12_class_person.png,person
+inputs\person\person13.jpg,outputs/person\person13_class_person.png,person
+inputs\person\person14.jpg,outputs/person\person14_class_person.png,person
+inputs\person\person15.jpg,outputs/person\person15_class_person.png,person
+inputs\person\person16.jpg,outputs/person\person16_class_person.png,person
+inputs\person\person17.jpg,outputs/person\person17_class_person.png,person
+inputs\person\person18.jpg,outputs/person\person18_class_person.png,person
+inputs\person\person19.jpg,outputs/person\person19_class_person.png,person
+inputs\person\person3.jpg,outputs/person\person3_class_person.png,person
+inputs\person\person4.jpg,outputs/person\person4_class_person.png,person
+inputs\person\person5.jpg,outputs/person\person5_class_person.png,person
+inputs\person\person6.jpg,outputs/person\person6_class_person.png,person
+inputs\person\person7.jpg,outputs/person\person7_class_person.png,person
+inputs\person\person9.jpg,outputs/person\person9_class_person.png,person
+inputs\person\person17.jpg,outputs/person\person17_class_cell phone.png,cell phone
+inputs\bicycle\bicycle0.jpg,outputs/bicycle\bicycle0_class_bicycle.png,bicycle
+inputs\bicycle\bicycle1.jpg,outputs/bicycle\bicycle1_class_bicycle.png,bicycle
+inputs\bicycle\bicycle10.jpg,outputs/bicycle\bicycle10_class_bicycle.png,bicycle
+inputs\bicycle\bicycle11.jpg,outputs/bicycle\bicycle11_class_bicycle.png,bicycle
+inputs\bicycle\bicycle12.jpg,outputs/bicycle\bicycle12_class_bicycle.png,bicycle
+inputs\bicycle\bicycle13.jpg,outputs/bicycle\bicycle13_class_bicycle.png,bicycle
+inputs\bicycle\bicycle15.jpg,outputs/bicycle\bicycle15_class_bicycle.png,bicycle
+inputs\bicycle\bicycle16.jpg,outputs/bicycle\bicycle16_class_bicycle.png,bicycle
+inputs\bicycle\bicycle17.jpg,outputs/bicycle\bicycle17_class_bicycle.png,bicycle
+inputs\bicycle\bicycle18.jpg,outputs/bicycle\bicycle18_class_person.png,person
+inputs\bicycle\bicycle19.jpg,outputs/bicycle\bicycle19_class_bicycle.png,bicycle
+inputs\bicycle\bicycle2.jpg,outputs/bicycle\bicycle2_class_bicycle.png,bicycle
+inputs\bicycle\bicycle3.jpg,outputs/bicycle\bicycle3_class_bicycle.png,bicycle
+inputs\bicycle\bicycle4.jpg,outputs/bicycle\bicycle4_class_person.png,person
+inputs\bicycle\bicycle5.jpg,outputs/bicycle\bicycle5_class_bicycle.png,bicycle
+inputs\bicycle\bicycle6.jpg,outputs/bicycle\bicycle6_class_person.png,person
+inputs\bicycle\bicycle7.jpg,outputs/bicycle\bicycle7_class_bicycle.png,bicycle
+inputs\bicycle\bicycle8.jpg,outputs/bicycle\bicycle8_class_bicycle.png,bicycle
+inputs\bicycle\bicycle9.jpg,outputs/bicycle\bicycle9_class_bicycle.png,bicycle
+inputs\bicycle\bicycle12.jpg,outputs/bicycle\bicycle12_class_person.png,person
+inputs\bicycle\bicycle15.jpg,outputs/bicycle\bicycle15_class_person.png,person
+inputs\bicycle\bicycle3.jpg,outputs/bicycle\bicycle3_class_person.png,person
+inputs\bicycle\bicycle8.jpg,outputs/bicycle\bicycle8_class_bottle.png,bottle
+inputs\bicycle\bicycle3.jpg,outputs/bicycle\bicycle3_class_backpack.png,backpack
+inputs\bicycle\bicycle6.jpg,outputs/bicycle\bicycle6_class_bicycle.png,bicycle
+inputs\car\car1.jpg,outputs/car\car1_class_car.png,car
+inputs\car\car10.jpg,outputs/car\car10_class_car.png,car
+inputs\car\car11.jpg,outputs/car\car11_class_car.png,car
+inputs\car\car13.jpg,outputs/car\car13_class_car.png,car
+inputs\car\car14.jpg,outputs/car\car14_class_car.png,car
+inputs\car\car15.jpg,outputs/car\car15_class_car.png,car
+inputs\car\car17.jpg,outputs/car\car17_class_car.png,car
+inputs\car\car18.jpg,outputs/car\car18_class_car.png,car
+inputs\car\car19.jpg,outputs/car\car19_class_car.png,car
+inputs\car\car2.jpg,outputs/car\car2_class_car.png,car
+inputs\car\car3.jpg,outputs/car\car3_class_car.png,car
+inputs\car\car4.jpg,outputs/car\car4_class_car.png,car
+inputs\car\car6.jpg,outputs/car\car6_class_car.png,car
+inputs\car\car7.jpg,outputs/car\car7_class_car.png,car
+inputs\car\car8.jpg,outputs/car\car8_class_car.png,car
+inputs\car\car9.jpg,outputs/car\car9_class_car.png,car
+inputs\motorcycle\motorcycle0.jpg,outputs/motorcycle\motorcycle0_class_motorcycle.png,motorcycle
+inputs\motorcycle\motorcycle1.jpg,outputs/motorcycle\motorcycle1_class_motorcycle.png,motorcycle
+inputs\motorcycle\motorcycle10.jpg,outputs/motorcycle\motorcycle10_class_motorcycle.png,motorcycle
+inputs\motorcycle\motorcycle11.jpg,outputs/motorcycle\motorcycle11_class_person.png,person
+inputs\motorcycle\motorcycle12.jpg,outputs/motorcycle\motorcycle12_class_motorcycle.png,motorcycle
+inputs\motorcycle\motorcycle13.jpg,outputs/motorcycle\motorcycle13_class_motorcycle.png,motorcycle
+inputs\motorcycle\motorcycle14.jpg,outputs/motorcycle\motorcycle14_class_motorcycle.png,motorcycle
+inputs\motorcycle\motorcycle15.jpg,outputs/motorcycle\motorcycle15_class_person.png,person
+inputs\motorcycle\motorcycle16.jpg,outputs/motorcycle\motorcycle16_class_motorcycle.png,motorcycle
+inputs\motorcycle\motorcycle17.jpg,outputs/motorcycle\motorcycle17_class_motorcycle.png,motorcycle
+inputs\motorcycle\motorcycle18.jpg,outputs/motorcycle\motorcycle18_class_motorcycle.png,motorcycle
+inputs\motorcycle\motorcycle19.jpg,outputs/motorcycle\motorcycle19_class_motorcycle.png,motorcycle
+inputs\motorcycle\motorcycle2.jpg,outputs/motorcycle\motorcycle2_class_motorcycle.png,motorcycle
+inputs\motorcycle\motorcycle3.jpg,outputs/motorcycle\motorcycle3_class_motorcycle.png,motorcycle
+inputs\motorcycle\motorcycle4.jpg,outputs/motorcycle\motorcycle4_class_motorcycle.png,motorcycle
+inputs\motorcycle\motorcycle5.jpg,outputs/motorcycle\motorcycle5_class_motorcycle.png,motorcycle
+inputs\motorcycle\motorcycle6.jpg,outputs/motorcycle\motorcycle6_class_motorcycle.png,motorcycle
+inputs\motorcycle\motorcycle7.jpg,outputs/motorcycle\motorcycle7_class_motorcycle.png,motorcycle
+inputs\motorcycle\motorcycle8.jpg,outputs/motorcycle\motorcycle8_class_motorcycle.png,motorcycle
+inputs\motorcycle\motorcycle9.jpg,outputs/motorcycle\motorcycle9_class_motorcycle.png,motorcycle
+inputs\motorcycle\motorcycle0.jpg,outputs/motorcycle\motorcycle0_class_person.png,person
+inputs\motorcycle\motorcycle1.jpg,outputs/motorcycle\motorcycle1_class_person.png,person
+inputs\motorcycle\motorcycle11.jpg,outputs/motorcycle\motorcycle11_class_motorcycle.png,motorcycle
+inputs\motorcycle\motorcycle12.jpg,outputs/motorcycle\motorcycle12_class_person.png,person
+inputs\motorcycle\motorcycle14.jpg,outputs/motorcycle\motorcycle14_class_person.png,person
+inputs\motorcycle\motorcycle16.jpg,outputs/motorcycle\motorcycle16_class_person.png,person
+inputs\motorcycle\motorcycle17.jpg,outputs/motorcycle\motorcycle17_class_backpack.png,backpack
+inputs\motorcycle\motorcycle18.jpg,outputs/motorcycle\motorcycle18_class_car.png,car
+inputs\motorcycle\motorcycle2.jpg,outputs/motorcycle\motorcycle2_class_person.png,person
+inputs\motorcycle\motorcycle9.jpg,outputs/motorcycle\motorcycle9_class_person.png,person
+inputs\motorcycle\motorcycle15.jpg,outputs/motorcycle\motorcycle15_class_motorcycle.png,motorcycle
+inputs\airplane\airplane11.jpg,outputs/airplane\airplane11_class_airplane.png,airplane
+inputs\airplane\airplane12.jpg,outputs/airplane\airplane12_class_airplane.png,airplane
+inputs\airplane\airplane14.jpg,outputs/airplane\airplane14_class_airplane.png,airplane
+inputs\airplane\airplane15.jpg,outputs/airplane\airplane15_class_airplane.png,airplane
+inputs\airplane\airplane16.jpg,outputs/airplane\airplane16_class_airplane.png,airplane
+inputs\airplane\airplane18.jpg,outputs/airplane\airplane18_class_airplane.png,airplane
+inputs\airplane\airplane2.jpg,outputs/airplane\airplane2_class_airplane.png,airplane
+inputs\airplane\airplane3.jpg,outputs/airplane\airplane3_class_airplane.png,airplane
+inputs\airplane\airplane4.jpg,outputs/airplane\airplane4_class_airplane.png,airplane
+inputs\airplane\airplane6.jpg,outputs/airplane\airplane6_class_airplane.png,airplane
+inputs\airplane\airplane8.jpg,outputs/airplane\airplane8_class_airplane.png,airplane
+inputs\airplane\airplane9.jpg,outputs/airplane\airplane9_class_airplane.png,airplane
+inputs\airplane\airplane14.jpg,outputs/airplane\airplane14_class_truck.png,truck
+inputs\airplane\airplane4.jpg,outputs/airplane\airplane4_class_person.png,person
+inputs\airplane\airplane4.jpg,outputs/airplane\airplane4_class_chair.png,chair
+inputs\bus\bus1.jpg,outputs/bus\bus1_class_bus.png,bus
+inputs\bus\bus10.jpg,outputs/bus\bus10_class_bus.png,bus
+inputs\bus\bus11.jpg,outputs/bus\bus11_class_bus.png,bus
+inputs\bus\bus12.jpg,outputs/bus\bus12_class_bus.png,bus
+inputs\bus\bus13.jpg,outputs/bus\bus13_class_person.png,person
+inputs\bus\bus14.jpg,outputs/bus\bus14_class_bus.png,bus
+inputs\bus\bus15.jpg,outputs/bus\bus15_class_person.png,person
+inputs\bus\bus16.jpg,outputs/bus\bus16_class_bus.png,bus
+inputs\bus\bus17.jpg,outputs/bus\bus17_class_person.png,person
+inputs\bus\bus18.jpg,outputs/bus\bus18_class_bus.png,bus
+inputs\bus\bus19.jpg,outputs/bus\bus19_class_person.png,person
+inputs\bus\bus2.jpg,outputs/bus\bus2_class_chair.png,chair
+inputs\bus\bus3.jpg,outputs/bus\bus3_class_chair.png,chair
+inputs\bus\bus4.jpg,outputs/bus\bus4_class_bus.png,bus
+inputs\bus\bus5.jpg,outputs/bus\bus5_class_bus.png,bus
+inputs\bus\bus9.jpg,outputs/bus\bus9_class_bus.png,bus
+inputs\bus\bus17.jpg,outputs/bus\bus17_class_bus.png,bus
+inputs\bus\bus5.jpg,outputs/bus\bus5_class_car.png,car
+inputs\bus\bus9.jpg,outputs/bus\bus9_class_car.png,car
+inputs\bus\bus2.jpg,outputs/bus\bus2_class_person.png,person
+inputs\train\train0.jpg,outputs/train\train0_class_train.png,train
+inputs\train\train10.jpg,outputs/train\train10_class_train.png,train
+inputs\train\train11.jpg,outputs/train\train11_class_train.png,train
+inputs\train\train12.jpg,outputs/train\train12_class_train.png,train
+inputs\train\train13.jpg,outputs/train\train13_class_train.png,train
+inputs\train\train14.jpg,outputs/train\train14_class_train.png,train
+inputs\train\train17.jpg,outputs/train\train17_class_train.png,train
+inputs\train\train2.jpg,outputs/train\train2_class_train.png,train
+inputs\train\train3.jpg,outputs/train\train3_class_train.png,train
+inputs\train\train5.jpg,outputs/train\train5_class_train.png,train
+inputs\train\train6.jpg,outputs/train\train6_class_train.png,train
+inputs\train\train9.jpg,outputs/train\train9_class_train.png,train
+inputs\truck\truck1.jpg,outputs/truck\truck1_class_truck.png,truck
+inputs\truck\truck10.jpg,outputs/truck\truck10_class_truck.png,truck
+inputs\truck\truck11.jpg,outputs/truck\truck11_class_truck.png,truck
+inputs\truck\truck12.jpg,outputs/truck\truck12_class_truck.png,truck
+inputs\truck\truck13.jpg,outputs/truck\truck13_class_truck.png,truck
+inputs\truck\truck14.jpg,outputs/truck\truck14_class_truck.png,truck
+inputs\truck\truck16.jpg,outputs/truck\truck16_class_truck.png,truck
+inputs\truck\truck17.jpg,outputs/truck\truck17_class_truck.png,truck
+inputs\truck\truck18.jpg,outputs/truck\truck18_class_truck.png,truck
+inputs\truck\truck19.jpg,outputs/truck\truck19_class_truck.png,truck
+inputs\truck\truck2.jpg,outputs/truck\truck2_class_car.png,car
+inputs\truck\truck4.jpg,outputs/truck\truck4_class_truck.png,truck
+inputs\truck\truck6.jpg,outputs/truck\truck6_class_truck.png,truck
+inputs\truck\truck7.jpg,outputs/truck\truck7_class_truck.png,truck
+inputs\truck\truck8.jpg,outputs/truck\truck8_class_truck.png,truck
+inputs\truck\truck9.jpg,outputs/truck\truck9_class_truck.png,truck
+inputs\truck\truck2.jpg,outputs/truck\truck2_class_truck.png,truck
+inputs\truck\truck4.jpg,outputs/truck\truck4_class_car.png,car
+inputs\boat\boat0.jpg,outputs/boat\boat0_class_boat.png,boat
+inputs\boat\boat1.jpg,outputs/boat\boat1_class_boat.png,boat
+inputs\boat\boat11.jpg,outputs/boat\boat11_class_boat.png,boat
+inputs\boat\boat13.jpg,outputs/boat\boat13_class_boat.png,boat
+inputs\boat\boat15.jpg,outputs/boat\boat15_class_boat.png,boat
+inputs\boat\boat17.jpg,outputs/boat\boat17_class_boat.png,boat
+inputs\boat\boat19.jpg,outputs/boat\boat19_class_boat.png,boat
+inputs\boat\boat2.jpg,outputs/boat\boat2_class_boat.png,boat
+inputs\boat\boat3.jpg,outputs/boat\boat3_class_boat.png,boat
+inputs\boat\boat4.jpg,outputs/boat\boat4_class_boat.png,boat
+inputs\boat\boat5.jpg,outputs/boat\boat5_class_boat.png,boat
+inputs\boat\boat6.jpg,outputs/boat\boat6_class_boat.png,boat
+inputs\boat\boat8.jpg,outputs/boat\boat8_class_boat.png,boat
+inputs\boat\boat1.jpg,outputs/boat\boat1_class_person.png,person
+inputs\boat\boat2.jpg,outputs/boat\boat2_class_person.png,person
+inputs\bench\bench0.jpg,outputs/bench\bench0_class_bench.png,bench
+inputs\bench\bench1.jpg,outputs/bench\bench1_class_bench.png,bench
+inputs\bench\bench10.jpg,outputs/bench\bench10_class_bench.png,bench
+inputs\bench\bench13.jpg,outputs/bench\bench13_class_bench.png,bench
+inputs\bench\bench14.jpg,outputs/bench\bench14_class_bench.png,bench
+inputs\bench\bench16.jpg,outputs/bench\bench16_class_bench.png,bench
+inputs\bench\bench17.jpg,outputs/bench\bench17_class_bench.png,bench
+inputs\bench\bench18.jpg,outputs/bench\bench18_class_bench.png,bench
+inputs\bench\bench19.jpg,outputs/bench\bench19_class_bench.png,bench
+inputs\bench\bench2.jpg,outputs/bench\bench2_class_bench.png,bench
+inputs\bench\bench3.jpg,outputs/bench\bench3_class_bench.png,bench
+inputs\bench\bench4.jpg,outputs/bench\bench4_class_bird.png,bird
+inputs\bench\bench5.jpg,outputs/bench\bench5_class_bench.png,bench
+inputs\bench\bench6.jpg,outputs/bench\bench6_class_bench.png,bench
+inputs\bench\bench7.jpg,outputs/bench\bench7_class_bench.png,bench
+inputs\bench\bench8.jpg,outputs/bench\bench8_class_bench.png,bench
+inputs\bench\bench9.jpg,outputs/bench\bench9_class_bench.png,bench
+inputs\bench\bench8.jpg,outputs/bench\bench8_class_potted plant.png,potted plant
+inputs\bird\bird0.jpg,outputs/bird\bird0_class_bird.png,bird
+inputs\bird\bird1.jpg,outputs/bird\bird1_class_bird.png,bird
+inputs\bird\bird10.jpg,outputs/bird\bird10_class_bird.png,bird
+inputs\bird\bird11.jpg,outputs/bird\bird11_class_bird.png,bird
+inputs\bird\bird12.jpg,outputs/bird\bird12_class_bird.png,bird
+inputs\bird\bird14.jpg,outputs/bird\bird14_class_bird.png,bird
+inputs\bird\bird15.jpg,outputs/bird\bird15_class_bird.png,bird
+inputs\bird\bird17.jpg,outputs/bird\bird17_class_bird.png,bird
+inputs\bird\bird18.jpg,outputs/bird\bird18_class_bird.png,bird
+inputs\bird\bird19.jpg,outputs/bird\bird19_class_bird.png,bird
+inputs\bird\bird2.jpg,outputs/bird\bird2_class_bird.png,bird
+inputs\bird\bird3.jpg,outputs/bird\bird3_class_bird.png,bird
+inputs\bird\bird4.jpg,outputs/bird\bird4_class_bird.png,bird
+inputs\bird\bird5.jpg,outputs/bird\bird5_class_bird.png,bird
+inputs\bird\bird6.jpg,outputs/bird\bird6_class_bird.png,bird
+inputs\bird\bird8.jpg,outputs/bird\bird8_class_bird.png,bird
+inputs\bird\bird9.jpg,outputs/bird\bird9_class_bird.png,bird
+inputs\cat\cat0.jpg,outputs/cat\cat0_class_cat.png,cat
+inputs\cat\cat1.jpg,outputs/cat\cat1_class_cat.png,cat
+inputs\cat\cat10.jpg,outputs/cat\cat10_class_cat.png,cat
+inputs\cat\cat11.jpg,outputs/cat\cat11_class_cat.png,cat
+inputs\cat\cat13.jpg,outputs/cat\cat13_class_cat.png,cat
+inputs\cat\cat14.jpg,outputs/cat\cat14_class_cat.png,cat
+inputs\cat\cat15.jpg,outputs/cat\cat15_class_cat.png,cat
+inputs\cat\cat16.jpg,outputs/cat\cat16_class_cat.png,cat
+inputs\cat\cat17.jpg,outputs/cat\cat17_class_cat.png,cat
+inputs\cat\cat18.jpg,outputs/cat\cat18_class_cat.png,cat
+inputs\cat\cat19.jpg,outputs/cat\cat19_class_cat.png,cat
+inputs\cat\cat2.jpg,outputs/cat\cat2_class_cat.png,cat
+inputs\cat\cat3.jpg,outputs/cat\cat3_class_cat.png,cat
+inputs\cat\cat5.jpg,outputs/cat\cat5_class_cat.png,cat
+inputs\cat\cat6.jpg,outputs/cat\cat6_class_cat.png,cat
+inputs\cat\cat7.jpg,outputs/cat\cat7_class_cat.png,cat
+inputs\cat\cat8.jpg,outputs/cat\cat8_class_cat.png,cat
+inputs\cat\cat9.jpg,outputs/cat\cat9_class_cat.png,cat
+inputs\cat\cat14.jpg,outputs/cat\cat14_class_person.png,person
+inputs\cat\cat3.jpg,outputs/cat\cat3_class_person.png,person
+inputs\dog\dog0.jpg,outputs/dog\dog0_class_dog.png,dog
+inputs\dog\dog1.jpg,outputs/dog\dog1_class_dog.png,dog
+inputs\dog\dog10.jpg,outputs/dog\dog10_class_dog.png,dog
+inputs\dog\dog11.jpg,outputs/dog\dog11_class_dog.png,dog
+inputs\dog\dog12.jpg,outputs/dog\dog12_class_dog.png,dog
+inputs\dog\dog13.jpg,outputs/dog\dog13_class_dog.png,dog
+inputs\dog\dog14.jpg,outputs/dog\dog14_class_potted plant.png,potted plant
+inputs\dog\dog15.jpg,outputs/dog\dog15_class_dog.png,dog
+inputs\dog\dog16.jpg,outputs/dog\dog16_class_dog.png,dog
+inputs\dog\dog17.jpg,outputs/dog\dog17_class_dog.png,dog
+inputs\dog\dog18.jpg,outputs/dog\dog18_class_dog.png,dog
+inputs\dog\dog19.jpg,outputs/dog\dog19_class_dog.png,dog
+inputs\dog\dog2.jpg,outputs/dog\dog2_class_dog.png,dog
+inputs\dog\dog3.jpg,outputs/dog\dog3_class_dog.png,dog
+inputs\dog\dog4.jpg,outputs/dog\dog4_class_dog.png,dog
+inputs\dog\dog5.jpg,outputs/dog\dog5_class_dog.png,dog
+inputs\dog\dog7.jpg,outputs/dog\dog7_class_dog.png,dog
+inputs\dog\dog8.jpg,outputs/dog\dog8_class_dog.png,dog
+inputs\dog\dog9.jpg,outputs/dog\dog9_class_dog.png,dog
+inputs\dog\dog14.jpg,outputs/dog\dog14_class_dog.png,dog
+inputs\horse\horse0.jpg,outputs/horse\horse0_class_horse.png,horse
+inputs\horse\horse1.jpg,outputs/horse\horse1_class_horse.png,horse
+inputs\horse\horse10.jpg,outputs/horse\horse10_class_horse.png,horse
+inputs\horse\horse11.jpg,outputs/horse\horse11_class_horse.png,horse
+inputs\horse\horse12.jpg,outputs/horse\horse12_class_horse.png,horse
+inputs\horse\horse13.jpg,outputs/horse\horse13_class_horse.png,horse
+inputs\horse\horse14.jpg,outputs/horse\horse14_class_horse.png,horse
+inputs\horse\horse15.jpg,outputs/horse\horse15_class_horse.png,horse
+inputs\horse\horse16.jpg,outputs/horse\horse16_class_horse.png,horse
+inputs\horse\horse17.jpg,outputs/horse\horse17_class_horse.png,horse
+inputs\horse\horse18.jpg,outputs/horse\horse18_class_horse.png,horse
+inputs\horse\horse19.jpg,outputs/horse\horse19_class_horse.png,horse
+inputs\horse\horse2.jpg,outputs/horse\horse2_class_horse.png,horse
+inputs\horse\horse3.jpg,outputs/horse\horse3_class_horse.png,horse
+inputs\horse\horse4.jpg,outputs/horse\horse4_class_horse.png,horse
+inputs\horse\horse5.jpg,outputs/horse\horse5_class_horse.png,horse
+inputs\horse\horse6.jpg,outputs/horse\horse6_class_horse.png,horse
+inputs\horse\horse7.jpg,outputs/horse\horse7_class_horse.png,horse
+inputs\horse\horse8.jpg,outputs/horse\horse8_class_horse.png,horse
+inputs\horse\horse9.jpg,outputs/horse\horse9_class_horse.png,horse
+inputs\horse\horse14.jpg,outputs/horse\horse14_class_person.png,person
+inputs\horse\horse8.jpg,outputs/horse\horse8_class_person.png,person
+inputs\sheep\sheep0.jpg,outputs/sheep\sheep0_class_sheep.png,sheep
+inputs\sheep\sheep1.jpg,outputs/sheep\sheep1_class_sheep.png,sheep
+inputs\sheep\sheep10.jpg,outputs/sheep\sheep10_class_sheep.png,sheep
+inputs\sheep\sheep11.jpg,outputs/sheep\sheep11_class_sheep.png,sheep
+inputs\sheep\sheep12.jpg,outputs/sheep\sheep12_class_sheep.png,sheep
+inputs\sheep\sheep13.jpg,outputs/sheep\sheep13_class_sheep.png,sheep
+inputs\sheep\sheep14.jpg,outputs/sheep\sheep14_class_sheep.png,sheep
+inputs\sheep\sheep16.jpg,outputs/sheep\sheep16_class_sheep.png,sheep
+inputs\sheep\sheep17.jpg,outputs/sheep\sheep17_class_sheep.png,sheep
+inputs\sheep\sheep18.jpg,outputs/sheep\sheep18_class_sheep.png,sheep
+inputs\sheep\sheep19.jpg,outputs/sheep\sheep19_class_sheep.png,sheep
+inputs\sheep\sheep2.jpg,outputs/sheep\sheep2_class_sheep.png,sheep
+inputs\sheep\sheep3.jpg,outputs/sheep\sheep3_class_sheep.png,sheep
+inputs\sheep\sheep4.jpg,outputs/sheep\sheep4_class_sheep.png,sheep
+inputs\sheep\sheep5.jpg,outputs/sheep\sheep5_class_sheep.png,sheep
+inputs\sheep\sheep6.jpg,outputs/sheep\sheep6_class_sheep.png,sheep
+inputs\sheep\sheep7.jpg,outputs/sheep\sheep7_class_sheep.png,sheep
+inputs\sheep\sheep8.jpg,outputs/sheep\sheep8_class_sheep.png,sheep
+inputs\sheep\sheep9.jpg,outputs/sheep\sheep9_class_sheep.png,sheep
+inputs\cow\cow0.jpg,outputs/cow\cow0_class_cow.png,cow
+inputs\cow\cow1.jpg,outputs/cow\cow1_class_cow.png,cow
+inputs\cow\cow10.jpg,outputs/cow\cow10_class_bird.png,bird
+inputs\cow\cow11.jpg,outputs/cow\cow11_class_cow.png,cow
+inputs\cow\cow12.jpg,outputs/cow\cow12_class_cow.png,cow
+inputs\cow\cow13.jpg,outputs/cow\cow13_class_cow.png,cow
+inputs\cow\cow14.jpg,outputs/cow\cow14_class_cow.png,cow
+inputs\cow\cow15.jpg,outputs/cow\cow15_class_cow.png,cow
+inputs\cow\cow16.jpg,outputs/cow\cow16_class_cow.png,cow
+inputs\cow\cow17.jpg,outputs/cow\cow17_class_cow.png,cow
+inputs\cow\cow18.jpg,outputs/cow\cow18_class_cow.png,cow
+inputs\cow\cow19.jpg,outputs/cow\cow19_class_cow.png,cow
+inputs\cow\cow2.jpg,outputs/cow\cow2_class_cow.png,cow
+inputs\cow\cow3.jpg,outputs/cow\cow3_class_cow.png,cow
+inputs\cow\cow4.jpg,outputs/cow\cow4_class_cow.png,cow
+inputs\cow\cow5.jpg,outputs/cow\cow5_class_cow.png,cow
+inputs\cow\cow6.jpg,outputs/cow\cow6_class_cow.png,cow
+inputs\cow\cow7.jpg,outputs/cow\cow7_class_cow.png,cow
+inputs\cow\cow8.jpg,outputs/cow\cow8_class_cow.png,cow
+inputs\cow\cow9.jpg,outputs/cow\cow9_class_cow.png,cow
+inputs\elephant\elephant0.jpg,outputs/elephant\elephant0_class_elephant.png,elephant
+inputs\elephant\elephant1.jpg,outputs/elephant\elephant1_class_elephant.png,elephant
+inputs\elephant\elephant10.jpg,outputs/elephant\elephant10_class_elephant.png,elephant
+inputs\elephant\elephant11.jpg,outputs/elephant\elephant11_class_elephant.png,elephant
+inputs\elephant\elephant12.jpg,outputs/elephant\elephant12_class_elephant.png,elephant
+inputs\elephant\elephant13.jpg,outputs/elephant\elephant13_class_elephant.png,elephant
+inputs\elephant\elephant14.jpg,outputs/elephant\elephant14_class_elephant.png,elephant
+inputs\elephant\elephant16.jpg,outputs/elephant\elephant16_class_elephant.png,elephant
+inputs\elephant\elephant17.jpg,outputs/elephant\elephant17_class_elephant.png,elephant
+inputs\elephant\elephant18.jpg,outputs/elephant\elephant18_class_elephant.png,elephant
+inputs\elephant\elephant19.jpg,outputs/elephant\elephant19_class_elephant.png,elephant
+inputs\elephant\elephant2.jpg,outputs/elephant\elephant2_class_elephant.png,elephant
+inputs\elephant\elephant3.jpg,outputs/elephant\elephant3_class_elephant.png,elephant
+inputs\elephant\elephant4.jpg,outputs/elephant\elephant4_class_elephant.png,elephant
+inputs\elephant\elephant5.jpg,outputs/elephant\elephant5_class_elephant.png,elephant
+inputs\elephant\elephant6.jpg,outputs/elephant\elephant6_class_elephant.png,elephant
+inputs\elephant\elephant7.jpg,outputs/elephant\elephant7_class_elephant.png,elephant
+inputs\elephant\elephant8.jpg,outputs/elephant\elephant8_class_elephant.png,elephant
+inputs\bear\bear0.jpg,outputs/bear\bear0_class_bear.png,bear
+inputs\bear\bear1.jpg,outputs/bear\bear1_class_bear.png,bear
+inputs\bear\bear10.jpg,outputs/bear\bear10_class_bear.png,bear
+inputs\bear\bear11.jpg,outputs/bear\bear11_class_bear.png,bear
+inputs\bear\bear12.jpg,outputs/bear\bear12_class_bear.png,bear
+inputs\bear\bear13.jpg,outputs/bear\bear13_class_bear.png,bear
+inputs\bear\bear14.jpg,outputs/bear\bear14_class_bear.png,bear
+inputs\bear\bear15.jpg,outputs/bear\bear15_class_bear.png,bear
+inputs\bear\bear16.jpg,outputs/bear\bear16_class_bear.png,bear
+inputs\bear\bear17.jpg,outputs/bear\bear17_class_bear.png,bear
+inputs\bear\bear18.jpg,outputs/bear\bear18_class_bear.png,bear
+inputs\bear\bear19.jpg,outputs/bear\bear19_class_bear.png,bear
+inputs\bear\bear3.jpg,outputs/bear\bear3_class_bear.png,bear
+inputs\bear\bear4.jpg,outputs/bear\bear4_class_bear.png,bear
+inputs\bear\bear5.jpg,outputs/bear\bear5_class_bear.png,bear
+inputs\bear\bear6.jpg,outputs/bear\bear6_class_bear.png,bear
+inputs\bear\bear7.jpg,outputs/bear\bear7_class_bear.png,bear
+inputs\bear\bear8.jpg,outputs/bear\bear8_class_bear.png,bear
+inputs\bear\bear9.jpg,outputs/bear\bear9_class_bear.png,bear
+inputs\zebra\zebra0.jpg,outputs/zebra\zebra0_class_zebra.png,zebra
+inputs\zebra\zebra10.jpg,outputs/zebra\zebra10_class_zebra.png,zebra
+inputs\zebra\zebra11.jpg,outputs/zebra\zebra11_class_zebra.png,zebra
+inputs\zebra\zebra12.jpg,outputs/zebra\zebra12_class_zebra.png,zebra
+inputs\zebra\zebra13.jpg,outputs/zebra\zebra13_class_zebra.png,zebra
+inputs\zebra\zebra14.jpg,outputs/zebra\zebra14_class_zebra.png,zebra
+inputs\zebra\zebra15.jpg,outputs/zebra\zebra15_class_zebra.png,zebra
+inputs\zebra\zebra17.jpg,outputs/zebra\zebra17_class_person.png,person
+inputs\zebra\zebra18.jpg,outputs/zebra\zebra18_class_zebra.png,zebra
+inputs\zebra\zebra19.jpg,outputs/zebra\zebra19_class_zebra.png,zebra
+inputs\zebra\zebra2.jpg,outputs/zebra\zebra2_class_zebra.png,zebra
+inputs\zebra\zebra3.jpg,outputs/zebra\zebra3_class_zebra.png,zebra
+inputs\zebra\zebra4.jpg,outputs/zebra\zebra4_class_zebra.png,zebra
+inputs\zebra\zebra6.jpg,outputs/zebra\zebra6_class_zebra.png,zebra
+inputs\zebra\zebra7.jpg,outputs/zebra\zebra7_class_zebra.png,zebra
+inputs\zebra\zebra8.jpg,outputs/zebra\zebra8_class_zebra.png,zebra
+inputs\zebra\zebra9.jpg,outputs/zebra\zebra9_class_zebra.png,zebra
+inputs\giraffe\giraffe0.jpg,outputs/giraffe\giraffe0_class_giraffe.png,giraffe
+inputs\giraffe\giraffe1.jpg,outputs/giraffe\giraffe1_class_giraffe.png,giraffe
+inputs\giraffe\giraffe10.jpg,outputs/giraffe\giraffe10_class_giraffe.png,giraffe
+inputs\giraffe\giraffe11.jpg,outputs/giraffe\giraffe11_class_giraffe.png,giraffe
+inputs\giraffe\giraffe12.jpg,outputs/giraffe\giraffe12_class_giraffe.png,giraffe
+inputs\giraffe\giraffe13.jpg,outputs/giraffe\giraffe13_class_giraffe.png,giraffe
+inputs\giraffe\giraffe14.jpg,outputs/giraffe\giraffe14_class_giraffe.png,giraffe
+inputs\giraffe\giraffe15.jpg,outputs/giraffe\giraffe15_class_giraffe.png,giraffe
+inputs\giraffe\giraffe16.jpg,outputs/giraffe\giraffe16_class_giraffe.png,giraffe
+inputs\giraffe\giraffe17.jpg,outputs/giraffe\giraffe17_class_giraffe.png,giraffe
+inputs\giraffe\giraffe18.jpg,outputs/giraffe\giraffe18_class_giraffe.png,giraffe
+inputs\giraffe\giraffe19.jpg,outputs/giraffe\giraffe19_class_giraffe.png,giraffe
+inputs\giraffe\giraffe2.jpg,outputs/giraffe\giraffe2_class_giraffe.png,giraffe
+inputs\giraffe\giraffe3.jpg,outputs/giraffe\giraffe3_class_giraffe.png,giraffe
+inputs\giraffe\giraffe4.jpg,outputs/giraffe\giraffe4_class_giraffe.png,giraffe
+inputs\giraffe\giraffe5.jpg,outputs/giraffe\giraffe5_class_giraffe.png,giraffe
+inputs\giraffe\giraffe6.jpg,outputs/giraffe\giraffe6_class_giraffe.png,giraffe
+inputs\giraffe\giraffe7.jpg,outputs/giraffe\giraffe7_class_giraffe.png,giraffe
+inputs\giraffe\giraffe8.jpg,outputs/giraffe\giraffe8_class_giraffe.png,giraffe
+inputs\giraffe\giraffe9.jpg,outputs/giraffe\giraffe9_class_giraffe.png,giraffe
+inputs\backpack\backpack0.jpg,outputs/backpack\backpack0_class_person.png,person
+inputs\backpack\backpack11.jpg,outputs/backpack\backpack11_class_person.png,person
+inputs\backpack\backpack13.jpg,outputs/backpack\backpack13_class_backpack.png,backpack
+inputs\backpack\backpack14.jpg,outputs/backpack\backpack14_class_person.png,person
+inputs\backpack\backpack16.jpg,outputs/backpack\backpack16_class_person.png,person
+inputs\backpack\backpack17.jpg,outputs/backpack\backpack17_class_person.png,person
+inputs\backpack\backpack18.jpg,outputs/backpack\backpack18_class_person.png,person
+inputs\backpack\backpack19.jpg,outputs/backpack\backpack19_class_bench.png,bench
+inputs\backpack\backpack2.jpg,outputs/backpack\backpack2_class_car.png,car
+inputs\backpack\backpack3.jpg,outputs/backpack\backpack3_class_cup.png,cup
+inputs\backpack\backpack4.jpg,outputs/backpack\backpack4_class_cell phone.png,cell phone
+inputs\backpack\backpack6.jpg,outputs/backpack\backpack6_class_suitcase.png,suitcase
+inputs\backpack\backpack7.jpg,outputs/backpack\backpack7_class_suitcase.png,suitcase
+inputs\backpack\backpack8.jpg,outputs/backpack\backpack8_class_person.png,person
+inputs\backpack\backpack9.jpg,outputs/backpack\backpack9_class_person.png,person
+inputs\backpack\backpack0.jpg,outputs/backpack\backpack0_class_suitcase.png,suitcase
+inputs\backpack\backpack14.jpg,outputs/backpack\backpack14_class_backpack.png,backpack
+inputs\backpack\backpack16.jpg,outputs/backpack\backpack16_class_backpack.png,backpack
+inputs\backpack\backpack17.jpg,outputs/backpack\backpack17_class_backpack.png,backpack
+inputs\backpack\backpack18.jpg,outputs/backpack\backpack18_class_backpack.png,backpack
+inputs\backpack\backpack2.jpg,outputs/backpack\backpack2_class_person.png,person
+inputs\backpack\backpack3.jpg,outputs/backpack\backpack3_class_backpack.png,backpack
+inputs\backpack\backpack4.jpg,outputs/backpack\backpack4_class_backpack.png,backpack
+inputs\backpack\backpack2.jpg,outputs/backpack\backpack2_class_backpack.png,backpack
+inputs\backpack\backpack3.jpg,outputs/backpack\backpack3_class_person.png,person
+inputs\backpack\backpack4.jpg,outputs/backpack\backpack4_class_laptop.png,laptop
+inputs\umbrella\umbrella0.jpg,outputs/umbrella\umbrella0_class_umbrella.png,umbrella
+inputs\umbrella\umbrella1.jpg,outputs/umbrella\umbrella1_class_person.png,person
+inputs\umbrella\umbrella10.jpg,outputs/umbrella\umbrella10_class_umbrella.png,umbrella
+inputs\umbrella\umbrella11.jpg,outputs/umbrella\umbrella11_class_umbrella.png,umbrella
+inputs\umbrella\umbrella12.jpg,outputs/umbrella\umbrella12_class_umbrella.png,umbrella
+inputs\umbrella\umbrella13.jpg,outputs/umbrella\umbrella13_class_umbrella.png,umbrella
+inputs\umbrella\umbrella14.jpg,outputs/umbrella\umbrella14_class_umbrella.png,umbrella
+inputs\umbrella\umbrella15.jpg,outputs/umbrella\umbrella15_class_umbrella.png,umbrella
+inputs\umbrella\umbrella16.jpg,outputs/umbrella\umbrella16_class_umbrella.png,umbrella
+inputs\umbrella\umbrella18.jpg,outputs/umbrella\umbrella18_class_umbrella.png,umbrella
+inputs\umbrella\umbrella19.jpg,outputs/umbrella\umbrella19_class_umbrella.png,umbrella
+inputs\umbrella\umbrella2.jpg,outputs/umbrella\umbrella2_class_umbrella.png,umbrella
+inputs\umbrella\umbrella3.jpg,outputs/umbrella\umbrella3_class_umbrella.png,umbrella
+inputs\umbrella\umbrella4.jpg,outputs/umbrella\umbrella4_class_umbrella.png,umbrella
+inputs\umbrella\umbrella5.jpg,outputs/umbrella\umbrella5_class_umbrella.png,umbrella
+inputs\umbrella\umbrella6.jpg,outputs/umbrella\umbrella6_class_umbrella.png,umbrella
+inputs\umbrella\umbrella7.jpg,outputs/umbrella\umbrella7_class_umbrella.png,umbrella
+inputs\umbrella\umbrella8.jpg,outputs/umbrella\umbrella8_class_umbrella.png,umbrella
+inputs\umbrella\umbrella9.jpg,outputs/umbrella\umbrella9_class_person.png,person
+inputs\umbrella\umbrella1.jpg,outputs/umbrella\umbrella1_class_umbrella.png,umbrella
+inputs\umbrella\umbrella11.jpg,outputs/umbrella\umbrella11_class_car.png,car
+inputs\umbrella\umbrella16.jpg,outputs/umbrella\umbrella16_class_car.png,car
+inputs\umbrella\umbrella3.jpg,outputs/umbrella\umbrella3_class_person.png,person
+inputs\umbrella\umbrella16.jpg,outputs/umbrella\umbrella16_class_person.png,person
+inputs\handbag\handbag0.jpg,outputs/handbag\handbag0_class_suitcase.png,suitcase
+inputs\handbag\handbag1.jpg,outputs/handbag\handbag1_class_book.png,book
+inputs\handbag\handbag10.jpg,outputs/handbag\handbag10_class_handbag.png,handbag
+inputs\handbag\handbag11.jpg,outputs/handbag\handbag11_class_person.png,person
+inputs\handbag\handbag12.jpg,outputs/handbag\handbag12_class_suitcase.png,suitcase
+inputs\handbag\handbag13.jpg,outputs/handbag\handbag13_class_handbag.png,handbag
+inputs\handbag\handbag14.jpg,outputs/handbag\handbag14_class_suitcase.png,suitcase
+inputs\handbag\handbag17.jpg,outputs/handbag\handbag17_class_handbag.png,handbag
+inputs\handbag\handbag18.jpg,outputs/handbag\handbag18_class_person.png,person
+inputs\handbag\handbag4.jpg,outputs/handbag\handbag4_class_person.png,person
+inputs\handbag\handbag6.jpg,outputs/handbag\handbag6_class_handbag.png,handbag
+inputs\handbag\handbag9.jpg,outputs/handbag\handbag9_class_car.png,car
+inputs\handbag\handbag0.jpg,outputs/handbag\handbag0_class_clock.png,clock
+inputs\handbag\handbag10.jpg,outputs/handbag\handbag10_class_person.png,person
+inputs\handbag\handbag17.jpg,outputs/handbag\handbag17_class_person.png,person
+inputs\handbag\handbag0.jpg,outputs/handbag\handbag0_class_cell phone.png,cell phone
+inputs\handbag\handbag10.jpg,outputs/handbag\handbag10_class_chair.png,chair
+inputs\tie\tie0.jpg,outputs/tie\tie0_class_person.png,person
+inputs\tie\tie10.jpg,outputs/tie\tie10_class_person.png,person
+inputs\tie\tie11.jpg,outputs/tie\tie11_class_person.png,person
+inputs\tie\tie12.jpg,outputs/tie\tie12_class_person.png,person
+inputs\tie\tie13.jpg,outputs/tie\tie13_class_person.png,person
+inputs\tie\tie14.jpg,outputs/tie\tie14_class_person.png,person
+inputs\tie\tie15.jpg,outputs/tie\tie15_class_person.png,person
+inputs\tie\tie16.jpg,outputs/tie\tie16_class_person.png,person
+inputs\tie\tie17.jpg,outputs/tie\tie17_class_person.png,person
+inputs\tie\tie18.jpg,outputs/tie\tie18_class_person.png,person
+inputs\tie\tie19.jpg,outputs/tie\tie19_class_person.png,person
+inputs\tie\tie2.jpg,outputs/tie\tie2_class_person.png,person
+inputs\tie\tie3.jpg,outputs/tie\tie3_class_person.png,person
+inputs\tie\tie4.jpg,outputs/tie\tie4_class_person.png,person
+inputs\tie\tie5.jpg,outputs/tie\tie5_class_person.png,person
+inputs\tie\tie6.jpg,outputs/tie\tie6_class_person.png,person
+inputs\tie\tie7.jpg,outputs/tie\tie7_class_person.png,person
+inputs\tie\tie8.jpg,outputs/tie\tie8_class_person.png,person
+inputs\tie\tie9.jpg,outputs/tie\tie9_class_tie.png,tie
+inputs\tie\tie11.jpg,outputs/tie\tie11_class_cell phone.png,cell phone
+inputs\tie\tie13.jpg,outputs/tie\tie13_class_tie.png,tie
+inputs\tie\tie15.jpg,outputs/tie\tie15_class_tie.png,tie
+inputs\tie\tie2.jpg,outputs/tie\tie2_class_tie.png,tie
+inputs\tie\tie3.jpg,outputs/tie\tie3_class_tie.png,tie
+inputs\tie\tie4.jpg,outputs/tie\tie4_class_tie.png,tie
+inputs\tie\tie5.jpg,outputs/tie\tie5_class_tie.png,tie
+inputs\tie\tie7.jpg,outputs/tie\tie7_class_tie.png,tie
+inputs\suitcase\suitcase11.jpg,outputs/suitcase\suitcase11_class_suitcase.png,suitcase
+inputs\suitcase\suitcase13.jpg,outputs/suitcase\suitcase13_class_person.png,person
+inputs\suitcase\suitcase15.jpg,outputs/suitcase\suitcase15_class_person.png,person
+inputs\suitcase\suitcase16.jpg,outputs/suitcase\suitcase16_class_person.png,person
+inputs\suitcase\suitcase3.jpg,outputs/suitcase\suitcase3_class_suitcase.png,suitcase
+inputs\suitcase\suitcase5.jpg,outputs/suitcase\suitcase5_class_tv.png,tv
+inputs\suitcase\suitcase6.jpg,outputs/suitcase\suitcase6_class_truck.png,truck
+inputs\suitcase\suitcase7.jpg,outputs/suitcase\suitcase7_class_chair.png,chair
+inputs\suitcase\suitcase9.jpg,outputs/suitcase\suitcase9_class_person.png,person
+inputs\suitcase\suitcase13.jpg,outputs/suitcase\suitcase13_class_chair.png,chair
+inputs\suitcase\suitcase5.jpg,outputs/suitcase\suitcase5_class_dog.png,dog
+inputs\suitcase\suitcase9.jpg,outputs/suitcase\suitcase9_class_backpack.png,backpack
+inputs\trafficlight\traffic light10.jpg,outputs/trafficlight\traffic light10_class_car.png,car
+inputs\trafficlight\traffic light11.jpg,outputs/trafficlight\traffic light11_class_traffic light.png,traffic light
+inputs\trafficlight\traffic light13.jpg,outputs/trafficlight\traffic light13_class_traffic light.png,traffic light
+inputs\trafficlight\traffic light14.jpg,outputs/trafficlight\traffic light14_class_traffic light.png,traffic light
+inputs\trafficlight\traffic light15.jpg,outputs/trafficlight\traffic light15_class_traffic light.png,traffic light
+inputs\trafficlight\traffic light17.jpg,outputs/trafficlight\traffic light17_class_car.png,car
+inputs\trafficlight\traffic light2.jpg,outputs/trafficlight\traffic light2_class_traffic light.png,traffic light
+inputs\trafficlight\traffic light3.jpg,outputs/trafficlight\traffic light3_class_traffic light.png,traffic light
+inputs\trafficlight\traffic light4.jpg,outputs/trafficlight\traffic light4_class_traffic light.png,traffic light
+inputs\trafficlight\traffic light7.jpg,outputs/trafficlight\traffic light7_class_traffic light.png,traffic light
+inputs\trafficlight\traffic light8.jpg,outputs/trafficlight\traffic light8_class_stop sign.png,stop sign
+inputs\trafficlight\traffic light8.jpg,outputs/trafficlight\traffic light8_class_traffic light.png,traffic light
+inputs\firehydrant\fire hydrant0.jpg,outputs/firehydrant\fire hydrant0_class_fire hydrant.png,fire hydrant
+inputs\firehydrant\fire hydrant1.jpg,outputs/firehydrant\fire hydrant1_class_stop sign.png,stop sign
+inputs\firehydrant\fire hydrant10.jpg,outputs/firehydrant\fire hydrant10_class_fire hydrant.png,fire hydrant
+inputs\firehydrant\fire hydrant11.jpg,outputs/firehydrant\fire hydrant11_class_fire hydrant.png,fire hydrant
+inputs\firehydrant\fire hydrant12.jpg,outputs/firehydrant\fire hydrant12_class_fire hydrant.png,fire hydrant
+inputs\firehydrant\fire hydrant13.jpg,outputs/firehydrant\fire hydrant13_class_fire hydrant.png,fire hydrant
+inputs\firehydrant\fire hydrant15.jpg,outputs/firehydrant\fire hydrant15_class_fire hydrant.png,fire hydrant
+inputs\firehydrant\fire hydrant16.jpg,outputs/firehydrant\fire hydrant16_class_fire hydrant.png,fire hydrant
+inputs\firehydrant\fire hydrant18.jpg,outputs/firehydrant\fire hydrant18_class_fire hydrant.png,fire hydrant
+inputs\firehydrant\fire hydrant19.jpg,outputs/firehydrant\fire hydrant19_class_fire hydrant.png,fire hydrant
+inputs\firehydrant\fire hydrant2.jpg,outputs/firehydrant\fire hydrant2_class_fire hydrant.png,fire hydrant
+inputs\firehydrant\fire hydrant3.jpg,outputs/firehydrant\fire hydrant3_class_fire hydrant.png,fire hydrant
+inputs\firehydrant\fire hydrant4.jpg,outputs/firehydrant\fire hydrant4_class_fire hydrant.png,fire hydrant
+inputs\firehydrant\fire hydrant7.jpg,outputs/firehydrant\fire hydrant7_class_fire hydrant.png,fire hydrant
+inputs\firehydrant\fire hydrant2.jpg,outputs/firehydrant\fire hydrant2_class_person.png,person
+inputs\stopsign\stop sign0.jpg,outputs/stopsign\stop sign0_class_stop sign.png,stop sign
+inputs\stopsign\stop sign1.jpg,outputs/stopsign\stop sign1_class_stop sign.png,stop sign
+inputs\stopsign\stop sign11.jpg,outputs/stopsign\stop sign11_class_person.png,person
+inputs\stopsign\stop sign13.jpg,outputs/stopsign\stop sign13_class_car.png,car
+inputs\stopsign\stop sign14.jpg,outputs/stopsign\stop sign14_class_stop sign.png,stop sign
+inputs\stopsign\stop sign15.jpg,outputs/stopsign\stop sign15_class_stop sign.png,stop sign
+inputs\stopsign\stop sign16.jpg,outputs/stopsign\stop sign16_class_stop sign.png,stop sign
+inputs\stopsign\stop sign17.jpg,outputs/stopsign\stop sign17_class_traffic light.png,traffic light
+inputs\stopsign\stop sign18.jpg,outputs/stopsign\stop sign18_class_stop sign.png,stop sign
+inputs\stopsign\stop sign19.jpg,outputs/stopsign\stop sign19_class_stop sign.png,stop sign
+inputs\stopsign\stop sign2.jpg,outputs/stopsign\stop sign2_class_person.png,person
+inputs\stopsign\stop sign3.jpg,outputs/stopsign\stop sign3_class_car.png,car
+inputs\stopsign\stop sign4.jpg,outputs/stopsign\stop sign4_class_stop sign.png,stop sign
+inputs\stopsign\stop sign5.jpg,outputs/stopsign\stop sign5_class_stop sign.png,stop sign
+inputs\stopsign\stop sign6.jpg,outputs/stopsign\stop sign6_class_stop sign.png,stop sign
+inputs\stopsign\stop sign7.jpg,outputs/stopsign\stop sign7_class_stop sign.png,stop sign
+inputs\stopsign\stop sign8.jpg,outputs/stopsign\stop sign8_class_stop sign.png,stop sign
+inputs\stopsign\stop sign9.jpg,outputs/stopsign\stop sign9_class_stop sign.png,stop sign
+inputs\stopsign\stop sign11.jpg,outputs/stopsign\stop sign11_class_car.png,car
+inputs\stopsign\stop sign15.jpg,outputs/stopsign\stop sign15_class_car.png,car
+inputs\stopsign\stop sign3.jpg,outputs/stopsign\stop sign3_class_stop sign.png,stop sign
+inputs\stopsign\stop sign6.jpg,outputs/stopsign\stop sign6_class_bus.png,bus
+inputs\parkingmeter\parking meter0.jpg,outputs/parkingmeter\parking meter0_class_person.png,person
+inputs\parkingmeter\parking meter10.jpg,outputs/parkingmeter\parking meter10_class_parking meter.png,parking meter
+inputs\parkingmeter\parking meter11.jpg,outputs/parkingmeter\parking meter11_class_parking meter.png,parking meter
+inputs\parkingmeter\parking meter12.jpg,outputs/parkingmeter\parking meter12_class_parking meter.png,parking meter
+inputs\parkingmeter\parking meter14.jpg,outputs/parkingmeter\parking meter14_class_car.png,car
+inputs\parkingmeter\parking meter15.jpg,outputs/parkingmeter\parking meter15_class_parking meter.png,parking meter
+inputs\parkingmeter\parking meter16.jpg,outputs/parkingmeter\parking meter16_class_parking meter.png,parking meter
+inputs\parkingmeter\parking meter17.jpg,outputs/parkingmeter\parking meter17_class_bicycle.png,bicycle
+inputs\parkingmeter\parking meter18.jpg,outputs/parkingmeter\parking meter18_class_parking meter.png,parking meter
+inputs\parkingmeter\parking meter19.jpg,outputs/parkingmeter\parking meter19_class_parking meter.png,parking meter
+inputs\parkingmeter\parking meter3.jpg,outputs/parkingmeter\parking meter3_class_car.png,car
+inputs\parkingmeter\parking meter4.jpg,outputs/parkingmeter\parking meter4_class_parking meter.png,parking meter
+inputs\parkingmeter\parking meter5.jpg,outputs/parkingmeter\parking meter5_class_car.png,car
+inputs\parkingmeter\parking meter12.jpg,outputs/parkingmeter\parking meter12_class_car.png,car
+inputs\parkingmeter\parking meter16.jpg,outputs/parkingmeter\parking meter16_class_person.png,person
+inputs\parkingmeter\parking meter3.jpg,outputs/parkingmeter\parking meter3_class_parking meter.png,parking meter
+inputs\suitcase\suitcase1.jpg,outputs/suitcase\suitcase1_class_suitcase.png,suitcase
+inputs\suitcase\suitcase11.jpg,outputs/suitcase\suitcase11_class_person.png,person
+inputs\suitcase\suitcase12.jpg,outputs/suitcase\suitcase12_class_suitcase.png,suitcase
+inputs\suitcase\suitcase15.jpg,outputs/suitcase\suitcase15_class_clock.png,clock
+inputs\suitcase\suitcase17.jpg,outputs/suitcase\suitcase17_class_tv.png,tv
+inputs\suitcase\suitcase18.jpg,outputs/suitcase\suitcase18_class_person.png,person
+inputs\suitcase\suitcase6.jpg,outputs/suitcase\suitcase6_class_person.png,person
+inputs\suitcase\suitcase8.jpg,outputs/suitcase\suitcase8_class_car.png,car
+inputs\frisbee\frisbee0.jpg,outputs/frisbee\frisbee0_class_person.png,person
+inputs\frisbee\frisbee1.jpg,outputs/frisbee\frisbee1_class_frisbee.png,frisbee
+inputs\frisbee\frisbee10.jpg,outputs/frisbee\frisbee10_class_dog.png,dog
+inputs\frisbee\frisbee11.jpg,outputs/frisbee\frisbee11_class_dog.png,dog
+inputs\frisbee\frisbee13.jpg,outputs/frisbee\frisbee13_class_frisbee.png,frisbee
+inputs\frisbee\frisbee14.jpg,outputs/frisbee\frisbee14_class_frisbee.png,frisbee
+inputs\frisbee\frisbee15.jpg,outputs/frisbee\frisbee15_class_person.png,person
+inputs\frisbee\frisbee16.jpg,outputs/frisbee\frisbee16_class_person.png,person
+inputs\frisbee\frisbee17.jpg,outputs/frisbee\frisbee17_class_dog.png,dog
+inputs\frisbee\frisbee18.jpg,outputs/frisbee\frisbee18_class_person.png,person
+inputs\frisbee\frisbee19.jpg,outputs/frisbee\frisbee19_class_person.png,person
+inputs\frisbee\frisbee2.jpg,outputs/frisbee\frisbee2_class_dog.png,dog
+inputs\frisbee\frisbee3.jpg,outputs/frisbee\frisbee3_class_frisbee.png,frisbee
+inputs\frisbee\frisbee4.jpg,outputs/frisbee\frisbee4_class_frisbee.png,frisbee
+inputs\frisbee\frisbee5.jpg,outputs/frisbee\frisbee5_class_person.png,person
+inputs\frisbee\frisbee6.jpg,outputs/frisbee\frisbee6_class_person.png,person
+inputs\frisbee\frisbee7.jpg,outputs/frisbee\frisbee7_class_dog.png,dog
+inputs\frisbee\frisbee9.jpg,outputs/frisbee\frisbee9_class_person.png,person
+inputs\frisbee\frisbee0.jpg,outputs/frisbee\frisbee0_class_dog.png,dog
+inputs\frisbee\frisbee1.jpg,outputs/frisbee\frisbee1_class_dog.png,dog
+inputs\frisbee\frisbee10.jpg,outputs/frisbee\frisbee10_class_frisbee.png,frisbee
+inputs\frisbee\frisbee14.jpg,outputs/frisbee\frisbee14_class_person.png,person
+inputs\frisbee\frisbee15.jpg,outputs/frisbee\frisbee15_class_frisbee.png,frisbee
+inputs\frisbee\frisbee17.jpg,outputs/frisbee\frisbee17_class_frisbee.png,frisbee
+inputs\frisbee\frisbee2.jpg,outputs/frisbee\frisbee2_class_frisbee.png,frisbee
+inputs\frisbee\frisbee3.jpg,outputs/frisbee\frisbee3_class_person.png,person
+inputs\frisbee\frisbee5.jpg,outputs/frisbee\frisbee5_class_frisbee.png,frisbee
+inputs\frisbee\frisbee6.jpg,outputs/frisbee\frisbee6_class_frisbee.png,frisbee
+inputs\frisbee\frisbee7.jpg,outputs/frisbee\frisbee7_class_frisbee.png,frisbee
+inputs\frisbee\frisbee9.jpg,outputs/frisbee\frisbee9_class_frisbee.png,frisbee
+inputs\frisbee\frisbee0.jpg,outputs/frisbee\frisbee0_class_frisbee.png,frisbee
+inputs\skis\skis0.jpg,outputs/skis\skis0_class_person.png,person
+inputs\skis\skis12.jpg,outputs/skis\skis12_class_backpack.png,backpack
+inputs\skis\skis13.jpg,outputs/skis\skis13_class_person.png,person
+inputs\skis\skis14.jpg,outputs/skis\skis14_class_person.png,person
+inputs\skis\skis15.jpg,outputs/skis\skis15_class_skis.png,skis
+inputs\skis\skis19.jpg,outputs/skis\skis19_class_person.png,person
+inputs\skis\skis3.jpg,outputs/skis\skis3_class_person.png,person
+inputs\skis\skis5.jpg,outputs/skis\skis5_class_person.png,person
+inputs\skis\skis6.jpg,outputs/skis\skis6_class_skis.png,skis
+inputs\skis\skis8.jpg,outputs/skis\skis8_class_person.png,person
+inputs\skis\skis13.jpg,outputs/skis\skis13_class_skis.png,skis
+inputs\skis\skis15.jpg,outputs/skis\skis15_class_dog.png,dog
+inputs\skis\skis3.jpg,outputs/skis\skis3_class_snowboard.png,snowboard
+inputs\skis\skis6.jpg,outputs/skis\skis6_class_backpack.png,backpack
+inputs\snowboard\snowboard1.jpg,outputs/snowboard\snowboard1_class_person.png,person
+inputs\snowboard\snowboard11.jpg,outputs/snowboard\snowboard11_class_person.png,person
+inputs\snowboard\snowboard12.jpg,outputs/snowboard\snowboard12_class_snowboard.png,snowboard
+inputs\snowboard\snowboard13.jpg,outputs/snowboard\snowboard13_class_person.png,person
+inputs\snowboard\snowboard18.jpg,outputs/snowboard\snowboard18_class_person.png,person
+inputs\snowboard\snowboard19.jpg,outputs/snowboard\snowboard19_class_person.png,person
+inputs\snowboard\snowboard2.jpg,outputs/snowboard\snowboard2_class_person.png,person
+inputs\snowboard\snowboard4.jpg,outputs/snowboard\snowboard4_class_person.png,person
+inputs\snowboard\snowboard5.jpg,outputs/snowboard\snowboard5_class_person.png,person
+inputs\snowboard\snowboard6.jpg,outputs/snowboard\snowboard6_class_person.png,person
+inputs\snowboard\snowboard7.jpg,outputs/snowboard\snowboard7_class_person.png,person
+inputs\snowboard\snowboard8.jpg,outputs/snowboard\snowboard8_class_person.png,person
+inputs\snowboard\snowboard9.jpg,outputs/snowboard\snowboard9_class_person.png,person
+inputs\snowboard\snowboard13.jpg,outputs/snowboard\snowboard13_class_snowboard.png,snowboard
+inputs\snowboard\snowboard2.jpg,outputs/snowboard\snowboard2_class_backpack.png,backpack
+inputs\snowboard\snowboard6.jpg,outputs/snowboard\snowboard6_class_snowboard.png,snowboard
+inputs\sportsball\sports ball0.jpg,outputs/sportsball\sports ball0_class_sports ball.png,sports ball
+inputs\sportsball\sports ball1.jpg,outputs/sportsball\sports ball1_class_sports ball.png,sports ball
+inputs\sportsball\sports ball10.jpg,outputs/sportsball\sports ball10_class_sports ball.png,sports ball
+inputs\sportsball\sports ball12.jpg,outputs/sportsball\sports ball12_class_sports ball.png,sports ball
+inputs\sportsball\sports ball13.jpg,outputs/sportsball\sports ball13_class_sports ball.png,sports ball
+inputs\sportsball\sports ball17.jpg,outputs/sportsball\sports ball17_class_sports ball.png,sports ball
+inputs\sportsball\sports ball18.jpg,outputs/sportsball\sports ball18_class_sports ball.png,sports ball
+inputs\sportsball\sports ball2.jpg,outputs/sportsball\sports ball2_class_sports ball.png,sports ball
+inputs\sportsball\sports ball3.jpg,outputs/sportsball\sports ball3_class_bird.png,bird
+inputs\sportsball\sports ball4.jpg,outputs/sportsball\sports ball4_class_sports ball.png,sports ball
+inputs\sportsball\sports ball5.jpg,outputs/sportsball\sports ball5_class_sports ball.png,sports ball
+inputs\sportsball\sports ball6.jpg,outputs/sportsball\sports ball6_class_orange.png,orange
+inputs\sportsball\sports ball7.jpg,outputs/sportsball\sports ball7_class_sports ball.png,sports ball
+inputs\sportsball\sports ball8.jpg,outputs/sportsball\sports ball8_class_sports ball.png,sports ball
+inputs\sportsball\sports ball9.jpg,outputs/sportsball\sports ball9_class_sports ball.png,sports ball
+inputs\kite\kite1.jpg,outputs/kite\kite1_class_kite.png,kite
+inputs\kite\kite10.jpg,outputs/kite\kite10_class_kite.png,kite
+inputs\kite\kite15.jpg,outputs/kite\kite15_class_kite.png,kite
+inputs\kite\kite16.jpg,outputs/kite\kite16_class_person.png,person
+inputs\kite\kite17.jpg,outputs/kite\kite17_class_kite.png,kite
+inputs\kite\kite18.jpg,outputs/kite\kite18_class_kite.png,kite
+inputs\kite\kite19.jpg,outputs/kite\kite19_class_surfboard.png,surfboard
+inputs\kite\kite2.jpg,outputs/kite\kite2_class_kite.png,kite
+inputs\kite\kite3.jpg,outputs/kite\kite3_class_kite.png,kite
+inputs\kite\kite4.jpg,outputs/kite\kite4_class_kite.png,kite
+inputs\kite\kite5.jpg,outputs/kite\kite5_class_kite.png,kite
+inputs\kite\kite6.jpg,outputs/kite\kite6_class_kite.png,kite
+inputs\kite\kite8.jpg,outputs/kite\kite8_class_kite.png,kite
+inputs\kite\kite9.jpg,outputs/kite\kite9_class_bicycle.png,bicycle
+inputs\kite\kite16.jpg,outputs/kite\kite16_class_kite.png,kite
+inputs\kite\kite3.jpg,outputs/kite\kite3_class_person.png,person
+inputs\baseballbat\baseball bat1.jpg,outputs/baseballbat\baseball bat1_class_person.png,person
+inputs\baseballbat\baseball bat10.jpg,outputs/baseballbat\baseball bat10_class_person.png,person
+inputs\baseballbat\baseball bat13.jpg,outputs/baseballbat\baseball bat13_class_surfboard.png,surfboard
+inputs\baseballbat\baseball bat14.jpg,outputs/baseballbat\baseball bat14_class_person.png,person
+inputs\baseballbat\baseball bat18.jpg,outputs/baseballbat\baseball bat18_class_person.png,person
+inputs\baseballbat\baseball bat19.jpg,outputs/baseballbat\baseball bat19_class_person.png,person
+inputs\baseballbat\baseball bat3.jpg,outputs/baseballbat\baseball bat3_class_person.png,person
+inputs\baseballbat\baseball bat4.jpg,outputs/baseballbat\baseball bat4_class_sports ball.png,sports ball
+inputs\baseballbat\baseball bat5.jpg,outputs/baseballbat\baseball bat5_class_person.png,person
+inputs\baseballbat\baseball bat7.jpg,outputs/baseballbat\baseball bat7_class_person.png,person
+inputs\baseballbat\baseball bat8.jpg,outputs/baseballbat\baseball bat8_class_baseball glove.png,baseball glove
+inputs\baseballbat\baseball bat9.jpg,outputs/baseballbat\baseball bat9_class_baseball bat.png,baseball bat
+inputs\baseballbat\baseball bat1.jpg,outputs/baseballbat\baseball bat1_class_truck.png,truck
+inputs\baseballbat\baseball bat19.jpg,outputs/baseballbat\baseball bat19_class_sports ball.png,sports ball
+inputs\baseballbat\baseball bat8.jpg,outputs/baseballbat\baseball bat8_class_person.png,person
+inputs\baseballbat\baseball bat5.jpg,outputs/baseballbat\baseball bat5_class_sports ball.png,sports ball
+inputs\baseballglove\baseball glove0.jpg,outputs/baseballglove\baseball glove0_class_baseball glove.png,baseball glove
+inputs\baseballglove\baseball glove1.jpg,outputs/baseballglove\baseball glove1_class_baseball glove.png,baseball glove
+inputs\baseballglove\baseball glove10.jpg,outputs/baseballglove\baseball glove10_class_sports ball.png,sports ball
+inputs\baseballglove\baseball glove12.jpg,outputs/baseballglove\baseball glove12_class_person.png,person
+inputs\baseballglove\baseball glove13.jpg,outputs/baseballglove\baseball glove13_class_baseball glove.png,baseball glove
+inputs\baseballglove\baseball glove14.jpg,outputs/baseballglove\baseball glove14_class_person.png,person
+inputs\baseballglove\baseball glove15.jpg,outputs/baseballglove\baseball glove15_class_person.png,person
+inputs\baseballglove\baseball glove16.jpg,outputs/baseballglove\baseball glove16_class_person.png,person
+inputs\baseballglove\baseball glove17.jpg,outputs/baseballglove\baseball glove17_class_person.png,person
+inputs\baseballglove\baseball glove18.jpg,outputs/baseballglove\baseball glove18_class_person.png,person
+inputs\baseballglove\baseball glove19.jpg,outputs/baseballglove\baseball glove19_class_person.png,person
+inputs\baseballglove\baseball glove2.jpg,outputs/baseballglove\baseball glove2_class_person.png,person
+inputs\baseballglove\baseball glove3.jpg,outputs/baseballglove\baseball glove3_class_person.png,person
+inputs\baseballglove\baseball glove4.jpg,outputs/baseballglove\baseball glove4_class_bird.png,bird
+inputs\baseballglove\baseball glove5.jpg,outputs/baseballglove\baseball glove5_class_person.png,person
+inputs\baseballglove\baseball glove6.jpg,outputs/baseballglove\baseball glove6_class_baseball bat.png,baseball bat
+inputs\baseballglove\baseball glove7.jpg,outputs/baseballglove\baseball glove7_class_person.png,person
+inputs\baseballglove\baseball glove8.jpg,outputs/baseballglove\baseball glove8_class_person.png,person
+inputs\baseballglove\baseball glove9.jpg,outputs/baseballglove\baseball glove9_class_baseball glove.png,baseball glove
+inputs\baseballglove\baseball glove0.jpg,outputs/baseballglove\baseball glove0_class_person.png,person
+inputs\baseballglove\baseball glove1.jpg,outputs/baseballglove\baseball glove1_class_clock.png,clock
+inputs\baseballglove\baseball glove10.jpg,outputs/baseballglove\baseball glove10_class_backpack.png,backpack
+inputs\baseballglove\baseball glove12.jpg,outputs/baseballglove\baseball glove12_class_baseball glove.png,baseball glove
+inputs\baseballglove\baseball glove13.jpg,outputs/baseballglove\baseball glove13_class_sports ball.png,sports ball
+inputs\baseballglove\baseball glove15.jpg,outputs/baseballglove\baseball glove15_class_baseball glove.png,baseball glove
+inputs\baseballglove\baseball glove17.jpg,outputs/baseballglove\baseball glove17_class_baseball glove.png,baseball glove
+inputs\baseballglove\baseball glove3.jpg,outputs/baseballglove\baseball glove3_class_baseball glove.png,baseball glove
+inputs\baseballglove\baseball glove5.jpg,outputs/baseballglove\baseball glove5_class_baseball glove.png,baseball glove
+inputs\baseballglove\baseball glove7.jpg,outputs/baseballglove\baseball glove7_class_baseball glove.png,baseball glove
+inputs\baseballglove\baseball glove9.jpg,outputs/baseballglove\baseball glove9_class_person.png,person
+inputs\baseballglove\baseball glove8.jpg,outputs/baseballglove\baseball glove8_class_sports ball.png,sports ball
+inputs\surfboard\#surfboard0.jpg,outputs/surfboard\#surfboard0_class_surfboard.png,surfboard
+inputs\surfboard\#surfboard1.jpg,outputs/surfboard\#surfboard1_class_surfboard.png,surfboard
+inputs\surfboard\#surfboard10.jpg,outputs/surfboard\#surfboard10_class_person.png,person
+inputs\surfboard\#surfboard11.jpg,outputs/surfboard\#surfboard11_class_surfboard.png,surfboard
+inputs\surfboard\#surfboard13.jpg,outputs/surfboard\#surfboard13_class_surfboard.png,surfboard
+inputs\surfboard\#surfboard15.jpg,outputs/surfboard\#surfboard15_class_surfboard.png,surfboard
+inputs\surfboard\#surfboard16.jpg,outputs/surfboard\#surfboard16_class_person.png,person
+inputs\surfboard\#surfboard17.jpg,outputs/surfboard\#surfboard17_class_person.png,person
+inputs\surfboard\#surfboard3.jpg,outputs/surfboard\#surfboard3_class_surfboard.png,surfboard
+inputs\surfboard\#surfboard4.jpg,outputs/surfboard\#surfboard4_class_surfboard.png,surfboard
+inputs\surfboard\#surfboard5.jpg,outputs/surfboard\#surfboard5_class_sports ball.png,sports ball
+inputs\surfboard\#surfboard6.jpg,outputs/surfboard\#surfboard6_class_surfboard.png,surfboard
+inputs\surfboard\#surfboard7.jpg,outputs/surfboard\#surfboard7_class_person.png,person
+inputs\surfboard\#surfboard8.jpg,outputs/surfboard\#surfboard8_class_surfboard.png,surfboard
+inputs\surfboard\#surfboard16.jpg,outputs/surfboard\#surfboard16_class_surfboard.png,surfboard
+inputs\surfboard\#surfboard17.jpg,outputs/surfboard\#surfboard17_class_surfboard.png,surfboard
+inputs\surfboard\#surfboard3.jpg,outputs/surfboard\#surfboard3_class_person.png,person
+inputs\surfboard\#surfboard4.jpg,outputs/surfboard\#surfboard4_class_person.png,person
+inputs\surfboard\#surfboard7.jpg,outputs/surfboard\#surfboard7_class_surfboard.png,surfboard
+inputs\surfboard\#surfboard7.jpg,outputs/surfboard\#surfboard7_class_bench.png,bench
+inputs\bottle\bottle0.jpg,outputs/bottle\bottle0_class_person.png,person
+inputs\bottle\bottle1.jpg,outputs/bottle\bottle1_class_bottle.png,bottle
+inputs\bottle\bottle10.jpg,outputs/bottle\bottle10_class_cup.png,cup
+inputs\bottle\bottle13.jpg,outputs/bottle\bottle13_class_bottle.png,bottle
+inputs\bottle\bottle15.jpg,outputs/bottle\bottle15_class_person.png,person
+inputs\bottle\bottle17.jpg,outputs/bottle\bottle17_class_cup.png,cup
+inputs\bottle\bottle19.jpg,outputs/bottle\bottle19_class_person.png,person
+inputs\bottle\bottle5.jpg,outputs/bottle\bottle5_class_vase.png,vase
+inputs\bottle\bottle8.jpg,outputs/bottle\bottle8_class_vase.png,vase
+inputs\wineglass\wine glass0.jpg,outputs/wineglass\wine glass0_class_wine glass.png,wine glass
+inputs\wineglass\wine glass10.jpg,outputs/wineglass\wine glass10_class_person.png,person
+inputs\wineglass\wine glass11.jpg,outputs/wineglass\wine glass11_class_wine glass.png,wine glass
+inputs\wineglass\wine glass12.jpg,outputs/wineglass\wine glass12_class_wine glass.png,wine glass
+inputs\wineglass\wine glass13.jpg,outputs/wineglass\wine glass13_class_wine glass.png,wine glass
+inputs\wineglass\wine glass16.jpg,outputs/wineglass\wine glass16_class_dining table.png,dining table
+inputs\wineglass\wine glass18.jpg,outputs/wineglass\wine glass18_class_wine glass.png,wine glass
+inputs\wineglass\wine glass19.jpg,outputs/wineglass\wine glass19_class_person.png,person
+inputs\wineglass\wine glass2.jpg,outputs/wineglass\wine glass2_class_wine glass.png,wine glass
+inputs\wineglass\wine glass4.jpg,outputs/wineglass\wine glass4_class_wine glass.png,wine glass
+inputs\wineglass\wine glass5.jpg,outputs/wineglass\wine glass5_class_wine glass.png,wine glass
+inputs\wineglass\wine glass6.jpg,outputs/wineglass\wine glass6_class_person.png,person
+inputs\wineglass\wine glass7.jpg,outputs/wineglass\wine glass7_class_wine glass.png,wine glass
+inputs\wineglass\wine glass9.jpg,outputs/wineglass\wine glass9_class_wine glass.png,wine glass
+inputs\wineglass\wine glass0.jpg,outputs/wineglass\wine glass0_class_dining table.png,dining table
+inputs\wineglass\wine glass10.jpg,outputs/wineglass\wine glass10_class_wine glass.png,wine glass
+inputs\wineglass\wine glass16.jpg,outputs/wineglass\wine glass16_class_wine glass.png,wine glass
+inputs\wineglass\wine glass18.jpg,outputs/wineglass\wine glass18_class_dining table.png,dining table
+inputs\cup\cup0.jpg,outputs/cup\cup0_class_cup.png,cup
+inputs\cup\cup1.jpg,outputs/cup\cup1_class_cup.png,cup
+inputs\cup\cup11.jpg,outputs/cup\cup11_class_cup.png,cup
+inputs\cup\cup12.jpg,outputs/cup\cup12_class_cup.png,cup
+inputs\cup\cup13.jpg,outputs/cup\cup13_class_cup.png,cup
+inputs\cup\cup14.jpg,outputs/cup\cup14_class_cup.png,cup
+inputs\cup\cup15.jpg,outputs/cup\cup15_class_dining table.png,dining table
+inputs\cup\cup16.jpg,outputs/cup\cup16_class_bowl.png,bowl
+inputs\cup\cup17.jpg,outputs/cup\cup17_class_dining table.png,dining table
+inputs\cup\cup19.jpg,outputs/cup\cup19_class_cup.png,cup
+inputs\cup\cup2.jpg,outputs/cup\cup2_class_cup.png,cup
+inputs\cup\cup4.jpg,outputs/cup\cup4_class_cup.png,cup
+inputs\cup\cup5.jpg,outputs/cup\cup5_class_dining table.png,dining table
+inputs\cup\cup7.jpg,outputs/cup\cup7_class_dining table.png,dining table
+inputs\cup\cup8.jpg,outputs/cup\cup8_class_dining table.png,dining table
+inputs\cup\cup12.jpg,outputs/cup\cup12_class_dining table.png,dining table
+inputs\cup\cup13.jpg,outputs/cup\cup13_class_dining table.png,dining table
+inputs\cup\cup4.jpg,outputs/cup\cup4_class_dining table.png,dining table
+inputs\cup\cup5.jpg,outputs/cup\cup5_class_cup.png,cup
+inputs\cup\cup2.jpg,outputs/cup\cup2_class_dining table.png,dining table
+inputs\fork\fork11.jpg,outputs/fork\fork11_class_cup.png,cup
+inputs\fork\fork12.jpg,outputs/fork\fork12_class_dining table.png,dining table
+inputs\fork\fork13.jpg,outputs/fork\fork13_class_apple.png,apple
+inputs\fork\fork14.jpg,outputs/fork\fork14_class_fork.png,fork
+inputs\fork\fork15.jpg,outputs/fork\fork15_class_cup.png,cup
+inputs\fork\fork16.jpg,outputs/fork\fork16_class_fork.png,fork
+inputs\fork\fork17.jpg,outputs/fork\fork17_class_bowl.png,bowl
+inputs\fork\fork18.jpg,outputs/fork\fork18_class_cake.png,cake
+inputs\fork\fork2.jpg,outputs/fork\fork2_class_fork.png,fork
+inputs\fork\fork3.jpg,outputs/fork\fork3_class_fork.png,fork
+inputs\fork\fork4.jpg,outputs/fork\fork4_class_fork.png,fork
+inputs\fork\fork5.jpg,outputs/fork\fork5_class_dining table.png,dining table
+inputs\fork\fork6.jpg,outputs/fork\fork6_class_dining table.png,dining table
+inputs\fork\fork7.jpg,outputs/fork\fork7_class_fork.png,fork
+inputs\fork\fork8.jpg,outputs/fork\fork8_class_fork.png,fork
+inputs\fork\fork9.jpg,outputs/fork\fork9_class_fork.png,fork
+inputs\fork\fork11.jpg,outputs/fork\fork11_class_donut.png,donut
+inputs\fork\fork12.jpg,outputs/fork\fork12_class_fork.png,fork
+inputs\fork\fork13.jpg,outputs/fork\fork13_class_fork.png,fork
+inputs\fork\fork15.jpg,outputs/fork\fork15_class_fork.png,fork
+inputs\fork\fork17.jpg,outputs/fork\fork17_class_fork.png,fork
+inputs\fork\fork2.jpg,outputs/fork\fork2_class_cup.png,cup
+inputs\fork\fork3.jpg,outputs/fork\fork3_class_potted plant.png,potted plant
+inputs\fork\fork4.jpg,outputs/fork\fork4_class_cup.png,cup
+inputs\fork\fork8.jpg,outputs/fork\fork8_class_dining table.png,dining table
+inputs\fork\fork11.jpg,outputs/fork\fork11_class_fork.png,fork
+inputs\fork\fork13.jpg,outputs/fork\fork13_class_wine glass.png,wine glass
+inputs\fork\fork15.jpg,outputs/fork\fork15_class_cake.png,cake
+inputs\fork\fork17.jpg,outputs/fork\fork17_class_dining table.png,dining table
+inputs\fork\fork18.jpg,outputs/fork\fork18_class_dining table.png,dining table
+inputs\knife\knife0.jpg,outputs/knife\knife0_class_person.png,person
+inputs\knife\knife12.jpg,outputs/knife\knife12_class_person.png,person
+inputs\knife\knife16.jpg,outputs/knife\knife16_class_knife.png,knife
+inputs\knife\knife17.jpg,outputs/knife\knife17_class_knife.png,knife
+inputs\knife\knife18.jpg,outputs/knife\knife18_class_knife.png,knife
+inputs\knife\knife2.jpg,outputs/knife\knife2_class_scissors.png,scissors
+inputs\knife\knife4.jpg,outputs/knife\knife4_class_knife.png,knife
+inputs\knife\knife5.jpg,outputs/knife\knife5_class_scissors.png,scissors
+inputs\knife\knife9.jpg,outputs/knife\knife9_class_scissors.png,scissors
+inputs\knife\knife16.jpg,outputs/knife\knife16_class_spoon.png,spoon
+inputs\knife\knife17.jpg,outputs/knife\knife17_class_dining table.png,dining table
+inputs\knife\knife16.jpg,outputs/knife\knife16_class_bowl.png,bowl
+inputs\spoon\spoon1.jpg,outputs/spoon\spoon1_class_bowl.png,bowl
+inputs\spoon\spoon11.jpg,outputs/spoon\spoon11_class_cup.png,cup
+inputs\spoon\spoon12.jpg,outputs/spoon\spoon12_class_mouse.png,mouse
+inputs\spoon\spoon14.jpg,outputs/spoon\spoon14_class_cup.png,cup
+inputs\spoon\spoon15.jpg,outputs/spoon\spoon15_class_bowl.png,bowl
+inputs\spoon\spoon16.jpg,outputs/spoon\spoon16_class_orange.png,orange
+inputs\spoon\spoon18.jpg,outputs/spoon\spoon18_class_cup.png,cup
+inputs\spoon\spoon3.jpg,outputs/spoon\spoon3_class_spoon.png,spoon
+inputs\spoon\spoon4.jpg,outputs/spoon\spoon4_class_spoon.png,spoon
+inputs\spoon\spoon5.jpg,outputs/spoon\spoon5_class_dining table.png,dining table
+inputs\spoon\spoon6.jpg,outputs/spoon\spoon6_class_dining table.png,dining table
+inputs\spoon\spoon8.jpg,outputs/spoon\spoon8_class_bowl.png,bowl
+inputs\spoon\spoon15.jpg,outputs/spoon\spoon15_class_dining table.png,dining table
+inputs\spoon\spoon18.jpg,outputs/spoon\spoon18_class_dining table.png,dining table
+inputs\spoon\spoon5.jpg,outputs/spoon\spoon5_class_spoon.png,spoon
+inputs\spoon\spoon15.jpg,outputs/spoon\spoon15_class_cup.png,cup
+inputs\spoon\spoon18.jpg,outputs/spoon\spoon18_class_spoon.png,spoon
+inputs\spoon\spoon5.jpg,outputs/spoon\spoon5_class_fork.png,fork
+inputs\spoon\spoon8.jpg,outputs/spoon\spoon8_class_dining table.png,dining table
+inputs\bowl\#bowl0.jpg,outputs/bowl\#bowl0_class_book.png,book
+inputs\bowl\#bowl1.jpg,outputs/bowl\#bowl1_class_bowl.png,bowl
+inputs\bowl\#bowl12.jpg,outputs/bowl\#bowl12_class_bowl.png,bowl
+inputs\bowl\#bowl13.jpg,outputs/bowl\#bowl13_class_bowl.png,bowl
+inputs\bowl\#bowl14.jpg,outputs/bowl\#bowl14_class_cake.png,cake
+inputs\bowl\#bowl15.jpg,outputs/bowl\#bowl15_class_person.png,person
+inputs\bowl\#bowl17.jpg,outputs/bowl\#bowl17_class_bowl.png,bowl
+inputs\bowl\#bowl18.jpg,outputs/bowl\#bowl18_class_bowl.png,bowl
+inputs\bowl\#bowl19.jpg,outputs/bowl\#bowl19_class_bowl.png,bowl
+inputs\bowl\#bowl2.jpg,outputs/bowl\#bowl2_class_bowl.png,bowl
+inputs\bowl\#bowl3.jpg,outputs/bowl\#bowl3_class_bowl.png,bowl
+inputs\bowl\#bowl4.jpg,outputs/bowl\#bowl4_class_bowl.png,bowl
+inputs\bowl\#bowl6.jpg,outputs/bowl\#bowl6_class_bowl.png,bowl
+inputs\bowl\#bowl7.jpg,outputs/bowl\#bowl7_class_dining table.png,dining table
+inputs\bowl\#bowl8.jpg,outputs/bowl\#bowl8_class_bowl.png,bowl
+inputs\bowl\#bowl9.jpg,outputs/bowl\#bowl9_class_bowl.png,bowl
+inputs\bowl\#bowl12.jpg,outputs/bowl\#bowl12_class_person.png,person
+inputs\bowl\#bowl13.jpg,outputs/bowl\#bowl13_class_sports ball.png,sports ball
+inputs\bowl\#bowl15.jpg,outputs/bowl\#bowl15_class_bowl.png,bowl
+inputs\bowl\#bowl19.jpg,outputs/bowl\#bowl19_class_dining table.png,dining table
+inputs\bowl\#bowl4.jpg,outputs/bowl\#bowl4_class_dining table.png,dining table
+inputs\bowl\#bowl8.jpg,outputs/bowl\#bowl8_class_dining table.png,dining table
+inputs\banana\banana0.jpg,outputs/banana\banana0_class_banana.png,banana
+inputs\banana\banana10.jpg,outputs/banana\banana10_class_banana.png,banana
+inputs\banana\banana11.jpg,outputs/banana\banana11_class_banana.png,banana
+inputs\banana\banana12.jpg,outputs/banana\banana12_class_banana.png,banana
+inputs\banana\banana13.jpg,outputs/banana\banana13_class_banana.png,banana
+inputs\banana\banana14.jpg,outputs/banana\banana14_class_banana.png,banana
+inputs\banana\banana15.jpg,outputs/banana\banana15_class_banana.png,banana
+inputs\banana\banana16.jpg,outputs/banana\banana16_class_banana.png,banana
+inputs\banana\banana17.jpg,outputs/banana\banana17_class_banana.png,banana
+inputs\banana\banana18.jpg,outputs/banana\banana18_class_banana.png,banana
+inputs\banana\banana19.jpg,outputs/banana\banana19_class_banana.png,banana
+inputs\banana\banana2.jpg,outputs/banana\banana2_class_banana.png,banana
+inputs\banana\banana3.jpg,outputs/banana\banana3_class_banana.png,banana
+inputs\banana\banana4.jpg,outputs/banana\banana4_class_banana.png,banana
+inputs\banana\banana6.jpg,outputs/banana\banana6_class_banana.png,banana
+inputs\banana\banana7.jpg,outputs/banana\banana7_class_banana.png,banana
+inputs\banana\banana8.jpg,outputs/banana\banana8_class_banana.png,banana
+inputs\banana\banana9.jpg,outputs/banana\banana9_class_banana.png,banana
+inputs\banana\banana3.jpg,outputs/banana\banana3_class_person.png,person
+inputs\apple\apple0.jpg,outputs/apple\apple0_class_apple.png,apple
+inputs\apple\apple1.jpg,outputs/apple\apple1_class_person.png,person
+inputs\apple\apple10.jpg,outputs/apple\apple10_class_apple.png,apple
+inputs\apple\apple11.jpg,outputs/apple\apple11_class_apple.png,apple
+inputs\apple\apple12.jpg,outputs/apple\apple12_class_cell phone.png,cell phone
+inputs\apple\apple13.jpg,outputs/apple\apple13_class_apple.png,apple
+inputs\apple\apple14.jpg,outputs/apple\apple14_class_person.png,person
+inputs\apple\apple15.jpg,outputs/apple\apple15_class_apple.png,apple
+inputs\apple\apple16.jpg,outputs/apple\apple16_class_person.png,person
+inputs\apple\apple17.jpg,outputs/apple\apple17_class_apple.png,apple
+inputs\apple\apple18.jpg,outputs/apple\apple18_class_apple.png,apple
+inputs\apple\apple2.jpg,outputs/apple\apple2_class_apple.png,apple
+inputs\apple\apple3.jpg,outputs/apple\apple3_class_backpack.png,backpack
+inputs\apple\apple4.jpg,outputs/apple\apple4_class_apple.png,apple
+inputs\apple\apple6.jpg,outputs/apple\apple6_class_apple.png,apple
+inputs\apple\apple7.jpg,outputs/apple\apple7_class_car.png,car
+inputs\apple\apple8.jpg,outputs/apple\apple8_class_apple.png,apple
+inputs\apple\apple9.jpg,outputs/apple\apple9_class_apple.png,apple
+inputs\apple\apple1.jpg,outputs/apple\apple1_class_apple.png,apple
+inputs\apple\apple14.jpg,outputs/apple\apple14_class_apple.png,apple
+inputs\apple\apple16.jpg,outputs/apple\apple16_class_apple.png,apple
+inputs\sandwich\sandwich0.jpg,outputs/sandwich\sandwich0_class_sandwich.png,sandwich
+inputs\sandwich\sandwich1.jpg,outputs/sandwich\sandwich1_class_dining table.png,dining table
+inputs\sandwich\sandwich12.jpg,outputs/sandwich\sandwich12_class_sandwich.png,sandwich
+inputs\sandwich\sandwich13.jpg,outputs/sandwich\sandwich13_class_dining table.png,dining table
+inputs\sandwich\sandwich14.jpg,outputs/sandwich\sandwich14_class_sandwich.png,sandwich
+inputs\sandwich\sandwich15.jpg,outputs/sandwich\sandwich15_class_sandwich.png,sandwich
+inputs\sandwich\sandwich16.jpg,outputs/sandwich\sandwich16_class_sandwich.png,sandwich
+inputs\sandwich\sandwich17.jpg,outputs/sandwich\sandwich17_class_sandwich.png,sandwich
+inputs\sandwich\sandwich18.jpg,outputs/sandwich\sandwich18_class_sandwich.png,sandwich
+inputs\sandwich\sandwich3.jpg,outputs/sandwich\sandwich3_class_orange.png,orange
+inputs\sandwich\sandwich4.jpg,outputs/sandwich\sandwich4_class_sandwich.png,sandwich
+inputs\sandwich\sandwich5.jpg,outputs/sandwich\sandwich5_class_person.png,person
+inputs\sandwich\sandwich6.jpg,outputs/sandwich\sandwich6_class_bowl.png,bowl
+inputs\sandwich\sandwich7.jpg,outputs/sandwich\sandwich7_class_sandwich.png,sandwich
+inputs\sandwich\sandwich8.jpg,outputs/sandwich\sandwich8_class_sandwich.png,sandwich
+inputs\sandwich\sandwich9.jpg,outputs/sandwich\sandwich9_class_sandwich.png,sandwich
+inputs\sandwich\sandwich1.jpg,outputs/sandwich\sandwich1_class_sandwich.png,sandwich
+inputs\sandwich\sandwich13.jpg,outputs/sandwich\sandwich13_class_sandwich.png,sandwich
+inputs\sandwich\sandwich14.jpg,outputs/sandwich\sandwich14_class_dining table.png,dining table
+inputs\sandwich\sandwich3.jpg,outputs/sandwich\sandwich3_class_cake.png,cake
+inputs\sandwich\sandwich5.jpg,outputs/sandwich\sandwich5_class_sandwich.png,sandwich
+inputs\sandwich\sandwich6.jpg,outputs/sandwich\sandwich6_class_sandwich.png,sandwich
+inputs\sandwich\sandwich9.jpg,outputs/sandwich\sandwich9_class_bowl.png,bowl
+inputs\sandwich\sandwich1.jpg,outputs/sandwich\sandwich1_class_bowl.png,bowl
+inputs\orange\orange0.jpg,outputs/orange\orange0_class_orange.png,orange
+inputs\orange\orange1.jpg,outputs/orange\orange1_class_orange.png,orange
+inputs\orange\orange12.jpg,outputs/orange\orange12_class_orange.png,orange
+inputs\orange\orange13.jpg,outputs/orange\orange13_class_orange.png,orange
+inputs\orange\orange14.jpg,outputs/orange\orange14_class_orange.png,orange
+inputs\orange\orange16.jpg,outputs/orange\orange16_class_orange.png,orange
+inputs\orange\orange17.jpg,outputs/orange\orange17_class_orange.png,orange
+inputs\orange\orange18.jpg,outputs/orange\orange18_class_orange.png,orange
+inputs\orange\orange19.jpg,outputs/orange\orange19_class_orange.png,orange
+inputs\orange\orange2.jpg,outputs/orange\orange2_class_person.png,person
+inputs\orange\orange3.jpg,outputs/orange\orange3_class_orange.png,orange
+inputs\orange\orange6.jpg,outputs/orange\orange6_class_orange.png,orange
+inputs\orange\orange2.jpg,outputs/orange\orange2_class_orange.png,orange
+inputs\broccoli\broccoli0.jpg,outputs/broccoli\broccoli0_class_broccoli.png,broccoli
+inputs\broccoli\broccoli1.jpg,outputs/broccoli\broccoli1_class_broccoli.png,broccoli
+inputs\broccoli\broccoli10.jpg,outputs/broccoli\broccoli10_class_broccoli.png,broccoli
+inputs\broccoli\broccoli11.jpg,outputs/broccoli\broccoli11_class_broccoli.png,broccoli
+inputs\broccoli\broccoli12.jpg,outputs/broccoli\broccoli12_class_broccoli.png,broccoli
+inputs\broccoli\broccoli13.jpg,outputs/broccoli\broccoli13_class_broccoli.png,broccoli
+inputs\broccoli\broccoli14.jpg,outputs/broccoli\broccoli14_class_broccoli.png,broccoli
+inputs\broccoli\broccoli15.jpg,outputs/broccoli\broccoli15_class_broccoli.png,broccoli
+inputs\broccoli\broccoli16.jpg,outputs/broccoli\broccoli16_class_broccoli.png,broccoli
+inputs\broccoli\broccoli17.jpg,outputs/broccoli\broccoli17_class_broccoli.png,broccoli
+inputs\broccoli\broccoli18.jpg,outputs/broccoli\broccoli18_class_sandwich.png,sandwich
+inputs\broccoli\broccoli19.jpg,outputs/broccoli\broccoli19_class_broccoli.png,broccoli
+inputs\broccoli\broccoli2.jpg,outputs/broccoli\broccoli2_class_person.png,person
+inputs\broccoli\broccoli3.jpg,outputs/broccoli\broccoli3_class_person.png,person
+inputs\broccoli\broccoli4.jpg,outputs/broccoli\broccoli4_class_carrot.png,carrot
+inputs\broccoli\broccoli5.jpg,outputs/broccoli\broccoli5_class_broccoli.png,broccoli
+inputs\broccoli\broccoli6.jpg,outputs/broccoli\broccoli6_class_person.png,person
+inputs\broccoli\broccoli7.jpg,outputs/broccoli\broccoli7_class_person.png,person
+inputs\broccoli\broccoli8.jpg,outputs/broccoli\broccoli8_class_broccoli.png,broccoli
+inputs\broccoli\broccoli9.jpg,outputs/broccoli\broccoli9_class_cup.png,cup
+inputs\broccoli\broccoli11.jpg,outputs/broccoli\broccoli11_class_knife.png,knife
+inputs\broccoli\broccoli3.jpg,outputs/broccoli\broccoli3_class_broccoli.png,broccoli
+inputs\broccoli\broccoli4.jpg,outputs/broccoli\broccoli4_class_broccoli.png,broccoli
+inputs\broccoli\broccoli6.jpg,outputs/broccoli\broccoli6_class_broccoli.png,broccoli
+inputs\broccoli\broccoli7.jpg,outputs/broccoli\broccoli7_class_broccoli.png,broccoli
+inputs\broccoli\broccoli4.jpg,outputs/broccoli\broccoli4_class_person.png,person
+inputs\carrot\carrot0.jpg,outputs/carrot\carrot0_class_carrot.png,carrot
+inputs\carrot\carrot1.jpg,outputs/carrot\carrot1_class_carrot.png,carrot
+inputs\carrot\carrot10.jpg,outputs/carrot\carrot10_class_carrot.png,carrot
+inputs\carrot\carrot11.jpg,outputs/carrot\carrot11_class_carrot.png,carrot
+inputs\carrot\carrot12.jpg,outputs/carrot\carrot12_class_carrot.png,carrot
+inputs\carrot\carrot13.jpg,outputs/carrot\carrot13_class_carrot.png,carrot
+inputs\carrot\carrot14.jpg,outputs/carrot\carrot14_class_person.png,person
+inputs\carrot\carrot15.jpg,outputs/carrot\carrot15_class_carrot.png,carrot
+inputs\carrot\carrot17.jpg,outputs/carrot\carrot17_class_carrot.png,carrot
+inputs\carrot\carrot19.jpg,outputs/carrot\carrot19_class_carrot.png,carrot
+inputs\carrot\carrot2.jpg,outputs/carrot\carrot2_class_carrot.png,carrot
+inputs\carrot\carrot3.jpg,outputs/carrot\carrot3_class_carrot.png,carrot
+inputs\carrot\carrot4.jpg,outputs/carrot\carrot4_class_carrot.png,carrot
+inputs\carrot\carrot6.jpg,outputs/carrot\carrot6_class_carrot.png,carrot
+inputs\carrot\carrot7.jpg,outputs/carrot\carrot7_class_carrot.png,carrot
+inputs\carrot\carrot9.jpg,outputs/carrot\carrot9_class_carrot.png,carrot
+inputs\carrot\carrot17.jpg,outputs/carrot\carrot17_class_knife.png,knife
+inputs\pizza\pizza0.jpg,outputs/pizza\pizza0_class_pizza.png,pizza
+inputs\pizza\pizza1.jpg,outputs/pizza\pizza1_class_pizza.png,pizza
+inputs\pizza\pizza10.jpg,outputs/pizza\pizza10_class_pizza.png,pizza
+inputs\pizza\pizza11.jpg,outputs/pizza\pizza11_class_pizza.png,pizza
+inputs\pizza\pizza12.jpg,outputs/pizza\pizza12_class_pizza.png,pizza
+inputs\pizza\pizza13.jpg,outputs/pizza\pizza13_class_pizza.png,pizza
+inputs\pizza\pizza14.jpg,outputs/pizza\pizza14_class_pizza.png,pizza
+inputs\pizza\pizza15.jpg,outputs/pizza\pizza15_class_pizza.png,pizza
+inputs\pizza\pizza16.jpg,outputs/pizza\pizza16_class_pizza.png,pizza
+inputs\pizza\pizza17.jpg,outputs/pizza\pizza17_class_cup.png,cup
+inputs\pizza\pizza18.jpg,outputs/pizza\pizza18_class_pizza.png,pizza
+inputs\pizza\pizza2.jpg,outputs/pizza\pizza2_class_cup.png,cup
+inputs\pizza\pizza3.jpg,outputs/pizza\pizza3_class_pizza.png,pizza
+inputs\pizza\pizza4.jpg,outputs/pizza\pizza4_class_pizza.png,pizza
+inputs\pizza\pizza5.jpg,outputs/pizza\pizza5_class_person.png,person
+inputs\pizza\pizza6.jpg,outputs/pizza\pizza6_class_person.png,person
+inputs\pizza\pizza7.jpg,outputs/pizza\pizza7_class_pizza.png,pizza
+inputs\pizza\pizza8.jpg,outputs/pizza\pizza8_class_pizza.png,pizza
+inputs\pizza\pizza9.jpg,outputs/pizza\pizza9_class_pizza.png,pizza
+inputs\pizza\pizza14.jpg,outputs/pizza\pizza14_class_dining table.png,dining table
+inputs\pizza\pizza17.jpg,outputs/pizza\pizza17_class_pizza.png,pizza
+inputs\pizza\pizza2.jpg,outputs/pizza\pizza2_class_pizza.png,pizza
+inputs\pizza\pizza6.jpg,outputs/pizza\pizza6_class_pizza.png,pizza
+inputs\pizza\pizza1.jpg,outputs/pizza\pizza1_class_person.png,person
+inputs\pizza\pizza2.jpg,outputs/pizza\pizza2_class_dining table.png,dining table
+inputs\donut\donut1.jpg,outputs/donut\donut1_class_person.png,person
+inputs\donut\donut10.jpg,outputs/donut\donut10_class_dining table.png,dining table
+inputs\donut\donut11.jpg,outputs/donut\donut11_class_donut.png,donut
+inputs\donut\donut13.jpg,outputs/donut\donut13_class_bird.png,bird
+inputs\donut\donut16.jpg,outputs/donut\donut16_class_donut.png,donut
+inputs\donut\donut17.jpg,outputs/donut\donut17_class_donut.png,donut
+inputs\donut\donut18.jpg,outputs/donut\donut18_class_dining table.png,dining table
+inputs\donut\donut19.jpg,outputs/donut\donut19_class_donut.png,donut
+inputs\donut\donut2.jpg,outputs/donut\donut2_class_bed.png,bed
+inputs\donut\donut3.jpg,outputs/donut\donut3_class_donut.png,donut
+inputs\donut\donut4.jpg,outputs/donut\donut4_class_cake.png,cake
+inputs\donut\donut5.jpg,outputs/donut\donut5_class_donut.png,donut
+inputs\donut\donut6.jpg,outputs/donut\donut6_class_donut.png,donut
+inputs\donut\donut7.jpg,outputs/donut\donut7_class_donut.png,donut
+inputs\donut\donut8.jpg,outputs/donut\donut8_class_donut.png,donut
+inputs\donut\donut9.jpg,outputs/donut\donut9_class_donut.png,donut
+inputs\donut\donut18.jpg,outputs/donut\donut18_class_donut.png,donut
+inputs\donut\donut2.jpg,outputs/donut\donut2_class_cup.png,cup
+inputs\donut\donut4.jpg,outputs/donut\donut4_class_donut.png,donut
+inputs\cake\cake0.jpg,outputs/cake\cake0_class_cake.png,cake
+inputs\cake\cake1.jpg,outputs/cake\cake1_class_cake.png,cake
+inputs\cake\cake10.jpg,outputs/cake\cake10_class_cake.png,cake
+inputs\cake\cake13.jpg,outputs/cake\cake13_class_cake.png,cake
+inputs\cake\cake14.jpg,outputs/cake\cake14_class_person.png,person
+inputs\cake\cake16.jpg,outputs/cake\cake16_class_cake.png,cake
+inputs\cake\cake17.jpg,outputs/cake\cake17_class_cake.png,cake
+inputs\cake\cake18.jpg,outputs/cake\cake18_class_cake.png,cake
+inputs\cake\cake2.jpg,outputs/cake\cake2_class_toothbrush.png,toothbrush
+inputs\cake\cake3.jpg,outputs/cake\cake3_class_orange.png,orange
+inputs\cake\cake4.jpg,outputs/cake\cake4_class_cake.png,cake
+inputs\cake\cake5.jpg,outputs/cake\cake5_class_cake.png,cake
+inputs\cake\cake6.jpg,outputs/cake\cake6_class_cake.png,cake
+inputs\cake\cake7.jpg,outputs/cake\cake7_class_cake.png,cake
+inputs\cake\cake9.jpg,outputs/cake\cake9_class_cake.png,cake
+inputs\cake\cake10.jpg,outputs/cake\cake10_class_fork.png,fork
+inputs\cake\cake13.jpg,outputs/cake\cake13_class_cup.png,cup
+inputs\cake\cake14.jpg,outputs/cake\cake14_class_cake.png,cake
+inputs\cake\cake17.jpg,outputs/cake\cake17_class_vase.png,vase
+inputs\cake\cake16.jpg,outputs/cake\cake16_class_cup.png,cup
+inputs\chair\chair0.jpg,outputs/chair\chair0_class_chair.png,chair
+inputs\chair\chair1.jpg,outputs/chair\chair1_class_chair.png,chair
+inputs\chair\chair10.jpg,outputs/chair\chair10_class_chair.png,chair
+inputs\chair\chair11.jpg,outputs/chair\chair11_class_chair.png,chair
+inputs\chair\chair12.jpg,outputs/chair\chair12_class_chair.png,chair
+inputs\chair\chair13.jpg,outputs/chair\chair13_class_chair.png,chair
+inputs\chair\chair14.jpg,outputs/chair\chair14_class_chair.png,chair
+inputs\chair\chair15.jpg,outputs/chair\chair15_class_chair.png,chair
+inputs\chair\chair16.jpg,outputs/chair\chair16_class_chair.png,chair
+inputs\chair\chair18.jpg,outputs/chair\chair18_class_chair.png,chair
+inputs\chair\chair19.jpg,outputs/chair\chair19_class_bench.png,bench
+inputs\chair\chair2.jpg,outputs/chair\chair2_class_chair.png,chair
+inputs\chair\chair3.jpg,outputs/chair\chair3_class_potted plant.png,potted plant
+inputs\chair\chair4.jpg,outputs/chair\chair4_class_chair.png,chair
+inputs\chair\chair5.jpg,outputs/chair\chair5_class_chair.png,chair
+inputs\chair\chair7.jpg,outputs/chair\chair7_class_chair.png,chair
+inputs\chair\chair8.jpg,outputs/chair\chair8_class_chair.png,chair
+inputs\chair\chair9.jpg,outputs/chair\chair9_class_potted plant.png,potted plant
+inputs\chair\chair12.jpg,outputs/chair\chair12_class_frisbee.png,frisbee
+inputs\chair\chair3.jpg,outputs/chair\chair3_class_chair.png,chair
+inputs\chair\chair14.jpg,outputs/chair\chair14_class_vase.png,vase
+inputs\couch\#couch0.jpg,outputs/couch\#couch0_class_couch.png,couch
+inputs\couch\#couch1.jpg,outputs/couch\#couch1_class_couch.png,couch
+inputs\couch\#couch10.jpg,outputs/couch\#couch10_class_dog.png,dog
+inputs\couch\#couch11.jpg,outputs/couch\#couch11_class_couch.png,couch
+inputs\couch\#couch12.jpg,outputs/couch\#couch12_class_couch.png,couch
+inputs\couch\#couch13.jpg,outputs/couch\#couch13_class_cat.png,cat
+inputs\couch\#couch14.jpg,outputs/couch\#couch14_class_couch.png,couch
+inputs\couch\#couch15.jpg,outputs/couch\#couch15_class_couch.png,couch
+inputs\couch\#couch16.jpg,outputs/couch\#couch16_class_laptop.png,laptop
+inputs\couch\#couch17.jpg,outputs/couch\#couch17_class_couch.png,couch
+inputs\couch\#couch18.jpg,outputs/couch\#couch18_class_couch.png,couch
+inputs\couch\#couch19.jpg,outputs/couch\#couch19_class_couch.png,couch
+inputs\couch\#couch2.jpg,outputs/couch\#couch2_class_couch.png,couch
+inputs\couch\#couch3.jpg,outputs/couch\#couch3_class_person.png,person
+inputs\couch\#couch4.jpg,outputs/couch\#couch4_class_couch.png,couch
+inputs\couch\#couch5.jpg,outputs/couch\#couch5_class_bed.png,bed
+inputs\couch\#couch6.jpg,outputs/couch\#couch6_class_bench.png,bench
+inputs\couch\#couch7.jpg,outputs/couch\#couch7_class_couch.png,couch
+inputs\couch\#couch8.jpg,outputs/couch\#couch8_class_person.png,person
+inputs\couch\#couch9.jpg,outputs/couch\#couch9_class_person.png,person
+inputs\couch\#couch0.jpg,outputs/couch\#couch0_class_cat.png,cat
+inputs\couch\#couch10.jpg,outputs/couch\#couch10_class_couch.png,couch
+inputs\couch\#couch13.jpg,outputs/couch\#couch13_class_couch.png,couch
+inputs\couch\#couch15.jpg,outputs/couch\#couch15_class_dog.png,dog
+inputs\couch\#couch16.jpg,outputs/couch\#couch16_class_person.png,person
+inputs\couch\#couch17.jpg,outputs/couch\#couch17_class_dog.png,dog
+inputs\couch\#couch18.jpg,outputs/couch\#couch18_class_potted plant.png,potted plant
+inputs\couch\#couch2.jpg,outputs/couch\#couch2_class_dog.png,dog
+inputs\couch\#couch3.jpg,outputs/couch\#couch3_class_couch.png,couch
+inputs\couch\#couch4.jpg,outputs/couch\#couch4_class_person.png,person
+inputs\couch\#couch8.jpg,outputs/couch\#couch8_class_couch.png,couch
+inputs\couch\#couch10.jpg,outputs/couch\#couch10_class_potted plant.png,potted plant
+inputs\couch\#couch16.jpg,outputs/couch\#couch16_class_couch.png,couch
+inputs\couch\#couch8.jpg,outputs/couch\#couch8_class_dog.png,dog
+inputs\bed\bed0.jpg,outputs/bed\bed0_class_bed.png,bed
+inputs\bed\bed1.jpg,outputs/bed\bed1_class_bed.png,bed
+inputs\bed\bed10.jpg,outputs/bed\bed10_class_bed.png,bed
+inputs\bed\bed11.jpg,outputs/bed\bed11_class_bed.png,bed
+inputs\bed\bed12.jpg,outputs/bed\bed12_class_bed.png,bed
+inputs\bed\bed13.jpg,outputs/bed\bed13_class_bed.png,bed
+inputs\bed\bed14.jpg,outputs/bed\bed14_class_bed.png,bed
+inputs\bed\bed15.jpg,outputs/bed\bed15_class_bed.png,bed
+inputs\bed\bed16.jpg,outputs/bed\bed16_class_bed.png,bed
+inputs\bed\bed17.jpg,outputs/bed\bed17_class_bed.png,bed
+inputs\bed\bed18.jpg,outputs/bed\bed18_class_bed.png,bed
+inputs\bed\bed2.jpg,outputs/bed\bed2_class_bed.png,bed
+inputs\bed\bed3.jpg,outputs/bed\bed3_class_bed.png,bed
+inputs\bed\bed4.jpg,outputs/bed\bed4_class_bed.png,bed
+inputs\bed\bed5.jpg,outputs/bed\bed5_class_bed.png,bed
+inputs\bed\bed6.jpg,outputs/bed\bed6_class_cat.png,cat
+inputs\bed\bed7.jpg,outputs/bed\bed7_class_bed.png,bed
+inputs\bed\bed8.jpg,outputs/bed\bed8_class_person.png,person
+inputs\bed\bed9.jpg,outputs/bed\bed9_class_bed.png,bed
+inputs\bed\bed12.jpg,outputs/bed\bed12_class_book.png,book
+inputs\bed\bed13.jpg,outputs/bed\bed13_class_potted plant.png,potted plant
+inputs\bed\bed14.jpg,outputs/bed\bed14_class_cup.png,cup
+inputs\bed\bed6.jpg,outputs/bed\bed6_class_bed.png,bed
+inputs\bed\bed8.jpg,outputs/bed\bed8_class_bed.png,bed
+inputs\bed\bed12.jpg,outputs/bed\bed12_class_cup.png,cup
+inputs\bed\bed13.jpg,outputs/bed\bed13_class_bowl.png,bowl
+inputs\bed\bed6.jpg,outputs/bed\bed6_class_potted plant.png,potted plant
+inputs\toilet\toilet0.jpg,outputs/toilet\toilet0_class_toilet.png,toilet
+inputs\toilet\toilet1.jpg,outputs/toilet\toilet1_class_toilet.png,toilet
+inputs\toilet\toilet10.jpg,outputs/toilet\toilet10_class_toilet.png,toilet
+inputs\toilet\toilet12.jpg,outputs/toilet\toilet12_class_toilet.png,toilet
+inputs\toilet\toilet14.jpg,outputs/toilet\toilet14_class_person.png,person
+inputs\toilet\toilet15.jpg,outputs/toilet\toilet15_class_toilet.png,toilet
+inputs\toilet\toilet16.jpg,outputs/toilet\toilet16_class_sink.png,sink
+inputs\toilet\toilet18.jpg,outputs/toilet\toilet18_class_toilet.png,toilet
+inputs\toilet\toilet19.jpg,outputs/toilet\toilet19_class_toilet.png,toilet
+inputs\toilet\toilet2.jpg,outputs/toilet\toilet2_class_toilet.png,toilet
+inputs\toilet\toilet3.jpg,outputs/toilet\toilet3_class_vase.png,vase
+inputs\toilet\toilet6.jpg,outputs/toilet\toilet6_class_toilet.png,toilet
+inputs\toilet\toilet7.jpg,outputs/toilet\toilet7_class_toilet.png,toilet
+inputs\toilet\toilet8.jpg,outputs/toilet\toilet8_class_toilet.png,toilet
+inputs\toilet\toilet9.jpg,outputs/toilet\toilet9_class_toilet.png,toilet
+inputs\toilet\toilet1.jpg,outputs/toilet\toilet1_class_potted plant.png,potted plant
+inputs\toilet\toilet10.jpg,outputs/toilet\toilet10_class_vase.png,vase
+inputs\toilet\toilet12.jpg,outputs/toilet\toilet12_class_potted plant.png,potted plant
+inputs\toilet\toilet18.jpg,outputs/toilet\toilet18_class_bottle.png,bottle
+inputs\toilet\toilet6.jpg,outputs/toilet\toilet6_class_sink.png,sink
+inputs\tv\tv0.jpg,outputs/tv\tv0_class_tv.png,tv
+inputs\tv\tv1.jpg,outputs/tv\tv1_class_tv.png,tv
+inputs\tv\tv10.jpg,outputs/tv\tv10_class_tv.png,tv
+inputs\tv\tv11.jpg,outputs/tv\tv11_class_tv.png,tv
+inputs\tv\tv13.jpg,outputs/tv\tv13_class_tv.png,tv
+inputs\tv\tv14.jpg,outputs/tv\tv14_class_laptop.png,laptop
+inputs\tv\tv15.jpg,outputs/tv\tv15_class_tv.png,tv
+inputs\tv\tv16.jpg,outputs/tv\tv16_class_tv.png,tv
+inputs\tv\tv17.jpg,outputs/tv\tv17_class_person.png,person
+inputs\tv\tv18.jpg,outputs/tv\tv18_class_tv.png,tv
+inputs\tv\tv19.jpg,outputs/tv\tv19_class_chair.png,chair
+inputs\tv\tv2.jpg,outputs/tv\tv2_class_tv.png,tv
+inputs\tv\tv3.jpg,outputs/tv\tv3_class_tv.png,tv
+inputs\tv\tv4.jpg,outputs/tv\tv4_class_microwave.png,microwave
+inputs\tv\tv5.jpg,outputs/tv\tv5_class_tv.png,tv
+inputs\tv\tv6.jpg,outputs/tv\tv6_class_bench.png,bench
+inputs\tv\tv8.jpg,outputs/tv\tv8_class_cup.png,cup
+inputs\tv\tv9.jpg,outputs/tv\tv9_class_tv.png,tv
+inputs\tv\tv14.jpg,outputs/tv\tv14_class_tv.png,tv
+inputs\tv\tv17.jpg,outputs/tv\tv17_class_tv.png,tv
+inputs\tv\tv8.jpg,outputs/tv\tv8_class_vase.png,vase
+inputs\tv\tv14.jpg,outputs/tv\tv14_class_person.png,person
+inputs\tv\tv8.jpg,outputs/tv\tv8_class_tv.png,tv
+inputs\laptop\laptop0.jpg,outputs/laptop\laptop0_class_laptop.png,laptop
+inputs\laptop\laptop1.jpg,outputs/laptop\laptop1_class_laptop.png,laptop
+inputs\laptop\laptop10.jpg,outputs/laptop\laptop10_class_person.png,person
+inputs\laptop\laptop11.jpg,outputs/laptop\laptop11_class_laptop.png,laptop
+inputs\laptop\laptop12.jpg,outputs/laptop\laptop12_class_person.png,person
+inputs\laptop\laptop13.jpg,outputs/laptop\laptop13_class_laptop.png,laptop
+inputs\laptop\laptop14.jpg,outputs/laptop\laptop14_class_laptop.png,laptop
+inputs\laptop\laptop15.jpg,outputs/laptop\laptop15_class_laptop.png,laptop
+inputs\laptop\laptop16.jpg,outputs/laptop\laptop16_class_laptop.png,laptop
+inputs\laptop\laptop17.jpg,outputs/laptop\laptop17_class_laptop.png,laptop
+inputs\laptop\laptop18.jpg,outputs/laptop\laptop18_class_cup.png,cup
+inputs\laptop\laptop19.jpg,outputs/laptop\laptop19_class_laptop.png,laptop
+inputs\laptop\laptop2.jpg,outputs/laptop\laptop2_class_laptop.png,laptop
+inputs\laptop\laptop3.jpg,outputs/laptop\laptop3_class_laptop.png,laptop
+inputs\laptop\laptop4.jpg,outputs/laptop\laptop4_class_laptop.png,laptop
+inputs\laptop\laptop5.jpg,outputs/laptop\laptop5_class_mouse.png,mouse
+inputs\laptop\laptop6.jpg,outputs/laptop\laptop6_class_laptop.png,laptop
+inputs\laptop\laptop7.jpg,outputs/laptop\laptop7_class_laptop.png,laptop
+inputs\laptop\laptop8.jpg,outputs/laptop\laptop8_class_person.png,person
+inputs\laptop\laptop9.jpg,outputs/laptop\laptop9_class_laptop.png,laptop
+inputs\laptop\laptop1.jpg,outputs/laptop\laptop1_class_person.png,person
+inputs\laptop\laptop11.jpg,outputs/laptop\laptop11_class_cup.png,cup
+inputs\laptop\laptop14.jpg,outputs/laptop\laptop14_class_cup.png,cup
+inputs\laptop\laptop16.jpg,outputs/laptop\laptop16_class_potted plant.png,potted plant
+inputs\laptop\laptop18.jpg,outputs/laptop\laptop18_class_potted plant.png,potted plant
+inputs\laptop\laptop19.jpg,outputs/laptop\laptop19_class_chair.png,chair
+inputs\laptop\laptop4.jpg,outputs/laptop\laptop4_class_cat.png,cat
+inputs\laptop\laptop7.jpg,outputs/laptop\laptop7_class_chair.png,chair
+inputs\laptop\laptop9.jpg,outputs/laptop\laptop9_class_person.png,person
+inputs\laptop\laptop11.jpg,outputs/laptop\laptop11_class_dining table.png,dining table
+inputs\laptop\laptop14.jpg,outputs/laptop\laptop14_class_dining table.png,dining table
+inputs\laptop\laptop16.jpg,outputs/laptop\laptop16_class_vase.png,vase
+inputs\laptop\laptop18.jpg,outputs/laptop\laptop18_class_laptop.png,laptop
+inputs\laptop\laptop4.jpg,outputs/laptop\laptop4_class_vase.png,vase
+inputs\laptop\laptop9.jpg,outputs/laptop\laptop9_class_cup.png,cup
+inputs\mouse\mouse0.jpg,outputs/mouse\mouse0_class_cat.png,cat
+inputs\mouse\mouse10.jpg,outputs/mouse\mouse10_class_bird.png,bird
+inputs\mouse\mouse11.jpg,outputs/mouse\mouse11_class_mouse.png,mouse
+inputs\mouse\mouse12.jpg,outputs/mouse\mouse12_class_bird.png,bird
+inputs\mouse\mouse13.jpg,outputs/mouse\mouse13_class_mouse.png,mouse
+inputs\mouse\mouse14.jpg,outputs/mouse\mouse14_class_mouse.png,mouse
+inputs\mouse\mouse15.jpg,outputs/mouse\mouse15_class_laptop.png,laptop
+inputs\mouse\mouse16.jpg,outputs/mouse\mouse16_class_tv.png,tv
+inputs\mouse\mouse17.jpg,outputs/mouse\mouse17_class_mouse.png,mouse
+inputs\mouse\mouse18.jpg,outputs/mouse\mouse18_class_mouse.png,mouse
+inputs\mouse\mouse19.jpg,outputs/mouse\mouse19_class_mouse.png,mouse
+inputs\mouse\mouse2.jpg,outputs/mouse\mouse2_class_mouse.png,mouse
+inputs\mouse\mouse3.jpg,outputs/mouse\mouse3_class_mouse.png,mouse
+inputs\mouse\mouse4.jpg,outputs/mouse\mouse4_class_remote.png,remote
+inputs\mouse\mouse5.jpg,outputs/mouse\mouse5_class_mouse.png,mouse
+inputs\mouse\mouse6.jpg,outputs/mouse\mouse6_class_mouse.png,mouse
+inputs\mouse\mouse7.jpg,outputs/mouse\mouse7_class_mouse.png,mouse
+inputs\mouse\mouse8.jpg,outputs/mouse\mouse8_class_laptop.png,laptop
+inputs\mouse\mouse9.jpg,outputs/mouse\mouse9_class_mouse.png,mouse
+inputs\mouse\mouse17.jpg,outputs/mouse\mouse17_class_laptop.png,laptop
+inputs\mouse\mouse18.jpg,outputs/mouse\mouse18_class_cell phone.png,cell phone
+inputs\mouse\mouse4.jpg,outputs/mouse\mouse4_class_dining table.png,dining table
+inputs\mouse\mouse6.jpg,outputs/mouse\mouse6_class_cell phone.png,cell phone
+inputs\mouse\mouse7.jpg,outputs/mouse\mouse7_class_cell phone.png,cell phone
+inputs\mouse\mouse15.jpg,outputs/mouse\mouse15_class_mouse.png,mouse
+inputs\mouse\mouse17.jpg,outputs/mouse\mouse17_class_cell phone.png,cell phone
+inputs\remote\remote0.jpg,outputs/remote\remote0_class_person.png,person
+inputs\remote\remote1.jpg,outputs/remote\remote1_class_cup.png,cup
+inputs\remote\remote10.jpg,outputs/remote\remote10_class_person.png,person
+inputs\remote\remote12.jpg,outputs/remote\remote12_class_remote.png,remote
+inputs\remote\remote16.jpg,outputs/remote\remote16_class_person.png,person
+inputs\remote\remote17.jpg,outputs/remote\remote17_class_person.png,person
+inputs\remote\remote18.jpg,outputs/remote\remote18_class_person.png,person
+inputs\remote\remote19.jpg,outputs/remote\remote19_class_laptop.png,laptop
+inputs\remote\remote2.jpg,outputs/remote\remote2_class_laptop.png,laptop
+inputs\remote\remote4.jpg,outputs/remote\remote4_class_person.png,person
+inputs\remote\remote5.jpg,outputs/remote\remote5_class_person.png,person
+inputs\remote\remote7.jpg,outputs/remote\remote7_class_laptop.png,laptop
+inputs\remote\remote8.jpg,outputs/remote\remote8_class_person.png,person
+inputs\remote\remote9.jpg,outputs/remote\remote9_class_person.png,person
+inputs\remote\remote1.jpg,outputs/remote\remote1_class_laptop.png,laptop
+inputs\remote\remote10.jpg,outputs/remote\remote10_class_laptop.png,laptop
+inputs\remote\remote17.jpg,outputs/remote\remote17_class_laptop.png,laptop
+inputs\remote\remote19.jpg,outputs/remote\remote19_class_cell phone.png,cell phone
+inputs\remote\remote2.jpg,outputs/remote\remote2_class_person.png,person
+inputs\remote\remote4.jpg,outputs/remote\remote4_class_cell phone.png,cell phone
+inputs\remote\remote5.jpg,outputs/remote\remote5_class_cell phone.png,cell phone
+inputs\remote\remote8.jpg,outputs/remote\remote8_class_cup.png,cup
+inputs\remote\remote9.jpg,outputs/remote\remote9_class_remote.png,remote
+inputs\remote\remote2.jpg,outputs/remote\remote2_class_couch.png,couch
+inputs\remote\remote4.jpg,outputs/remote\remote4_class_bowl.png,bowl
+inputs\keyboard\keyboard0.jpg,outputs/keyboard\keyboard0_class_person.png,person
+inputs\keyboard\keyboard1.jpg,outputs/keyboard\keyboard1_class_keyboard.png,keyboard
+inputs\keyboard\keyboard10.jpg,outputs/keyboard\keyboard10_class_keyboard.png,keyboard
+inputs\keyboard\keyboard11.jpg,outputs/keyboard\keyboard11_class_keyboard.png,keyboard
+inputs\keyboard\keyboard12.jpg,outputs/keyboard\keyboard12_class_keyboard.png,keyboard
+inputs\keyboard\keyboard13.jpg,outputs/keyboard\keyboard13_class_keyboard.png,keyboard
+inputs\keyboard\keyboard14.jpg,outputs/keyboard\keyboard14_class_mouse.png,mouse
+inputs\keyboard\keyboard15.jpg,outputs/keyboard\keyboard15_class_keyboard.png,keyboard
+inputs\keyboard\keyboard16.jpg,outputs/keyboard\keyboard16_class_keyboard.png,keyboard
+inputs\keyboard\keyboard17.jpg,outputs/keyboard\keyboard17_class_keyboard.png,keyboard
+inputs\keyboard\keyboard18.jpg,outputs/keyboard\keyboard18_class_keyboard.png,keyboard
+inputs\keyboard\keyboard19.jpg,outputs/keyboard\keyboard19_class_keyboard.png,keyboard
+inputs\keyboard\keyboard2.jpg,outputs/keyboard\keyboard2_class_keyboard.png,keyboard
+inputs\keyboard\keyboard3.jpg,outputs/keyboard\keyboard3_class_potted plant.png,potted plant
+inputs\keyboard\keyboard4.jpg,outputs/keyboard\keyboard4_class_keyboard.png,keyboard
+inputs\keyboard\keyboard5.jpg,outputs/keyboard\keyboard5_class_keyboard.png,keyboard
+inputs\keyboard\keyboard6.jpg,outputs/keyboard\keyboard6_class_keyboard.png,keyboard
+inputs\keyboard\keyboard7.jpg,outputs/keyboard\keyboard7_class_keyboard.png,keyboard
+inputs\keyboard\keyboard8.jpg,outputs/keyboard\keyboard8_class_keyboard.png,keyboard
+inputs\keyboard\keyboard9.jpg,outputs/keyboard\keyboard9_class_keyboard.png,keyboard
+inputs\keyboard\keyboard0.jpg,outputs/keyboard\keyboard0_class_laptop.png,laptop
+inputs\keyboard\keyboard13.jpg,outputs/keyboard\keyboard13_class_cup.png,cup
+inputs\keyboard\keyboard14.jpg,outputs/keyboard\keyboard14_class_keyboard.png,keyboard
+inputs\keyboard\keyboard14.jpg,outputs/keyboard\keyboard14_class_person.png,person
+inputs\cellphone\cell phone0.jpg,outputs/cellphone\cell phone0_class_person.png,person
+inputs\cellphone\cell phone1.jpg,outputs/cellphone\cell phone1_class_laptop.png,laptop
+inputs\cellphone\cell phone10.jpg,outputs/cellphone\cell phone10_class_cell phone.png,cell phone
+inputs\cellphone\cell phone11.jpg,outputs/cellphone\cell phone11_class_person.png,person
+inputs\cellphone\cell phone12.jpg,outputs/cellphone\cell phone12_class_person.png,person
+inputs\cellphone\cell phone14.jpg,outputs/cellphone\cell phone14_class_person.png,person
+inputs\cellphone\cell phone15.jpg,outputs/cellphone\cell phone15_class_cell phone.png,cell phone
+inputs\cellphone\cell phone16.jpg,outputs/cellphone\cell phone16_class_cell phone.png,cell phone
+inputs\cellphone\cell phone17.jpg,outputs/cellphone\cell phone17_class_cell phone.png,cell phone
+inputs\cellphone\cell phone18.jpg,outputs/cellphone\cell phone18_class_cell phone.png,cell phone
+inputs\cellphone\cell phone19.jpg,outputs/cellphone\cell phone19_class_cell phone.png,cell phone
+inputs\cellphone\cell phone2.jpg,outputs/cellphone\cell phone2_class_cell phone.png,cell phone
+inputs\cellphone\cell phone3.jpg,outputs/cellphone\cell phone3_class_cell phone.png,cell phone
+inputs\cellphone\cell phone4.jpg,outputs/cellphone\cell phone4_class_cell phone.png,cell phone
+inputs\cellphone\cell phone5.jpg,outputs/cellphone\cell phone5_class_person.png,person
+inputs\cellphone\cell phone7.jpg,outputs/cellphone\cell phone7_class_cell phone.png,cell phone
+inputs\cellphone\cell phone8.jpg,outputs/cellphone\cell phone8_class_person.png,person
+inputs\cellphone\cell phone1.jpg,outputs/cellphone\cell phone1_class_person.png,person
+inputs\cellphone\cell phone14.jpg,outputs/cellphone\cell phone14_class_cell phone.png,cell phone
+inputs\cellphone\cell phone17.jpg,outputs/cellphone\cell phone17_class_person.png,person
+inputs\cellphone\cell phone7.jpg,outputs/cellphone\cell phone7_class_bowl.png,bowl
+inputs\cellphone\cell phone11.jpg,outputs/cellphone\cell phone11_class_cell phone.png,cell phone
+inputs\cellphone\cell phone8.jpg,outputs/cellphone\cell phone8_class_cell phone.png,cell phone
+inputs\microwave\microwave0.jpg,outputs/microwave\microwave0_class_microwave.png,microwave
+inputs\microwave\microwave10.jpg,outputs/microwave\microwave10_class_tv.png,tv
+inputs\microwave\microwave12.jpg,outputs/microwave\microwave12_class_microwave.png,microwave
+inputs\microwave\microwave13.jpg,outputs/microwave\microwave13_class_microwave.png,microwave
+inputs\microwave\microwave14.jpg,outputs/microwave\microwave14_class_microwave.png,microwave
+inputs\microwave\microwave17.jpg,outputs/microwave\microwave17_class_microwave.png,microwave
+inputs\microwave\microwave18.jpg,outputs/microwave\microwave18_class_microwave.png,microwave
+inputs\microwave\microwave19.jpg,outputs/microwave\microwave19_class_microwave.png,microwave
+inputs\microwave\microwave2.jpg,outputs/microwave\microwave2_class_microwave.png,microwave
+inputs\microwave\microwave5.jpg,outputs/microwave\microwave5_class_oven.png,oven
+inputs\microwave\microwave6.jpg,outputs/microwave\microwave6_class_bicycle.png,bicycle
+inputs\microwave\microwave8.jpg,outputs/microwave\microwave8_class_microwave.png,microwave
+inputs\microwave\microwave13.jpg,outputs/microwave\microwave13_class_cell phone.png,cell phone
+inputs\microwave\microwave14.jpg,outputs/microwave\microwave14_class_oven.png,oven
+inputs\microwave\microwave17.jpg,outputs/microwave\microwave17_class_oven.png,oven
+inputs\microwave\microwave2.jpg,outputs/microwave\microwave2_class_bowl.png,bowl
+inputs\microwave\microwave5.jpg,outputs/microwave\microwave5_class_microwave.png,microwave
+inputs\microwave\microwave14.jpg,outputs/microwave\microwave14_class_chair.png,chair
+inputs\oven\oven0.jpg,outputs/oven\oven0_class_oven.png,oven
+inputs\oven\oven1.jpg,outputs/oven\oven1_class_oven.png,oven
+inputs\oven\oven10.jpg,outputs/oven\oven10_class_oven.png,oven
+inputs\oven\oven11.jpg,outputs/oven\oven11_class_cake.png,cake
+inputs\oven\oven12.jpg,outputs/oven\oven12_class_oven.png,oven
+inputs\oven\oven13.jpg,outputs/oven\oven13_class_oven.png,oven
+inputs\oven\oven15.jpg,outputs/oven\oven15_class_microwave.png,microwave
+inputs\oven\oven16.jpg,outputs/oven\oven16_class_oven.png,oven
+inputs\oven\oven19.jpg,outputs/oven\oven19_class_couch.png,couch
+inputs\oven\oven2.jpg,outputs/oven\oven2_class_oven.png,oven
+inputs\oven\oven3.jpg,outputs/oven\oven3_class_oven.png,oven
+inputs\oven\oven4.jpg,outputs/oven\oven4_class_dining table.png,dining table
+inputs\oven\oven5.jpg,outputs/oven\oven5_class_oven.png,oven
+inputs\oven\oven6.jpg,outputs/oven\oven6_class_microwave.png,microwave
+inputs\oven\oven9.jpg,outputs/oven\oven9_class_microwave.png,microwave
+inputs\oven\oven1.jpg,outputs/oven\oven1_class_person.png,person
+inputs\oven\oven19.jpg,outputs/oven\oven19_class_person.png,person
+inputs\oven\oven6.jpg,outputs/oven\oven6_class_oven.png,oven
+inputs\oven\oven9.jpg,outputs/oven\oven9_class_oven.png,oven
+inputs\oven\oven1.jpg,outputs/oven\oven1_class_donut.png,donut
+inputs\oven\oven6.jpg,outputs/oven\oven6_class_chair.png,chair
+inputs\toaster\toaster1.jpg,outputs/toaster\toaster1_class_cake.png,cake
+inputs\toaster\toaster11.jpg,outputs/toaster\toaster11_class_spoon.png,spoon
+inputs\toaster\toaster13.jpg,outputs/toaster\toaster13_class_person.png,person
+inputs\toaster\toaster16.jpg,outputs/toaster\toaster16_class_car.png,car
+inputs\toaster\toaster19.jpg,outputs/toaster\toaster19_class_person.png,person
+inputs\toaster\toaster4.jpg,outputs/toaster\toaster4_class_suitcase.png,suitcase
+inputs\toaster\toaster6.jpg,outputs/toaster\toaster6_class_bowl.png,bowl
+inputs\toaster\toaster8.jpg,outputs/toaster\toaster8_class_person.png,person
+inputs\toaster\toaster9.jpg,outputs/toaster\toaster9_class_cup.png,cup
+inputs\sink\sink0.jpg,outputs/sink\sink0_class_bottle.png,bottle
+inputs\sink\sink1.jpg,outputs/sink\sink1_class_sink.png,sink
+inputs\sink\sink11.jpg,outputs/sink\sink11_class_cat.png,cat
+inputs\sink\sink12.jpg,outputs/sink\sink12_class_person.png,person
+inputs\sink\sink13.jpg,outputs/sink\sink13_class_sink.png,sink
+inputs\sink\sink2.jpg,outputs/sink\sink2_class_sink.png,sink
+inputs\sink\sink3.jpg,outputs/sink\sink3_class_sink.png,sink
+inputs\sink\sink4.jpg,outputs/sink\sink4_class_sink.png,sink
+inputs\sink\sink6.jpg,outputs/sink\sink6_class_dining table.png,dining table
+inputs\sink\sink7.jpg,outputs/sink\sink7_class_sink.png,sink
+inputs\sink\sink8.jpg,outputs/sink\sink8_class_person.png,person
+inputs\refrigerator\refrigerator0.jpg,outputs/refrigerator\refrigerator0_class_microwave.png,microwave
+inputs\refrigerator\refrigerator1.jpg,outputs/refrigerator\refrigerator1_class_refrigerator.png,refrigerator
+inputs\refrigerator\refrigerator10.jpg,outputs/refrigerator\refrigerator10_class_refrigerator.png,refrigerator
+inputs\refrigerator\refrigerator11.jpg,outputs/refrigerator\refrigerator11_class_refrigerator.png,refrigerator
+inputs\refrigerator\refrigerator12.jpg,outputs/refrigerator\refrigerator12_class_orange.png,orange
+inputs\refrigerator\refrigerator13.jpg,outputs/refrigerator\refrigerator13_class_refrigerator.png,refrigerator
+inputs\refrigerator\refrigerator14.jpg,outputs/refrigerator\refrigerator14_class_refrigerator.png,refrigerator
+inputs\refrigerator\refrigerator18.jpg,outputs/refrigerator\refrigerator18_class_refrigerator.png,refrigerator
+inputs\refrigerator\refrigerator19.jpg,outputs/refrigerator\refrigerator19_class_refrigerator.png,refrigerator
+inputs\refrigerator\refrigerator2.jpg,outputs/refrigerator\refrigerator2_class_refrigerator.png,refrigerator
+inputs\refrigerator\refrigerator3.jpg,outputs/refrigerator\refrigerator3_class_refrigerator.png,refrigerator
+inputs\refrigerator\refrigerator4.jpg,outputs/refrigerator\refrigerator4_class_potted plant.png,potted plant
+inputs\refrigerator\refrigerator5.jpg,outputs/refrigerator\refrigerator5_class_microwave.png,microwave
+inputs\refrigerator\refrigerator6.jpg,outputs/refrigerator\refrigerator6_class_person.png,person
+inputs\refrigerator\refrigerator7.jpg,outputs/refrigerator\refrigerator7_class_dog.png,dog
+inputs\refrigerator\refrigerator9.jpg,outputs/refrigerator\refrigerator9_class_microwave.png,microwave
+inputs\refrigerator\refrigerator0.jpg,outputs/refrigerator\refrigerator0_class_oven.png,oven
+inputs\refrigerator\refrigerator10.jpg,outputs/refrigerator\refrigerator10_class_bottle.png,bottle
+inputs\refrigerator\refrigerator13.jpg,outputs/refrigerator\refrigerator13_class_person.png,person
+inputs\refrigerator\refrigerator18.jpg,outputs/refrigerator\refrigerator18_class_chair.png,chair
+inputs\refrigerator\refrigerator3.jpg,outputs/refrigerator\refrigerator3_class_bottle.png,bottle
+inputs\refrigerator\refrigerator5.jpg,outputs/refrigerator\refrigerator5_class_oven.png,oven
+inputs\refrigerator\refrigerator6.jpg,outputs/refrigerator\refrigerator6_class_bowl.png,bowl
+inputs\refrigerator\refrigerator9.jpg,outputs/refrigerator\refrigerator9_class_bowl.png,bowl
+inputs\refrigerator\refrigerator0.jpg,outputs/refrigerator\refrigerator0_class_refrigerator.png,refrigerator
+inputs\refrigerator\refrigerator18.jpg,outputs/refrigerator\refrigerator18_class_potted plant.png,potted plant
+inputs\refrigerator\refrigerator5.jpg,outputs/refrigerator\refrigerator5_class_chair.png,chair
+inputs\book\book0.jpg,outputs/book\book0_class_book.png,book
+inputs\book\book14.jpg,outputs/book\book14_class_book.png,book
+inputs\book\book15.jpg,outputs/book\book15_class_person.png,person
+inputs\book\book19.jpg,outputs/book\book19_class_book.png,book
+inputs\book\book5.jpg,outputs/book\book5_class_cell phone.png,cell phone
+inputs\book\book6.jpg,outputs/book\book6_class_book.png,book
+inputs\book\book8.jpg,outputs/book\book8_class_book.png,book
+inputs\book\book5.jpg,outputs/book\book5_class_scissors.png,scissors
+inputs\book\book6.jpg,outputs/book\book6_class_person.png,person
+inputs\book\book8.jpg,outputs/book\book8_class_bowl.png,bowl
+inputs\book\book5.jpg,outputs/book\book5_class_vase.png,vase
+inputs\clock\clock0.jpg,outputs/clock\clock0_class_clock.png,clock
+inputs\clock\clock10.jpg,outputs/clock\clock10_class_person.png,person
+inputs\clock\clock11.jpg,outputs/clock\clock11_class_clock.png,clock
+inputs\clock\clock13.jpg,outputs/clock\clock13_class_clock.png,clock
+inputs\clock\clock14.jpg,outputs/clock\clock14_class_clock.png,clock
+inputs\clock\clock16.jpg,outputs/clock\clock16_class_clock.png,clock
+inputs\clock\clock17.jpg,outputs/clock\clock17_class_person.png,person
+inputs\clock\clock18.jpg,outputs/clock\clock18_class_clock.png,clock
+inputs\clock\clock19.jpg,outputs/clock\clock19_class_clock.png,clock
+inputs\clock\clock2.jpg,outputs/clock\clock2_class_clock.png,clock
+inputs\clock\clock3.jpg,outputs/clock\clock3_class_person.png,person
+inputs\clock\clock4.jpg,outputs/clock\clock4_class_clock.png,clock
+inputs\clock\clock5.jpg,outputs/clock\clock5_class_person.png,person
+inputs\clock\clock6.jpg,outputs/clock\clock6_class_clock.png,clock
+inputs\clock\clock7.jpg,outputs/clock\clock7_class_clock.png,clock
+inputs\clock\clock8.jpg,outputs/clock\clock8_class_clock.png,clock
+inputs\clock\clock9.jpg,outputs/clock\clock9_class_clock.png,clock
+inputs\clock\clock10.jpg,outputs/clock\clock10_class_clock.png,clock
+inputs\clock\clock13.jpg,outputs/clock\clock13_class_person.png,person
+inputs\clock\clock14.jpg,outputs/clock\clock14_class_vase.png,vase
+inputs\clock\clock17.jpg,outputs/clock\clock17_class_clock.png,clock
+inputs\clock\clock3.jpg,outputs/clock\clock3_class_clock.png,clock
+inputs\clock\clock4.jpg,outputs/clock\clock4_class_person.png,person
+inputs\clock\clock5.jpg,outputs/clock\clock5_class_clock.png,clock
+inputs\vase\vase0.jpg,outputs/vase\vase0_class_vase.png,vase
+inputs\vase\vase1.jpg,outputs/vase\vase1_class_vase.png,vase
+inputs\vase\vase10.jpg,outputs/vase\vase10_class_vase.png,vase
+inputs\vase\vase12.jpg,outputs/vase\vase12_class_vase.png,vase
+inputs\vase\vase13.jpg,outputs/vase\vase13_class_vase.png,vase
+inputs\vase\vase17.jpg,outputs/vase\vase17_class_potted plant.png,potted plant
+inputs\vase\vase18.jpg,outputs/vase\vase18_class_vase.png,vase
+inputs\vase\vase19.jpg,outputs/vase\vase19_class_vase.png,vase
+inputs\vase\vase2.jpg,outputs/vase\vase2_class_vase.png,vase
+inputs\vase\vase3.jpg,outputs/vase\vase3_class_vase.png,vase
+inputs\scissors\scissors0.jpg,outputs/scissors\scissors0_class_scissors.png,scissors
+inputs\scissors\scissors1.jpg,outputs/scissors\scissors1_class_person.png,person
+inputs\scissors\scissors10.jpg,outputs/scissors\scissors10_class_scissors.png,scissors
+inputs\scissors\scissors11.jpg,outputs/scissors\scissors11_class_scissors.png,scissors
+inputs\scissors\scissors12.jpg,outputs/scissors\scissors12_class_scissors.png,scissors
+inputs\scissors\scissors13.jpg,outputs/scissors\scissors13_class_scissors.png,scissors
+inputs\scissors\scissors14.jpg,outputs/scissors\scissors14_class_scissors.png,scissors
+inputs\scissors\scissors15.jpg,outputs/scissors\scissors15_class_scissors.png,scissors
+inputs\scissors\scissors16.jpg,outputs/scissors\scissors16_class_scissors.png,scissors
+inputs\scissors\scissors18.jpg,outputs/scissors\scissors18_class_scissors.png,scissors
+inputs\scissors\scissors19.jpg,outputs/scissors\scissors19_class_scissors.png,scissors
+inputs\scissors\scissors3.jpg,outputs/scissors\scissors3_class_scissors.png,scissors
+inputs\scissors\scissors4.jpg,outputs/scissors\scissors4_class_scissors.png,scissors
+inputs\scissors\scissors5.jpg,outputs/scissors\scissors5_class_scissors.png,scissors
+inputs\scissors\scissors6.jpg,outputs/scissors\scissors6_class_scissors.png,scissors
+inputs\scissors\scissors8.jpg,outputs/scissors\scissors8_class_scissors.png,scissors
+inputs\scissors\scissors9.jpg,outputs/scissors\scissors9_class_scissors.png,scissors
+inputs\scissors\scissors1.jpg,outputs/scissors\scissors1_class_scissors.png,scissors
+inputs\toothbrush\toothbrush13.jpg,outputs/toothbrush\toothbrush13_class_toothbrush.png,toothbrush
+inputs\toothbrush\toothbrush15.jpg,outputs/toothbrush\toothbrush15_class_toothbrush.png,toothbrush
+inputs\toothbrush\toothbrush16.jpg,outputs/toothbrush\toothbrush16_class_toothbrush.png,toothbrush
+inputs\toothbrush\toothbrush3.jpg,outputs/toothbrush\toothbrush3_class_person.png,person
+inputs\toothbrush\toothbrush7.jpg,outputs/toothbrush\toothbrush7_class_cup.png,cup
+inputs\pottedplant\potted plant16.jpg,outputs/pottedplant\potted plant16_class_bottle.png,bottle
+inputs\pottedplant\potted plant3.jpg,outputs/pottedplant\potted plant3_class_potted plant.png,potted plant
+inputs\pottedplant\potted plant3.jpg,outputs/pottedplant\potted plant3_class_vase.png,vase
+inputs\skateboard\skateboard1.jpg,outputs/skateboard\skateboard1_class_person.png,person
+inputs\skateboard\skateboard10.jpg,outputs/skateboard\skateboard10_class_skateboard.png,skateboard
+inputs\skateboard\skateboard11.jpg,outputs/skateboard\skateboard11_class_person.png,person
+inputs\skateboard\skateboard12.jpg,outputs/skateboard\skateboard12_class_skateboard.png,skateboard
+inputs\skateboard\skateboard13.jpg,outputs/skateboard\skateboard13_class_skateboard.png,skateboard
+inputs\skateboard\skateboard14.jpg,outputs/skateboard\skateboard14_class_skateboard.png,skateboard
+inputs\skateboard\skateboard15.jpg,outputs/skateboard\skateboard15_class_skateboard.png,skateboard
+inputs\skateboard\skateboard17.jpg,outputs/skateboard\skateboard17_class_person.png,person
+inputs\skateboard\skateboard18.jpg,outputs/skateboard\skateboard18_class_person.png,person
+inputs\skateboard\skateboard19.jpg,outputs/skateboard\skateboard19_class_person.png,person
+inputs\skateboard\skateboard2.jpg,outputs/skateboard\skateboard2_class_person.png,person
+inputs\skateboard\skateboard3.jpg,outputs/skateboard\skateboard3_class_person.png,person
+inputs\skateboard\skateboard5.jpg,outputs/skateboard\skateboard5_class_skateboard.png,skateboard
+inputs\skateboard\skateboard6.jpg,outputs/skateboard\skateboard6_class_skateboard.png,skateboard
+inputs\skateboard\skateboard8.jpg,outputs/skateboard\skateboard8_class_skateboard.png,skateboard
+inputs\skateboard\skateboard9.jpg,outputs/skateboard\skateboard9_class_person.png,person
+inputs\skateboard\skateboard1.jpg,outputs/skateboard\skateboard1_class_skateboard.png,skateboard
+inputs\skateboard\skateboard10.jpg,outputs/skateboard\skateboard10_class_person.png,person
+inputs\skateboard\skateboard15.jpg,outputs/skateboard\skateboard15_class_person.png,person
+inputs\skateboard\skateboard17.jpg,outputs/skateboard\skateboard17_class_skateboard.png,skateboard
+inputs\skateboard\skateboard19.jpg,outputs/skateboard\skateboard19_class_skateboard.png,skateboard
+inputs\skateboard\skateboard2.jpg,outputs/skateboard\skateboard2_class_skateboard.png,skateboard
+inputs\skateboard\skateboard6.jpg,outputs/skateboard\skateboard6_class_person.png,person
+inputs\skateboard\skateboard9.jpg,outputs/skateboard\skateboard9_class_skateboard.png,skateboard
+inputs\skateboard\skateboard10.jpg,outputs/skateboard\skateboard10_class_car.png,car
+inputs\diningtable\dining table0.jpg,outputs/diningtable\dining table0_class_dining table.png,dining table
+inputs\diningtable\dining table1.jpg,outputs/diningtable\dining table1_class_dining table.png,dining table
+inputs\diningtable\dining table10.jpg,outputs/diningtable\dining table10_class_potted plant.png,potted plant
+inputs\diningtable\dining table11.jpg,outputs/diningtable\dining table11_class_dining table.png,dining table
+inputs\diningtable\dining table12.jpg,outputs/diningtable\dining table12_class_chair.png,chair
+inputs\diningtable\dining table13.jpg,outputs/diningtable\dining table13_class_dining table.png,dining table
+inputs\diningtable\dining table14.jpg,outputs/diningtable\dining table14_class_dining table.png,dining table
+inputs\diningtable\dining table15.jpg,outputs/diningtable\dining table15_class_bowl.png,bowl
+inputs\diningtable\dining table16.jpg,outputs/diningtable\dining table16_class_dining table.png,dining table
+inputs\diningtable\dining table17.jpg,outputs/diningtable\dining table17_class_chair.png,chair
+inputs\diningtable\dining table18.jpg,outputs/diningtable\dining table18_class_chair.png,chair
+inputs\diningtable\dining table19.jpg,outputs/diningtable\dining table19_class_dining table.png,dining table
+inputs\diningtable\dining table2.jpg,outputs/diningtable\dining table2_class_dining table.png,dining table
+inputs\diningtable\dining table3.jpg,outputs/diningtable\dining table3_class_wine glass.png,wine glass
+inputs\diningtable\dining table4.jpg,outputs/diningtable\dining table4_class_chair.png,chair
+inputs\diningtable\dining table5.jpg,outputs/diningtable\dining table5_class_chair.png,chair
+inputs\diningtable\dining table6.jpg,outputs/diningtable\dining table6_class_chair.png,chair
+inputs\diningtable\dining table7.jpg,outputs/diningtable\dining table7_class_chair.png,chair
+inputs\diningtable\dining table8.jpg,outputs/diningtable\dining table8_class_dining table.png,dining table
+inputs\diningtable\dining table9.jpg,outputs/diningtable\dining table9_class_chair.png,chair
+inputs\diningtable\dining table0.jpg,outputs/diningtable\dining table0_class_chair.png,chair
+inputs\diningtable\dining table10.jpg,outputs/diningtable\dining table10_class_chair.png,chair
+inputs\diningtable\dining table11.jpg,outputs/diningtable\dining table11_class_chair.png,chair
+inputs\diningtable\dining table13.jpg,outputs/diningtable\dining table13_class_chair.png,chair
+inputs\diningtable\dining table14.jpg,outputs/diningtable\dining table14_class_bowl.png,bowl
+inputs\diningtable\dining table16.jpg,outputs/diningtable\dining table16_class_potted plant.png,potted plant
+inputs\diningtable\dining table2.jpg,outputs/diningtable\dining table2_class_chair.png,chair
+inputs\diningtable\dining table3.jpg,outputs/diningtable\dining table3_class_chair.png,chair
+inputs\diningtable\dining table6.jpg,outputs/diningtable\dining table6_class_dining table.png,dining table
+inputs\diningtable\dining table8.jpg,outputs/diningtable\dining table8_class_couch.png,couch
+inputs\diningtable\dining table0.jpg,outputs/diningtable\dining table0_class_person.png,person
+inputs\diningtable\dining table13.jpg,outputs/diningtable\dining table13_class_cup.png,cup
+inputs\diningtable\dining table16.jpg,outputs/diningtable\dining table16_class_cup.png,cup
+inputs\diningtable\dining table5.jpg,outputs/diningtable\dining table5_class_dining table.png,dining table
+inputs\diningtable\dining table6.jpg,outputs/diningtable\dining table6_class_cup.png,cup
+inputs\hairdrier\hair drier0.jpg,outputs/hairdrier\hair drier0_class_person.png,person
+inputs\hairdrier\hair drier1.jpg,outputs/hairdrier\hair drier1_class_person.png,person
+inputs\hairdrier\hair drier10.jpg,outputs/hairdrier\hair drier10_class_dining table.png,dining table
+inputs\hairdrier\hair drier12.jpg,outputs/hairdrier\hair drier12_class_person.png,person
+inputs\hairdrier\hair drier15.jpg,outputs/hairdrier\hair drier15_class_scissors.png,scissors
+inputs\hairdrier\hair drier16.jpg,outputs/hairdrier\hair drier16_class_mouse.png,mouse
+inputs\hairdrier\hair drier18.jpg,outputs/hairdrier\hair drier18_class_person.png,person
+inputs\hairdrier\hair drier3.jpg,outputs/hairdrier\hair drier3_class_airplane.png,airplane
+inputs\hairdrier\hair drier10.jpg,outputs/hairdrier\hair drier10_class_bottle.png,bottle
+inputs\hairdrier\hair drier18.jpg,outputs/hairdrier\hair drier18_class_remote.png,remote
+inputs\teddybear\teddy bear0.jpg,outputs/teddybear\teddy bear0_class_teddy bear.png,teddy bear
+inputs\teddybear\teddy bear1.jpg,outputs/teddybear\teddy bear1_class_teddy bear.png,teddy bear
+inputs\teddybear\teddy bear10.jpg,outputs/teddybear\teddy bear10_class_teddy bear.png,teddy bear
+inputs\teddybear\teddy bear12.jpg,outputs/teddybear\teddy bear12_class_teddy bear.png,teddy bear
+inputs\teddybear\teddy bear13.jpg,outputs/teddybear\teddy bear13_class_teddy bear.png,teddy bear
+inputs\teddybear\teddy bear14.jpg,outputs/teddybear\teddy bear14_class_teddy bear.png,teddy bear
+inputs\teddybear\teddy bear15.jpg,outputs/teddybear\teddy bear15_class_teddy bear.png,teddy bear
+inputs\teddybear\teddy bear16.jpg,outputs/teddybear\teddy bear16_class_teddy bear.png,teddy bear
+inputs\teddybear\teddy bear17.jpg,outputs/teddybear\teddy bear17_class_teddy bear.png,teddy bear
+inputs\teddybear\teddy bear2.jpg,outputs/teddybear\teddy bear2_class_person.png,person
+inputs\teddybear\teddy bear3.jpg,outputs/teddybear\teddy bear3_class_teddy bear.png,teddy bear
+inputs\teddybear\teddy bear4.jpg,outputs/teddybear\teddy bear4_class_person.png,person
+inputs\teddybear\teddy bear5.jpg,outputs/teddybear\teddy bear5_class_teddy bear.png,teddy bear
+inputs\teddybear\teddy bear6.jpg,outputs/teddybear\teddy bear6_class_teddy bear.png,teddy bear
+inputs\teddybear\teddy bear7.jpg,outputs/teddybear\teddy bear7_class_bed.png,bed
+inputs\teddybear\teddy bear8.jpg,outputs/teddybear\teddy bear8_class_teddy bear.png,teddy bear
+inputs\teddybear\teddy bear9.jpg,outputs/teddybear\teddy bear9_class_teddy bear.png,teddy bear
+inputs\teddybear\teddy bear13.jpg,outputs/teddybear\teddy bear13_class_chair.png,chair
+inputs\teddybear\teddy bear2.jpg,outputs/teddybear\teddy bear2_class_teddy bear.png,teddy bear
+inputs\teddybear\teddy bear4.jpg,outputs/teddybear\teddy bear4_class_teddy bear.png,teddy bear
+inputs\teddybear\teddy bear7.jpg,outputs/teddybear\teddy bear7_class_teddy bear.png,teddy bear
+inputs\teddybear\teddy bear15.jpg,outputs/teddybear\teddy bear15_class_sports ball.png,sports ball
+inputs\tennisracket\tennis racket0.jpg,outputs/tennisracket\tennis racket0_class_sports ball.png,sports ball
+inputs\tennisracket\tennis racket1.jpg,outputs/tennisracket\tennis racket1_class_tennis racket.png,tennis racket
+inputs\tennisracket\tennis racket10.jpg,outputs/tennisracket\tennis racket10_class_person.png,person
+inputs\tennisracket\tennis racket11.jpg,outputs/tennisracket\tennis racket11_class_person.png,person
+inputs\tennisracket\tennis racket12.jpg,outputs/tennisracket\tennis racket12_class_person.png,person
+inputs\tennisracket\tennis racket14.jpg,outputs/tennisracket\tennis racket14_class_tennis racket.png,tennis racket
+inputs\tennisracket\tennis racket16.jpg,outputs/tennisracket\tennis racket16_class_sports ball.png,sports ball
+inputs\tennisracket\tennis racket17.jpg,outputs/tennisracket\tennis racket17_class_tennis racket.png,tennis racket
+inputs\tennisracket\tennis racket2.jpg,outputs/tennisracket\tennis racket2_class_tennis racket.png,tennis racket
+inputs\tennisracket\tennis racket3.jpg,outputs/tennisracket\tennis racket3_class_person.png,person
+inputs\tennisracket\tennis racket4.jpg,outputs/tennisracket\tennis racket4_class_tennis racket.png,tennis racket
+inputs\tennisracket\tennis racket5.jpg,outputs/tennisracket\tennis racket5_class_baseball glove.png,baseball glove
+inputs\tennisracket\tennis racket6.jpg,outputs/tennisracket\tennis racket6_class_person.png,person
+inputs\tennisracket\tennis racket7.jpg,outputs/tennisracket\tennis racket7_class_person.png,person
+inputs\tennisracket\tennis racket8.jpg,outputs/tennisracket\tennis racket8_class_person.png,person
+inputs\tennisracket\tennis racket9.jpg,outputs/tennisracket\tennis racket9_class_tennis racket.png,tennis racket
+inputs\tennisracket\tennis racket0.jpg,outputs/tennisracket\tennis racket0_class_person.png,person
+inputs\tennisracket\tennis racket1.jpg,outputs/tennisracket\tennis racket1_class_sports ball.png,sports ball
+inputs\tennisracket\tennis racket10.jpg,outputs/tennisracket\tennis racket10_class_tennis racket.png,tennis racket
+inputs\tennisracket\tennis racket12.jpg,outputs/tennisracket\tennis racket12_class_tennis racket.png,tennis racket
+inputs\tennisracket\tennis racket16.jpg,outputs/tennisracket\tennis racket16_class_tennis racket.png,tennis racket
+inputs\tennisracket\tennis racket3.jpg,outputs/tennisracket\tennis racket3_class_tennis racket.png,tennis racket
+inputs\tennisracket\tennis racket5.jpg,outputs/tennisracket\tennis racket5_class_person.png,person
+inputs\tennisracket\tennis racket11.jpg,outputs/tennisracket\tennis racket11_class_tennis racket.png,tennis racket
+inputs\tennisracket\tennis racket16.jpg,outputs/tennisracket\tennis racket16_class_person.png,person
+inputs\tennisracket\tennis racket3.jpg,outputs/tennisracket\tennis racket3_class_sports ball.png,sports ball
+inputs\hotdog\hot dog0.jpg,outputs/hotdog\hot dog0_class_hot dog.png,hot dog
+inputs\hotdog\hot dog1.jpg,outputs/hotdog\hot dog1_class_dining table.png,dining table
+inputs\hotdog\hot dog10.jpg,outputs/hotdog\hot dog10_class_hot dog.png,hot dog
+inputs\hotdog\hot dog11.jpg,outputs/hotdog\hot dog11_class_person.png,person
+inputs\hotdog\hot dog12.jpg,outputs/hotdog\hot dog12_class_hot dog.png,hot dog
+inputs\hotdog\hot dog16.jpg,outputs/hotdog\hot dog16_class_person.png,person
+inputs\hotdog\hot dog17.jpg,outputs/hotdog\hot dog17_class_person.png,person
+inputs\hotdog\hot dog18.jpg,outputs/hotdog\hot dog18_class_hot dog.png,hot dog
+inputs\hotdog\hot dog19.jpg,outputs/hotdog\hot dog19_class_hot dog.png,hot dog
+inputs\hotdog\hot dog2.jpg,outputs/hotdog\hot dog2_class_hot dog.png,hot dog
+inputs\hotdog\hot dog3.jpg,outputs/hotdog\hot dog3_class_hot dog.png,hot dog
+inputs\hotdog\hot dog4.jpg,outputs/hotdog\hot dog4_class_hot dog.png,hot dog
+inputs\hotdog\hot dog5.jpg,outputs/hotdog\hot dog5_class_oven.png,oven
+inputs\hotdog\hot dog6.jpg,outputs/hotdog\hot dog6_class_carrot.png,carrot
+inputs\hotdog\hot dog8.jpg,outputs/hotdog\hot dog8_class_broccoli.png,broccoli
+inputs\hotdog\hot dog9.jpg,outputs/hotdog\hot dog9_class_hot dog.png,hot dog
+inputs\hotdog\hot dog1.jpg,outputs/hotdog\hot dog1_class_hot dog.png,hot dog
+inputs\hotdog\hot dog11.jpg,outputs/hotdog\hot dog11_class_hot dog.png,hot dog
+inputs\hotdog\hot dog16.jpg,outputs/hotdog\hot dog16_class_hot dog.png,hot dog
+inputs\hotdog\hot dog18.jpg,outputs/hotdog\hot dog18_class_bowl.png,bowl
+inputs\hotdog\hot dog3.jpg,outputs/hotdog\hot dog3_class_bowl.png,bowl
+inputs\hotdog\hot dog5.jpg,outputs/hotdog\hot dog5_class_bowl.png,bowl
+inputs\hotdog\hot dog8.jpg,outputs/hotdog\hot dog8_class_carrot.png,carrot
+inputs\hotdog\hot dog0.jpg,outputs/hotdog\hot dog0_class_dining table.png,dining table

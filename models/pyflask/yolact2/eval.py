@@ -1,17 +1,17 @@
 from queue import Queue
 from multiprocessing.pool import ThreadPool
-from data import COCODetection, get_label_map, MEANS, COLORS
-from yolact import Yolact
-from utils.augmentations import BaseTransform, FastBaseTransform, Resize
-from utils.functions import MovingAverage, ProgressBar
-from layers.box_utils import jaccard, center_size, mask_iou
-from utils import timer
-from utils.functions import SavePath
-from layers.output_utils import postprocess, undo_image_transformation
+from yolact2.data import COCODetection, get_label_map, MEANS, COLORS
+from yolact2.yolact import Yolact
+from yolact2.utils.augmentations import BaseTransform, FastBaseTransform, Resize
+from yolact2.utils.functions import MovingAverage, ProgressBar
+from yolact2.layers.box_utils import jaccard, center_size, mask_iou
+from yolact2.utils import timer
+from yolact2.utils.functions import SavePath
+from yolact2.layers.output_utils import postprocess, undo_image_transformation
 import pycocotools
 import glob
 import csv
-from data import cfg, set_cfg, set_dataset
+from yolact2.data import cfg, set_cfg, set_dataset
 
 import numpy as np
 import torch
@@ -46,9 +46,9 @@ def parse_args(argv=None):
     parser = argparse.ArgumentParser(
         description='YOLACT COCO Evaluation')
     parser.add_argument('--trained_model',
-                        default='weights/ssd300_mAP_77.43_v2.pth', type=str,
+                        default='yolact2/weights/yolact_base_54_800000.pth', type=str,
                         help='Trained state_dict file path to open. If "interrupt", this will open the interrupt file.')
-    parser.add_argument('--top_k', default=5, type=int,
+    parser.add_argument('--top_k', default=3, type=int,
                         help='Further restrict the number of predictions to parse')
     parser.add_argument('--cuda', default=True, type=str2bool,
                         help='Use cuda to evaulate model')
@@ -58,11 +58,11 @@ def parse_args(argv=None):
                         help='Whether compute NMS cross-class or per-class.')
     parser.add_argument('--display_masks', default=True, type=str2bool,
                         help='Whether or not to display masks over bounding boxes')
-    parser.add_argument('--display_bboxes', default=True, type=str2bool,
+    parser.add_argument('--display_bboxes', default=False, type=str2bool,
                         help='Whether or not to display bboxes around masks')
-    parser.add_argument('--display_text', default=True, type=str2bool,
+    parser.add_argument('--display_text', default=False, type=str2bool,
                         help='Whether or not to display text (class [score])')
-    parser.add_argument('--display_scores', default=True, type=str2bool,
+    parser.add_argument('--display_scores', default=False, type=str2bool,
                         help='Whether or not to display scores in addition to classes')
     parser.add_argument('--display', dest='display', action='store_true',
                         help='Display qualitative results instead of quantitative ones.')
@@ -108,7 +108,7 @@ def parse_args(argv=None):
                         help='A path to a video to evaluate on. Passing in a number will use that index webcam.')
     parser.add_argument('--video_multiframe', default=1, type=int,
                         help='The number of frames to evaluate in parallel to make videos play at higher fps.')
-    parser.add_argument('--score_threshold', default=0, type=float,
+    parser.add_argument('--score_threshold', default=0.8, type=float,
                         help='Detections with a score under this threshold will not be considered. This currently only works in display mode.')
     parser.add_argument('--dataset', default=None, type=str,
                         help='If specified, override the dataset specified in the config with this one (example: coco2017_dataset).')
@@ -203,7 +203,6 @@ def prep_display(dets_out, img, h, w, undo_transform=True, class_color=False, ma
             1, 1, 1, 3) for j in range(num_dets_to_consider)], dim=0)
         masks_color = masks.repeat(1, 1, 1, 3) * colors * mask_alpha
 
-
         # This is 1 everywhere except for 1-mask_alpha where the mask is
         inv_alph_masks = masks * (-mask_alpha) + 1
 
@@ -243,15 +242,14 @@ def prep_display(dets_out, img, h, w, undo_transform=True, class_color=False, ma
         text_pt = (4, text_h + 2)
         text_color = [255, 255, 255]
 
-
         cv2.putText(img_numpy, fps_str, text_pt, font_face,
                     font_scale, text_color, font_thickness, cv2.LINE_AA)
 
     if num_dets_to_consider == 0:
         classes = []
-        return img_numpy,classes
+        return img_numpy, classes
 
-    if args.display_text or args.display_bboxes :
+    if args.display_text or args.display_bboxes:
         for j in reversed(range(num_dets_to_consider)):
             x1, y1, x2, y2 = boxes[j, :]
             color = get_color(j)
@@ -278,7 +276,8 @@ def prep_display(dets_out, img, h, w, undo_transform=True, class_color=False, ma
                 # cv2.rectangle(img_numpy, (x1, y1), (x1 + text_w, y1 - text_h - 4), color, -1)
                 # cv2.putText(img_numpy, text_str, text_pt, font_face, font_scale, text_color, font_thickness, cv2.LINE_AA)
 
-    return img_numpy,classes
+    return img_numpy, classes
+
 
 def prep_benchmark(dets_out, h, w):
     with timer.env('Postprocess'):
@@ -630,15 +629,14 @@ def evalimage(net: Yolact, path: str, save_path: str = None):
     batch = FastBaseTransform()(frame.unsqueeze(0))
     preds = net(batch)
 
-    img_numpy,classes = prep_display(preds, frame, None, None, undo_transform=False)
+    img_numpy, classes = prep_display(
+        preds, frame, None, None, undo_transform=False)
 
     if len(classes) == 0:
         return
     _class = cfg.dataset.class_names[classes[args.mask_order]]
 
     save_path = save_path[:-4] + '_class_'+_class + '.png'
-
-
 
     if img_numpy is None:
         return
@@ -673,9 +671,6 @@ def evalimages(net: Yolact, input_folder: str, output_folder: str):
         # print(path + ' -> ' + out_path)
     print('Done.')
 
-
-from multiprocessing.pool import ThreadPool
-from queue import Queue
 
 class CustomDataParallel(torch.nn.DataParallel):
     """ A Custom Data Parallel class that properly gathers lists of dictionaries. """
@@ -1070,6 +1065,55 @@ def evaluate(net: Yolact, dataset, train_mode=False):
         print('Stopping...')
 
 
+def custom_evaluate(net: Yolact, dataset, input_path, train_mode=False):
+    net.detect.use_fast_nms = args.fast_nms
+    net.detect.use_cross_class_nms = args.cross_class_nms
+    cfg.mask_proto_debug = args.mask_proto_debug
+
+    # TODO Currently we do not support Fast Mask Re-scroing in evalimage, evalimages, and evalvideo
+    if input_path is not None:
+        # print("input path : " + input_path)
+        pics, words = custom_evalimage(net, input_path)
+        # print(pics + "," + words)
+        return pics, words
+
+    # except KeyboardInterrupt:
+    #     print('Stopping...')
+
+
+def custom_evalimage(net: Yolact, path: str):
+    print(path)
+    frame = torch.from_numpy(cv2.imread(path)).cuda().float()
+
+    batch = FastBaseTransform()(frame.unsqueeze(0))
+    preds = net(batch)
+
+    img_numpy, classes = prep_display(
+        preds, frame, None, None, undo_transform=False)
+
+    if len(classes) == 0:
+        return
+    _class = cfg.dataset.class_names[classes[args.mask_order]]
+    save_path = "C:/Users/multicampus/Desktop/20200924/models/pyflask/yolact2/inputs/broccoli/" + \
+        'custom_class_test2'+_class + '.png'
+    # print("save path : " + save_path)
+    # print(img_numpy)
+    if img_numpy is None:
+        return
+    if save_path is None:
+        img_numpy = img_numpy[:, :, (2, 1, 0)]
+
+    if save_path is None:
+        plt.imshow(img_numpy)
+        plt.title(path)
+        plt.show()
+    else:
+        if not os.path.isfile(save_path):
+            cv2.imwrite(save_path, img_numpy)
+            # print(save_path + ":" + _class)
+            return save_path, _class
+
+
 def calc_map(ap_data):
     print('Calculating mAP...')
     aps = [{'box': [], 'mask': []} for _ in iou_thresholds]
@@ -1175,3 +1219,67 @@ if __name__ == '__main__':
             net = net.cuda()
 
         evaluate(net, dataset)
+        # pth = "C:/Users/multicampus/Desktop/yolact/yolact/input_image.png"
+        # custom_evaluate(net, dataset, input_path=pth)
+
+
+def custom_segmentation(in_path, order):
+    parse_args()
+    args.mask_order = int(order)
+    args.image = in_path
+    if args.config is not None:
+        set_cfg(args.config)
+
+    if args.trained_model == 'interrupt':
+        args.trained_model = SavePath.get_interrupt('weights/')
+    elif args.trained_model == 'latest':
+        args.trained_model = SavePath.get_latest('weights/', cfg.name)
+
+    if args.config is None:
+        model_path = SavePath.from_str(args.trained_model)
+        # TODO: Bad practice? Probably want to do a name lookup instead.
+        args.config = model_path.model_name + '_config'
+        print('Config not specified. Parsed %s from the file name.\n' % args.config)
+        set_cfg(args.config)
+
+    if args.detect:
+        cfg.eval_mask_branch = False
+
+    if args.dataset is not None:
+        set_dataset(args.dataset)
+
+    with torch.no_grad():
+        if not os.path.exists('results'):
+            os.makedirs('results')
+
+        if args.cuda:
+            cudnn.fastest = True
+            torch.set_default_tensor_type('torch.cuda.FloatTensor')
+        else:
+            torch.set_default_tensor_type('torch.FloatTensor')
+
+        if args.resume and not args.display:
+            with open(args.ap_data_file, 'rb') as f:
+                ap_data = pickle.load(f)
+            calc_map(ap_data)
+            exit()
+
+        if args.image is None and args.video is None and args.images is None:
+            dataset = COCODetection(cfg.dataset.valid_images, cfg.dataset.valid_info,
+                                    transform=BaseTransform(), has_gt=cfg.dataset.has_gt)
+            prep_coco_cats()
+        else:
+            dataset = None
+
+        print('Loading model...', end='')
+        net = Yolact()
+        net.load_weights(args.trained_model)
+        net.eval()
+        print(' Done.')
+
+        if args.cuda:
+            net = net.cuda()
+
+        # evaluate(net, dataset)
+        pic, word = custom_evaluate(net, dataset, input_path=in_path)
+        return pic, word

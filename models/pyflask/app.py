@@ -1,14 +1,18 @@
 from flask import Flask, request
-import Emotion_Recognition
+import emotion.Emotion_Recognition
 import cv2
 import numpy
+import json
+# from yolact2 import yolact2.eval
+import yolact2.eval as segmetation
+
 app = Flask(__name__)
 
 
-@app.route('/')
-def index():
-    text = 'Welcome to EngKi AI-MODEL-SERVER'
-    return text
+# @app.route('/')
+# def index():
+#     text = 'Welcome to EngKi AI-MODEL-SERVER'
+#     return text
 
 
 @app.route('/emotion', methods=['POST'])
@@ -24,6 +28,18 @@ def emotion():
 
     emotions = er.emotion_recognition(img)
     return emotions
+
+
+@app.route('/seg', methods=['POST'])
+def seg():
+    in_path = request.form['in_path']
+    order = request.form['order']
+    out_path, word = segmetation.custom_segmentation(in_path, order)
+    value = {
+        'out_path': out_path,
+        'word': word,
+    }
+    return value
 
 
 if __name__ == '__main__':
