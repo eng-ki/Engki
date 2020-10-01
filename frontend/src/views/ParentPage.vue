@@ -94,6 +94,12 @@
           </v-col>
         </v-row>
       </div>
+      <!-- <div> -->
+      <div class="backtomain">
+        <img class="backtomain" src="../../public/img/icon/street-sign-main.png" @click="backtomain()"/>
+        <!-- <span class="backtomain-txt">  메인으로 </span> -->
+      </div>
+      <!-- </div> -->
     </div>
   </div>
 </template>
@@ -174,6 +180,9 @@ export default {
         this.currentOffset += this.paginationFactor
       }
     },
+    backtomain(){
+      this.$router.push('/selectkid')
+    }
   },
 }
 </script>
@@ -205,7 +214,7 @@ $arrowcolor: black;
   width: $display-width;
   height: $board-height;
   border-radius: 10vh;
-  padding: 0vh 2vw 2vh 2vw;
+  padding: 0vh 2vw 0vh 2vw;
   position: absolute;
   z-index: 1;
 }
@@ -388,4 +397,33 @@ $arrowcolor: black;
 .activect {
   background-color: #ffe26d;
 }
+
+.backtomain{
+  position:absolute;
+  display: block;
+  bottom: 0px;
+  right:2vw;
+  height:25vh;
+  width:auto;
+  // img{
+  //   // margin-bottom: -1vh;
+  //   width:100%;
+  // }
+  // transform: translate(-50%, -50%);
+  .backtomain-txt{
+    width:2.5vh*4;
+    // height:auto;
+    font-size: $font-size;
+    position: absolute;
+    display:block;
+    bottom:11vh;
+    // margin:auto;
+    right: 8vh;
+    // right:0.1vw;
+    color: black;
+    // transform: translate(0, -50%);
+  }
+}
+
+
 </style>
