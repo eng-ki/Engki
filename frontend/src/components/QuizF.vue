@@ -44,7 +44,7 @@
   </div>
 </template>
 <script>
-import draggable from 'vuedraggable'
+import draggable from "vuedraggable";
 export default {
   components: { draggable },
   props: {
@@ -55,38 +55,38 @@ export default {
       quiz: null,
       selectedIndex: -1,
       answers: [],
-    }
+    };
   },
   mounted() {
     //api 호출
     this.quiz = {
-      url: '/img/etc/puppy2.jpg',
-      sentence: 'A small dog is running on the grass',
-      sentence_kr: '작은 강아지가 풀밭에서 달리고 있습니다',
-      answers: ['running', 'A', 'dog', 'is', 'on', 'the', 'grass', 'small'],
-    }
+      url: "/img/etc/puppy2.jpg",
+      sentence: "A small dog is running on the grass",
+      sentence_kr: "작은 강아지가 풀밭에서 달리고 있습니다",
+      answers: ["running", "A", "dog", "is", "on", "the", "grass", "small"],
+    };
   },
   watch: {
     isDone: function (val) {
-      if (this.isCorrect()) this.$emit('correct')
-      else this.$emit('wrong')
+      if (this.isCorrect()) this.$emit("correct");
+      else this.$emit("wrong");
     },
   },
   methods: {
     isCorrect() {
       // if (this.answers.join(' ') == this.quiz.sentence) return true
       // else return false
-      return true
+      return true;
     },
     soundAndTranslation(sentence) {
-      speech(sentence)
+      speech(sentence);
     },
     go(answer) {
-      this.quiz.answers.splice(answer, 1)
-      this.answers.push(answer)
+      this.quiz.answers.splice(answer, 1);
+      this.answers.push(answer);
     },
   },
-}
+};
 
 // var voices = []
 // function setVoiceList() {
@@ -132,7 +132,7 @@ export default {
 // }
 </script>
 <style lang="scss">
-@import '../assets/sass/base.scss';
+@import "../assets/sass/base.scss";
 </style>
 <style lang="scss" scoped>
 .quiz-sentence {
