@@ -144,8 +144,9 @@ export default {
     },
     deleteKid(index) {
       this.$swal({
-        title: '자녀를 삭제하시겠습니까?',
-        text: '자녀 데이터가 모두 삭제됩니다',
+        title:
+          '<span style="font-family: GmarketSansMedium;font-size:1.5vw;">자녀 데이터를 삭제하시겠습니까?</span>',
+
         type: 'warning',
         showCancelButton: true,
         confirmButtonText: '삭제',
