@@ -3,9 +3,11 @@
     <div v-if="isUploaded">
       <div class="custom-edu">
         <img class="custom-img" :src="img" />
+        <!-- 타이틀 -->
         <span class="title"
           >아이가 학습할 단어와 문장을 커스터마이징 하세요!</span
         >
+        <!-- 세그멘테이션 단어 (0~3개) 수정 -->
         <span class="word" v-for="(word, index) in words" v-bind:key="index">
           <input
             :value="word"
@@ -19,6 +21,7 @@
         /></span>
       </div>
 
+      <!-- 이미지 캡셔닝 문장 수정 -->
       <div
         class="sentences"
         v-for="(sentence, index) in sentences"
@@ -36,6 +39,7 @@
         </div>
       </div>
 
+      <!-- 학습 시작 버튼 -->
       <div class="custom-start">
         <img
           v-bind="attrs"
@@ -45,72 +49,94 @@
         />
       </div>
     </div>
+
+    <!-- 이미지 등록 -->
     <div v-else>
       <input ref="imageInput" type="file" hidden @change="onChangeImages" />
-      <v-btn type="button" @click="onClickImageUpload" large
-        >학습에 사용할 이미지를 등록해주세요</v-btn
-      >
+      <button class="upload-image" @click="onClickImageUpload">
+        학습에 사용할 이미지를 등록해주세요
+      </button>
       <v-img v-if="imageUrl" :src="imageUrl"></v-img>
     </div>
+
+    <!-- 이미지 등록 중 로딩 -->
+    <v-overlay :value="overlay">
+      <v-progress-circular indeterminate size="100"></v-progress-circular>
+    </v-overlay>
   </div>
 </template>
 <script>
 export default {
-  name: "Report",
+  name: 'Report',
   props: {
     kid: null,
   },
   data: () => {
     return {
-      img: "/img/etc/womanpuppy.jpg",
-      sentences: ["The dog and the woman are running beside the seaside"],
-      words: ["dog", "woman", "sea"],
-      isUploaded: false, // 이미지 등록시
-      selectedPencil: -1,
-      imageUrl: null,
-      ReadS: false,
-      ReadW: false,
-    };
+      img: '/img/etc/womanpuppy.jpg',
+      sentences: ['The dog and the woman are running beside the seaside'],
+      words: ['dog', 'woman', 'sea'],
+      isUploaded: false, // 이미지 등록 여부
+      selectedPencil: -1, // 연필 아이콘 focus,hover
+      imageUrl: null, // 등록한 이미지 링크
+      ReadS: false, // 문장 readonly 여부
+      ReadW: false, // 단어 readonly 여부
+      overlay: false, // 로딩 여부
+    }
   },
   methods: {
     test() {
       this.$swal({
         title:
           '<span style="font-family: GmarketSansMedium;font-size:1.5vw;">현재 데이터로 학습을 시작하시겠습니까?</span>',
-        type: "warning",
+        type: 'warning',
         showCancelButton: true,
-        confirmButtonText: "네",
-        cancelButtonText: "아니요",
+        confirmButtonText: '네',
+        cancelButtonText: '아니요',
         showCloseButton: true,
         showLoaderOnConfirm: true,
       }).then((result) => {
         if (result.value) {
-          this.$router.push("/quiz");
+          this.$router.push('/quiz')
         }
-      });
+      })
     },
     selectedWord(index) {
-      this.readW = true;
-      this.selectedPencil = index;
+      this.readW = true
+      this.selectedPencil = index
     },
     onClickImageUpload() {
-      this.$refs.imageInput.click();
+      this.$refs.imageInput.click()
     },
     onChangeImages(e) {
-      console.log(e.target.files);
-      const file = e.target.files[0];
-      this.isUploaded = true;
-      this.img = URL.createObjectURL(file);
+      console.log(e.target.files)
+      const file = e.target.files[0]
+      this.overlay = !this.overlay
+      setTimeout(() => {
+        this.overlay = false
+        this.isUploaded = true
+      }, 3000)
+      this.img = URL.createObjectURL(file)
     },
   },
-};
+}
 </script>
 <style lang="scss">
-@import "../assets/sass/base.scss";
+@import '../assets/sass/base.scss';
 </style>
 <style lang="scss" scoped>
 * {
-  font-family: "GmarketSansMedium";
+  font-family: 'GmarketSansMedium';
+}
+.upload-image {
+  position: absolute;
+  top: 15vh;
+  left: 21vw;
+  font-size: 2.5vw;
+  width: 50vw;
+  height: 15vh;
+  background-color: #f2f2f2;
+  box-shadow: rgba(1, 1, 1, 0.15) 0px 2px 3px 0px;
 }
 .custom-edu {
   position: absolute;
