@@ -64,4 +64,21 @@ public class EduController {
 		logger.debug(String.format("get Random Image from theme %d with kid %d 호출", themeId, kidId));
 		return new ResponseEntity<>(eduService.getRandomImage(themeId, kidId), HttpStatus.OK);
 	}
+
+	@GetMapping("{wordId}/images")
+	@ApiOperation(value = "Quiz 2 : 랜덤 이미지 목록 조회",
+		notes = "선택한 단어의 이미지 목록을 조회한다.\n",
+		response = EduDto.Image.class)
+	@ApiResponses(value = {
+		@ApiResponse(code = 200, message = "OK"),
+		@ApiResponse(code = 400, message = "Bad Request"),
+		@ApiResponse(code = 401, message = "Unauthorized"),
+		@ApiResponse(code = 403, message = "Forbidden"),
+		@ApiResponse(code = 404, message = "Not Found")
+	})
+	private ResponseEntity<?> getRandomImagesWithWord(
+		@ApiParam(value = "word id", example = "1") @PathVariable long wordId) {
+		logger.debug(String.format("get Random Images with word %d 호출", wordId));
+		return new ResponseEntity<>(eduService.getRandomImages(wordId), HttpStatus.OK);
+	}
 }

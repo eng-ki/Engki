@@ -32,7 +32,19 @@ public class EduDto {
 		@ApiModelProperty(value = "word", example = "bicycle")
 		private String word;
 
-		@ApiModelProperty(value = "image file path", example = "theme/transportation.png")
+		@ApiModelProperty(value = "image file path", example = "inputs\\bicycle\\bicycle1.jpg")
+		private String filePath;
+	}
+
+	@Builder
+	@Data
+	@AllArgsConstructor
+	@NoArgsConstructor
+	public static class Image {
+		@ApiModelProperty(value = "word", example = "bicycle")
+		private String word;
+
+		@ApiModelProperty(value = "image file path", example = "inputs\\bicycle\\bicycle1.jpg")
 		private String filePath;
 	}
 }
