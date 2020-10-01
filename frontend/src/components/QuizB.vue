@@ -118,7 +118,7 @@ export default {
     // display:inherit;
     width: 13vw;
     height:13vw; 
-    border-radius: 15px;
+    border-radius: 5vw;
     border: 1vw solid transparent;
     // background-color:yellow;
   }
