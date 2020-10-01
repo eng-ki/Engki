@@ -10,7 +10,7 @@
 
     <div class="whiteboard">
       <div class="board">
-        <quiz-a
+        <!-- <quiz-a
           :isDone="isDone"
           :answer="answer"
           @set-answer="setAnswer"
@@ -18,7 +18,7 @@
           v-on:wrong="isNextStage(false)"
           class="quiz"
           v-if="stage == 0"
-        />
+        /> -->
         <quiz-b
           :isDone="isDone"
           :answer="answer"
@@ -57,7 +57,7 @@
           v-on:correct="isNextStage(true)"
           v-on:wrong="isNextStage(false)"
           class="quiz"
-          v-if="stage == 5"
+          v-if="stage == 0"
         />
 
         <img src="../../public/img/etc/whiteboard.png" />
@@ -139,18 +139,18 @@ export default {
       // alert("눌림" + this.isDone)
       this.isDone = false
       // 정답일 경우 다음 스테이지
-      if (flag){
+      if (flag) {
         this.stage++
-      } 
+      }
       if (this.stage == 6) {
         this.stage = 5
         this.isFinish = true
       }
     },
-    setAnswer(answer){
+    setAnswer(answer) {
       // alert("바뀜");
-      this.answer=answer;
-    }
+      this.answer = answer
+    },
   },
 }
 </script>
