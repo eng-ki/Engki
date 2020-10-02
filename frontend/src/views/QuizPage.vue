@@ -2,7 +2,12 @@
   <div class="background">
     <!-- 캡쳐 -->
     <video style="display: none" id="player" controls autoplay></video>
-    <canvas id="snapshot" width="320" height="240"></canvas>
+    <canvas
+      style="display: none"
+      id="snapshot"
+      width="320"
+      height="240"
+    ></canvas>
 
     <!-- etc : 종료 화면 / pause 화면 컴포넌트들 들어갈 자리-->
     <etc
