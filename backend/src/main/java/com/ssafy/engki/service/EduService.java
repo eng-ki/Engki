@@ -1,6 +1,7 @@
 package com.ssafy.engki.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 
 import com.ssafy.engki.dto.EduDto;
 import com.ssafy.engki.entity.Image;
+import com.ssafy.engki.entity.ImageCaption;
 import com.ssafy.engki.entity.ImageWord;
 import com.ssafy.engki.entity.Word;
 import com.ssafy.engki.mapper.EduMapper;
@@ -97,5 +99,39 @@ public class EduService {
 			.filePath(imageWord.getImage().getFilePath())
 			.segFilePath(imageWord.getBoundary())
 			.build();
+	}
+
+	public EduDto.Caption getCaption(long wordId) {
+		Random rand = new Random(System.currentTimeMillis());
+
+		List<ImageCaption> imageCaptions = imageCaptionRepository.getAllByWordId(wordId);
+		ImageCaption imageCaption = imageCaptions.get(rand.nextInt(imageCaptions.size()));
+
+		List<String> captionsExceptWord = imageCaptionRepository.findExceptWord(wordId);
+		List<String> randomCaptions = new ArrayList<>();
+		rand.ints(3, 0, captionsExceptWord.size()).forEach(idx ->
+			randomCaptions.add(captionsExceptWord.get(idx))
+		);
+
+		return EduDto.Caption.builder()
+			.filePath(imageCaption.getImage().getFilePath())
+			.caption(imageCaption.getCaption())
+			.randomCaptions(randomCaptions)
+			.tokens(tokenize(imageCaption.getCaption()))
+			.build();
+	}
+
+	private List<EduDto.Token> tokenize(String caption) {
+		caption = caption.replace(".", ""); //. 없애기
+		List<EduDto.Token> tokens = new ArrayList<>();
+
+		String[] splitCaption = caption.split(" ");
+		for (int i = 0; i < splitCaption.length; i++) {
+			tokens.add(new EduDto.Token(splitCaption[i], i));
+		}
+
+		Collections.shuffle(tokens, new Random(System.currentTimeMillis()));
+
+		return tokens;
 	}
 }
