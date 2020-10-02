@@ -47,4 +47,16 @@ public class EduDto {
 		@ApiModelProperty(value = "image file path", example = "inputs\\bicycle\\bicycle1.jpg")
 		private String filePath;
 	}
+
+	@Builder
+	@Data
+	@AllArgsConstructor
+	@NoArgsConstructor
+	public static class Segmentation {
+		@ApiModelProperty(value = "original image file path", example = "inputs\\bicycle\\bicycle1.jpg")
+		private String filePath;
+
+		@ApiModelProperty(value = "classified image file path", example = "outputs/bicycle\\bicycle1_class_bicycle.png")
+		private String segFilePath;
+	}
 }

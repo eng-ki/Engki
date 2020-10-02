@@ -14,4 +14,7 @@ public interface ImageWordRepository extends JpaRepository<ImageWord, ImageWordI
 		+ "and w.themeId = :themeId "
 		+ "and 1 = (select count(iw2) from ImageWord iw2 where iw2.id.imageId = iw.id.imageId)")
 	List<ImageWord> getOneObjectImagesFromThemeNotWord(long themeId, long wordId);
+
+	@Query(value = "select iw from ImageWord iw where iw.id.wordId = :wordId")
+	List<ImageWord> getAllByWordId(long wordId);
 }

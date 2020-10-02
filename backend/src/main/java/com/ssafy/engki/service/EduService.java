@@ -13,6 +13,7 @@ import com.ssafy.engki.entity.Image;
 import com.ssafy.engki.entity.ImageWord;
 import com.ssafy.engki.entity.Word;
 import com.ssafy.engki.mapper.EduMapper;
+import com.ssafy.engki.repository.ImageCaptionRepository;
 import com.ssafy.engki.repository.ImageRepository;
 import com.ssafy.engki.repository.ImageWordRepository;
 import com.ssafy.engki.repository.ThemeRepository;
@@ -25,6 +26,7 @@ public class EduService {
 	private final WordRepository wordRepository;
 	private final ImageRepository imageRepository;
 	private final ImageWordRepository imageWordRepository;
+	private final ImageCaptionRepository imageCaptionRepository;
 
 	public List<EduDto.Theme> getThemes() {
 		return EduMapper.INSTANCE.toTheme(themeRepository.findAll());
@@ -83,5 +85,17 @@ public class EduService {
 
 		// -> 6개 리턴
 		return images;
+	}
+
+	public EduDto.Segmentation getSegmentation(long wordId) {
+		Random rand = new Random(System.currentTimeMillis());
+
+		List<ImageWord> imageWords = imageWordRepository.getAllByWordId(wordId);
+		ImageWord imageWord = imageWords.get(rand.nextInt(imageWords.size()));
+
+		return EduDto.Segmentation.builder()
+			.filePath(imageWord.getImage().getFilePath())
+			.segFilePath(imageWord.getBoundary())
+			.build();
 	}
 }

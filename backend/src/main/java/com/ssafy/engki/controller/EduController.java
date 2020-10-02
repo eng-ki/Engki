@@ -41,7 +41,7 @@ public class EduController {
 		@ApiResponse(code = 403, message = "Forbidden"),
 		@ApiResponse(code = 404, message = "Not Found")
 	})
-	private ResponseEntity<?> getThemes() {
+	private ResponseEntity<List<EduDto.Theme>> getThemes() {
 		logger.debug("get Themes 호출");
 		return new ResponseEntity<>(eduService.getThemes(), HttpStatus.OK);
 	}
@@ -58,7 +58,7 @@ public class EduController {
 		@ApiResponse(code = 403, message = "Forbidden"),
 		@ApiResponse(code = 404, message = "Not Found")
 	})
-	private ResponseEntity<?> getRandomImageFromTheme(
+	private ResponseEntity<EduDto.Word> getRandomImageFromTheme(
 		@ApiParam(value = "선택한 테마 id", example = "1") @PathVariable long themeId,
 		@ApiParam(value = "아이 id", example = "1") @PathVariable long kidId) {
 		logger.debug(String.format("get Random Image from theme %d with kid %d 호출", themeId, kidId));
@@ -76,9 +76,26 @@ public class EduController {
 		@ApiResponse(code = 403, message = "Forbidden"),
 		@ApiResponse(code = 404, message = "Not Found")
 	})
-	private ResponseEntity<?> getRandomImagesWithWord(
+	private ResponseEntity<List<EduDto.Image>> getRandomImagesWithWord(
 		@ApiParam(value = "word id", example = "1") @PathVariable long wordId) {
 		logger.debug(String.format("get Random Images with word %d 호출", wordId));
 		return new ResponseEntity<>(eduService.getRandomImages(wordId), HttpStatus.OK);
+	}
+
+	@GetMapping("{wordId}/seg")
+	@ApiOperation(value = "Quiz 3 : 세그멘테이션 이미지 조회",
+		notes = "선택한 단어의 오리지널 이미지와 segmetation이 적용된 이미지를 조회한다.",
+		response = EduDto.Image.class)
+	@ApiResponses(value = {
+		@ApiResponse(code = 200, message = "OK"),
+		@ApiResponse(code = 400, message = "Bad Request"),
+		@ApiResponse(code = 401, message = "Unauthorized"),
+		@ApiResponse(code = 403, message = "Forbidden"),
+		@ApiResponse(code = 404, message = "Not Found")
+	})
+	private ResponseEntity<EduDto.Segmentation> getSegmentation(
+		@ApiParam(value = "word id", example = "1") @PathVariable long wordId) {
+		logger.debug(String.format("get Segmentation image with word %d 호출", wordId));
+		return new ResponseEntity<>(eduService.getSegmentation(wordId), HttpStatus.OK);
 	}
 }
