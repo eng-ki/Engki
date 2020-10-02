@@ -1,14 +1,14 @@
 <template>
   <div>
     <div class="quiz-img">
-      <img :src="quiz.url" @click="soundAndTranslation()" />
+      <img :src="quiz.url" @click="soundAndTranslation(word)" />
       <div class="quiz-text">{{ word }}</div>
     </div>
   </div>
 </template>
 <script>
 export default {
-  props: ['isDone','answer'],
+  props: ['isDone', 'answer'],
   data: () => {
     return {
       quiz: null,
@@ -26,10 +26,11 @@ export default {
     }
     this.word = this.quiz.word_eng
     this.answer = this.quiz.word_eng
+    setVoiceList()
   },
   watch: {
-    answer:function(val){
-      this.$emit('set-answer',this.answer)
+    answer: function (val) {
+      this.$emit('set-answer', this.answer)
     },
     isDone: function (val) {
       this.$emit('correct')
@@ -49,9 +50,11 @@ export default {
     //   // 다했어요 버튼이 클릭됐을때 호출되는 함수, 정답이 맞으면 true, 틀리면 false 리턴
     //   return true
     // },
-    soundAndTranslation() {
+
+    soundAndTranslation(word) {
+      setVoiceList()
       this.showKorean = true
-      speech(this.quiz.word_eng)
+      speech(word)
       setTimeout(() => {
         this.showKorean = false
       }, 1000)
@@ -63,11 +66,16 @@ var voices = []
 function setVoiceList() {
   voices = window.speechSynthesis.getVoices()
 }
-setVoiceList()
+// 왜 여기서 실행하면 어쩔땐 되고 어쩔땐 안되는거지
+// setVoiceList()
 if (window.speechSynthesis.onvoiceschanged !== undefined) {
   window.speechSynthesis.onvoiceschanged = setVoiceList
+  // alert(setVoiceList)
 }
 function speech(txt) {
+  // https://stackoverflow.com/questions/49506716/speechsynthesis-getvoices-returns-empty-array-on-windows
+  // window.speechSynthesis.onvoiceschanged 불러오는데 시간이 좀 걸리는데 이걸 미리 불러올 수 있을까
+
   if (!window.speechSynthesis) {
     alert(
       '음성 재생을 지원하지 않는 브라우저입니다. 크롬, 파이어폭스 등의 최신 브라우저를 이용하세요'

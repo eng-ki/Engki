@@ -4,6 +4,7 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+bin/
 
 ### STS ###
 .apt_generated
@@ -14,7 +15,6 @@ build/
 .springBeans
 .sts4-cache
 .metadata/
-bin/
 
 ### IntelliJ IDEA ###
 .idea

@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 import torch
-from utils import timer
+from yolact2.utils import timer
 
-from data import cfg
+from yolact2.data import cfg
+
 
 @torch.jit.script
 def point_form(boxes):
@@ -14,7 +15,7 @@ def point_form(boxes):
         boxes: (tensor) Converted xmin, ymin, xmax, ymax form of boxes.
     """
     return torch.cat((boxes[:, :2] - boxes[:, 2:]/2,     # xmin, ymin
-                     boxes[:, :2] + boxes[:, 2:]/2), 1)  # xmax, ymax
+                      boxes[:, :2] + boxes[:, 2:]/2), 1)  # xmax, ymax
 
 
 @torch.jit.script
@@ -26,8 +27,9 @@ def center_size(boxes):
     Return:
         boxes: (tensor) Converted xmin, ymin, xmax, ymax form of boxes.
     """
-    return torch.cat(( (boxes[:, 2:] + boxes[:, :2])/2,     # cx, cy
-                        boxes[:, 2:] - boxes[:, :2]  ), 1)  # w, h
+    return torch.cat(((boxes[:, 2:] + boxes[:, :2])/2,     # cx, cy
+                      boxes[:, 2:] - boxes[:, :2]), 1)  # w, h
+
 
 @torch.jit.script
 def intersect(box_a, box_b):
@@ -51,7 +53,7 @@ def intersect(box_a, box_b):
     return torch.clamp(max_xy - min_xy, min=0).prod(3)  # inter
 
 
-def jaccard(box_a, box_b, iscrowd:bool=False):
+def jaccard(box_a, box_b, iscrowd: bool = False):
     """Compute the jaccard overlap of two sets of boxes.  The jaccard overlap
     is simply the intersection over union of two boxes.  Here we operate on
     ground truth boxes and default boxes. If iscrowd=True, put the crowd in box_b.
@@ -79,6 +81,7 @@ def jaccard(box_a, box_b, iscrowd:bool=False):
     out = inter / area_a if iscrowd else inter / union
     return out if use_batch else out.squeeze(0)
 
+
 def elemwise_box_iou(box_a, box_b):
     """ Does the same as above but instead of pairwise, elementwise along the inner dimension. """
     max_xy = torch.min(box_a[:, 2:], box_b[:, 2:])
@@ -94,6 +97,7 @@ def elemwise_box_iou(box_a, box_b):
 
     # Return value is [n] for inputs [n, 4]
     return torch.clamp(inter / union, max=1)
+
 
 def mask_iou(masks_a, masks_b, iscrowd=False):
     """
@@ -112,6 +116,7 @@ def mask_iou(masks_a, masks_b, iscrowd=False):
 
     return intersection / (area_a + area_b - intersection) if not iscrowd else intersection / area_a
 
+
 def elemwise_mask_iou(masks_a, masks_b):
     """ Does the same as above but instead of pairwise, elementwise along the outer dimension. """
     masks_a = masks_a.view(-1, masks_a.size(-1))
@@ -125,24 +130,23 @@ def elemwise_mask_iou(masks_a, masks_b):
     return torch.clamp(intersection / torch.clamp(area_a + area_b - intersection, min=0.1), max=1)
 
 
-
 def change(gt, priors):
     """
     Compute the d_change metric proposed in Box2Pix:
     https://lmb.informatik.uni-freiburg.de/Publications/2018/UB18/paper-box2pix.pdf
-    
+
     Input should be in point form (xmin, ymin, xmax, ymax).
 
     Output is of shape [num_gt, num_priors]
     Note this returns -change so it can be a drop in replacement for 
     """
     num_priors = priors.size(0)
-    num_gt     = gt.size(0)
+    num_gt = gt.size(0)
 
     gt_w = (gt[:, 2] - gt[:, 0])[:, None].expand(num_gt, num_priors)
     gt_h = (gt[:, 3] - gt[:, 1])[:, None].expand(num_gt, num_priors)
 
-    gt_mat =     gt[:, None, :].expand(num_gt, num_priors, 4)
+    gt_mat = gt[:, None, :].expand(num_gt, num_priors, 4)
     pr_mat = priors[None, :, :].expand(num_gt, num_priors, 4)
 
     diff = gt_mat - pr_mat
@@ -151,9 +155,7 @@ def change(gt, priors):
     diff[:, :, 1] /= gt_h
     diff[:, :, 3] /= gt_h
 
-    return -torch.sqrt( (diff ** 2).sum(dim=2) )
-
-
+    return -torch.sqrt((diff ** 2).sum(dim=2))
 
 
 def match(pos_thresh, neg_thresh, truths, priors, labels, crowd_boxes, loc_t, conf_t, idx_t, idx, loc_data):
@@ -175,10 +177,12 @@ def match(pos_thresh, neg_thresh, truths, priors, labels, crowd_boxes, loc_t, co
     Return:
         The matched indices corresponding to 1)location and 2)confidence preds.
     """
-    decoded_priors = decode(loc_data, priors, cfg.use_yolo_regressors) if cfg.use_prediction_matching else point_form(priors)
-    
+    decoded_priors = decode(
+        loc_data, priors, cfg.use_yolo_regressors) if cfg.use_prediction_matching else point_form(priors)
+
     # Size [num_objects, num_priors]
-    overlaps = jaccard(truths, decoded_priors) if not cfg.use_change_matching else change(truths, decoded_priors)
+    overlaps = jaccard(truths, decoded_priors) if not cfg.use_change_matching else change(
+        truths, decoded_priors)
 
     # Size [num_priors] best ground truth for each prior
     best_truth_overlap, best_truth_idx = overlaps.max(0)
@@ -210,7 +214,7 @@ def match(pos_thresh, neg_thresh, truths, priors, labels, crowd_boxes, loc_t, co
     conf = labels[best_truth_idx] + 1           # Shape: [num_priors]
 
     conf[best_truth_overlap < pos_thresh] = -1  # label as neutral
-    conf[best_truth_overlap < neg_thresh] =  0  # label as background
+    conf[best_truth_overlap < neg_thresh] = 0  # label as background
 
     # Deal with crowd annotations for COCO
     if crowd_boxes is not None and cfg.crowd_iou_threshold < 1:
@@ -222,17 +226,18 @@ def match(pos_thresh, neg_thresh, truths, priors, labels, crowd_boxes, loc_t, co
         conf[(conf <= 0) & (best_crowd_overlap > cfg.crowd_iou_threshold)] = -1
 
     loc = encode(matches, priors, cfg.use_yolo_regressors)
-    loc_t[idx]  = loc    # [num_priors,4] encoded offsets to learn
+    loc_t[idx] = loc    # [num_priors,4] encoded offsets to learn
     conf_t[idx] = conf   # [num_priors] top class label for each prior
-    idx_t[idx]  = best_truth_idx # [num_priors] indices for lookup
+    idx_t[idx] = best_truth_idx  # [num_priors] indices for lookup
+
 
 @torch.jit.script
-def encode(matched, priors, use_yolo_regressors:bool=False):
+def encode(matched, priors, use_yolo_regressors: bool = False):
     """
     Encode bboxes matched with each prior into the format
     produced by the network. See decode for more details on
     this format. Note that encode(decode(x, p), p) = x.
-    
+
     Args:
         - matched: A tensor of bboxes in point form with shape [num_priors, 4]
         - priors:  The tensor of all priors with shape [num_priors, 4]
@@ -261,11 +266,12 @@ def encode(matched, priors, use_yolo_regressors:bool=False):
         g_wh = torch.log(g_wh) / variances[1]
         # return target for smooth_l1_loss
         loc = torch.cat([g_cxcy, g_wh], 1)  # [num_priors,4]
-        
+
     return loc
 
+
 @torch.jit.script
-def decode(loc, priors, use_yolo_regressors:bool=False):
+def decode(loc, priors, use_yolo_regressors: bool = False):
     """
     Decode predicted bbox coordinates using the same scheme
     employed by Yolov2: https://arxiv.org/pdf/1612.08242.pdf
@@ -274,20 +280,20 @@ def decode(loc, priors, use_yolo_regressors:bool=False):
         b_y = (sigmoid(pred_y) - .5) / conv_h + prior_y
         b_w = prior_w * exp(loc_w)
         b_h = prior_h * exp(loc_h)
-    
+
     Note that loc is inputed as [(s(x)-.5)/conv_w, (s(y)-.5)/conv_h, w, h]
     while priors are inputed as [x, y, w, h] where each coordinate
     is relative to size of the image (even sigmoid(x)). We do this
     in the network by dividing by the 'cell size', which is just
     the size of the convouts.
-    
+
     Also note that prior_x and prior_y are center coordinates which
     is why we have to subtract .5 from sigmoid(pred_x and pred_y).
-    
+
     Args:
         - loc:    The predicted bounding boxes of size [num_priors, 4]
         - priors: The priorbox coords with size [num_priors, 4]
-    
+
     Returns: A tensor of decoded relative coordinates in point form 
              form with size [num_priors, 4]
     """
@@ -302,15 +308,14 @@ def decode(loc, priors, use_yolo_regressors:bool=False):
         boxes = point_form(boxes)
     else:
         variances = [0.1, 0.2]
-        
+
         boxes = torch.cat((
             priors[:, :2] + loc[:, :2] * variances[0] * priors[:, 2:],
             priors[:, 2:] * torch.exp(loc[:, 2:] * variances[1])), 1)
         boxes[:, :2] -= boxes[:, 2:] / 2
         boxes[:, 2:] += boxes[:, :2]
-    
-    return boxes
 
+    return boxes
 
 
 def log_sum_exp(x):
@@ -325,7 +330,7 @@ def log_sum_exp(x):
 
 
 @torch.jit.script
-def sanitize_coordinates(_x1, _x2, img_size:int, padding:int=0, cast:bool=True):
+def sanitize_coordinates(_x1, _x2, img_size: int, padding: int = 0, cast: bool = True):
     """
     Sanitizes the input coordinates so that x1 < x2, x1 != x2, x1 >= 0, and x2 <= image_size.
     Also converts from relative to absolute coordinates and casts the results to long tensors.
@@ -347,7 +352,7 @@ def sanitize_coordinates(_x1, _x2, img_size:int, padding:int=0, cast:bool=True):
 
 
 @torch.jit.script
-def crop(masks, boxes, padding:int=1):
+def crop(masks, boxes, padding: int = 1):
     """
     "Crop" predicted masks by zeroing out everything not in the predicted bbox.
     Vectorized by Chong (thanks Chong).
@@ -357,19 +362,23 @@ def crop(masks, boxes, padding:int=1):
         - boxes should be a size [n, 4] tensor of bbox coords in relative point form
     """
     h, w, n = masks.size()
-    x1, x2 = sanitize_coordinates(boxes[:, 0], boxes[:, 2], w, padding, cast=False)
-    y1, y2 = sanitize_coordinates(boxes[:, 1], boxes[:, 3], h, padding, cast=False)
+    x1, x2 = sanitize_coordinates(
+        boxes[:, 0], boxes[:, 2], w, padding, cast=False)
+    y1, y2 = sanitize_coordinates(
+        boxes[:, 1], boxes[:, 3], h, padding, cast=False)
 
-    rows = torch.arange(w, device=masks.device, dtype=x1.dtype).view(1, -1, 1).expand(h, w, n)
-    cols = torch.arange(h, device=masks.device, dtype=x1.dtype).view(-1, 1, 1).expand(h, w, n)
-    
-    masks_left  = rows >= x1.view(1, 1, -1)
-    masks_right = rows <  x2.view(1, 1, -1)
-    masks_up    = cols >= y1.view(1, 1, -1)
-    masks_down  = cols <  y2.view(1, 1, -1)
-    
+    rows = torch.arange(w, device=masks.device, dtype=x1.dtype).view(
+        1, -1, 1).expand(h, w, n)
+    cols = torch.arange(h, device=masks.device,
+                        dtype=x1.dtype).view(-1, 1, 1).expand(h, w, n)
+
+    masks_left = rows >= x1.view(1, 1, -1)
+    masks_right = rows < x2.view(1, 1, -1)
+    masks_up = cols >= y1.view(1, 1, -1)
+    masks_down = cols < y2.view(1, 1, -1)
+
     crop_mask = masks_left * masks_right * masks_up * masks_down
-    
+
     return masks * crop_mask.float()
 
 
@@ -379,11 +388,11 @@ def index2d(src, idx):
 
     In effect, this does
         out[i, j] = src[i, idx[i, j]]
-    
+
     Both src and idx should have the same size.
     """
 
     offs = torch.arange(idx.size(0), device=idx.device)[:, None].expand_as(idx)
-    idx  = idx + offs * idx.size(1)
+    idx = idx + offs * idx.size(1)
 
     return src.view(-1)[idx.view(-1)].view(idx.size())

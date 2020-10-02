@@ -1,4 +1,5 @@
 from flask import Flask, request
+<<<<<<< HEAD
 from emotion import Emotion_Recognition
 import cv2
 import numpy
@@ -6,6 +7,9 @@ from io import StringIO
 from image_captioning import predict
 from image_captioning.build_vocab import Vocabulary
 from image_captioning import *
+import json
+# from yolact2 import yolact2.eval
+import yolact2.eval as segmetation
 
 app = Flask(__name__)
 
@@ -43,6 +47,19 @@ def caption():
         'words': words
     }
     # return sentence and words
+    return value
+
+
+@app.route('/seg', methods=['POST'])
+def seg():
+    in_path = request.form['in_path']
+    # input: ~~~~/userid/input/~~~.jpg or png
+    # output: save_path+"/output/"+root_list[-1][:-4]+"_"+_class+".png"
+    out_path, word = segmetation.custom_segmentation(in_path)
+    value = {
+        'out_path': out_path,
+        'word': word,
+    }
     return value
 
 

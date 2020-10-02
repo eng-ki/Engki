@@ -4,7 +4,7 @@ from keras.preprocessing.image import img_to_array
 from keras.models import load_model
 
 # Face detection XML load and trained model loading
-face_detection = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
+face_detection = cv2.CascadeClassifier("emotion/haarcascade_frontalface_default.xml")
 emotion_classifier = load_model("emotion/emotion_model.hdf5", compile=False)
 EMOTIONS = ["Angry", "Disgusting", "Fearful", "Happy", "Sad", "Surpring", "Neutral"]
 

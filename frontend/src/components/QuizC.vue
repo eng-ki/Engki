@@ -42,12 +42,7 @@ export default {
   },
   mounted() {
     // alert(this.stage);
-    if (this.stage == 2) {
-      setTimeout(() => {
-        // alert("바뀐다");
-        this.url = this.quiz.url2
-      }, 500)
-    }
+    this.url = this.quiz.url2
   },
   watch: {
     isDone: function (val) {
