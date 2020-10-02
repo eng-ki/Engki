@@ -23,7 +23,7 @@ def emotion_recognition(img):
                                             minSize=(30, 30))
 
     # Create empty image
-    canvas = np.zeros((250, 300, 3), dtype="uint8")
+    # canvas = np.zeros((250, 300, 3), dtype="uint8")
 
     # Perform emotion recognition only when face is detected
     if len(faces) > 0:
@@ -39,21 +39,22 @@ def emotion_recognition(img):
 
         # Emotion predict
         preds = emotion_classifier.predict(roi)[0]
-        emotion_probability = np.max(preds)
-        label = EMOTIONS[preds.argmax()]
+        # emotion_probability = np.max(preds)
+        # label = EMOTIONS[preds.argmax()]
 
         # Assign labeling
-        cv2.putText(frame, label, (fX, fY - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 0, 255), 2)
-        cv2.rectangle(frame, (fX, fY), (fX + fW, fY + fH), (0, 0, 255), 2)
+        # cv2.putText(frame, label, (fX, fY - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 0, 255), 2)
+        # cv2.rectangle(frame, (fX, fY), (fX + fW, fY + fH), (0, 0, 255), 2)
 
-        emotions = ''
+        # emotions = ''
+        emotions = {}
         # Label printing
         for (i, (emotion, prob)) in enumerate(zip(EMOTIONS, preds)):
-            text = "{}: {:.2f}%".format(emotion, prob * 100)
-            w = int(prob * 300)
-            cv2.rectangle(canvas, (7, (i * 35) + 5), (w, (i * 35) + 35), (0, 0, 255), -1)
-            cv2.putText(canvas, text, (10, (i * 35) + 23), cv2.FONT_HERSHEY_SIMPLEX, 0.45, (255, 255, 255), 2)
-            emotions += text+'\n'
+            # text = "{}: {:.2f}%".format(emotion, prob * 100)
+            # w = int(prob * 300)
+            # cv2.rectangle(canvas, (7, (i * 35) + 5), (w, (i * 35) + 35), (0, 0, 255), -1)
+            # cv2.putText(canvas, text, (10, (i * 35) + 23), cv2.FONT_HERSHEY_SIMPLEX, 0.45, (255, 255, 255), 2)
+            emotions[emotion] = format(prob*100, ".2f")
 
     # Open two windows
     # Display image ("Emotion Recognition")
@@ -61,7 +62,7 @@ def emotion_recognition(img):
     # cv2.imshow('Emotion Recognition', frame)
     # cv2.imshow("Probabilities", canvas)
     else:
-        emotions = 'Fail'
+        return 'Fail'
     return emotions
     # q to quit
     # if cv2.waitKey(1) & 0xFF == ord('q'):
