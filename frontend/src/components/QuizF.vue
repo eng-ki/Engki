@@ -19,6 +19,7 @@
             class="quiz-button"
             v-for="(answer, index) in answers"
             v-bind:key="index"
+            @click="returnAnswer(answer)"
           >
             {{ answer }}
           </div>
@@ -30,15 +31,15 @@
     <!-- 답변 영역 끝 -->
     <!-- 버튼 영역 -->
     <div class="quiz-buttons">
-      <draggable v-model="quiz.answers" :options="{ group: 'answers' }">
-        <div
-          class="quiz-button"
-          v-for="(answer, index) in quiz.answers"
-          v-bind:key="index"
-        >
-          {{ answer }}
-        </div>
-      </draggable>
+      <div
+        class="quiz-button"
+        v-for="(answer, index) in quiz.answers"
+        v-bind:key="index"
+        @click="goAnswer(answer)"
+        :class="{ blank: !answer[0] }"
+      >
+        <span v-if="answer[0]">{{ answer }}</span>
+      </div>
     </div>
     <!-- 버튼 영역 끝 -->
   </div>
@@ -47,7 +48,7 @@
 import draggable from 'vuedraggable'
 export default {
   components: { draggable },
-  props: ['isDone','answer'],
+  props: ['isDone', 'answer'],
   data: () => {
     return {
       quiz: null,
@@ -79,9 +80,25 @@ export default {
     soundAndTranslation(sentence) {
       speech(sentence)
     },
-    go(answer) {
-      this.quiz.answers.splice(answer, 1)
-      this.answers.push(answer)
+    goAnswer(answer) {
+      if (answer[0] != false) {
+        // 퀴즈 리스트에서 없애기
+        const idx = this.quiz.answers.indexOf(answer)
+        if (idx > -1) this.quiz.answers.splice(idx, 1)
+        this.quiz.answers.splice(idx, 0, [false, answer])
+        // 답변 리스트에 추가하기
+        this.answers.push(answer)
+      }
+    },
+    returnAnswer(answer) {
+      const idx = this.answers.indexOf(answer)
+      if (idx > -1) this.answers.splice(idx, 1)
+      for (var i = 0; i < this.quiz.answers.length; i++) {
+        if (this.quiz.answers[i][1] == answer) {
+          this.quiz.answers.splice(i, 1)
+          this.quiz.answers.splice(i, 0, answer)
+        }
+      }
     },
   },
 }
@@ -186,7 +203,7 @@ function speech(txt) {
 }
 .quiz-buttons {
   position: absolute;
-  top: 80%;
+  top: 77%;
   left: 48%;
   transform: translate(-50%, -50%);
   width: 75vw;
@@ -201,8 +218,7 @@ function speech(txt) {
 
   /* 디자인 */
   border-radius: 7vw;
-  background-color: #dfdfdf;
-
+  background-color: white;
   /* 폰트 */
   font-size: 3vh;
   color: black;
@@ -211,7 +227,12 @@ function speech(txt) {
   text-align: center;
   padding-top: 1.5vh;
   &:hover {
-    opacity: 0.5;
+    opacity: 0.8;
   }
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.blank {
+  background-color: #f2f2f2;
 }
 </style>

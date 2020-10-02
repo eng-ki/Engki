@@ -1,5 +1,6 @@
 package com.ssafy.engki.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -32,6 +33,24 @@ public class KidEmotion {
 	@Column(nullable = false, updatable = false)
 	private Date evaluateTime;
 
-	@Column(nullable = false, updatable = false, length = 200)
-	private String emotion;
+	@Column(updatable = false, precision = 5, scale = 2)
+	private BigDecimal angry;
+
+	@Column(updatable = false, precision = 5, scale = 2)
+	private BigDecimal disgusting;
+
+	@Column(updatable = false, precision = 5, scale = 2)
+	private BigDecimal fearful;
+
+	@Column(updatable = false, precision = 5, scale = 2)
+	private BigDecimal happy;
+
+	@Column(updatable = false, precision = 5, scale = 2)
+	private BigDecimal sad;
+
+	@Column(updatable = false, precision = 5, scale = 2)
+	private BigDecimal surprising;
+
+	@Column(updatable = false, precision = 5, scale = 2)
+	private BigDecimal neutral;
 }
