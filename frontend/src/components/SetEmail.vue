@@ -90,6 +90,12 @@ export default {
         }).then((result) => {
           if (result.value) {
             // 백엔드 부모 정보 insert API
+            // K003
+            // http
+            //   .put('/parents/{parent_id}', {
+            //     headers: { Authorization: access_token },
+            //   })
+            //   .then(({ data }) => {})
 
             // 등록 완료시 parentpage로 가서 자녀 등록하게
             this.$router.push('/parent')
