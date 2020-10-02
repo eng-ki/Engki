@@ -2,12 +2,7 @@
   <div class="background">
     <!-- 캡쳐 -->
     <video style="display: none" id="player" controls autoplay></video>
-    <canvas
-      style="display: none"
-      id="snapshot"
-      width="320"
-      height="240"
-    ></canvas>
+    <canvas id="snapshot" width="320" height="240"></canvas>
 
     <!-- etc : 종료 화면 / pause 화면 컴포넌트들 들어갈 자리-->
     <etc
@@ -137,16 +132,15 @@ export default {
         '사진 속 문장을 단어로 만들어보세요',
       ],
       // 웹캠 캡처 관련 데이터
-      player: null,
       snapshotCanvas: null,
       camTimer: null,
     }
   },
-  created() {
+  mounted() {
     var handleSuccess = function (stream) {
       player.srcObject = stream
     }
-    // 5초마다 웹캠 키고, getEmotion() 함수 호출하기
+
     this.camTimer = setInterval(() => {
       navigator.mediaDevices
         .getUserMedia({ video: true })
@@ -173,6 +167,22 @@ export default {
     // 웹캠 끄기
     stopCapture() {
       clearInterval(this.camTimer)
+      // player.srcObject.getVideoTracks().forEach((track) => {
+      //   track.stop()
+      //   alert('암궈나')
+      // })
+      // player.srcObject.getAudioTracks()[0].stop()
+      // player.srcObject.getVideoTracks()[0].stop()
+
+      // navigator.mediaDevices.getUserMedia().then((mediaStream) => {
+      //   const stream = mediaStream
+      //   const tracks = stream.getTracks()
+      //   tracks[0].stop
+      // })
+
+      // navigator.mediaDevices
+      //   .getUserMedia({ video: false })
+      //   .then(alert('아무거나'))
       //  navigator.mediaDevices 이거로 웹캠 빨간불 들어오는거 자체를 꺼야하는데 어떻게 끄는지 모르겠어요
     },
     // 웹캠 캡쳐하기
