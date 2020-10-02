@@ -90,13 +90,18 @@
             <div class="category-board">
               <report :kid="kids[selectedIndex]" v-if="isReport" />
               <upload-picture :kid="kids[selectedIndex]" v-else />
+              <!-- <camera v-else /> -->
             </div>
           </v-col>
         </v-row>
       </div>
       <!-- <div> -->
       <div class="backtomain">
-        <img class="backtomain" src="../../public/img/icon/street-sign-main.png" @click="backtomain()"/>
+        <img
+          class="backtomain"
+          src="../../public/img/icon/street-sign-main.png"
+          @click="backtomain()"
+        />
         <!-- <span class="backtomain-txt">  메인으로 </span> -->
       </div>
       <!-- </div> -->
@@ -105,25 +110,27 @@
 </template>
 
 <script>
-import SetKid from "@/components/SetKid.vue";
-import Report from "@/components/Report.vue";
-import UploadPicture from "@/components/UploadPicture.vue";
-import SetEmail from "@/components/SetEmail.vue";
-import http from "../utils/http-common.js";
+import SetKid from '@/components/SetKid.vue'
+import Report from '@/components/Report.vue'
+import Camera from '@/components/Camera.vue'
+import UploadPicture from '@/components/UploadPicture.vue'
+import SetEmail from '@/components/SetEmail.vue'
+import http from '../utils/http-common.js'
 export default {
-  name: "ParentPage",
+  name: 'ParentPage',
   components: {
     SetKid,
     Report,
     UploadPicture,
     SetEmail,
+    Camera,
   },
   data: () => {
     return {
       kids: [
-        { url: "/img/icon/fairytale/001-knight.png", name: "김싸피" },
-        { url: "/img/icon/fairytale/002-wizard.png", name: "김싸파" },
-        { url: "/img/icon/fairytale/003-dwarf.png", name: "김싸푸" },
+        { url: '/img/icon/fairytale/001-knight.png', name: '김싸피' },
+        { url: '/img/icon/fairytale/002-wizard.png', name: '김싸파' },
+        { url: '/img/icon/fairytale/003-dwarf.png', name: '김싸푸' },
       ],
       selectedIndex: 0,
       isReport: true,
@@ -131,7 +138,7 @@ export default {
       currentOffset: 0,
       windowSize: 5, // carousel에 띄워줄 아이콘 갯수! <- 반응형으로 할거면 화면에 몇개 나오는지 계산해서 여기 넣어야 공백 안생길듯
       paginationFactor: 50,
-    };
+    }
   },
   created() {
     // P005 자녀 목록 조회
@@ -148,25 +155,25 @@ export default {
       return (
         this.currentOffset <=
         this.paginationFactor * -1 * (this.kids.length - this.windowSize)
-      );
+      )
     },
     atHeadOfList() {
-      return this.currentOffset === 0;
+      return this.currentOffset === 0
     },
   },
   methods: {
     selectKid(index) {
-      this.selectedIndex = index;
+      this.selectedIndex = index
     },
     deleteKid(index) {
       this.$swal({
         title:
           '<span style="font-family: GmarketSansMedium;font-size:1.5vw;">자녀 데이터를 삭제하시겠습니까?</span>',
 
-        type: "warning",
+        type: 'warning',
         showCancelButton: true,
-        confirmButtonText: "삭제",
-        cancelButtonText: "취소",
+        confirmButtonText: '삭제',
+        cancelButtonText: '취소',
         showCloseButton: true,
         showLoaderOnConfirm: true,
       }).then((result) => {
@@ -178,30 +185,30 @@ export default {
           //   })
           //   .then(({ data }) => {})
           // 2. 처음 받아온 데이터 삭제
-          this.kids.splice(index, 1);
-          if (this.kids.length != 0) this.selectedIndex = 0;
+          this.kids.splice(index, 1)
+          if (this.kids.length != 0) this.selectedIndex = 0
         }
-      });
+      })
     },
     updateKid: function (kid) {
-      this.kids.push(kid);
-      this.isAddKid = false;
+      this.kids.push(kid)
+      this.isAddKid = false
     },
     moveCarousel(direction) {
       if (direction === 1 && !this.atEndOfList) {
-        this.currentOffset -= this.paginationFactor;
+        this.currentOffset -= this.paginationFactor
       } else if (direction === -1 && !this.atHeadOfList) {
-        this.currentOffset += this.paginationFactor;
+        this.currentOffset += this.paginationFactor
       }
     },
-    backtomain(){
+    backtomain() {
       this.$router.push('/selectkid')
-    }
+    },
   },
-};
+}
 </script>
 <style lang="scss">
-@import "../assets/sass/base.scss";
+@import '../assets/sass/base.scss';
 </style>
 <style lang="scss" scoped>
 $top-margin: 16vh;
@@ -216,7 +223,7 @@ $font-size: 2.5vh;
 $arrowcolor: black;
 
 * {
-  font-family: "GmarketSansMedium";
+  font-family: 'GmarketSansMedium';
   color: #4b4b4b;
 }
 
@@ -412,25 +419,25 @@ $arrowcolor: black;
   background-color: #ffe26d;
 }
 
-.backtomain{
-  position:absolute;
+.backtomain {
+  position: absolute;
   display: block;
   bottom: 0px;
-  right:2vw;
-  height:25vh;
-  width:auto;
+  right: 2vw;
+  height: 25vh;
+  width: auto;
   // img{
   //   // margin-bottom: -1vh;
   //   width:100%;
   // }
   // transform: translate(-50%, -50%);
-  .backtomain-txt{
-    width:2.5vh*4;
+  .backtomain-txt {
+    width: 2.5vh * 4;
     // height:auto;
     font-size: $font-size;
     position: absolute;
-    display:block;
-    bottom:11vh;
+    display: block;
+    bottom: 11vh;
     // margin:auto;
     right: 8vh;
     // right:0.1vw;
@@ -438,6 +445,4 @@ $arrowcolor: black;
     // transform: translate(0, -50%);
   }
 }
-
-
 </style>

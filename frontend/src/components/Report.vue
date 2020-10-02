@@ -15,13 +15,12 @@
           </v-sparkline>
         </v-sheet>
       </v-card-text>
-
       <v-card-text>
         <div class="display-1 font-weight-thin">
           최근 24시간의 학습 중 감정변화 (대충 예시)
         </div>
       </v-card-text>
-
+      <button></button>
       <v-divider></v-divider>
 
       <v-card-actions class="justify-center">

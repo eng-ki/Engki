@@ -1,5 +1,14 @@
 <template>
   <div class="background">
+    <!-- 캡쳐 -->
+    <video style="display: none" id="player" controls autoplay></video>
+    <canvas
+      style="display: none"
+      id="snapshot"
+      width="320"
+      height="240"
+    ></canvas>
+
     <!-- etc : 종료 화면 / pause 화면 컴포넌트들 들어갈 자리-->
     <etc
       v-if="isBreakTime || isFinish"
@@ -127,13 +136,23 @@ export default {
         '사진의 내용과 일치하는 문장을 선택해주세요',
         '사진 속 문장을 단어로 만들어보세요',
       ],
+      // 웹캠 캡처 관련 데이터
+      player: null,
+      snapshotCanvas: null,
+      camTimer: null,
     }
   },
-  // watch:{
-  //   answer:function(val){
-  //     alert("바뀜");
-  //   },
-  // },
+  created() {
+    var handleSuccess = function (stream) {
+      player.srcObject = stream
+    }
+    // 5초마다 웹캠 키고, getEmotion() 함수 호출하기
+    this.camTimer = setInterval(() => {
+      navigator.mediaDevices
+        .getUserMedia({ video: true })
+        .then(handleSuccess, this.getEmotion())
+    }, 5000)
+  },
   methods: {
     isNextStage(flag) {
       // alert("눌림" + this.isDone)
@@ -145,11 +164,34 @@ export default {
       if (this.stage == 6) {
         this.stage = 5
         this.isFinish = true
+        this.stopCapture()
       }
     },
     setAnswer(answer) {
-      // alert("바뀜");
       this.answer = answer
+    },
+    // 웹캠 끄기
+    stopCapture() {
+      clearInterval(this.camTimer)
+      //  navigator.mediaDevices 이거로 웹캠 빨간불 들어오는거 자체를 꺼야하는데 어떻게 끄는지 모르겠어요
+    },
+    // 웹캠 캡쳐하기
+    getEmotion() {
+      var context = snapshot.getContext('2d')
+      context.drawImage(player, 0, 0, 320, 240)
+      var mydataURL = snapshot.toDataURL('image/jpg')
+
+      // console.log(mydataURL)
+      var blobBin = atob(mydataURL.split(',')[1])
+      var array = []
+      for (var i = 0; i < blobBin.length; i++) {
+        array.push(blobBin.charCodeAt(i))
+      }
+      var file = new Blob([new Uint8Array(array)], { type: 'image/png' })
+      var formdata = new FormData()
+      formdata.append('file', file)
+
+      //여기서 backend로 formdata 보내고 return 값 true : 쉬는시간 false : 그냥 하기~
     },
   },
 }
