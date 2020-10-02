@@ -1,5 +1,4 @@
 from flask import Flask, request
-<<<<<<< HEAD
 from emotion import Emotion_Recognition
 import cv2
 import numpy
