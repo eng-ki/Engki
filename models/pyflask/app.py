@@ -1,5 +1,5 @@
 from flask import Flask, request
-import emotion.Emotion_Recognition
+import emotion.Emotion_Recognition as Emotion_Recognition
 import cv2
 import numpy
 import json
@@ -9,10 +9,10 @@ import yolact2.eval as segmetation
 app = Flask(__name__)
 
 
-# @app.route('/')
-# def index():
-#     text = 'Welcome to EngKi AI-MODEL-SERVER'
-#     return text
+@app.route('/')
+def index():
+    text = 'Welcome to EngKi AI-MODEL-SERVER'
+    return text
 
 
 @app.route('/emotion', methods=['POST'])
@@ -33,8 +33,9 @@ def emotion():
 @app.route('/seg', methods=['POST'])
 def seg():
     in_path = request.form['in_path']
-    order = request.form['order']
-    out_path, word = segmetation.custom_segmentation(in_path, order)
+    # input: ~~~~/userid/input/~~~.jpg or png
+    # output: save_path+"/output/"+root_list[-1][:-4]+"_"+_class+".png"
+    out_path, word = segmetation.custom_segmentation(in_path)
     value = {
         'out_path': out_path,
         'word': word,

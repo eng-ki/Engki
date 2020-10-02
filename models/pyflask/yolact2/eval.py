@@ -636,7 +636,11 @@ def evalimage(net: Yolact, path: str, save_path: str = None):
         return
     _class = cfg.dataset.class_names[classes[args.mask_order]]
 
-    save_path = save_path[:-4] + '_class_'+_class + '.png'
+    # save_path = save_path[:-4] + '_class_' + _class + '.png'
+
+    root_list = path.split("/")
+    save_path = "/".join(root_list[:-2])
+    save_path = save_path+"/output/"+root_list[-1][:-4]+"_"+_class+".png"
 
     if img_numpy is None:
         return
@@ -1074,6 +1078,8 @@ def custom_evaluate(net: Yolact, dataset, input_path, train_mode=False):
     if input_path is not None:
         # print("input path : " + input_path)
         pics, words = custom_evalimage(net, input_path)
+        if (len(pics) <= 0 or len(words) <= 0):
+            return [], []
         # print(pics + "," + words)
         return pics, words
 
@@ -1092,14 +1098,18 @@ def custom_evalimage(net: Yolact, path: str):
         preds, frame, None, None, undo_transform=False)
 
     if len(classes) == 0:
-        return
+        return [], []
     _class = cfg.dataset.class_names[classes[args.mask_order]]
-    save_path = "C:/Users/multicampus/Desktop/20200924/models/pyflask/yolact2/inputs/broccoli/" + \
-        'custom_class_test2'+_class + '.png'
+    # save_path = path[:-4] + "_" + str(args.mask_order)+"_" + _class + '.png'
+    # print("save_path : " + save_path)
+    root_list = path.split("/")
+    save_path = "/".join(root_list[:-2])
+    save_path = save_path+"/output/"+root_list[-1][:-4]+"_"+_class+".png"
+
     # print("save path : " + save_path)
     # print(img_numpy)
     if img_numpy is None:
-        return
+        return [], []
     if save_path is None:
         img_numpy = img_numpy[:, :, (2, 1, 0)]
 
@@ -1110,7 +1120,7 @@ def custom_evalimage(net: Yolact, path: str):
     else:
         if not os.path.isfile(save_path):
             cv2.imwrite(save_path, img_numpy)
-            # print(save_path + ":" + _class)
+            print(save_path + ":" + _class)
             return save_path, _class
 
 
@@ -1209,11 +1219,11 @@ if __name__ == '__main__':
         else:
             dataset = None
 
-        print('Loading model...', end='')
+        print('>>>>Loading model...', end='')
         net = Yolact()
         net.load_weights(args.trained_model)
         net.eval()
-        print(' Done.')
+        print('>>>>>>Done.')
 
         if args.cuda:
             net = net.cuda()
@@ -1223,9 +1233,10 @@ if __name__ == '__main__':
         # custom_evaluate(net, dataset, input_path=pth)
 
 
-def custom_segmentation(in_path, order):
+def custom_segmentation(in_path):
+
     parse_args()
-    args.mask_order = int(order)
+    #
     args.image = in_path
     if args.config is not None:
         set_cfg(args.config)
@@ -1279,7 +1290,17 @@ def custom_segmentation(in_path, order):
 
         if args.cuda:
             net = net.cuda()
-
+        pics = []
+        words = []
+        for i in range(0, 2, 1):
+            args.mask_order = i
+            print("order : " + str(i))
+            pic, word = custom_evaluate(net, dataset, input_path=in_path)
+            print(word)
+            if (len(pic) <= 0 or len(word) <= 0):
+                return pics, words
+            pics.append(pic)
+            words.append(word)
         # evaluate(net, dataset)
-        pic, word = custom_evaluate(net, dataset, input_path=in_path)
-        return pic, word
+
+        return pics, words
