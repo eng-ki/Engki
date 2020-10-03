@@ -14,6 +14,7 @@
       v-if="isBreakTime || isFinish"
       :isBreakTime="isBreakTime"
       :isFinish="isFinish"
+      :correct="correct"
       v-on:continue="isBreakTime = false"
     />
 
@@ -101,16 +102,16 @@
 </template>
 
 <script>
-import QuizA from '@/components/QuizA.vue'
-import QuizB from '@/components/QuizB.vue'
-import QuizC from '@/components/QuizC.vue'
-import QuizD from '@/components/QuizD.vue'
-import QuizE from '@/components/QuizE.vue'
-import QuizF from '@/components/QuizF.vue'
-import Etc from '@/components/Etc.vue'
+import QuizA from "@/components/QuizA.vue";
+import QuizB from "@/components/QuizB.vue";
+import QuizC from "@/components/QuizC.vue";
+import QuizD from "@/components/QuizD.vue";
+import QuizE from "@/components/QuizE.vue";
+import QuizF from "@/components/QuizF.vue";
+import Etc from "@/components/Etc.vue";
 
 export default {
-  name: 'ParentPage',
+  name: "ParentPage",
   components: {
     QuizA,
     QuizB,
@@ -122,56 +123,58 @@ export default {
   },
   data: () => {
     return {
-      answer: '',
+      answer: "",
       isDone: false, // 다했어요
       isHint: false, // 모르겠어요
       isBreakTime: false, // 쉬는시간
       isFinish: false, // 퀴즈 종료
       stage: 0, // stage 0~5 : 퀴즈
+      correct: [1, 2, 3, 4, 5, 6], // 경험치
       subjects: [
-        '사진 속 단어를 배워보세요',
-        '단어에 해당하는 그림을 모두 선택해주세요',
-        '단어에 해당하는 부분을 선택해주세요',
-        '빈칸에 해당하는 단어를 선택해주세요',
-        '사진의 내용과 일치하는 문장을 선택해주세요',
-        '사진 속 문장을 단어로 만들어보세요',
+        "사진 속 단어를 배워보세요",
+        "단어에 해당하는 그림을 모두 선택해주세요",
+        "단어에 해당하는 부분을 선택해주세요",
+        "빈칸에 해당하는 단어를 선택해주세요",
+        "사진의 내용과 일치하는 문장을 선택해주세요",
+        "사진 속 문장을 단어로 만들어보세요",
       ],
       // 웹캠 캡처 관련 데이터
       snapshotCanvas: null,
       camTimer: null,
-    }
+    };
   },
   mounted() {
     var handleSuccess = function (stream) {
-      player.srcObject = stream
-    }
+      player.srcObject = stream;
+    };
 
     this.camTimer = setInterval(() => {
       navigator.mediaDevices
         .getUserMedia({ video: true })
-        .then(handleSuccess, this.getEmotion())
-    }, 5000)
+        .then(handleSuccess, this.getEmotion());
+    }, 5000);
   },
   methods: {
     isNextStage(flag) {
       // alert("눌림" + this.isDone)
-      this.isDone = false
+      this.isDone = false;
       // 정답일 경우 다음 스테이지
       if (flag) {
-        this.stage++
+        this.stage++;
       }
       if (this.stage == 6) {
-        this.stage = 5
-        this.isFinish = true
-        this.stopCapture()
+        this.stage = 5;
+        var score = 0;
+        this.isFinish = true;
+        this.stopCapture();
       }
     },
     setAnswer(answer) {
-      this.answer = answer
+      this.answer = answer;
     },
     // 웹캠 끄기
     stopCapture() {
-      clearInterval(this.camTimer)
+      clearInterval(this.camTimer);
       // player.srcObject.getVideoTracks().forEach((track) => {
       //   track.stop()
       //   alert('암궈나')
@@ -192,27 +195,27 @@ export default {
     },
     // 웹캠 캡쳐하기
     getEmotion() {
-      var context = snapshot.getContext('2d')
-      context.drawImage(player, 0, 0, 320, 240)
-      var mydataURL = snapshot.toDataURL('image/jpg')
+      var context = snapshot.getContext("2d");
+      context.drawImage(player, 0, 0, 320, 240);
+      var mydataURL = snapshot.toDataURL("image/jpg");
 
       // console.log(mydataURL)
-      var blobBin = atob(mydataURL.split(',')[1])
-      var array = []
+      var blobBin = atob(mydataURL.split(",")[1]);
+      var array = [];
       for (var i = 0; i < blobBin.length; i++) {
-        array.push(blobBin.charCodeAt(i))
+        array.push(blobBin.charCodeAt(i));
       }
-      var file = new Blob([new Uint8Array(array)], { type: 'image/png' })
-      var formdata = new FormData()
-      formdata.append('file', file)
+      var file = new Blob([new Uint8Array(array)], { type: "image/png" });
+      var formdata = new FormData();
+      formdata.append("file", file);
 
       //여기서 backend로 formdata 보내고 return 값 true : 쉬는시간 false : 그냥 하기~
     },
   },
-}
+};
 </script>
 <style lang="scss">
-@import '../assets/sass/base.scss';
+@import "../assets/sass/base.scss";
 </style>
 <style lang="scss" scoped>
 .whiteboard .board {

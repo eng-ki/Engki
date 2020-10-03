@@ -1,49 +1,41 @@
 <template>
   <div class="background">
-    <div class="card-carousel-wrapper box">
-      <div class="title-with-tiki">
-        <span class="showbox">{{ msg }} </span>
-      </div>
-      <div
-        class="card-carousel--nav__left"
-        @click="moveCarousel(-1)"
-        :disabled="atHeadOfList"
-      ></div>
-      <div class="card-carousel innerbox">
-        <div class="card-carousel--overflow-container selectsth">
-          <div
-            class="card-carousel-cards datalist"
-            :style="{
-              transform: 'translateX' + '(' + currentOffset + 'px' + ')',
-            }"
-          >
+    <div class="box">
+      <div class="card-carousel-wrapper">
+        <div class="title-with-tiki">
+          <span class="showbox">{{ msg }} </span>
+        </div>
+        <div
+          class="card-carousel--nav__left"
+          @click="moveCarousel(-1)"
+          :disabled="atHeadOfList"
+        ></div>
+        <div class="card-carousel">
+          <div class="card-carousel--overflow-container">
             <div
-              class="card-carousel--card data"
-              v-for="(data, index) in datas"
-              v-bind:key="index"
-              @click="returnID(data.id)"
+              class="card-carousel-cards"
+              :style="{
+                transform: 'translateX' + '(' + currentOffset + 'px' + ')',
+              }"
             >
-              <img class="dataimage" :src="data.img" />
-              <div class="dataname">{{ data.name }}</div>
-              <!-- <div class="card-carousel--card--footer">
-              <p>{{ item.name }}</p>
-              <p
-                class="tag"
-                v-for="(tag, index) in item.tag"
-                :class="index &gt; 0 ? 'secondary' : ''"
+              <div
+                class="card-carousel--card"
+                v-for="(data, index) in datas"
+                v-bind:key="index"
+                @click="returnID(data.id)"
               >
-                {{ tag }}
-              </p>
-            </div> -->
+                <img class="dataimage" :src="data.img" />
+                <div class="dataname">{{ data.name }}</div>
+              </div>
             </div>
           </div>
         </div>
+        <div
+          class="card-carousel--nav__right"
+          @click="moveCarousel(1)"
+          :disabled="atEndOfList"
+        ></div>
       </div>
-      <div
-        class="card-carousel--nav__right"
-        @click="moveCarousel(1)"
-        :disabled="atEndOfList"
-      ></div>
     </div>
   </div>
 </template>
@@ -165,60 +157,31 @@ export default {
 @import '../assets/sass/base.scss';
 </style>
 <style lang="scss" scoped>
+.background .box {
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 5vh;
+  margin: 10vh 6vw 10vh 6vw;height: 80vh;
+}
+
 /* 로그인페이지 input박스 + tiki */
 .title-with-tiki {
   /* 좌표 설정 */
   position: absolute;
-  top: 20vh;
+  // top: 20vh;
   left: 50%;
   width: 100%;
   text-align: center;
   transform: translate(-50%, -50%);
   padding: 50px;
 }
-.box {
-  position: relative;
-  // top: 20vh;
-}
-.datalist {
-  position: relative;
-  margin-right: 10vw;
-  margin-left: 10vw;
-  white-space: nowrap;
-  width: 80vw;
-  &::-webkit-scrollbar {
-    width: 10px;
-  }
-  &::-webkit-scrollbar-thumb {
-    width: 10px;
-    background-color: rgba(220, 219, 223, 0.486);
-    border-radius: 30px;
-    background-clip: padding-box;
-    border: 6px solid transparent;
-  }
-  &::-webkit-scrollbar-track {
-    width: 5px;
-    background-color: transparent;
-    border-radius: 30px;
-  }
-}
 
 .data {
-  display: inline-block;
-  position: relative;
-}
-
-.datalist .dataname {
-  padding: 10px 0px;
-  position: relative;
-  width: 28vh;
-  text-align: center;
-  vertical-align: middle;
-  font-size: 5vh;
 }
 
 $arrowcolor: #ffffff;
 .card-carousel-wrapper {
+  
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -230,7 +193,7 @@ $arrowcolor: #ffffff;
   top: 30vh;
   display: flex;
   justify-content: center;
-  width: 640px;
+  width: 70vw;
 
   &--overflow-container {
     overflow: hidden;
@@ -275,11 +238,17 @@ $arrowcolor: #ffffff;
 }
 
 .card-carousel-cards {
+  position: relative;
+  margin-right: 10vw;
+  margin-left: 10vw;
   display: flex;
   transition: transform 150ms ease-out;
   transform: translatex(0px);
   width: 80vw;
   .card-carousel--card {
+    
+    display: inline-block;
+    position: relative;
     margin: 0 10px;
     cursor: pointer;
     // background-color: #fff;
@@ -300,6 +269,30 @@ $arrowcolor: #ffffff;
       &:hover {
         opacity: 0.5;
       }
+    }
+    white-space: nowrap;
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+      width: 10px;
+      background-color: rgba(220, 219, 223, 0.486);
+      border-radius: 30px;
+      background-clip: padding-box;
+      border: 6px solid transparent;
+    }
+    &::-webkit-scrollbar-track {
+      width: 5px;
+      background-color: transparent;
+      border-radius: 30px;
+    }
+    .dataname {
+      padding: 10px 0px;
+      position: relative;
+      width: 28vh;
+      text-align: center;
+      vertical-align: middle;
+      font-size: 5vh;
     }
   }
 }
