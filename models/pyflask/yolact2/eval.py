@@ -15,7 +15,7 @@ from yolact2.data import cfg, set_cfg, set_dataset
 
 import numpy as np
 import torch
-import torch.backends.cudnn as cudnn
+# import torch.backends.cudnn as cudnn
 from torch.autograd import Variable
 import argparse
 import time
@@ -29,6 +29,7 @@ from pathlib import Path
 from collections import OrderedDict
 from PIL import Image
 
+import pdb
 import matplotlib.pyplot as plt
 import cv2
 
@@ -50,7 +51,7 @@ def parse_args(argv=None):
                         help='Trained state_dict file path to open. If "interrupt", this will open the interrupt file.')
     parser.add_argument('--top_k', default=3, type=int,
                         help='Further restrict the number of predictions to parse')
-    parser.add_argument('--cuda', default=True, type=str2bool,
+    parser.add_argument('--cuda', default=False, type=str2bool,
                         help='Use cuda to evaulate model')
     parser.add_argument('--fast_nms', default=True, type=str2bool,
                         help='Whether to use a faster, but not entirely correct version of NMS.')
@@ -146,7 +147,8 @@ def prep_display(dets_out, img, h, w, undo_transform=True, class_color=False, ma
     """
     if undo_transform:
         img_numpy = undo_image_transformation(img, w, h)
-        img_gpu = torch.Tensor(img_numpy).cuda()
+        # img_gpu = torch.Tensor(img_numpy).cuda()
+        img_gpu = torch.Tensor(img_numpy)
     else:
         img_gpu = img / 255.0
         h, w, _ = img.shape
@@ -189,6 +191,7 @@ def prep_display(dets_out, img, h, w, undo_transform=True, class_color=False, ma
             if on_gpu is not None:
                 color = torch.Tensor(color).to(on_gpu).float() / 255.
                 color_cache[on_gpu][color_idx] = color
+
             return color
 
     # First, draw the masks on the GPU where we can do it really fast
@@ -299,10 +302,10 @@ def prep_benchmark(dets_out, h, w):
         boxes = boxes.cpu().numpy()
         masks = masks.cpu().numpy()
 
-    with timer.env('Sync'):
+    # with timer.env('Sync'):
         # Just in case
-        if torch.cuda.is_available():
-            torch.cuda.synchronize()
+        # torch.cuda.synchronize()
+        # torch.synchronize()
 
 
 def prep_coco_cats():
@@ -443,8 +446,8 @@ def prep_metrics(ap_data, dets, img, gt, gt_masks, h, w, num_crowd, image_id, de
             scores = list(scores.cpu().numpy().astype(float))
             box_scores = scores
             mask_scores = scores
-        masks = masks.view(-1, h*w).cuda()
-        boxes = boxes.cuda()
+        masks = masks.view(-1, h*w)
+        boxes = boxes
 
     if args.output_coco_json:
         with timer.env('JSON Output'):
@@ -697,7 +700,7 @@ def evalvideo(net: Yolact, path: str, out_path: str = None):
     is_webcam = path.isdigit()
 
     # If the input image size is constant, this make things faster (hence why we can use it in a video setting).
-    cudnn.benchmark = True
+    # cudnn.benchmark = True
 
     if is_webcam:
         vid = cv2.VideoCapture(int(path))
@@ -717,8 +720,8 @@ def evalvideo(net: Yolact, path: str, out_path: str = None):
     else:
         num_frames = round(vid.get(cv2.CAP_PROP_FRAME_COUNT))
 
-    net = CustomDataParallel(net).cuda()
-    transform = torch.nn.DataParallel(FastBaseTransform()).cuda()
+    net = CustomDataParallel(net)
+    transform = torch.nn.DataParallel(FastBaseTransform())
     frame_times = MovingAverage(100)
     fps = 0
     frame_time_target = 1 / target_fps
@@ -751,7 +754,7 @@ def evalvideo(net: Yolact, path: str, out_path: str = None):
 
     def transform_frame(frames):
         with torch.no_grad():
-            frames = [torch.from_numpy(frame).cuda().float()
+            frames = [torch.from_numpy(frame).float()
                       for frame in frames]
             return frames, transform(torch.stack(frames, 0))
 
@@ -1016,6 +1019,7 @@ def evaluate(net: Yolact, dataset, train_mode=False):
                 batch = Variable(img.unsqueeze(0))
                 if args.cuda:
                     batch = batch.cuda()
+                    batch = batch
 
             with timer.env('Network Extra'):
                 preds = net(batch)
@@ -1212,8 +1216,7 @@ if __name__ == '__main__':
             os.makedirs('results')
 
         if args.cuda:
-            cudnn.fastest = True
-            torch.set_default_tensor_type('torch.cuda.FloatTensor')
+            torch.set_default_tensor_type('torch.FloatTensor')
         else:
             torch.set_default_tensor_type('torch.FloatTensor')
 

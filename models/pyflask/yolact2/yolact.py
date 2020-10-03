@@ -14,7 +14,7 @@ from yolact2.layers import Detect
 from yolact2.layers.interpolate import InterpolateModule
 from yolact2.backbone import construct_backbone
 
-import torch.backends.cudnn as cudnn
+# import torch.backends.cudnn as cudnn
 from yolact2.utils import timer
 from yolact2.utils.functions import MovingAverage, make_net
 
