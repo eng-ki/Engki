@@ -1,16 +1,12 @@
 package com.ssafy.engki.entity;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -41,13 +37,8 @@ public class Kid {
 	@Column(nullable = false, length = 50)
 	private String icon;
 
-	@ManyToMany
-	@JoinTable(
-		name = "kid_sticker",
-		joinColumns = @JoinColumn(name = "kid_id"),
-		inverseJoinColumns = @JoinColumn(name = "sticker_id")
-	)
-	private List<Sticker> stickers;
+	@Column(nullable = false)
+	private long exp;
 
 	public void updateIcon(String icon) {
 		this.icon = icon;

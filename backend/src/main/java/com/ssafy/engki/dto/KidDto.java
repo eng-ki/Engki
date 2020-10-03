@@ -26,6 +26,9 @@ public class KidDto {
 
 		@ApiModelProperty(value = "Kid icon file path", example = "/img/icon/fairytale/002-wizard.png")
 		private String icon;
+
+		@ApiModelProperty(value = "Kid exp", example = "0")
+		private long exp;
 	}
 
 	@Data
@@ -52,16 +55,5 @@ public class KidDto {
 	public static class KidIcon {
 		@ApiModelProperty(value = "Kid icon file path", example = "/img/icon/fairytale/002-wizard.png")
 		private String icon;
-	}
-
-	@Data
-	@AllArgsConstructor
-	@NoArgsConstructor
-	public static class KidSticker {
-		@ApiModelProperty(value = "Sticker id", example = "1")
-		private long id;
-
-		@ApiModelProperty(value = "Sticker file path", example = "/img/icon/jungle/001-toucan.png")
-		private String filePath;
 	}
 }

@@ -1,13 +1,10 @@
 package com.ssafy.engki.controller;
 
-import java.util.List;
-
 import org.mariadb.jdbc.internal.logging.Logger;
 import org.mariadb.jdbc.internal.logging.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -49,21 +46,6 @@ public class KidController {
 		@ApiParam(value = "추가하고 싶은 아이 정보", required = true) @RequestBody KidDto.KidRequest kidRequest) {
 		logger.debug("add kid 호출\n" + kidRequest.toString());
 		return new ResponseEntity<>(kidService.add(kidRequest), HttpStatus.CREATED);
-	}
-
-	@GetMapping("{kidId}/inventory")
-	@ApiOperation(value = "아이 인벤토리 조회", notes = "아이의 인벤토리(스티커 목록)을 조회한다.", response = List.class)
-	@ApiResponses(value = {
-		@ApiResponse(code = 200, message = "OK"),
-		@ApiResponse(code = 400, message = "Bad Request"),
-		@ApiResponse(code = 401, message = "Unauthorized"),
-		@ApiResponse(code = 403, message = "Forbidden"),
-		@ApiResponse(code = 404, message = "Not Found")
-	})
-	private ResponseEntity<List<KidDto.KidSticker>> getKidInventory(
-		@ApiParam(value = "아이 id", required = true, example = "1") @PathVariable long kidId) {
-		logger.debug(String.format("get Kid {%d} inventory 호출", kidId));
-		return new ResponseEntity<>(kidService.getInventory(kidId), HttpStatus.OK);
 	}
 
 	@PutMapping("{kidId}")
