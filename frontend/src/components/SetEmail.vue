@@ -79,6 +79,7 @@
   </div>
 </template>
 <script>
+import http from '../utils/http-common.js'
 export default {
   props: {
     from: null,
@@ -86,9 +87,9 @@ export default {
   data: function () {
     return {
       parents: {
-        name: "손명지",
-        email: "ji_exitos@naver.com",
-        receive_email: true,
+        name: '손명지',
+        email: 'ji_exitos@naver.com',
+        receiveEmailFlag: true,
       },
     };
   },
@@ -106,17 +107,21 @@ export default {
           showLoaderOnConfirm: true,
         }).then((result) => {
           if (result.value) {
-            // 백엔드 부모 정보 insert API
-            // K003
-            // http
-            //   .put('/parents/{parent_id}', {
-            //     headers: { Authorization: access_token },
-            //   })
-            //   .then(({ data }) => {})
-
-            // 등록 완료시 parentpage로 가서 자녀 등록하게
-            this.$router.push("/parent");
-            // this.$router.push('/parent?isNew=true');
+            http
+              .put(
+                'parents/' + this.$store.state.user.id,
+                {
+                  email: this.parents.email,
+                  name: this.parents.name,
+                  receiveEmailFlag: this.parents.receiveEmailFlag,
+                },
+                {
+                  headers: { 'X-AUTH-TOKEN': this.$store.state.token },
+                }
+              )
+              .then(({ data }) => {
+                this.$router.push('/parent')
+              })
           }
         });
       } else if (this.from == "parent") {
