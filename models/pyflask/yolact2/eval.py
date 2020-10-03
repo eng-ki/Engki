@@ -1104,8 +1104,11 @@ def custom_evalimage(net: Yolact, path: str):
     # print("save_path : " + save_path)
     root_list = path.split("/")
     save_path = "/".join(root_list[:-2])
-    save_path = save_path+"/output/"+root_list[-1][:-4]+"_"+_class+".png"
+    save_path = save_path + "/outputs/"  # + root_list[-1][:-4] + "_" + _class + ".png"
 
+    if not os.path.exists(save_path):
+        os.makedirs(save_path[:-1])
+    save_path = save_path + root_list[-1][:-4] + "_" + _class + ".jpg"
     # print("save path : " + save_path)
     # print(img_numpy)
     if img_numpy is None:
