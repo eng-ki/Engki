@@ -40,9 +40,7 @@ export default {
       })
     },
     kakaoLoginStore(authObj) {
-      console.log(authObj.access_token)
-      // 201001 api 연결
-      // this.$store.dispatch('kakaoLogin', {access_token : authObj.access_token})
+      this.$store.dispatch('kakaoLogin', { access_token: authObj.access_token })
 
       // 여기서 access_token을 vuex action에 넣구 백엔드와 통신해야함!
 

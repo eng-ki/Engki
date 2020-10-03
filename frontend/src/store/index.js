@@ -27,9 +27,12 @@ export default new Vuex.Store({
   },
   actions: {
     kakaoLogin(context, { access_token }) {
+      console.log(access_token)
+
       http
-        .post('/parents', { headers: { Authorization: access_token } })
+        .post('parents/login', { accessToken: access_token })
         .then(({ data }) => {
+          alert(data)
           context.commit('setToken', data)
           // 'sub' 라는 key로 jwt token 디코딩해서 parents ID 받아오기
           var token = data
@@ -40,6 +43,9 @@ export default new Vuex.Store({
             .then(({ data }) => {
               context.commit('setUser', data)
             })
+        })
+        .catch((err) => {
+          console.error(err)
         })
     },
   },

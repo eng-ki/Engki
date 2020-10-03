@@ -23,15 +23,24 @@
                 <td
                   v-for="j in 10"
                   :key="j"
-                  :class="{ active: selectedIndex == (i - 1) * 10 + (j - 1) }"
+                  :class="{ block: level < (i - 1) * 10 + (j - 1) }"
                   @click="selectProfileImage((i - 1) * 10 + (j - 1))"
+                  style="
+                    width: 7vw;
+                    height: 2vw;
+                    padding-top: 1vw;
+                    padding-bottom: 1vw;
+                    margin-right: 10vw;
+                    margin-left: 10vw;
+                  "
                 >
                   <img
-                    :class="{ block: level < (i - 1) * 10 + (j - 1) }"
+                    :class="{ active: selectedIndex == (i - 1) * 10 + (j - 1) }"
                     :src="fairytale[(i - 1) * 10 + (j - 1)]"
-                    style="width: 40%; padding: 10% 0% 10% 0%"
+                    style="width: 52%"
                   />
                 </td>
+                <span style="width: 1vw"></span>
               </tr>
             </tbody>
           </table>
@@ -50,114 +59,115 @@
 </template>
 <script>
 export default {
-  name: "SetProfileImage",
+  name: 'SetProfileImage',
   props: {
     point: 0,
   },
   data: () => {
     return {
-      profileImage: "/img/icon/fairytale/005-witch.png",
+      profileImage: '/img/icon/fairytale/005-witch.png',
       fairytale: [
-        "/img/icon/fairytale/001-knight.png",
-        "/img/icon/fairytale/002-wizard.png",
-        "/img/icon/fairytale/003-dwarf.png",
-        "/img/icon/fairytale/004-elf.png",
-        "/img/icon/fairytale/005-witch.png",
-        "/img/icon/fairytale/006-ogre.png",
-        "/img/icon/fairytale/007-giant.png",
-        "/img/icon/fairytale/008-gnome.png",
-        "/img/icon/fairytale/009-little red riding hood.png",
-        "/img/icon/fairytale/010-wolf.png",
-        "/img/icon/fairytale/001-knight.png",
-        "/img/icon/fairytale/002-wizard.png",
-        "/img/icon/fairytale/003-dwarf.png",
-        "/img/icon/fairytale/004-elf.png",
-        "/img/icon/fairytale/005-witch.png",
-        "/img/icon/fairytale/006-ogre.png",
-        "/img/icon/fairytale/007-giant.png",
-        "/img/icon/fairytale/008-gnome.png",
-        "/img/icon/fairytale/009-little red riding hood.png",
-        "/img/icon/fairytale/010-wolf.png",
-        "/img/icon/fairytale/001-knight.png",
-        "/img/icon/fairytale/002-wizard.png",
-        "/img/icon/fairytale/003-dwarf.png",
-        "/img/icon/fairytale/004-elf.png",
-        "/img/icon/fairytale/005-witch.png",
-        "/img/icon/fairytale/006-ogre.png",
-        "/img/icon/fairytale/007-giant.png",
-        "/img/icon/fairytale/008-gnome.png",
-        "/img/icon/fairytale/009-little red riding hood.png",
-        "/img/icon/fairytale/010-wolf.png",
-        "/img/icon/fairytale/001-knight.png",
-        "/img/icon/fairytale/002-wizard.png",
-        "/img/icon/fairytale/003-dwarf.png",
-        "/img/icon/fairytale/004-elf.png",
-        "/img/icon/fairytale/005-witch.png",
-        "/img/icon/fairytale/006-ogre.png",
-        "/img/icon/fairytale/007-giant.png",
-        "/img/icon/fairytale/008-gnome.png",
-        "/img/icon/fairytale/009-little red riding hood.png",
-        "/img/icon/fairytale/010-wolf.png",
-        "/img/icon/fairytale/001-knight.png",
-        "/img/icon/fairytale/002-wizard.png",
-        "/img/icon/fairytale/003-dwarf.png",
-        "/img/icon/fairytale/004-elf.png",
-        "/img/icon/fairytale/005-witch.png",
-        "/img/icon/fairytale/006-ogre.png",
-        "/img/icon/fairytale/007-giant.png",
-        "/img/icon/fairytale/008-gnome.png",
-        "/img/icon/fairytale/009-little red riding hood.png",
-        "/img/icon/fairytale/010-wolf.png",
+        '/img/icon/fairytale/001-knight.png',
+        '/img/icon/fairytale/002-wizard.png',
+        '/img/icon/fairytale/003-dwarf.png',
+        '/img/icon/fairytale/004-elf.png',
+        '/img/icon/fairytale/005-witch.png',
+        '/img/icon/fairytale/006-ogre.png',
+        '/img/icon/fairytale/007-giant.png',
+        '/img/icon/fairytale/008-gnome.png',
+        '/img/icon/fairytale/009-little red riding hood.png',
+        '/img/icon/fairytale/010-wolf.png',
+        '/img/icon/fairytale/001-knight.png',
+        '/img/icon/fairytale/002-wizard.png',
+        '/img/icon/fairytale/003-dwarf.png',
+        '/img/icon/fairytale/004-elf.png',
+        '/img/icon/fairytale/005-witch.png',
+        '/img/icon/fairytale/006-ogre.png',
+        '/img/icon/fairytale/007-giant.png',
+        '/img/icon/fairytale/008-gnome.png',
+        '/img/icon/fairytale/009-little red riding hood.png',
+        '/img/icon/fairytale/010-wolf.png',
+        '/img/icon/fairytale/001-knight.png',
+        '/img/icon/fairytale/002-wizard.png',
+        '/img/icon/fairytale/003-dwarf.png',
+        '/img/icon/fairytale/004-elf.png',
+        '/img/icon/fairytale/005-witch.png',
+        '/img/icon/fairytale/006-ogre.png',
+        '/img/icon/fairytale/007-giant.png',
+        '/img/icon/fairytale/008-gnome.png',
+        '/img/icon/fairytale/009-little red riding hood.png',
+        '/img/icon/fairytale/010-wolf.png',
+        '/img/icon/fairytale/001-knight.png',
+        '/img/icon/fairytale/002-wizard.png',
+        '/img/icon/fairytale/003-dwarf.png',
+        '/img/icon/fairytale/004-elf.png',
+        '/img/icon/fairytale/005-witch.png',
+        '/img/icon/fairytale/006-ogre.png',
+        '/img/icon/fairytale/007-giant.png',
+        '/img/icon/fairytale/008-gnome.png',
+        '/img/icon/fairytale/009-little red riding hood.png',
+        '/img/icon/fairytale/010-wolf.png',
+        '/img/icon/fairytale/001-knight.png',
+        '/img/icon/fairytale/002-wizard.png',
+        '/img/icon/fairytale/003-dwarf.png',
+        '/img/icon/fairytale/004-elf.png',
+        '/img/icon/fairytale/005-witch.png',
+        '/img/icon/fairytale/006-ogre.png',
+        '/img/icon/fairytale/007-giant.png',
+        '/img/icon/fairytale/008-gnome.png',
+        '/img/icon/fairytale/009-little red riding hood.png',
+        '/img/icon/fairytale/010-wolf.png',
       ],
       selectedIndex: 0,
       level: 0,
       value: 0,
       max: 100,
       timer: null,
-    };
+      isChangeProfile: false,
+    }
   },
   mounted() {
-    this.level = this.point / 100 - (this.point % 100) / 100;
+    this.level = this.point / 100 - (this.point % 100) / 100
     this.timer = setInterval(() => {
       if (this.value == this.point % 100) {
-        clearInterval(this.timer);
-        this.timer = null;
-      } else this.value = this.value + 1;
-    }, 30);
+        clearInterval(this.timer)
+        this.timer = null
+      } else this.value = this.value + 1
+    }, 30)
   },
   methods: {
     returnKidPage() {
-      this.$emit("returnKidPage");
+      this.$emit('returnKidPage')
     },
     setProfileImage() {
       this.$swal({
-        title: "선택된 아바타로 변경하시겠습니까?",
-        type: "warning",
+        title: '선택된 아바타로 변경하시겠습니까?',
+        type: 'warning',
         showCancelButton: true,
-        confirmButtonText: "네",
-        cancelButtonText: "아니오",
+        confirmButtonText: '네',
+        cancelButtonText: '아니오',
         showCloseButton: true,
         showLoaderOnConfirm: true,
       }).then((result) => {
         if (result.value) {
           // 변경 api 호출 후
           // 인벤토리로
-          this.returnKidPage();
+          this.returnKidPage()
         }
-      });
+      })
     },
     selectProfileImage(num) {
       if (this.level >= num) {
-        this.selectedIndex = num;
-        this.profileImage = this.fairytale[this.selectedIndex];
+        this.selectedIndex = num
+        this.profileImage = this.fairytale[this.selectedIndex]
       }
     },
   },
-};
+}
 </script>
 
 <style lang="scss">
-@import "../assets/sass/base.scss";
+@import '../assets/sass/base.scss';
 </style>
 <style lang="scss" scoped>
 /* 로그인페이지 틀 */
@@ -168,9 +178,9 @@ export default {
   opacity: 0.8;
   border-radius: 50%;
   background: white;
-  width: 31vh;
-  height: 31vh;
-  top: 20vh;
+  width: 29vh;
+  height: 29vh;
+  top: 18vh;
   left: 50vw;
   position: relative;
   box-shadow: 3px 3px 33px 4px rgba(163, 163, 163, 0.404);
@@ -193,31 +203,30 @@ export default {
   width: 10vw;
 }
 .profile-icons {
-  margin-top: -3%;
+  margin-top: -2%;
   margin-left: 10%;
   margin-right: 10%;
   background-color: white;
   height: 70vh;
   border-radius: 10vh;
-  padding: 10vh 2vw 2vh 2vw;
+  padding: 5vh 1vw 1vh 5vw;
 }
 
 .profile-icons .change-button {
   left: 43%;
-  bottom: 9%;
+  bottom: 7%;
   position: absolute;
   display: inline-block;
 }
 .button-1 {
-  margin-left: -1vw;
   float: left;
-  margin-right: 2vw;
+  margin-right: 3.5vw;
 }
 .button-2 {
   float: left;
 }
 .active {
-  border: 4px solid #8ebf43;
+  border: 3px solid #8ebf43;
   border-style: dotted;
 }
 
