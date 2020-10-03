@@ -96,7 +96,11 @@
       </div>
       <!-- <div> -->
       <div class="backtomain">
-        <img class="backtomain" src="../../public/img/icon/street-sign-main.png" @click="backtomain()"/>
+        <img
+          class="backtomain"
+          src="../../public/img/icon/street-sign-main.png"
+          @click="backtomain()"
+        />
         <!-- <span class="backtomain-txt">  메인으로 </span> -->
       </div>
       <!-- </div> -->
@@ -105,10 +109,10 @@
 </template>
 
 <script>
-import SetKid from '@/components/SetKid.vue'
-import Report from '@/components/Report.vue'
-import UploadPicture from '@/components/UploadPicture.vue'
-import SetEmail from '@/components/SetEmail.vue'
+import SetKid from '@/components/SetKid.vue';
+import Report from '@/components/Report.vue';
+import UploadPicture from '@/components/UploadPicture.vue';
+import SetEmail from '@/components/SetEmail.vue';
 
 export default {
   name: 'ParentPage',
@@ -131,22 +135,22 @@ export default {
       currentOffset: 0,
       windowSize: 5, // carousel에 띄워줄 아이콘 갯수! <- 반응형으로 할거면 화면에 몇개 나오는지 계산해서 여기 넣어야 공백 안생길듯
       paginationFactor: 50,
-    }
+    };
   },
   computed: {
     atEndOfList() {
       return (
         this.currentOffset <=
         this.paginationFactor * -1 * (this.kids.length - this.windowSize)
-      )
+      );
     },
     atHeadOfList() {
-      return this.currentOffset === 0
+      return this.currentOffset === 0;
     },
   },
   methods: {
     selectKid(index) {
-      this.selectedIndex = index
+      this.selectedIndex = index;
     },
     deleteKid(index) {
       this.$swal({
@@ -164,27 +168,27 @@ export default {
           // 1. 백엔드에서 삭제
 
           // 2. 처음 받아온 데이터 삭제
-          this.kids.splice(index, 1)
-          if (this.kids.length != 0) this.selectedIndex = 0
+          this.kids.splice(index, 1);
+          if (this.kids.length != 0) this.selectedIndex = 0;
         }
-      })
+      });
     },
     updateKid: function (kid) {
-      this.kids.push(kid)
-      this.isAddKid = false
+      this.kids.push(kid);
+      this.isAddKid = false;
     },
     moveCarousel(direction) {
       if (direction === 1 && !this.atEndOfList) {
-        this.currentOffset -= this.paginationFactor
+        this.currentOffset -= this.paginationFactor;
       } else if (direction === -1 && !this.atHeadOfList) {
-        this.currentOffset += this.paginationFactor
+        this.currentOffset += this.paginationFactor;
       }
     },
-    backtomain(){
-      this.$router.push('/selectkid')
-    }
+    backtomain() {
+      this.$router.push('/selectkid');
+    },
   },
-}
+};
 </script>
 <style lang="scss">
 @import '../assets/sass/base.scss';
@@ -371,7 +375,7 @@ $arrowcolor: black;
 
 .board-body {
   position: relative;
-  margin-top: $header-height;
+  margin-top: $header-height/2;
 }
 
 .category {
@@ -390,7 +394,8 @@ $arrowcolor: black;
 }
 
 .category-board {
-  height: 55vh;
+  position: display;
+  height: 60vh;
   padding: 1vw;
 }
 
@@ -398,25 +403,25 @@ $arrowcolor: black;
   background-color: #ffe26d;
 }
 
-.backtomain{
-  position:absolute;
+.backtomain {
+  position: absolute;
   display: block;
   bottom: 0px;
-  right:2vw;
-  height:25vh;
-  width:auto;
+  left: 2vw;
+  height: 25vh;
+  width: auto;
   // img{
   //   // margin-bottom: -1vh;
   //   width:100%;
   // }
   // transform: translate(-50%, -50%);
-  .backtomain-txt{
-    width:2.5vh*4;
+  .backtomain-txt {
+    width: 2.5vh * 4;
     // height:auto;
     font-size: $font-size;
     position: absolute;
-    display:block;
-    bottom:11vh;
+    display: block;
+    bottom: 11vh;
     // margin:auto;
     right: 8vh;
     // right:0.1vw;
@@ -424,6 +429,4 @@ $arrowcolor: black;
     // transform: translate(0, -50%);
   }
 }
-
-
 </style>
