@@ -73,6 +73,7 @@
             <div class="category-board">
               <report :kid="kids[selectedIndex]" v-if="isReport" />
               <upload-picture :kid="kids[selectedIndex]" v-else />
+              <!-- <camera v-else /> -->
             </div>
           </v-col>
 
@@ -122,6 +123,7 @@ export default {
     Report,
     UploadPicture,
     SetEmail,
+    Camera,
   },
   data: () => {
     return {
@@ -166,8 +168,12 @@ export default {
         showLoaderOnConfirm: true,
       }).then((result) => {
         if (result.value) {
-          // 1. 백엔드에서 삭제
-
+          // K002
+          // http
+          //   .delete('/kids/' + this.kid_id, {
+          //     headers: { Authorization: access_token },
+          //   })
+          //   .then(({ data }) => {})
           // 2. 처음 받아온 데이터 삭제
           this.kids.splice(index, 1);
           if (this.kids.length != 0) this.selectedIndex = 0;

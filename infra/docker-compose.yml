@@ -32,3 +32,13 @@ services:
                         - 80:80
                 environment:
                         - TZ=Asia/Seoul
+        api:
+                image: api_engki
+                container_name: "engki_api"
+                ports:
+                        - 8888:8888
+                depends_on:
+                        - db
+                volumes: 
+                        - /etc/timezone:/etc/timezone
+                        - /etc/localtime:/etc/localtime

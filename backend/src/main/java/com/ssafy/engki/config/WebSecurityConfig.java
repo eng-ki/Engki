@@ -31,7 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configure(WebSecurity web) {
 		web.ignoring()
 			//swagger 관련 경로 무시
-			.antMatchers("/swagger-ui/**", "/swagger-resources/**", "/v2/api-docs/**");
+			.antMatchers("/swagger-ui/**", "/swagger-resources/**", "/v2/api-docs/**", "/v3/api-docs/**");
 	}
 
 	@Override

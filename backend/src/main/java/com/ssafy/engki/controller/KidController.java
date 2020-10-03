@@ -37,7 +37,7 @@ public class KidController {
 	private final KidService kidService;
 
 	@PostMapping
-	@ApiOperation(value = "아이 등록", notes = "아이 회원을 추가한다.", response = String.class)
+	@ApiOperation(value = "아이 등록", notes = "아이 회원을 추가한다.", response = Long.class)
 	@ApiResponses(value = {
 		@ApiResponse(code = 201, message = "Created"),
 		@ApiResponse(code = 400, message = "Bad Request"),
@@ -45,7 +45,7 @@ public class KidController {
 		@ApiResponse(code = 403, message = "Forbidden"),
 		@ApiResponse(code = 404, message = "Not Found")
 	})
-	private ResponseEntity<?> addKid(
+	private ResponseEntity<Long> addKid(
 		@ApiParam(value = "추가하고 싶은 아이 정보", required = true) @RequestBody KidDto.KidRequest kidRequest) {
 		logger.debug("add kid 호출\n" + kidRequest.toString());
 		return new ResponseEntity<>(kidService.add(kidRequest), HttpStatus.CREATED);
@@ -60,14 +60,14 @@ public class KidController {
 		@ApiResponse(code = 403, message = "Forbidden"),
 		@ApiResponse(code = 404, message = "Not Found")
 	})
-	private ResponseEntity<?> getKidInventory(
+	private ResponseEntity<List<KidDto.KidSticker>> getKidInventory(
 		@ApiParam(value = "아이 id", required = true, example = "1") @PathVariable long kidId) {
 		logger.debug(String.format("get Kid {%d} inventory 호출", kidId));
 		return new ResponseEntity<>(kidService.getInventory(kidId), HttpStatus.OK);
 	}
 
 	@PutMapping("{kidId}")
-	@ApiOperation(value = "아이콘 수정", notes = "아이의 아이콘 정보를 수정한다..")
+	@ApiOperation(value = "아이콘 수정", notes = "아이의 아이콘 정보를 수정한다.", response = String.class)
 	@ApiResponses(value = {
 		@ApiResponse(code = 200, message = "OK"),
 		@ApiResponse(code = 400, message = "Bad Request"),
@@ -75,7 +75,7 @@ public class KidController {
 		@ApiResponse(code = 403, message = "Forbidden"),
 		@ApiResponse(code = 404, message = "Not Found")
 	})
-	private ResponseEntity<?> updateKidIcon(
+	private ResponseEntity<String> updateKidIcon(
 		@ApiParam(value = "아이 id", required = true, example = "1") @PathVariable long kidId,
 		@ApiParam(value = "업데이트할 아이 아이콘 파일 경로", required = true) @RequestBody KidDto.KidIcon icon) {
 		logger.debug(String.format("update Kid {%d} to icon {%s} 호출", kidId, icon.getIcon()));

@@ -24,6 +24,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 import com.ssafy.engki.dto.AccessTokenDto;
+import com.ssafy.engki.dto.KidDto;
 import com.ssafy.engki.dto.ParentDto;
 import com.ssafy.engki.service.ParentService;
 
@@ -46,7 +47,7 @@ public class ParentController {
 		@ApiResponse(code = 403, message = "Forbidden"),
 		@ApiResponse(code = 404, message = "Not Found")
 	})
-	private ResponseEntity<?> login(
+	private ResponseEntity<String> login(
 		@ApiParam(required = true) @RequestBody AccessTokenDto accessToken) {
 		logger.debug(String.format("login with {%s}호출", accessToken));
 		return new ResponseEntity<>(parentService.login(accessToken.getAccessToken()), HttpStatus.OK);
@@ -108,7 +109,7 @@ public class ParentController {
 		@ApiResponse(code = 403, message = "Forbidden"),
 		@ApiResponse(code = 404, message = "Not Found")
 	})
-	private ResponseEntity<?> getKids(
+	private ResponseEntity<List<KidDto.KidInfo>> getKids(
 		@ApiParam(value = "부모 id", required = true, example = "1486633352") @PathVariable long parentId) {
 		logger.debug("아이 목록 조회 with %d", parentId);
 		return new ResponseEntity<>(parentService.getKidList(parentId), HttpStatus.OK);
