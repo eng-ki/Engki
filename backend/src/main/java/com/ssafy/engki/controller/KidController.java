@@ -1,5 +1,7 @@
 package com.ssafy.engki.controller;
 
+import java.util.List;
+
 import org.mariadb.jdbc.internal.logging.Logger;
 import org.mariadb.jdbc.internal.logging.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -94,5 +96,21 @@ public class KidController {
 		logger.debug(String.format("delete Kid with %d 호출", kidId));
 		kidService.delete(kidId);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+
+	@GetMapping("{kidId}/week/{prev}")
+	@ApiOperation(value = "아이 학습 정보 조회", notes = "아이의 학습 정보를 조회한다.", response = List.class)
+	@ApiResponses(value = {
+		@ApiResponse(code = 200, message = "OK"),
+		@ApiResponse(code = 400, message = "Bad Request"),
+		@ApiResponse(code = 401, message = "Unauthorized"),
+		@ApiResponse(code = 403, message = "Forbidden"),
+		@ApiResponse(code = 404, message = "Not Found")
+	})
+	private ResponseEntity<List<KidDto.StudyInfo>> getKidStudyInfo(
+		@ApiParam(value = "아이 id", required = true, example = "1") @PathVariable long kidId,
+		@ApiParam(value = "조회할 주간 정보 (이번주: 0, 저번주: 1, ...)", required = true, example = "0") @PathVariable int prev) {
+		logger.debug(String.format("get Kid {%d} Study info of prev {%d} 호출", kidId, prev));
+		return new ResponseEntity<>(kidService.getStudyInfo(kidId, prev), HttpStatus.OK);
 	}
 }

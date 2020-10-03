@@ -33,7 +33,13 @@ CREATE TABLE `kid_emotion`
     `id`            bigint       NOT NULL AUTO_INCREMENT,
     `kid_id`        bigint       NOT NULL,
     `evaluate_time` timestamp    NOT NULL DEFAULT current_timestamp(),
-    `emotion`       varchar(200) NOT NULL,
+    `angry` decimal(5,2)         NOT NULL DEFAULT 0,
+    `disgusting` decimal(5,2)    NOT NULL DEFAULT 0,
+    `fearful` decimal(5,2)       NOT NULL DEFAULT 0,
+    `happy` decimal(5,2)         NOT NULL DEFAULT 0,
+    `sad` decimal(5,2)           NOT NULL DEFAULT 0,
+    `surprising` decimal(5,2)    NOT NULL DEFAULT 0,
+    `neutral` decimal(5,2)       NOT NULL DEFAULT 0,
     CONSTRAINT `kid_emotion_pk` PRIMARY KEY (`id`),
     CONSTRAINT `kid_emotion_kid_id_fk` FOREIGN KEY (`kid_id`) REFERENCES `kid` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
