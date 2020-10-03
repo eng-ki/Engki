@@ -32,14 +32,12 @@ export default new Vuex.Store({
       http
         .post('parents/login', { accessToken: access_token })
         .then(({ data }) => {
-          alert(data)
           context.commit('setToken', data)
           // 'sub' 라는 key로 jwt token 디코딩해서 parents ID 받아오기
           var token = data
-          var decoded = jwt_decode(token)
-          parents_id = '123'
+          var parent_id = jwt_decode(token).sub
           http
-            .get('/parents/' + parent_id, { headers: { Authorization: data } })
+            .get('parents/' + parent_id, { headers: { 'X-AUTH-TOKEN': data } })
             .then(({ data }) => {
               context.commit('setUser', data)
             })
