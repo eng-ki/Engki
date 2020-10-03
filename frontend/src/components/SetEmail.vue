@@ -2,7 +2,11 @@
   <div class="background">
     <div class="box">
       <div class="innerbox">
-        <span class="page-title">이메일 정보 수집</span>
+        <span v-if="from == 'parent'" class="page-title">내 정보</span>
+        <span v-else class="page-title">이메일 정보 수집</span>
+        <button v-if="from == 'parent'" @click="deleteInfo()" class="delete">
+          탈퇴하기
+        </button>
         <div class="parent-info-page">
           <div class="container page-text">
             <div class="row">
@@ -107,6 +111,31 @@ export default {
       })
   },
   methods: {
+    deleteInfo() {
+      this.$swal({
+        title:
+          '<div style="font-family: GmarketSansMedium;font-size:2vw;">탈퇴하시겠습니까?<br><span style="font-family: GmarketSansMedium;font-size:1vw;">모든 데이터가 영구적으로 삭제됩니다.</span></div>',
+
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: '확인',
+        cancelButtonText: '취소',
+        showCloseButton: true,
+        showLoaderOnConfirm: true,
+      }).then((result) => {
+        if (result.value) {
+          http
+            .delete('parents/' + this.$store.state.user.id, {
+              headers: { 'X-AUTH-TOKEN': this.$store.state.token },
+            })
+            .then(({ data }) => {
+              this.$store.commit('setUser', null)
+              this.$store.commit('setToken', null)
+              this.$router.push('/')
+            })
+        }
+      })
+    },
     saveInfo() {
       if (this.from == null) {
         this.$swal({
@@ -205,6 +234,12 @@ export default {
   position: inherit;
 }
 
+.delete {
+  position: absolute;
+  bottom: 2vw;
+  right: 3vw;
+  font-family: GmarketSansMedium;
+}
 .parents-button {
   /* 좌표 설정 */
   position: absolute;
