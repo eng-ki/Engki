@@ -1,6 +1,7 @@
 <template>
   <div class="background">
     <set-email
+      v-on:returnParentPage="selectedIndex = 0"
       v-on:visible="selectKid(0)"
       from="parent"
       v-if="selectedIndex == -1"
@@ -123,7 +124,7 @@ export default {
     Report,
     UploadPicture,
     SetEmail,
-    Camera,
+    // Camera,
   },
   data: () => {
     return {
@@ -382,7 +383,7 @@ $arrowcolor: black;
 
 .board-body {
   position: relative;
-  margin-top: $header-height/3 * 2;
+  margin-top: $header-height/2;
 }
 
 .category {
