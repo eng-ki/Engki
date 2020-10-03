@@ -22,9 +22,9 @@
                 class="card-carousel--card"
                 v-for="(data, index) in datas"
                 v-bind:key="index"
-                @click="returnID(data.id)"
+                @click="returnID(index)"
               >
-                <img class="dataimage" :src="data.img" />
+                <img class="dataimage" :src="imgpath + data.icon" />
                 <div class="dataname">{{ data.name }}</div>
               </div>
             </div>
@@ -40,118 +40,81 @@
   </div>
 </template>
 <script>
+import http from '../utils/http-common.js';
 export default {
   props: {
     option: String,
   },
   created() {
     if (this.option == 'quiz') {
-      this.msg = '주제를 선택해주세요'
+      this.msg = '주제를 선택해주세요';
+      this.path = '/edu';
     } else if (this.option == 'kid') {
-      this.msg = '자신의 캐릭터를 선택해주세요'
+      this.$store.commit('setKid', null);
+      console.log(
+        '초기화하고나서 스토어 kid값 조회 : ' + this.$store.state.kid
+      );
+      this.msg = '자신의 캐릭터를 선택해주세요';
+      this.path = '/parents/' + this.$store.state.user.id + '/kids';
+      this.imgpath = '';
     }
+    console.log('path : ' + this.path);
+    http
+      .get(this.path, {
+        headers: { 'X-AUTH-TOKEN': this.$store.state.token },
+      })
+      .then(({ data }) => {
+        this.datas = data;
+        console.log(data);
+      });
   },
   computed: {
     atEndOfList() {
       return (
         this.currentOffset <=
         this.paginationFactor * -1 * (this.datas.length - this.windowSize)
-      )
+      );
     },
     atHeadOfList() {
-      return this.currentOffset === 0
+      return this.currentOffset === 0;
     },
   },
   data: function () {
     return {
+      path: '',
+      imgpath: '/img/icon/',
       msg: '',
-      // datas: [
-      //   {
-      //     id: '1',
-      //     name: '손명지',
-      //     img: '/img/icon/kid1.png',
-      //   },
-      //   {
-      //     id: '2',
-      //     name: '서주현',
-      //     img: '/img/icon/kid2.png',
-      //   },
-      //   {
-      //     id: '3',
-      //     name: '차윤석',
-      //     img: '/img/icon/kid3.png',
-      //   },
-      //   {
-      //     id: '4',
-      //     name: '손명지',
-      //     img: '/img/icon/kid1.png',
-      //   },
-      //   {
-      //     id: '5',
-      //     name: '서주현',
-      //     img: '/img/icon/kid2.png',
-      //   },
-      //   {
-      //     id: '6',
-      //     name: '차윤석',
-      //     img: '/img/icon/kid3.png',
-      //   },
-      // ],
-      datas: [
-        {
-          id: '1',
-          name: '음식',
-          img: '/img/icon/theme/fruit.png',
-        },
-        {
-          id: '2',
-          name: '동물',
-          img: '/img/icon/theme/cat.png',
-        },
-        {
-          id: '3',
-          name: '탈것',
-          img: '/img/icon/theme/transportation.png',
-        },
-        {
-          id: '4',
-          name: '사물',
-          img: '/img/icon/theme/desk.png',
-        },
-        {
-          id: '3',
-          name: '탈것',
-          img: '/img/icon/theme/transportation.png',
-        },
-        {
-          id: '4',
-          name: '사물',
-          img: '/img/icon/theme/desk.png',
-        },
-      ],
+      datas: [],
       currentOffset: 0,
       windowSize: 3, // carousel에 띄워줄 아이콘 갯수! <- 반응형으로 할거면 화면에 몇개 나오는지 계산해서 여기 넣어야 공백 안생길듯
       paginationFactor: 222,
-    }
+    };
   },
   methods: {
-    returnID(id) {
+    returnID(index) {
       if (this.option == 'quiz') {
-        alert(id + '번째 퀴즈로 이동')
-        this.$router.push('/quiz')
+        this.$store.commit('setQuiz', this.datas[index].id);
+        // console.log(
+        //   '버튼 클릭후 스토어 quiz값 조회 : ' + this.$store.state.quiz
+        // );
+        this.$router.push('/quiz');
       } else if (this.option == 'kid') {
-        alert(id + '번째 자녀 계정 로그인')
+        this.$store.commit('setKid', this.datas[index]);
+        // console.log(
+        //   '버튼 클릭후 스토어 kid값 조회 : ' + this.$store.state.kid.name
+        // );
+        this.$router.push('/selectquiz');
       }
     },
     moveCarousel(direction) {
       if (direction === 1 && !this.atEndOfList) {
-        this.currentOffset -= this.paginationFactor
+        this.currentOffset -= this.paginationFactor;
       } else if (direction === -1 && !this.atHeadOfList) {
-        this.currentOffset += this.paginationFactor
+        this.currentOffset += this.paginationFactor;
       }
     },
   },
-}
+};
 </script>
 <style lang="scss">
 @import '../assets/sass/base.scss';
@@ -160,7 +123,8 @@ export default {
 .background .box {
   background-color: rgba(255, 255, 255, 0.6);
   border-radius: 5vh;
-  margin: 10vh 6vw 10vh 6vw;height: 80vh;
+  margin: 10vh 6vw 10vh 6vw;
+  height: 80vh;
 }
 
 /* 로그인페이지 input박스 + tiki */
@@ -180,7 +144,6 @@ export default {
 
 $arrowcolor: #ffffff;
 .card-carousel-wrapper {
-  
   position: relative;
   display: flex;
   align-items: center;
@@ -246,7 +209,6 @@ $arrowcolor: #ffffff;
   transform: translatex(0px);
   width: 80vw;
   .card-carousel--card {
-    
     display: inline-block;
     position: relative;
     margin: 0 10px;
