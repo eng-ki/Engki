@@ -632,8 +632,13 @@ class FastBaseTransform(torch.nn.Module):
     def __init__(self):
         super().__init__()
 
-        self.mean = torch.Tensor(MEANS).float().cuda()[None, :, None, None]
-        self.std = torch.Tensor(STD).float().cuda()[None, :, None, None]
+        self.mean = torch.Tensor(MEANS).float()
+        self.std  = torch.Tensor( STD ).float()
+        if torch.cuda.is_available():
+            self.mean = self.mean.cuda()
+            self.std  = self.std.cuda()
+        self.mean = self.mean[None, :, None, None]
+        self.std = self.std[None, :, None, None]
         self.transform = cfg.backbone.transform
 
     def forward(self, img):
