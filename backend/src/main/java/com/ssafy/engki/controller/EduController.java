@@ -68,7 +68,7 @@ public class EduController {
 	@GetMapping("{wordId}/images")
 	@ApiOperation(value = "Quiz 2 : 랜덤 이미지 목록 조회",
 		notes = "선택한 단어의 이미지 목록을 조회한다.\n",
-		response = EduDto.Image.class)
+		response = List.class)
 	@ApiResponses(value = {
 		@ApiResponse(code = 200, message = "OK"),
 		@ApiResponse(code = 400, message = "Bad Request"),
@@ -85,7 +85,7 @@ public class EduController {
 	@GetMapping("{wordId}/seg")
 	@ApiOperation(value = "Quiz 3 : 세그멘테이션 이미지 조회",
 		notes = "선택한 단어의 오리지널 이미지와 segmetation이 적용된 이미지를 조회한다.",
-		response = EduDto.Image.class)
+		response = EduDto.Segmentation.class)
 	@ApiResponses(value = {
 		@ApiResponse(code = 200, message = "OK"),
 		@ApiResponse(code = 400, message = "Bad Request"),
@@ -105,7 +105,7 @@ public class EduController {
 			+ "2. Quiz 5 : 같은 단어를 포함하지 않는 랜덤 캡션 3개\n"
 			+ "3. Quiz 6 : 오리지널 이미지 캡션의 랜덤 순서로 섞인 Token(+원래 순서) 목록\n"
 			+ "을 조회한다.",
-		response = EduDto.Image.class)
+		response = EduDto.Caption.class)
 	@ApiResponses(value = {
 		@ApiResponse(code = 200, message = "OK"),
 		@ApiResponse(code = 400, message = "Bad Request"),
