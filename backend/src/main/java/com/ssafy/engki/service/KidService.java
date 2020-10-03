@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 
 import com.ssafy.engki.dto.KidDto;
 import com.ssafy.engki.entity.Kid;
+import com.ssafy.engki.mapper.KidMapper;
 import com.ssafy.engki.repository.KidRepository;
 
 @RequiredArgsConstructor
@@ -31,5 +32,11 @@ public class KidService {
 
 	public void delete(long kidId) {
 		kidRepository.deleteById(kidId);
+	}
+
+	public KidDto.KidInfo get(long kidId) {
+		return KidMapper.INSTANCE.toInfo(
+			kidRepository.getOne(kidId)
+		);
 	}
 }
