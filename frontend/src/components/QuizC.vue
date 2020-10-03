@@ -19,6 +19,7 @@
   </div>
 </template>
 <script>
+import http from "../utils/http-common.js";
 export default {
   props: {
     isDone: false,
@@ -28,52 +29,61 @@ export default {
       quiz: null,
       selectedIndex: -1,
       showKorean: false,
-      url: '/img/etc/twoanimals1.png',
-    }
+      url: "/img/etc/twoanimals1.png",
+    };
   },
   created() {
-    //api 호출
-    this.quiz = {
-      url1: '/img/etc/twoanimals1.png',
-      url2: '/img/etc/twoanimals2.png',
-      word: 'dog',
-      words: ['dog', 'cat'],
-    }
+    this.quizapipath = "/edu/" + this.$store.state.quiz.id + "/seg";
+    console.log("퀴즈3패스 : " + this.quizapipath);
+    http
+      .get(this.quizapipath, {
+        headers: { "X-AUTH-TOKEN": this.$store.state.token },
+      })
+      .then((data) => {
+        this.datas = data.data;
+        console.log(data);
+        this.quiz = {
+          url1: "http://j3a510.p.ssafy.io/images/" + data.data.filePath,
+          url2: "http://j3a510.p.ssafy.io/images/" + data.data.segFilePath,
+          word: this.$store.state.quiz.word,
+          words: [this.$store.state.quiz.word, "random"],
+        };
+        this.url = this.quiz.url1;
+      });
   },
   mounted() {
-    // alert(this.stage);
-    this.url = this.quiz.url2
+    this.url = this.quiz.url2;
   },
   watch: {
     isDone: function (val) {
-      if (this.isCorrect()) this.$emit('correct')
-      else this.$emit('wrong')
+      if (this.isCorrect()) this.$emit("correct");
+      else this.$emit("wrong");
     },
     url: function (val) {
       if (this.url == this.quiz.url1) {
         setTimeout(() => {
-          this.url = this.quiz.url2
-        }, 500)
+          this.url = this.quiz.url2;
+        }, 500);
       } else if (this.url == this.quiz.url2) {
         setTimeout(() => {
-          this.url = this.quiz.url1
-        }, 500)
+          this.url = this.quiz.url1;
+        }, 500);
       }
     },
   },
   methods: {
     isCorrect() {
       // 다했어요 버튼이 클릭됐을때 호출되는 함수, 정답이 맞으면 true, 틀리면 false 리턴
-      if (this.quiz.words[this.selectedIndex] == this.quiz.word) return true
+      if (this.quiz.words[this.selectedIndex] == this.quiz.word) return true;
       else {
-        return false
+        return false;
       }
     },
     select(index) {
-      this.selectedIndex = index
+      this.selectedIndex = index;
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
