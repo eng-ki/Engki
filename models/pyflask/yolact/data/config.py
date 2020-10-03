@@ -1,27 +1,28 @@
-from yolact2.backbone import ResNetBackbone, VGGBackbone, ResNetBackboneGN, DarkNetBackbone
+from yolact.backbone import ResNetBackbone, VGGBackbone, ResNetBackboneGN, DarkNetBackbone
 from math import sqrt
 import torch
 
 # for making bounding boxes pretty
-COLORS = ((244, 67, 54),
-          (233, 30, 99),
-          (156, 39, 176),
-          (103, 58, 183),
-          (63, 81, 181),
+COLORS = ((244,  67,  54),
+          (233,  30,  99),
+          (156,  39, 176),
+          (103,  58, 183),
+          (63,  81, 181),
           (33, 150, 243),
           (3, 169, 244),
           (0, 188, 212),
           (0, 150, 136),
-          (76, 175, 80),
-          (139, 195, 74),
-          (205, 220, 57),
-          (255, 235, 59),
-          (255, 193, 7),
-          (255, 152, 0),
-          (255, 87, 34),
-          (121, 85, 72),
+          (76, 175,  80),
+          (139, 195,  74),
+          (205, 220,  57),
+          (255, 235,  59),
+          (255, 193,   7),
+          (255, 152,   0),
+          (255,  87,  34),
+          (121,  85,  72),
           (158, 158, 158),
           (96, 125, 139))
+
 
 # These are in BGR and are for ImageNet
 MEANS = (103.94, 116.78, 123.68)
@@ -42,8 +43,8 @@ COCO_CLASSES = ('person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus',
                 'toaster', 'sink', 'refrigerator', 'book', 'clock', 'vase',
                 'scissors', 'teddy bear', 'hair drier', 'toothbrush')
 
-COCO_LABEL_MAP = {1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8,
-                  9: 9, 10: 10, 11: 11, 13: 12, 14: 13, 15: 14, 16: 15, 17: 16,
+COCO_LABEL_MAP = {1:  1,  2:  2,  3:  3,  4:  4,  5:  5,  6:  6,  7:  7,  8:  8,
+                  9:  9, 10: 10, 11: 11, 13: 12, 14: 13, 15: 14, 16: 15, 17: 16,
                   18: 17, 19: 18, 20: 19, 21: 20, 22: 21, 23: 22, 24: 23, 25: 24,
                   27: 25, 28: 26, 31: 27, 32: 28, 33: 29, 34: 30, 35: 31, 36: 32,
                   37: 33, 38: 34, 39: 35, 40: 36, 41: 37, 42: 38, 43: 39, 44: 40,
@@ -99,17 +100,16 @@ class Config(object):
 
 
 # ----------------------- DATASETS ----------------------- #
-
 dataset_base = Config({
     'name': 'Base Dataset',
 
     # Training images and annotations
     'train_images': './data/coco/images/',
-    'train_info': 'path_to_annotation_file',
+    'train_info':   'path_to_annotation_file',
 
     # Validation images and annotations.
     'valid_images': './data/coco/images/',
-    'valid_info': 'path_to_annotation_file',
+    'valid_info':   'path_to_annotation_file',
 
     # Whether or not to load GT. If this is False, eval.py quantitative evaluation won't work.
     'has_gt': True,
@@ -150,6 +150,7 @@ coco2017_testdev_dataset = dataset_base.copy({
     'label_map': COCO_LABEL_MAP
 })
 
+
 # ----------------------- TRANSFORMS ----------------------- #
 
 resnet_transform = Config({
@@ -175,6 +176,7 @@ darknet_transform = Config({
     'to_float': True,
 })
 
+
 # ----------------------- BACKBONES ----------------------- #
 
 resnet101_backbone = Config({
@@ -185,7 +187,7 @@ resnet101_backbone = Config({
     'transform': resnet_transform,
 
     'selected_layers': list(range(2, 8)),
-    'pred_scales': [[1]] * 6,
+    'pred_scales': [[1]]*6,
     'pred_aspect_ratios': [[[0.66685089, 1.7073535, 0.87508774, 1.16524493, 0.49059086]]] * 6,
     'use_pixel_scales': False,
     'preapply_sqrt': True,
@@ -199,7 +201,7 @@ resnet101_gn_backbone = Config({
     'transform': resnet_transform,
 
     'selected_layers': list(range(2, 8)),
-    'pred_scales': [[1]] * 6,
+    'pred_scales': [[1]]*6,
     'pred_aspect_ratios': [[[0.66685089, 1.7073535, 0.87508774, 1.16524493, 0.49059086]]] * 6,
     'use_pixel_scales': False,
     'preapply_sqrt': True,
@@ -222,7 +224,7 @@ darknet53_backbone = Config({
 
     'selected_layers': list(range(3, 9)),
     'pred_scales': [[3.5, 4.95], [3.6, 4.90], [3.3, 4.02], [2.7, 3.10], [2.1, 2.37], [1.8, 1.92]],
-    'pred_aspect_ratios': [[[1, sqrt(2), 1 / sqrt(2), sqrt(3), 1 / sqrt(3)][:n], [1]] for n in [3, 5, 5, 5, 3, 3]],
+    'pred_aspect_ratios': [[[1, sqrt(2), 1/sqrt(2), sqrt(3), 1/sqrt(3)][:n], [1]] for n in [3, 5, 5, 5, 3, 3]],
     'use_pixel_scales': False,
     'preapply_sqrt': True,
 })
@@ -230,9 +232,10 @@ darknet53_backbone = Config({
 vgg16_arch = [[64, 64],
               ['M', 128, 128],
               ['M', 256, 256, 256],
-              [('M', {'kernel_size': 2, 'stride': 2, 'ceil_mode': True}), 512, 512, 512],
+              [('M', {'kernel_size': 2, 'stride': 2,
+                      'ceil_mode': True}), 512, 512, 512],
               ['M', 512, 512, 512],
-              [('M', {'kernel_size': 3, 'stride': 1, 'padding': 1}),
+              [('M',  {'kernel_size': 3, 'stride':  1, 'padding':  1}),
                (1024, {'kernel_size': 3, 'padding': 6, 'dilation': 6}),
                (1024, {'kernel_size': 1})]]
 
@@ -244,10 +247,11 @@ vgg16_backbone = Config({
     'transform': vgg_transform,
 
     'selected_layers': [3] + list(range(5, 10)),
-    'pred_scales': [[5, 4]] * 6,
-    'pred_aspect_ratios': [[[1], [1, sqrt(2), 1 / sqrt(2), sqrt(3), 1 / sqrt(3)][:n]] for n in [3, 5, 5, 5, 3, 3]],
+    'pred_scales': [[5, 4]]*6,
+    'pred_aspect_ratios': [[[1], [1, sqrt(2), 1/sqrt(2), sqrt(3), 1/sqrt(3)][:n]] for n in [3, 5, 5, 5, 3, 3]],
     'use_pixel_scales': False,
 })
+
 
 # ----------------------- MASK BRANCH TYPES ----------------------- #
 
@@ -309,15 +313,17 @@ mask_type = Config({
     'lincomb': 1,
 })
 
+
 # ----------------------- ACTIVATION FUNCTIONS ----------------------- #
 
 activation_func = Config({
-    'tanh': torch.tanh,
+    'tanh':    torch.tanh,
     'sigmoid': torch.sigmoid,
     'softmax': lambda x: torch.nn.functional.softmax(x, dim=-1),
     'relu': lambda x: torch.nn.functional.relu(x, inplace=True),
     'none': lambda x: x,
 })
+
 
 # ----------------------- FPN DEFAULTS ----------------------- #
 
@@ -338,6 +344,7 @@ fpn_base = Config({
     # This is just here for backwards compatibility
     'pad': True,
 })
+
 
 # ----------------------- CONFIG DEFAULTS ----------------------- #
 
@@ -368,7 +375,8 @@ coco_base_config = Config({
     # The terms to scale the respective loss by
     'conf_alpha': 1,
     'bbox_alpha': 1.5,
-    'mask_alpha': 0.4 / 256 * 140 * 140,  # Some funky equation. Don't worry about it.
+    # Some funky equation. Don't worry about it.
+    'mask_alpha': 0.4 / 256 * 140 * 140,
 
     # Eval.py sets this if you just want to run YOLACT as a detector
     'eval_mask_branch': True,
@@ -390,7 +398,7 @@ coco_base_config = Config({
     'mask_proto_normalize_mask_loss_by_sqrt_area': False,
     'mask_proto_reweight_mask_loss': False,
     'mask_proto_grid_file': 'data/grid.npy',
-    'mask_proto_use_grid': False,
+    'mask_proto_use_grid':  False,
     'mask_proto_coeff_gate': False,
     'mask_proto_prototypes_as_features': False,
     'mask_proto_prototypes_as_features_no_grad': False,
@@ -531,6 +539,7 @@ coco_base_config = Config({
     'name': 'base_config',
 })
 
+
 # ----------------------- YOLACT v1.0 CONFIGS ----------------------- #
 
 yolact_base_config = coco_base_config.copy({
@@ -553,7 +562,7 @@ yolact_base_config = coco_base_config.copy({
         'use_pixel_scales': True,
         'preapply_sqrt': False,
 
-        'pred_aspect_ratios': [[[1, 1 / 2, 2]]] * 5,
+        'pred_aspect_ratios': [[[1, 1/2, 2]]]*5,
         'pred_scales': [[24], [48], [96], [192], [384]],
     }),
 
@@ -587,8 +596,7 @@ yolact_im400_config = yolact_base_config.copy({
 
     'max_size': 400,
     'backbone': yolact_base_config.backbone.copy({
-        'pred_scales': [[int(x[0] / yolact_base_config.max_size * 400)] for x in
-                        yolact_base_config.backbone.pred_scales],
+        'pred_scales': [[int(x[0] / yolact_base_config.max_size * 400)] for x in yolact_base_config.backbone.pred_scales],
     }),
 })
 
@@ -598,8 +606,7 @@ yolact_im700_config = yolact_base_config.copy({
     'masks_to_train': 300,
     'max_size': 700,
     'backbone': yolact_base_config.backbone.copy({
-        'pred_scales': [[int(x[0] / yolact_base_config.max_size * 700)] for x in
-                        yolact_base_config.backbone.pred_scales],
+        'pred_scales': [[int(x[0] / yolact_base_config.max_size * 700)] for x in yolact_base_config.backbone.pred_scales],
     }),
 })
 
@@ -628,6 +635,7 @@ yolact_resnet50_config = yolact_base_config.copy({
         'preapply_sqrt': False,
     }),
 })
+
 
 # Default config
 cfg = yolact_base_config.copy()

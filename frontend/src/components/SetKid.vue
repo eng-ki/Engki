@@ -29,6 +29,7 @@
         </div>
       </div>
       <div class="col-sm-*">
+        <!-- style="width: 100%; height: 20px; background-color: yellow" -->
         <button class="parents-button" @click="register()">등록하기</button>
         <button
           class="parents-button return-button"
@@ -156,14 +157,28 @@ export default {
 .parents-button {
   /* 좌표 설정 */
   position: absolute;
+  padding-left: 1vh;
+  padding-right: 1vh;
   top: 80%;
-  left: 39vw;
-  width: 20vw;
+  left: 39%;
+  width: 15vw;
   transform: translate(-50%, -50%);
 }
 .return-button {
-  left: 61vw;
+  left: 61%;
 }
+
+// .parents-button {
+//   /* 좌표 설정 */
+//   position: absolute;
+//   top: 80%;
+//   left: 39vw;
+//   width: 20vw;
+//   transform: translate(-50%, -50%);
+// }
+// .return-button{
+//   left: 61vw;
+// }
 .gender-button {
   margin-right: 1vw;
   width: 10vw;

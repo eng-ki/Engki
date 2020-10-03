@@ -8,7 +8,7 @@ from image_captioning import *
 
 import json
 import os
-import yolact2.eval as segmetation
+import yolact.eval as segmetation
 from werkzeug.utils import secure_filename  # 파일 고유이름 확인
 from flask import Flask, jsonify, request
 from sqlalchemy import create_engine, text
@@ -27,7 +27,7 @@ def index():
     return text
 
 
-@app.route('/emotion', methods=['POST'])
+@app.route('/custom/emotion', methods=['POST'])
 def emotion():
 
     er_model = Emotion_Recognition
@@ -66,9 +66,9 @@ def emotion():
                                                 AND kid_id = :kid_id"""), emotion_data)
     study_continue = emotion_cal_minute(last_emotions)
     if (study_continue):
-        return "GO"
+        return "GO", 200
     else:
-        return "STOP"
+        return "STOP", 204
 
 
 def emotion_cal_minute(emotions):
@@ -89,19 +89,7 @@ def emotion_cal_minute(emotions):
         return False
 
 
-@app.route('/week_emotion', methods=['POST'])
-def week_emotion():
-    kid_id = request.form['kid_id']
-    data = {
-        'kid_id': kid_id
-    }
-    week_emotions = app.database.execute(text("""
-                                                SELECT * FROM kid_emotion 
-                                                WHERE evaluate_time BETWEEN(SELECT DATE_ADD(NOW(), INTERVAL -7 DAY)) AND NOW() 
-                                                AND kid_id = :kid_id"""), data)
-
-
-@app.route('/custom', methods=['POST'])
+@app.route('/custom/quiz/make', methods=['POST'])
 def custom():
     filestr = request.files['files']
     parent_id = request.form['parent_id']
@@ -114,10 +102,10 @@ def custom():
         'seg_word': seg_word,
         'caption_word': caption_word
     }
-    return value
+    return value, 200
 
 
-@app.route('/custom/save', methods=['POST'])
+@app.route('/custom/quiz/save', methods=['POST'])
 def custom_save():
     data = request.json
     boundaries = data['boundaries']
@@ -145,9 +133,9 @@ def custom_save():
                                                 VALUES (:image_id, :word, :boundary)
                                                 """), data)
 
-        return 'success'
+        return 'success', 201
     except:
-        return 'fail'
+        return 'fail', 409
 
 
 def captions(image_path):
@@ -161,7 +149,8 @@ def seg(filestr, parents_id):
     if not os.path.exists(uploads_dir):
         os.makedirs(uploads_dir)
 
-    filename = filestr.filename[:-4] + '_' + datetime.today().strftime("%m%d%H%M%S") + '.jpg'
+    filename = filestr.filename[:-4] + '_' + \
+        datetime.today().strftime("%m%d%H%M%S") + '.jpg'
     filestr.save(os.path.join(uploads_dir, secure_filename(filename)))
     in_path = uploads_dir + "/" + filename
 

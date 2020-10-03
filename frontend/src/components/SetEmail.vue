@@ -45,12 +45,29 @@
             </div>
             <div class="row">
               <div class="col-sm-*">
+                <!-- style="width: 100%; height: 20px; background-color: yellow" -->
+                <!-- <button class="parents-button" @click="saveInfo()">
+                  수정하기
+                </button>
+                <button
+                  class="parents-button return-button"
+                  @click="returnParentPage()"
+                >
+                  돌아가기
+                </button> -->
                 <button
                   v-if="from == 'parent'"
                   @click="saveInfo()"
-                  class="parents-button"
+                  class="parents-button edit"
                 >
                   수정하기
+                </button>
+                <button
+                  v-if="from == 'parent'"
+                  @click="returnParentPage()"
+                  class="parents-button back"
+                >
+                  뒤로가기
                 </button>
                 <button v-else @click="saveInfo()" class="parents-button">
                   가입하기
@@ -154,6 +171,9 @@ export default {
         })
       }
     },
+    returnParentPage() {
+      this.$emit('returnParentPage')
+    },
   },
 }
 </script>
@@ -185,6 +205,25 @@ export default {
   position: inherit;
 }
 
+.parents-button {
+  /* 좌표 설정 */
+  position: absolute;
+  padding-left: 1vh;
+  padding-right: 1vh;
+  top: 55vh;
+  left: 50%;
+  width: 15vw;
+  transform: translate(-50%, -50%);
+}
+.edit {
+  // position: relative;
+  left: 39%;
+}
+.back {
+  // position: relative;
+  left: 61%;
+}
+
 /* 회원가입 타이틀 */
 .page-title {
   // text-align: left;
@@ -206,14 +245,6 @@ export default {
   margin: 0px;
   font-family: GmarketSansMedium;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
-}
-
-.parent-info-page .parents-button {
-  /* 좌표 설정 */
-  position: absolute;
-  top: 60vh;
-  left: 50%;
-  transform: translate(-50%, -100%);
 }
 
 .neumorphism-toggle {

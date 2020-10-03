@@ -13,7 +13,7 @@ from image_captioning.model import EncoderCNN, DecoderRNN
 from PIL import Image
 
 # Device configuration
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+device = torch.device('cpu')
 
 
 def load_image(image_path, transform=None):
@@ -30,12 +30,12 @@ def main(image_path):
     parser = argparse.ArgumentParser()
 
     parser.add_argument('--encoder_path', type=str,
-                        default='/home/team1/engki/pyflask/image_captioning/models/encoder-20-3000.ckpt',
+                        default='./image_captioning/models/encoder-20-3000.ckpt',
                         help='path for trained encoder')
     parser.add_argument('--decoder_path', type=str,
-                        default='/home/team1/engki/pyflask/image_captioning/models/decoder-20-3000.ckpt',
+                        default='./image_captioning/models/decoder-20-3000.ckpt',
                         help='path for trained decoder')
-    parser.add_argument('--vocab_path', type=str, default='/home/team1/engki/pyflask/image_captioning/data/vocab.pkl', help='path for vocabulary wrapper')
+    parser.add_argument('--vocab_path', type=str, default='./image_captioning/data/vocab.pkl', help='path for vocabulary wrapper')
 
     # Model parameters (should be same as paramters in train.py)
     parser.add_argument('--embed_size', type=int, default=256, help='dimension of word embedding vectors')
@@ -60,8 +60,9 @@ def main(image_path):
     decoder = decoder.to(device)
 
     # Load the trained model parameters
-    encoder.load_state_dict(torch.load(args.encoder_path))
-    decoder.load_state_dict(torch.load(args.decoder_path))
+    map_location = 'cpu'
+    encoder.load_state_dict(torch.load(args.encoder_path, map_location=map_location))
+    decoder.load_state_dict(torch.load(args.decoder_path, map_location=map_location))
 
     words = ['person',
              'bicycle',
