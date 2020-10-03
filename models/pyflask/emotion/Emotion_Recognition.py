@@ -4,9 +4,11 @@ from keras.preprocessing.image import img_to_array
 from keras.models import load_model
 
 # Face detection XML load and trained model loading
-face_detection = cv2.CascadeClassifier("emotion/haarcascade_frontalface_default.xml")
+face_detection = cv2.CascadeClassifier(
+    "emotion/haarcascade_frontalface_default.xml")
 emotion_classifier = load_model("emotion/emotion_model.hdf5", compile=False)
-EMOTIONS = ["Angry", "Disgusting", "Fearful", "Happy", "Sad", "Surpring", "Neutral"]
+EMOTIONS = ["Angry", "Disgusting", "Fearful",
+            "Happy", "Sad", "Surpring", "Neutral"]
 
 
 def emotion_recognition(img):
@@ -24,11 +26,12 @@ def emotion_recognition(img):
 
     # Create empty image
     # canvas = np.zeros((250, 300, 3), dtype="uint8")
-
+    emotions = {}
     # Perform emotion recognition only when face is detected
     if len(faces) > 0:
         # For the largest image
-        face = sorted(faces, reverse=True, key=lambda x: (x[2] - x[0]) * (x[3] - x[1]))[0]
+        face = sorted(faces, reverse=True, key=lambda x: (
+            x[2] - x[0]) * (x[3] - x[1]))[0]
         (fX, fY, fW, fH) = face
         # Resize the image to 48x48 for neural network
         roi = gray[fY:fY + fH, fX:fX + fW]
@@ -47,7 +50,7 @@ def emotion_recognition(img):
         # cv2.rectangle(frame, (fX, fY), (fX + fW, fY + fH), (0, 0, 255), 2)
 
         # emotions = ''
-        emotions = {}
+
         # Label printing
         for (i, (emotion, prob)) in enumerate(zip(EMOTIONS, preds)):
             # text = "{}: {:.2f}%".format(emotion, prob * 100)
@@ -61,8 +64,7 @@ def emotion_recognition(img):
     # Display probabilities of emotion
     # cv2.imshow('Emotion Recognition', frame)
     # cv2.imshow("Probabilities", canvas)
-    else:
-        return 'Fail'
+
     return emotions
     # q to quit
     # if cv2.waitKey(1) & 0xFF == ord('q'):
