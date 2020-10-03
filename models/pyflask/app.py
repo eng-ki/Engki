@@ -1,18 +1,18 @@
-from flask import Flask, request
 from emotion import Emotion_Recognition
 import cv2
 import numpy
-from io import StringIO
+
 from image_captioning import predict
 from image_captioning.build_vocab import Vocabulary
 from image_captioning import *
+
 import json
 import os
-# from yolact2 import yolact2.eval
 import yolact2.eval as segmetation
-from werkzeug import secure_filename  # 파일 고유이름 확인
+from werkzeug.utils import secure_filename  # 파일 고유이름 확인
 from flask import Flask, jsonify, request
 from sqlalchemy import create_engine, text
+from datetime import datetime
 
 app = Flask(__name__)
 app.config.from_pyfile('config.py')
@@ -30,21 +30,10 @@ def index():
 @app.route('/emotion', methods=['POST'])
 def emotion():
 
-    # er_model = Emotion_Recognition
-
-    # encode_str = request.files['files'].read()
-    # # convert string data to numpy array
-    # face_image = StringIO(encode_str)
-
-    # npimg = numpy.fromstring(face_image, numpy.uint8)
-    # # convert numpy array to image
-    # img = cv2.imdecode(npimg, cv2.IMREAD_COLOR)
-
-    # return er_model.emotion_recognition(img)
-
     er_model = Emotion_Recognition
 
     filestr = request.files['files'].read()
+
     kid_id = request.form['kid_id']
     # convert string data to numpy array
     npimg = numpy.fromstring(filestr, numpy.uint8)
@@ -100,20 +89,6 @@ def emotion_cal_minute(emotions):
         return False
 
 
-@app.route('/caption', methods=['GET', 'POST'])
-def caption():
-
-    image_path = request.form['image_path']
-    # image_path = '/home/team1/engki/pyflask/image_captioning/png/train5.jpg'
-    sentence, words = predict.main(image_path)
-    value = {
-        'sentence': sentence,
-        'words': words
-    }
-    # return sentence and words
-    return value
-
-
 @app.route('/week_emotion', methods=['POST'])
 def week_emotion():
     kid_id = request.form['kid_id']
@@ -126,34 +101,15 @@ def week_emotion():
                                                 AND kid_id = :kid_id"""), data)
 
 
-@app.route('/seg', methods=['POST'])
-def seg():
-    filestr = request.files['files'].read()
-    parents_id = request.files['parents_id'].read()
-    uploads_dir = "/home/ubuntu/engki/data/custom/" + parents_id + "/inputs"
-    if not os.path.exists(uploads_dir):
-        os.makedirs(uploads_dir)
-    filestr.save(os.path.join(uploads_dir, secure_filename(filestr.filename)))
-    in_path = uploads_dir+"/" + filestr.filename
-    # input: ~~~~/userid/input/~~~.jpg or png
-    # output: save_path+"/output/"+root_list[-1][:-4]+"_"+_class+".png"
-    out_path, word = segmetation.custom_segmentation(in_path)
-    value = {
-        'out_path': out_path,
-        'word': word,
-    }
-    return value
-
-
 @app.route('/custom', methods=['POST'])
 def custom():
     filestr = request.files['files']
-    parents_id = request.form['parents_id']
-    in_path, out_path, seg_word = seg(filestr, parents_id)
+    parent_id = request.form['parent_id']
+    in_path, out_path, seg_word = seg(filestr, parent_id)
     sentence, caption_word = captions(in_path)
     value = {
         'file_path': in_path,
-        'boundary': out_path,
+        'boundaries': out_path,
         'caption': sentence,
         'seg_word': seg_word,
         'caption_word': caption_word
@@ -168,32 +124,55 @@ def custom_save():
     seg_word = data['seg_word']
     caption_word = data['caption_word']
 
-    image_id = app.database.execute(text("""
-                                        INSERT INTO custom_image (file_path, parent_id)
-                                        VALUES (:file_path,:parent_id)
-                                        """), data).lastrowid
+    try:
+        image_id = app.database.execute(text("""
+                                            INSERT INTO custom_image (file_path, parent_id)
+                                            VALUES (:file_path,:parent_id)
+                                            """), data).lastrowid
 
-    data['image_id'] = image_id
-    for word in caption_word:
-        data['word'] = word
-        app.database.execute(text("""
-                                    INSERT INTO custom_image_caption (image_id, word, caption)
-                                    VALUES (:image_id, :word, :caption)
-                                    """), data)
-    for i in range(0, len(seg_word), 1):
-        data['word'] = seg_word[i]
-        data['boundary'] = boundaries[i]
-        app.database.execute(text("""
-                                            INSERT INTO custom_image_word (image_id, word, boundary)
-                                            VALUES (:image_id, :word, :boundary)
-                                            """), data)
+        data['image_id'] = image_id
+        for word in caption_word:
+            data['word'] = word
+            app.database.execute(text("""
+                                        INSERT INTO custom_image_caption (image_id, word, caption)
+                                        VALUES (:image_id, :word, :caption)
+                                        """), data)
+        for i in range(0, len(seg_word), 1):
+            data['word'] = seg_word[i]
+            data['boundary'] = boundaries[i]
+            app.database.execute(text("""
+                                                INSERT INTO custom_image_word (image_id, word, boundary)
+                                                VALUES (:image_id, :word, :boundary)
+                                                """), data)
 
-    return 'success'
+        return 'success'
+    except:
+        return 'fail'
+
+
+def captions(image_path):
+    sentence, words = predict.main(image_path)
+
+    return sentence, words
+
+
+def seg(filestr, parents_id):
+    uploads_dir = "custom/" + parents_id + "/inputs"
+    if not os.path.exists(uploads_dir):
+        os.makedirs(uploads_dir)
+
+    filename = filestr.filename[:-4] + '_' + datetime.today().strftime("%m%d%H%M%S") + '.jpg'
+    filestr.save(os.path.join(uploads_dir, secure_filename(filename)))
+    in_path = uploads_dir + "/" + filename
+
+    out_path, word = segmetation.custom_segmentation(in_path)
+
+    return in_path, out_path, word
 
 
 if __name__ == '__main__':
     app.run(
-        # host="70.12.130.106",
+        host="j3a510.p.ssafy.io",
         port=5000,
         debug=True
     )
