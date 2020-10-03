@@ -33,7 +33,7 @@
                     v-bind:key="index"
                     @click="selectKid(index)"
                   >
-                    <img :src="kid.url" />
+                    <img :src="kid.icon" />
                     <div :class="{ selected: selectedIndex == index }">
                       <div class="dataname">{{ kid.name }}</div>
                       <div
@@ -115,7 +115,7 @@ import SetKid from '@/components/SetKid.vue'
 import Report from '@/components/Report.vue'
 import UploadPicture from '@/components/UploadPicture.vue'
 import SetEmail from '@/components/SetEmail.vue'
-
+import http from '../utils/http-common.js'
 export default {
   name: 'ParentPage',
   components: {
@@ -126,11 +126,7 @@ export default {
   },
   data: () => {
     return {
-      kids: [
-        { url: '/img/icon/fairytale/001-knight.png', name: '김싸피' },
-        { url: '/img/icon/fairytale/002-wizard.png', name: '김싸파' },
-        { url: '/img/icon/fairytale/003-dwarf.png', name: '김싸푸' },
-      ],
+      kids: [],
       selectedIndex: 0,
       isReport: true,
       isAddKid: false,
@@ -138,6 +134,9 @@ export default {
       windowSize: 5, // carousel에 띄워줄 아이콘 갯수! <- 반응형으로 할거면 화면에 몇개 나오는지 계산해서 여기 넣어야 공백 안생길듯
       paginationFactor: 50,
     }
+  },
+  mounted() {
+    this.getKids()
   },
   computed: {
     atEndOfList() {
@@ -151,6 +150,16 @@ export default {
     },
   },
   methods: {
+    getKids() {
+      http
+        .get('parents/' + this.$store.state.user.id + '/kids', {
+          headers: { 'X-AUTH-TOKEN': this.$store.state.token },
+        })
+        .then(({ data }) => {
+          this.kids = data
+          console.log(this.kids)
+        })
+    },
     selectKid(index) {
       this.selectedIndex = index
     },
@@ -167,20 +176,19 @@ export default {
         showLoaderOnConfirm: true,
       }).then((result) => {
         if (result.value) {
-          // K002
-          // http
-          //   .delete('/kids/' + this.kid_id, {
-          //     headers: { Authorization: access_token },
-          //   })
-          //   .then(({ data }) => {})
-          // 2. 처음 받아온 데이터 삭제
-          this.kids.splice(index, 1)
-          if (this.kids.length != 0) this.selectedIndex = 0
+          http
+            .delete('/kids/' + this.kids[this.selectedIndex].id, {
+              headers: { 'X-AUTH-TOKEN': this.$store.state.token },
+            })
+            .then(({ data }) => {
+              this.kids.splice(index, 1)
+              if (this.kids.length != 0) this.selectedIndex = 0
+            })
         }
       })
     },
     updateKid: function (kid) {
-      this.kids.push(kid)
+      this.getKids()
       this.isAddKid = false
     },
     moveCarousel(direction) {
@@ -220,7 +228,6 @@ $arrowcolor: black;
   top: $top-margin;
   left: $left-margin;
   background-color: white;
-  opacity: 100%;
   width: $display-width;
   height: $board-height;
   border-radius: 10vh;

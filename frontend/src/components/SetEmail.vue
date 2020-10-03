@@ -32,7 +32,9 @@
                     type="checkbox"
                     id="neumorphism"
                     checked
+                    v-model="parents.receiveEmailFlag"
                   />
+
                   <label for="neumorphism">
                     <div class="switch">
                       <div class="dot"></div>
@@ -63,6 +65,7 @@
 </template>
 <script>
 import http from '../utils/http-common.js'
+import jwt_decode from 'jwt-decode'
 export default {
   props: {
     from: null,
@@ -70,11 +73,21 @@ export default {
   data: function () {
     return {
       parents: {
-        name: '손명지',
-        email: 'ji_exitos@naver.com',
+        name: '',
+        email: '',
         receiveEmailFlag: true,
       },
     }
+  },
+  created() {
+    var parent_id = jwt_decode(this.$store.state.token).sub
+    http
+      .get('parents/' + parent_id, {
+        headers: { 'X-AUTH-TOKEN': this.$store.state.token },
+      })
+      .then(({ data }) => {
+        this.parents = data
+      })
   },
   methods: {
     saveInfo() {
@@ -105,6 +118,9 @@ export default {
               .then(({ data }) => {
                 this.$router.push('/parent')
               })
+              .catch((err) => {
+                console.error(err)
+              })
           }
         })
       } else if (this.from == 'parent') {
@@ -119,11 +135,21 @@ export default {
           showLoaderOnConfirm: true,
         }).then((result) => {
           if (result.value) {
-            // 백엔드 부모 정보 update API
-
-            // 로그인 할 때 parent 정보 불러왔다면, 거기에 저장된 값도 수정해주기.
-            // or db 업데이트하고 통째로 다시 불러와서 parent 정보 갱신
-            this.$emit('visible')
+            http
+              .put(
+                'parents/' + this.$store.state.user.id,
+                {
+                  email: this.parents.email,
+                  name: this.parents.name,
+                  receiveEmailFlag: this.parents.receiveEmailFlag,
+                },
+                {
+                  headers: { 'X-AUTH-TOKEN': this.$store.state.token },
+                }
+              )
+              .then(({ data }) => {
+                this.$emit('visible')
+              })
           }
         })
       }

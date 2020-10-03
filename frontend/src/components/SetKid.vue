@@ -25,33 +25,6 @@
                 />
               </div>
             </div>
-            <div class="row">
-              <div class="col-sm-4">
-                <p>성별</p>
-              </div>
-              <div class="col-sm-8">
-                <button
-                  class="gender-button"
-                  @click="kid.gender = 'female'"
-                  :class="{ active: kid.gender == 'female' }"
-                >
-                  여자
-                </button>
-                <button
-                  class="gender-button"
-                  @click="kid.gender = 'male'"
-                  :class="{ active: kid.gender == 'male' }"
-                >
-                  남자
-                </button>
-                <!-- <v-btn-toggle
-                    v-model="gender"
-                    borderless>
-          <v-btn value="female">여자 </v-btn>
-          <v-btn value="male">남자</v-btn>
-                 </v-btn-toggle> -->
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -68,6 +41,7 @@
   </div>
 </template>
 <script>
+import http from '../utils/http-common.js'
 export default {
   props: {
     from: null,
@@ -75,10 +49,9 @@ export default {
   data: function () {
     return {
       kid: {
-        name: '손명지',
-        birthday: '1994-04-03',
-        gender: 'female',
-        url: '/img/icon/fairytale/001-knight.png',
+        name: '',
+        birthday: '',
+        icon: '/img/icon/fairytale/001-knight.png',
       },
     }
   },
@@ -95,10 +68,22 @@ export default {
         showLoaderOnConfirm: true,
       }).then((result) => {
         if (result.value) {
-          // 백엔드 자녀 등록 api
-
-          // 등록 완료시 parentpage로 데이터 넘겨줌
-          this.$emit('update', this.kid)
+          http
+            .post(
+              'kids/',
+              {
+                birthday: this.kid.birthday,
+                icon: this.kid.icon,
+                name: this.kid.name,
+                parentId: this.$store.state.user.id,
+              },
+              {
+                headers: { 'X-AUTH-TOKEN': this.$store.state.token },
+              }
+            )
+            .then(({ data }) => {
+              this.$emit('update', this.kid)
+            })
         }
       })
     },
@@ -176,11 +161,11 @@ export default {
   width: 20vw;
   transform: translate(-50%, -50%);
 }
-.return-button{
+.return-button {
   left: 61vw;
 }
 .gender-button {
-  margin-right:1vw;
+  margin-right: 1vw;
   width: 10vw;
   border-radius: 3vh;
   background-color: rgba(255, 255, 255, 0.5);
