@@ -67,7 +67,7 @@
 </template>
 <script>
 export default {
-  name: 'Report',
+  name: 'UploadPicture',
   props: {
     kid: null,
   },
@@ -88,7 +88,7 @@ export default {
     test() {
       this.$swal({
         title:
-          '<span style="font-family: GmarketSansMedium;font-size:1.5vw;">현재 데이터로 학습을 시작하시겠습니까?</span>',
+          '<span style="font-family: GmarketSansMedium;font-size:1.2vw;">현재 데이터로 학습을 시작하시겠습니까?</span>',
         type: 'warning',
         showCancelButton: true,
         confirmButtonText: '네',
