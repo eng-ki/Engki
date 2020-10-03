@@ -6,6 +6,7 @@ import ParentPage from '../views/ParentPage.vue';
 import KidPage from '../views/KidPage.vue';
 import SelectQuizPage from '../views/SelectQuizPage.vue';
 import QuizPage from '../views/QuizPage.vue';
+// import Test from '../views/Test.vue';
 
 Vue.use(VueRouter);
 
@@ -40,6 +41,11 @@ const routes = [
     name: 'QuizPage',
     component: QuizPage,
   },
+  // {
+  //   path: '/test',
+  //   name: 'Test',
+  //   component: Test,
+  // },
 ];
 
 const router = new VueRouter({

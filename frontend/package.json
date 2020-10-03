@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@vue/eslint-config-airbnb": "^5.1.0",
+    "chart.js": "^2.9.3",
     "axios": "^0.20.0",
     "bootstrap": "^4.5.2",
     "bootstrap-vue": "^2.17.3",
@@ -26,9 +27,12 @@
     "prettier": "^2.1.2",
     "scss": "^0.2.4",
     "vue": "^2.6.11",
+    "vue-chartjs": "^3.5.1",
     "vue-loader": "^15.9.3",
     "vue-router": "^3.2.0",
     "vue-sweetalert2": "^3.0.8",
+    "vue-web-cam": "^1.9.0",
+    "vue-webcam": "^2.0.4",
     "vuedraggable": "^2.24.1",
     "vuetify": "^2.2.11",
     "vuex": "^3.4.0"
