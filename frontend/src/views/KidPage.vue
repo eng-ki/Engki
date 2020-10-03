@@ -80,6 +80,8 @@ export default {
 
 <style lang="scss">
 @import "../assets/sass/base.scss";
+</style>
+<style lang="scss" scoped>
 /* 자녀페이지 틀 */
 .background .box .innerbox {
   position: inherit;
