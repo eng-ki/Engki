@@ -1,28 +1,43 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import http from '../utils/http-common.js'
-import jwt_decode from 'jwt-decode'
-Vue.use(Vuex)
+import Vue from 'vue';
+import Vuex from 'vuex';
+import http from '../utils/http-common.js';
+import jwt_decode from 'jwt-decode';
+import createPersistedState from 'vuex-persistedstate';
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
     user: {},
     token: null,
+    quiz: null,
+    kid: null,
   },
   getters: {
     getUser: function (state) {
-      return state.user
+      return state.user;
     },
     getToken: function (state) {
-      return state.token
+      return state.token;
+    },
+    getQuiz: function (state) {
+      return state.quiz;
+    },
+    getKid: function (state) {
+      return state.kid;
     },
   },
   mutations: {
     setUser(state, payload) {
-      state.user = payload
+      state.user = payload;
     },
     setToken(state, payload) {
-      state.token = payload
+      state.token = payload;
+    },
+    setQuiz(state, payload) {
+      state.quiz = payload;
+    },
+    setKid(state, payload) {
+      state.kid = payload;
     },
   },
   actions: {
@@ -39,13 +54,13 @@ export default new Vuex.Store({
           http
             .get('parents/' + parent_id, { headers: { 'X-AUTH-TOKEN': data } })
             .then(({ data }) => {
-              context.commit('setUser', data)
-            })
+              context.commit('setUser', data);
+            });
         })
         .catch((err) => {
-          console.error(err)
-        })
+          console.error(err);
+        });
     },
   },
-  modules: {},
-})
+  plugins: [createPersistedState()],
+});
