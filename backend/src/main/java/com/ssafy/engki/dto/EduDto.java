@@ -98,4 +98,15 @@ public class EduDto {
 		private String token;
 		private int order;
 	}
+
+	@Data
+	@AllArgsConstructor
+	@NoArgsConstructor
+	public static class Request {
+		@ApiModelProperty(value = "배운 단어 id", example = "1")
+		private long wordId;
+
+		@ApiModelProperty(value = "추가될 exp", example = "21")
+		private int exp;
+	}
 }
