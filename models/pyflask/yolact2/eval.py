@@ -185,7 +185,7 @@ def prep_display(dets_out, img, h, w, undo_transform=True, class_color=False, ma
             color = COLORS[color_idx]
             if not undo_transform:
                 # The image might come in as RGB or BRG, depending
-                color = (color[2], color[1], color[0])
+                color = torch.Tensor(color).float() / 255.
             if on_gpu is not None:
                 color = torch.Tensor(color).to(on_gpu).float() / 255.
                 color_cache[on_gpu][color_idx] = color
@@ -199,8 +199,12 @@ def prep_display(dets_out, img, h, w, undo_transform=True, class_color=False, ma
         masks = masks[:num_dets_to_consider, :, :, None]
 
         # Prepare the RGB images for each mask given their color (size [num_dets, h, w, 1])
-        colors = torch.cat([get_color(j, on_gpu=img_gpu.device.index).view(
-            1, 1, 1, 3) for j in range(num_dets_to_consider)], dim=0)
+        if torch.cuda.is_available():
+            colors = torch.cat(
+                [get_color(j, on_gpu=img_gpu.device.index).view(1, 1, 1, 3) for j in range(num_dets_to_consider)],
+                dim=0)
+        else:
+            colors = torch.cat([get_color(j).view(1, 1, 1, 3) for j in range(num_dets_to_consider)], dim=0)
         masks_color = masks.repeat(1, 1, 1, 3) * colors * mask_alpha
 
         # This is 1 everywhere except for 1-mask_alpha where the mask is
@@ -252,7 +256,7 @@ def prep_display(dets_out, img, h, w, undo_transform=True, class_color=False, ma
     if args.display_text or args.display_bboxes:
         for j in reversed(range(num_dets_to_consider)):
             x1, y1, x2, y2 = boxes[j, :]
-            color = get_color(j)
+            color = tuple([int(x) for x in (get_color(j) * 255).numpy().astype(np.uint8)])
             score = scores[j]
 
             if args.display_bboxes:
@@ -297,7 +301,8 @@ def prep_benchmark(dets_out, h, w):
 
     with timer.env('Sync'):
         # Just in case
-        torch.cuda.synchronize()
+        if torch.cuda.is_available():
+            torch.cuda.synchronize()
 
 
 def prep_coco_cats():
@@ -625,7 +630,10 @@ def badhash(x):
 
 
 def evalimage(net: Yolact, path: str, save_path: str = None):
-    frame = torch.from_numpy(cv2.imread(path)).cuda().float()
+    frame = torch.from_numpy(cv2.imread(path))
+    if torch.cuda.is_available():
+        frame = frame.cuda()
+    frame = frame.float()
     batch = FastBaseTransform()(frame.unsqueeze(0))
     preds = net(batch)
 
@@ -1225,6 +1233,8 @@ if __name__ == '__main__':
         print('>>>>Loading model...', end='')
         net = Yolact()
         net.load_weights(args.trained_model)
+        map_location = None if args.cuda else 'cpu'
+        net.load_weights(args.trained_model, map_location=map_location)
         net.eval()
         print('>>>>>>Done.')
 

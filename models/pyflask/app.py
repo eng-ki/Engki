@@ -172,7 +172,6 @@ def seg(filestr, parents_id):
 
 if __name__ == '__main__':
     app.run(
-        host="j3a510.p.ssafy.io",
-        port=5000,
+        host="0.0.0.0",
         debug=True
     )
