@@ -57,11 +57,11 @@ CREATE TABLE `word`
 
 CREATE TABLE `kid_word`
 (
-    `kid_id`      bigint NOT NULL,
-    `word_id`     bigint NOT NULL,
-    `count`       int    NOT NULL DEFAULT 0,
-    `recent_date` date            DEFAULT NULL,
-    CONSTRAINT `kid_word_pk` PRIMARY KEY (`kid_id`, `word_id`),
+    `id`           bigint NOT NULL AUTO_INCREMENT,
+    `kid_id`       bigint NOT NULL,
+    `word_id`      bigint NOT NULL,
+    `studied_date` date   NOT NULL,
+    CONSTRAINT `kid_word_pk` PRIMARY KEY (`id`),
     CONSTRAINT `kid_word_kid_id_fk` FOREIGN KEY (`kid_id`) REFERENCES `kid` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT `kid_word_word_id_fk` FOREIGN KEY (`word_id`) REFERENCES `word` (`id`)
 );

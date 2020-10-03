@@ -43,4 +43,8 @@ public class Kid {
 	public void updateIcon(String icon) {
 		this.icon = icon;
 	}
+
+	public void addExp(int adding) {
+		this.exp += adding;
+	}
 }
