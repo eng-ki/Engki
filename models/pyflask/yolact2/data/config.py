@@ -3,26 +3,25 @@ from math import sqrt
 import torch
 
 # for making bounding boxes pretty
-COLORS = ((244,  67,  54),
-          (233,  30,  99),
-          (156,  39, 176),
-          (103,  58, 183),
-          (63,  81, 181),
+COLORS = ((244, 67, 54),
+          (233, 30, 99),
+          (156, 39, 176),
+          (103, 58, 183),
+          (63, 81, 181),
           (33, 150, 243),
           (3, 169, 244),
           (0, 188, 212),
           (0, 150, 136),
-          (76, 175,  80),
-          (139, 195,  74),
-          (205, 220,  57),
-          (255, 235,  59),
-          (255, 193,   7),
-          (255, 152,   0),
-          (255,  87,  34),
-          (121,  85,  72),
+          (76, 175, 80),
+          (139, 195, 74),
+          (205, 220, 57),
+          (255, 235, 59),
+          (255, 193, 7),
+          (255, 152, 0),
+          (255, 87, 34),
+          (121, 85, 72),
           (158, 158, 158),
           (96, 125, 139))
-
 
 # These are in BGR and are for ImageNet
 MEANS = (103.94, 116.78, 123.68)
@@ -43,8 +42,8 @@ COCO_CLASSES = ('person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus',
                 'toaster', 'sink', 'refrigerator', 'book', 'clock', 'vase',
                 'scissors', 'teddy bear', 'hair drier', 'toothbrush')
 
-COCO_LABEL_MAP = {1:  1,  2:  2,  3:  3,  4:  4,  5:  5,  6:  6,  7:  7,  8:  8,
-                  9:  9, 10: 10, 11: 11, 13: 12, 14: 13, 15: 14, 16: 15, 17: 16,
+COCO_LABEL_MAP = {1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8,
+                  9: 9, 10: 10, 11: 11, 13: 12, 14: 13, 15: 14, 16: 15, 17: 16,
                   18: 17, 19: 18, 20: 19, 21: 20, 22: 21, 23: 22, 24: 23, 25: 24,
                   27: 25, 28: 26, 31: 27, 32: 28, 33: 29, 34: 30, 35: 31, 36: 32,
                   37: 33, 38: 34, 39: 35, 40: 36, 41: 37, 42: 38, 43: 39, 44: 40,
@@ -100,16 +99,17 @@ class Config(object):
 
 
 # ----------------------- DATASETS ----------------------- #
+
 dataset_base = Config({
     'name': 'Base Dataset',
 
     # Training images and annotations
     'train_images': './data/coco/images/',
-    'train_info':   'path_to_annotation_file',
+    'train_info': 'path_to_annotation_file',
 
     # Validation images and annotations.
     'valid_images': './data/coco/images/',
-    'valid_info':   'path_to_annotation_file',
+    'valid_info': 'path_to_annotation_file',
 
     # Whether or not to load GT. If this is False, eval.py quantitative evaluation won't work.
     'has_gt': True,
@@ -150,24 +150,6 @@ coco2017_testdev_dataset = dataset_base.copy({
     'label_map': COCO_LABEL_MAP
 })
 
-PASCAL_CLASSES = ("aeroplane", "bicycle", "bird", "boat", "bottle",
-                  "bus", "car", "cat", "chair", "cow", "diningtable",
-                  "dog", "horse", "motorbike", "person", "pottedplant",
-                  "sheep", "sofa", "train", "tvmonitor")
-
-pascal_sbd_dataset = dataset_base.copy({
-    'name': 'Pascal SBD 2012',
-
-    'train_images': './data/sbd/img',
-    'valid_images': './data/sbd/img',
-
-    'train_info': './data/sbd/pascal_sbd_train.json',
-    'valid_info': './data/sbd/pascal_sbd_val.json',
-
-    'class_names': PASCAL_CLASSES,
-})
-
-
 # ----------------------- TRANSFORMS ----------------------- #
 
 resnet_transform = Config({
@@ -193,26 +175,9 @@ darknet_transform = Config({
     'to_float': True,
 })
 
-
 # ----------------------- BACKBONES ----------------------- #
 
-backbone_base = Config({
-    'name': 'Base Backbone',
-    'path': 'path/to/pretrained/weights',
-    'type': object,
-    'args': tuple(),
-    'transform': resnet_transform,
-
-    'selected_layers': list(),
-    'pred_scales': list(),
-    'pred_aspect_ratios': list(),
-
-    'use_pixel_scales': False,
-    'preapply_sqrt': True,
-    'use_square_anchors': False,
-})
-
-resnet101_backbone = backbone_base.copy({
+resnet101_backbone = Config({
     'name': 'ResNet101',
     'path': 'resnet101_reducedfc.pth',
     'type': ResNetBackbone,
@@ -220,11 +185,13 @@ resnet101_backbone = backbone_base.copy({
     'transform': resnet_transform,
 
     'selected_layers': list(range(2, 8)),
-    'pred_scales': [[1]]*6,
+    'pred_scales': [[1]] * 6,
     'pred_aspect_ratios': [[[0.66685089, 1.7073535, 0.87508774, 1.16524493, 0.49059086]]] * 6,
+    'use_pixel_scales': False,
+    'preapply_sqrt': True,
 })
 
-resnet101_gn_backbone = backbone_base.copy({
+resnet101_gn_backbone = Config({
     'name': 'ResNet101_GN',
     'path': 'R-101-GN.pkl',
     'type': ResNetBackboneGN,
@@ -232,13 +199,10 @@ resnet101_gn_backbone = backbone_base.copy({
     'transform': resnet_transform,
 
     'selected_layers': list(range(2, 8)),
-    'pred_scales': [[1]]*6,
+    'pred_scales': [[1]] * 6,
     'pred_aspect_ratios': [[[0.66685089, 1.7073535, 0.87508774, 1.16524493, 0.49059086]]] * 6,
-})
-
-resnet101_dcn_inter3_backbone = resnet101_backbone.copy({
-    'name': 'ResNet101_DCN_Interval3',
-    'args': ([3, 4, 23, 3], [0, 4, 23, 3], 3),
+    'use_pixel_scales': False,
+    'preapply_sqrt': True,
 })
 
 resnet50_backbone = resnet101_backbone.copy({
@@ -249,12 +213,7 @@ resnet50_backbone = resnet101_backbone.copy({
     'transform': resnet_transform,
 })
 
-resnet50_dcnv2_backbone = resnet50_backbone.copy({
-    'name': 'ResNet50_DCNv2',
-    'args': ([3, 4, 6, 3], [0, 4, 6, 3]),
-})
-
-darknet53_backbone = backbone_base.copy({
+darknet53_backbone = Config({
     'name': 'DarkNet53',
     'path': 'darknet53.pth',
     'type': DarkNetBackbone,
@@ -263,20 +222,21 @@ darknet53_backbone = backbone_base.copy({
 
     'selected_layers': list(range(3, 9)),
     'pred_scales': [[3.5, 4.95], [3.6, 4.90], [3.3, 4.02], [2.7, 3.10], [2.1, 2.37], [1.8, 1.92]],
-    'pred_aspect_ratios': [[[1, sqrt(2), 1/sqrt(2), sqrt(3), 1/sqrt(3)][:n], [1]] for n in [3, 5, 5, 5, 3, 3]],
+    'pred_aspect_ratios': [[[1, sqrt(2), 1 / sqrt(2), sqrt(3), 1 / sqrt(3)][:n], [1]] for n in [3, 5, 5, 5, 3, 3]],
+    'use_pixel_scales': False,
+    'preapply_sqrt': True,
 })
 
 vgg16_arch = [[64, 64],
               ['M', 128, 128],
               ['M', 256, 256, 256],
-              [('M', {'kernel_size': 2, 'stride': 2,
-                      'ceil_mode': True}), 512, 512, 512],
+              [('M', {'kernel_size': 2, 'stride': 2, 'ceil_mode': True}), 512, 512, 512],
               ['M', 512, 512, 512],
-              [('M',  {'kernel_size': 3, 'stride':  1, 'padding':  1}),
+              [('M', {'kernel_size': 3, 'stride': 1, 'padding': 1}),
                (1024, {'kernel_size': 3, 'padding': 6, 'dilation': 6}),
                (1024, {'kernel_size': 1})]]
 
-vgg16_backbone = backbone_base.copy({
+vgg16_backbone = Config({
     'name': 'VGG16',
     'path': 'vgg16_reducedfc.pth',
     'type': VGGBackbone,
@@ -284,10 +244,10 @@ vgg16_backbone = backbone_base.copy({
     'transform': vgg_transform,
 
     'selected_layers': [3] + list(range(5, 10)),
-    'pred_scales': [[5, 4]]*6,
-    'pred_aspect_ratios': [[[1], [1, sqrt(2), 1/sqrt(2), sqrt(3), 1/sqrt(3)][:n]] for n in [3, 5, 5, 5, 3, 3]],
+    'pred_scales': [[5, 4]] * 6,
+    'pred_aspect_ratios': [[[1], [1, sqrt(2), 1 / sqrt(2), sqrt(3), 1 / sqrt(3)][:n]] for n in [3, 5, 5, 5, 3, 3]],
+    'use_pixel_scales': False,
 })
-
 
 # ----------------------- MASK BRANCH TYPES ----------------------- #
 
@@ -346,22 +306,18 @@ mask_type = Config({
     #   - mask_proto_normalize_emulate_roi_pooling (bool): Normalize the mask loss to emulate roi pooling's affect on loss.
     #   - mask_proto_double_loss (bool): Whether to use the old loss in addition to any special new losses.
     #   - mask_proto_double_loss_alpha (float): The alpha to weight the above loss.
-    #   - mask_proto_split_prototypes_by_head (bool): If true, this will give each prediction head its own prototypes.
-    #   - mask_proto_crop_with_pred_box (bool): Whether to crop with the predicted box or the gt box.
     'lincomb': 1,
 })
-
 
 # ----------------------- ACTIVATION FUNCTIONS ----------------------- #
 
 activation_func = Config({
-    'tanh':    torch.tanh,
+    'tanh': torch.tanh,
     'sigmoid': torch.sigmoid,
     'softmax': lambda x: torch.nn.functional.softmax(x, dim=-1),
     'relu': lambda x: torch.nn.functional.relu(x, inplace=True),
     'none': lambda x: x,
 })
-
 
 # ----------------------- FPN DEFAULTS ----------------------- #
 
@@ -381,14 +337,7 @@ fpn_base = Config({
     # Whether to pad the pred layers with 1 on each side (I forgot to add this at the start)
     # This is just here for backwards compatibility
     'pad': True,
-
-    # Whether to add relu to the downsampled layers.
-    'relu_downsample_layers': False,
-
-    # Whether to add relu to the regular layers
-    'relu_pred_layers': True,
 })
-
 
 # ----------------------- CONFIG DEFAULTS ----------------------- #
 
@@ -419,18 +368,10 @@ coco_base_config = Config({
     # The terms to scale the respective loss by
     'conf_alpha': 1,
     'bbox_alpha': 1.5,
-    # Some funky equation. Don't worry about it.
-    'mask_alpha': 0.4 / 256 * 140 * 140,
+    'mask_alpha': 0.4 / 256 * 140 * 140,  # Some funky equation. Don't worry about it.
 
     # Eval.py sets this if you just want to run YOLACT as a detector
     'eval_mask_branch': True,
-
-    # Top_k examples to consider for NMS
-    'nms_top_k': 200,
-    # Examples with confidence less than this are not considered by NMS
-    'nms_conf_thresh': 0.05,
-    # Boxes with IoU overlap greater than this threshold will be culled during NMS
-    'nms_thresh': 0.5,
 
     # See mask_type for details.
     'mask_type': mask_type.direct,
@@ -449,7 +390,7 @@ coco_base_config = Config({
     'mask_proto_normalize_mask_loss_by_sqrt_area': False,
     'mask_proto_reweight_mask_loss': False,
     'mask_proto_grid_file': 'data/grid.npy',
-    'mask_proto_use_grid':  False,
+    'mask_proto_use_grid': False,
     'mask_proto_coeff_gate': False,
     'mask_proto_prototypes_as_features': False,
     'mask_proto_prototypes_as_features_no_grad': False,
@@ -460,8 +401,6 @@ coco_base_config = Config({
     'mask_proto_normalize_emulate_roi_pooling': False,
     'mask_proto_double_loss': False,
     'mask_proto_double_loss_alpha': 1,
-    'mask_proto_split_prototypes_by_head': False,
-    'mask_proto_crop_with_pred_box': False,
 
     # SSD data augmentation parameters
     # Randomize hue, vibrance, etc.
@@ -472,14 +411,6 @@ coco_base_config = Config({
     'augment_random_sample_crop': True,
     # Mirror the image with a probability of 1/2
     'augment_random_mirror': True,
-    # Flip the image vertically with a probability of 1/2
-    'augment_random_flip': False,
-    # With uniform probability, rotate the image [0,90,180,270] degrees
-    'augment_random_rot90': False,
-
-    # Discard detections with width and height smaller than this (in absolute width and height)
-    'discard_box_width': 4 / 550,
-    'discard_box_height': 4 / 550,
 
     # If using batchnorm anywhere in the backbone, freeze the batchnorm layer during training.
     # Note: any additional batch norm layers after the backbone will not be frozen.
@@ -503,9 +434,6 @@ coco_base_config = Config({
     # The initial bias toward forground objects, as specified in the focal loss paper
     'focal_loss_init_pi': 0.01,
 
-    # Keeps track of the average number of examples for each class, and weights the loss for that class accordingly.
-    'use_class_balanced_conf': False,
-
     # Whether to use sigmoid focal loss instead of softmax, all else being the same.
     'use_sigmoid_focal_loss': False,
 
@@ -522,10 +450,6 @@ coco_base_config = Config({
     # This branch is only evaluated during training time and is just there for multitask learning.
     'use_semantic_segmentation_loss': False,
     'semantic_segmentation_alpha': 1,
-
-    # Adds another branch to the netwok to predict Mask IoU.
-    'use_mask_scoring': False,
-    'mask_scoring_alpha': 1,
 
     # Match gt boxes using the Box2Pix change metric instead of the standard IoU metric.
     # Note that the threshold you set for iou_threshold should be negative with this setting on.
@@ -549,9 +473,6 @@ coco_base_config = Config({
     'positive_iou_threshold': 0.5,
     'negative_iou_threshold': 0.5,
 
-    # When using ohem, the ratio between positives and negatives (3 means 3 negatives to 1 positive)
-    'ohem_negpos_ratio': 3,
-
     # If less than 1, anchors treated as a negative that have a crowd iou over this threshold with
     # the crowd boxes will be treated as a neutral.
     'crowd_iou_threshold': 1,
@@ -559,7 +480,8 @@ coco_base_config = Config({
     # This is filled in at runtime by Yolact's __init__, so don't touch it
     'mask_dim': None,
 
-    # Input image size.
+    # Input image size. If preserve_aspect_ratio is False, min_size is ignored.
+    'min_size': 200,
     'max_size': 300,
 
     # Whether or not to do post processing on the cpu at test time
@@ -582,7 +504,7 @@ coco_base_config = Config({
     'use_gt_bboxes': False,
 
     # Whether or not to preserve aspect ratio when resizing the image.
-    # If True, this will resize all images to be max_size^2 pixels in area while keeping aspect ratio.
+    # If True, uses the faster r-cnn resizing scheme.
     # If False, all images are resized to max_size x max_size
     'preserve_aspect_ratio': False,
 
@@ -607,25 +529,7 @@ coco_base_config = Config({
 
     'backbone': None,
     'name': 'base_config',
-
-    # Fast Mask Re-scoring Network
-    # Inspried by Mask Scoring R-CNN (https://arxiv.org/abs/1903.00241)
-    # Do not crop out the mask with bbox but slide a convnet on the image-size mask,
-    # then use global pooling to get the final mask score
-    'use_maskiou': False,
-
-    # Archecture for the mask iou network. A (num_classes-1, 1, {}) layer is appended to the end.
-    'maskiou_net': [],
-
-    # Discard predicted masks whose area is less than this
-    'discard_mask_area': -1,
-
-    'maskiou_alpha': 1.0,
-    'rescore_mask': False,
-    'rescore_bbox': False,
-    'maskious_to_train': -1,
 })
-
 
 # ----------------------- YOLACT v1.0 CONFIGS ----------------------- #
 
@@ -648,9 +552,8 @@ yolact_base_config = coco_base_config.copy({
         'selected_layers': list(range(1, 4)),
         'use_pixel_scales': True,
         'preapply_sqrt': False,
-        'use_square_anchors': True,  # This is for backward compatability with a bug
 
-        'pred_aspect_ratios': [[[1, 1/2, 2]]]*5,
+        'pred_aspect_ratios': [[[1, 1 / 2, 2]]] * 5,
         'pred_scales': [[24], [48], [96], [192], [384]],
     }),
 
@@ -684,7 +587,8 @@ yolact_im400_config = yolact_base_config.copy({
 
     'max_size': 400,
     'backbone': yolact_base_config.backbone.copy({
-        'pred_scales': [[int(x[0] / yolact_base_config.max_size * 400)] for x in yolact_base_config.backbone.pred_scales],
+        'pred_scales': [[int(x[0] / yolact_base_config.max_size * 400)] for x in
+                        yolact_base_config.backbone.pred_scales],
     }),
 })
 
@@ -694,7 +598,8 @@ yolact_im700_config = yolact_base_config.copy({
     'masks_to_train': 300,
     'max_size': 700,
     'backbone': yolact_base_config.backbone.copy({
-        'pred_scales': [[int(x[0] / yolact_base_config.max_size * 700)] for x in yolact_base_config.backbone.pred_scales],
+        'pred_scales': [[int(x[0] / yolact_base_config.max_size * 700)] for x in
+                        yolact_base_config.backbone.pred_scales],
     }),
 })
 
@@ -708,7 +613,6 @@ yolact_darknet53_config = yolact_base_config.copy({
         'pred_aspect_ratios': yolact_base_config.backbone.pred_aspect_ratios,
         'use_pixel_scales': True,
         'preapply_sqrt': False,
-        'use_square_anchors': True,  # This is for backward compatability with a bug
     }),
 })
 
@@ -722,65 +626,8 @@ yolact_resnet50_config = yolact_base_config.copy({
         'pred_aspect_ratios': yolact_base_config.backbone.pred_aspect_ratios,
         'use_pixel_scales': True,
         'preapply_sqrt': False,
-        'use_square_anchors': True,  # This is for backward compatability with a bug
     }),
 })
-
-
-yolact_resnet50_pascal_config = yolact_resnet50_config.copy({
-    'name': None,  # Will default to yolact_resnet50_pascal
-
-    # Dataset stuff
-    'dataset': pascal_sbd_dataset,
-    'num_classes': len(pascal_sbd_dataset.class_names) + 1,
-
-    'max_iter': 120000,
-    'lr_steps': (60000, 100000),
-
-    'backbone': yolact_resnet50_config.backbone.copy({
-        'pred_scales': [[32], [64], [128], [256], [512]],
-        'use_square_anchors': False,
-    })
-})
-
-# ----------------------- YOLACT++ CONFIGS ----------------------- #
-
-yolact_plus_base_config = yolact_base_config.copy({
-    'name': 'yolact_plus_base',
-
-    'backbone': resnet101_dcn_inter3_backbone.copy({
-        'selected_layers': list(range(1, 4)),
-
-        'pred_aspect_ratios': [[[1, 1/2, 2]]]*5,
-        'pred_scales': [[i * 2 ** (j / 3.0) for j in range(3)] for i in [24, 48, 96, 192, 384]],
-        'use_pixel_scales': True,
-        'preapply_sqrt': False,
-        'use_square_anchors': False,
-    }),
-
-    'use_maskiou': True,
-    'maskiou_net': [(8, 3, {'stride': 2}), (16, 3, {'stride': 2}), (32, 3, {'stride': 2}), (64, 3, {'stride': 2}), (128, 3, {'stride': 2})],
-    'maskiou_alpha': 25,
-    'rescore_bbox': False,
-    'rescore_mask': True,
-
-    'discard_mask_area': 5*5,
-})
-
-yolact_plus_resnet50_config = yolact_plus_base_config.copy({
-    'name': 'yolact_plus_resnet50',
-
-    'backbone': resnet50_dcnv2_backbone.copy({
-        'selected_layers': list(range(1, 4)),
-
-        'pred_aspect_ratios': [[[1, 1/2, 2]]]*5,
-        'pred_scales': [[i * 2 ** (j / 3.0) for j in range(3)] for i in [24, 48, 96, 192, 384]],
-        'use_pixel_scales': True,
-        'preapply_sqrt': False,
-        'use_square_anchors': False,
-    }),
-})
-
 
 # Default config
 cfg = yolact_base_config.copy()
@@ -793,9 +640,6 @@ def set_cfg(config_name: str):
     # Note this is not just an eval because I'm lazy, but also because it can
     # be used like ssd300_config.copy({'max_size': 400}) for extreme fine-tuning
     cfg.replace(eval(config_name))
-
-    if cfg.name is None:
-        cfg.name = config_name.split('_config')[0]
 
 
 def set_dataset(dataset_name: str):
