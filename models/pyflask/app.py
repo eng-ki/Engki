@@ -14,6 +14,9 @@ from flask import Flask, jsonify, request
 from sqlalchemy import create_engine, text
 from datetime import datetime
 
+import sys
+import urllib.request
+
 app = Flask(__name__)
 app.config.from_pyfile('config.py')
 
@@ -95,6 +98,7 @@ def custom():
     parent_id = request.form['parent_id']
     in_path, out_path, seg_word = seg(filestr, parent_id)
     sentence, caption_word = captions(in_path)
+
     value = {
         'file_path': in_path,
         'boundaries': out_path,
@@ -102,7 +106,21 @@ def custom():
         'seg_word': seg_word,
         'caption_word': caption_word
     }
-    return value, 200
+
+    caption_kor = get_sentence(sentence)
+    seg_word_kor = []
+    caption_word_kor = []
+
+    for i in range(0, len(seg_word)):
+        seg_word_kor.append(get_sentence(seg_word[i]))
+
+    for i in range(0, len(caption_word)):
+        caption_word_kor.append(get_sentence(caption_word[i]))
+
+    value['caption_kor'] = caption_kor
+    value['seg_word_kor'] = seg_word_kor
+    value['caption_word_kor'] = caption_word_kor
+    return value, 404
 
 
 @app.route('/custom/quiz/save', methods=['POST'])
@@ -111,7 +129,8 @@ def custom_save():
     boundaries = data['boundaries']
     seg_word = data['seg_word']
     caption_word = data['caption_word']
-
+    seg_word_kor = data['seg_word_kor']
+    caption_word_kor = data['caption_word_kor']
     try:
         image_id = app.database.execute(text("""
                                             INSERT INTO custom_image (file_path, parent_id)
@@ -119,23 +138,47 @@ def custom_save():
                                             """), data).lastrowid
 
         data['image_id'] = image_id
-        for word in caption_word:
-            data['word'] = word
+        for i in range(0, len(caption_word), 1):
+            data['word'] = caption_word[i]
+            data['word_kor'] = caption_word_kor[i]
             app.database.execute(text("""
-                                        INSERT INTO custom_image_caption (image_id, word, caption)
-                                        VALUES (:image_id, :word, :caption)
+                                        INSERT INTO custom_image_caption (image_id, word, word_kor caption,caption_kor)
+                                        VALUES (:image_id, :word, :word_kor, :caption :caption_kor)
                                         """), data)
         for i in range(0, len(seg_word), 1):
             data['word'] = seg_word[i]
+            data['word_kor'] = seg_word_kor[i]
             data['boundary'] = boundaries[i]
             app.database.execute(text("""
-                                                INSERT INTO custom_image_word (image_id, word, boundary)
-                                                VALUES (:image_id, :word, :boundary)
+                                                INSERT INTO custom_image_word (image_id, word, boundary, word_kor)
+                                                VALUES (:image_id, :word, :boundary, :word_kor)
                                                 """), data)
 
         return 'success', 201
     except:
         return 'fail', 409
+
+
+def get_sentence(caption):
+    client_id = app.config['client_id']
+    # 개발자센터에서 발급받은 Client ID 값
+    client_secret = app.config['client_secret']
+    # 개발자센터에서 발급받은 Client Secret 값
+    encText = urllib.parse.quote(caption)
+    data = "source=en&target=ko&text=" + encText
+    url = "https://openapi.naver.com/v1/papago/n2mt"
+    request = urllib.request.Request(url)
+    request.add_header("X-Naver-Client-Id", client_id)
+    request.add_header("X-Naver-Client-Secret", client_secret)
+    response = urllib.request.urlopen(request, data=data.encode("utf-8"))
+    rescode = response.getcode()
+    # print(rescode)
+    if(rescode == 200):
+        response_body = response.read()
+        cap = response_body.decode('utf-8')
+        c = json.loads(cap)
+        kcap = c['message']['result']['translatedText']
+        return kcap
 
 
 def captions(image_path):
