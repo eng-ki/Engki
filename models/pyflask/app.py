@@ -8,7 +8,7 @@ from image_captioning import *
 
 import json
 import os
-import yolact2.eval as segmetation
+import yolact.eval as segmetation
 from werkzeug.utils import secure_filename  # 파일 고유이름 확인
 from flask import Flask, jsonify, request
 from sqlalchemy import create_engine, text
@@ -161,7 +161,8 @@ def seg(filestr, parents_id):
     if not os.path.exists(uploads_dir):
         os.makedirs(uploads_dir)
 
-    filename = filestr.filename[:-4] + '_' + datetime.today().strftime("%m%d%H%M%S") + '.jpg'
+    filename = filestr.filename[:-4] + '_' + \
+        datetime.today().strftime("%m%d%H%M%S") + '.jpg'
     filestr.save(os.path.join(uploads_dir, secure_filename(filename)))
     in_path = uploads_dir + "/" + filename
 
@@ -172,6 +173,6 @@ def seg(filestr, parents_id):
 
 if __name__ == '__main__':
     app.run(
-        host="0.0.0.0",
+        # host="0.0.0.0",
         debug=True
     )
