@@ -43,12 +43,29 @@
             </div>
             <div class="row">
               <div class="col-sm-*">
+                <!-- style="width: 100%; height: 20px; background-color: yellow" -->
+                <!-- <button class="parents-button" @click="saveInfo()">
+                  수정하기
+                </button>
+                <button
+                  class="parents-button return-button"
+                  @click="returnParentPage()"
+                >
+                  돌아가기
+                </button> -->
                 <button
                   v-if="from == 'parent'"
                   @click="saveInfo()"
-                  class="parents-button"
+                  class="parents-button edit"
                 >
                   수정하기
+                </button>
+                <button
+                  v-if="from == 'parent'"
+                  @click="returnParentPage()"
+                  class="parents-button back"
+                >
+                  뒤로가기
                 </button>
                 <button v-else @click="saveInfo()" class="parents-button">
                   가입하기
@@ -69,11 +86,11 @@ export default {
   data: function () {
     return {
       parents: {
-        name: '손명지',
-        email: 'ji_exitos@naver.com',
+        name: "손명지",
+        email: "ji_exitos@naver.com",
         receive_email: true,
       },
-    }
+    };
   },
   methods: {
     saveInfo() {
@@ -81,10 +98,10 @@ export default {
         this.$swal({
           title:
             '<div style="font-family: GmarketSansMedium;font-size:2vw;">이메일을 등록하시겠습니까?</div>',
-          type: 'warning',
+          type: "warning",
           showCancelButton: true,
-          confirmButtonText: '확인',
-          cancelButtonText: '취소',
+          confirmButtonText: "확인",
+          cancelButtonText: "취소",
           showCloseButton: true,
           showLoaderOnConfirm: true,
         }).then((result) => {
@@ -98,18 +115,18 @@ export default {
             //   .then(({ data }) => {})
 
             // 등록 완료시 parentpage로 가서 자녀 등록하게
-            this.$router.push('/parent')
+            this.$router.push("/parent");
             // this.$router.push('/parent?isNew=true');
           }
-        })
-      } else if (this.from == 'parent') {
+        });
+      } else if (this.from == "parent") {
         this.$swal({
           title:
             '<div style="font-family: GmarketSansMedium;font-size:2vw;">이메일을 수정하시겠습니까?</div>',
-          type: 'warning',
+          type: "warning",
           showCancelButton: true,
-          confirmButtonText: '확인',
-          cancelButtonText: '취소',
+          confirmButtonText: "확인",
+          cancelButtonText: "취소",
           showCloseButton: true,
           showLoaderOnConfirm: true,
         }).then((result) => {
@@ -118,16 +135,19 @@ export default {
 
             // 로그인 할 때 parent 정보 불러왔다면, 거기에 저장된 값도 수정해주기.
             // or db 업데이트하고 통째로 다시 불러와서 parent 정보 갱신
-            this.$emit('visible')
+            this.$emit("visible");
           }
-        })
+        });
       }
     },
+    returnParentPage() {
+      this.$emit("returnParentPage");
+    },
   },
-}
+};
 </script>
 <style lang="scss">
-@import '../assets/sass/base.scss';
+@import "../assets/sass/base.scss";
 </style>
 <style lang="scss" scoped>
 .background .box {
@@ -154,6 +174,25 @@ export default {
   position: inherit;
 }
 
+.parents-button {
+  /* 좌표 설정 */
+  position: absolute;
+  padding-left: 1vh;
+  padding-right: 1vh;
+  top: 55vh;
+  left: 50%;
+  width: 15vw;
+  transform: translate(-50%, -50%);
+}
+.edit {
+  // position: relative;
+  left: 39%;
+}
+.back {
+  // position: relative;
+  left: 61%;
+}
+
 /* 회원가입 타이틀 */
 .page-title {
   // text-align: left;
@@ -175,14 +214,6 @@ export default {
   margin: 0px;
   font-family: GmarketSansMedium;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
-}
-
-.parent-info-page .parents-button {
-  /* 좌표 설정 */
-  position: absolute;
-  top: 60vh;
-  left: 50%;
-  transform: translate(-50%, -100%);
 }
 
 .neumorphism-toggle {
@@ -210,7 +241,7 @@ export default {
         border-radius: 2.5vh;
         background: #eceffc;
         &:before {
-          content: '';
+          content: "";
           position: absolute;
           left: 0;
           top: 0;
@@ -234,7 +265,7 @@ export default {
           transform: translateX(var(--offset, 0));
           transition: transform 0.4s, box-shadow 0.4s;
           &:before {
-            content: '';
+            content: "";
             position: absolute;
             left: 0;
             top: 0;
