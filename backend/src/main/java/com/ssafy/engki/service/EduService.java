@@ -62,6 +62,7 @@ public class EduService {
 		return EduDto.Word.builder()
 			.id(word.getId())
 			.word(word.getWord())
+			.wordKor(word.getWordKor())
 			.filePath(image.getFilePath())
 			.build();
 	}
@@ -77,6 +78,7 @@ public class EduService {
 		rand.ints(3, 0, wordImages.size()).forEach(idx ->
 			images.add(EduDto.Image.builder()
 				.word(word.getWord())
+				.wordKor(word.getWordKor())
 				.filePath(wordImages.get(idx).getFilePath())
 				.build())
 		);
@@ -87,6 +89,7 @@ public class EduService {
 		rand.ints(3, 0, notWordImages.size()).forEach(idx ->
 			images.add(EduDto.Image.builder()
 				.word(notWordImages.get(idx).getWord().getWord())
+				.wordKor(notWordImages.get(idx).getWord().getWordKor())
 				.filePath(notWordImages.get(idx).getImage().getFilePath())
 				.build()
 			)
@@ -123,6 +126,7 @@ public class EduService {
 		return EduDto.Caption.builder()
 			.filePath(imageCaption.getImage().getFilePath())
 			.caption(imageCaption.getCaption())
+			.captionKor(imageCaption.getCaptionKor())
 			.randomCaptions(randomCaptions)
 			.tokens(tokenize(imageCaption.getCaption()))
 			.build();
