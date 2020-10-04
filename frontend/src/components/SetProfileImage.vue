@@ -3,7 +3,7 @@
     <div class="box">
       <div class="innerbox">
         <div class="profile-icon">
-          <img :src="profileImage" />
+          <img :src="kid.icon" />
           <div class="name">김싸피</div>
           <div class="bar" v-if="!isChangeProfile">
             <b-progress
@@ -62,12 +62,10 @@ import http from '../utils/http-common.js'
 export default {
   name: 'SetProfileImage',
   props: {
-    point: 0,
     kid: null,
   },
   data: () => {
     return {
-      profileImage: '/img/icon/fairytale/005-witch.png',
       fairytale: [
         '/img/icon/fairytale/001-knight.png',
         '/img/icon/fairytale/002-wizard.png',
@@ -129,9 +127,9 @@ export default {
     }
   },
   mounted() {
-    this.level = this.point / 100 - (this.point % 100) / 100
+    this.level = this.kid.exp / 100 - (this.kid.exp % 100) / 100
     this.timer = setInterval(() => {
-      if (this.value == this.point % 100) {
+      if (this.value == this.kid.exp % 100) {
         clearInterval(this.timer)
         this.timer = null
       } else this.value = this.value + 1

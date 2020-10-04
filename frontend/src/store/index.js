@@ -1,13 +1,13 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-import http from '../utils/http-common.js';
-import jwt_decode from 'jwt-decode';
-import createPersistedState from 'vuex-persistedstate';
-Vue.use(Vuex);
+import Vue from 'vue'
+import Vuex from 'vuex'
+import http from '../utils/http-common.js'
+import jwt_decode from 'jwt-decode'
+import createPersistedState from 'vuex-persistedstate'
+Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    user: {},
+    user: null,
     token: null,
     quiz: null,
     quiz_adv: null,
@@ -15,36 +15,36 @@ export default new Vuex.Store({
   },
   getters: {
     getUser: function (state) {
-      return state.user;
+      return state.user
     },
     getToken: function (state) {
-      return state.token;
+      return state.token
     },
     getQuiz: function (state) {
-      return state.quiz;
+      return state.quiz
     },
     getQuizAdv: function (state) {
-      return state.quiz_adv;
+      return state.quiz_adv
     },
     getKid: function (state) {
-      return state.kid;
+      return state.kid
     },
   },
   mutations: {
     setUser(state, payload) {
-      state.user = payload;
+      state.user = payload
     },
     setToken(state, payload) {
-      state.token = payload;
+      state.token = payload
     },
     setQuiz(state, payload) {
-      state.quiz = payload;
+      state.quiz = payload
     },
     setQuizAdv(state, payload) {
-      state.quiz_adv = payload;
+      state.quiz_adv = payload
     },
     setKid(state, payload) {
-      state.kid = payload;
+      state.kid = payload
     },
   },
   actions: {
@@ -61,13 +61,13 @@ export default new Vuex.Store({
           http
             .get('parents/' + parent_id, { headers: { 'X-AUTH-TOKEN': data } })
             .then(({ data }) => {
-              context.commit('setUser', data);
-            });
+              context.commit('setUser', data)
+            })
         })
         .catch((err) => {
-          console.error(err);
-        });
+          console.error(err)
+        })
     },
   },
   plugins: [createPersistedState()],
-});
+})

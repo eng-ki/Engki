@@ -1,10 +1,10 @@
 <template>
   <div class="background">
-    <div class="kid" v-if="!isChangeProfile">
-      <div class="profile-image" @click="goProfile()">
-        <img src="../../public/img/icon/fairytale/005-witch.png" />
+    <div class="kid" v-if="!isChangeProfile" @click="goChangeProfile()">
+      <div class="profile-image">
+        <img :src="kid.icon" />
       </div>
-      <div class="inventory-wrap" @click="goProfile()">
+      <div class="inventory-wrap">
         <img src="../../public/img/icon/chest.png" />
         <div class="inventory-text">캐릭터 변경하기</div>
       </div>
@@ -30,10 +30,9 @@
           공부 시작하기
         </button>
         <set-profile-image
-          :point="point"
           :kid="kid"
           v-if="isChangeProfile"
-          @returnKidPage="goProfile()"
+          @returnKidPage="goChangeProfile()"
         />
       </div>
     </div>
@@ -43,7 +42,7 @@
 <script>
 import SetProfileImage from '@/components/SetProfileImage.vue'
 import Inventory from '@/components/Inventory.vue'
-
+import http from '../utils/http-common.js'
 export default {
   name: 'KidPage',
   components: {
@@ -53,23 +52,17 @@ export default {
   data: () => {
     return {
       isChangeProfile: false,
-      point: 152,
-      kid: {
-        id: 8,
-        name: '서주현',
-        birthday: '2020-02-01',
-        icon: '/img/icon/fairytale/001-knight.png',
-      },
+      kid: null,
     }
   },
   created() {
-    this.point = 152
+    this.kid = this.$store.state.kid
+    console.log(this.kid)
   },
   methods: {
-    goProfile(value) {
-      this.kid.icon = value
+    goChangeProfile(value) {
+      if (value != null) this.kid.icon = value
       this.isChangeProfile = !this.isChangeProfile
-      // 여기서 키드 다시 받아오면 댐 ~ ~ ~ ~
     },
     goSelectQuiz() {
       this.$router.push('/selectquiz')
