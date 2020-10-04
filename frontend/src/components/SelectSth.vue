@@ -1,9 +1,6 @@
 <template>
   <div class="background">
     <div class="box">
-      <div class="tiki" v-if="this.option != 'quiz'">
-        <img src="../../public/img/icon/street-sign-parent2.png" />
-      </div>
       <div class="card-carousel-wrapper">
         <div class="title-with-tiki">
           <span class="showbox">{{ msg }} </span>
@@ -39,40 +36,55 @@
           :disabled="atEndOfList"
         ></div>
       </div>
-      <!-- <div class="tiki" v-if="this.option != 'quiz'">
-        <img src="../../public/img/icon/street-sign-parent.png" />
-      </div> -->
+
+      <!-- <img
+        src="../../public/img/icon/jungle_toucan.png"
+        style="width: 150px; position: absolute; bottom: 10vh; right: 10vw"
+      /> -->
+      <img
+        v-if="option != 'quiz'"
+        src="../../public/img/icon/jungle_toucan.png"
+        style="height: 20vh; position: absolute; bottom: 10vh; right: 10vw"
+        @click="gotoparent"
+      />
+      <img
+        v-if="option == 'quiz'"
+        src="../../public/img/icon/kid_logout.png"
+        style="height: 20vh; position: absolute; bottom: 10vh; right: 10vw"
+        @click="gotoselectkid"
+      />
     </div>
   </div>
 </template>
 <script>
-import http from "../utils/http-common.js";
+import http from '../utils/http-common.js';
 export default {
   props: {
     option: String,
   },
   created() {
-    if (this.option == "quiz") {
-      this.msg = "주제를 선택해주세요";
-      this.path = "/edu";
-    } else if (this.option == "kid") {
-      this.$store.commit("setKid", null);
+    if (this.option == 'quiz') {
+      this.msg = '주제를 선택해주세요';
+      this.path = '/edu';
+    } else if (this.option == 'kid') {
+      this.$store.commit('setKid', null);
       console.log(
-        "초기화하고나서 스토어 kid값 조회 : " + this.$store.state.kid
+        '초기화하고나서 스토어 kid값 조회 : ' + this.$store.state.kid
       );
-      this.msg = "자신의 캐릭터를 선택해주세요";
-      this.path = "/parents/" + this.$store.state.parent.id + "/kids";
-      this.imgpath = "";
+      this.msg = '자신의 캐릭터를 선택해주세요';
+      this.path = '/parents/' + this.$store.state.user.id + '/kids';
+      this.imgpath = '';
     }
-    console.log("path : " + this.path);
+    console.log('path : ' + this.path);
     http
       .get(this.path, {
-        headers: { "X-AUTH-TOKEN": this.$store.state.token },
+        headers: { 'X-AUTH-TOKEN': this.$store.state.token },
       })
       .then(({ data }) => {
         this.datas = data;
         console.log(data);
       });
+    console.log('한 캐러셀에 나타나는 개수 :' + this.windowSize);
   },
   computed: {
     atEndOfList() {
@@ -87,29 +99,29 @@ export default {
   },
   data: function () {
     return {
-      path: "",
-      imgpath: "/img/icon/",
-      msg: "",
+      path: '',
+      imgpath: '/img/icon/',
+      msg: '',
       datas: [],
       currentOffset: 0,
-      windowSize: 3, // carousel에 띄워줄 아이콘 갯수! <- 반응형으로 할거면 화면에 몇개 나오는지 계산해서 여기 넣어야 공백 안생길듯
-      paginationFactor: 222,
+      windowSize: ($(window).width() * 0.7) / ($(window).height() * 0.31), // carousel에 띄워줄 아이콘 갯수! <- 반응형으로 할거면 화면에 몇개 나오는지 계산해서 여기 넣어야 공백 안생길듯
+      paginationFactor: $(window).height() * 0.31,
     };
   },
   methods: {
     returnID(index) {
-      if (this.option == "quiz") {
-        this.$store.commit("setQuiz", this.datas[index].id);
-        // console.log(
-        //   '버튼 클릭후 스토어 quiz값 조회 : ' + this.$store.state.quiz
-        // );
-        this.$router.push("/quiz");
-      } else if (this.option == "kid") {
-        this.$store.commit("setKid", this.datas[index]);
+      if (this.option == 'quiz') {
+        this.$store.commit('setQuiz', this.datas[index].id);
+        console.log(
+          '버튼 클릭후 스토어 quiz값 조회 : ' + this.$store.state.quiz
+        );
+        this.$router.push('/quiz');
+      } else if (this.option == 'kid') {
+        this.$store.commit('setKid', this.datas[index]);
         // console.log(
         //   '버튼 클릭후 스토어 kid값 조회 : ' + this.$store.state.kid.name
         // );
-        this.$router.push("/kid");
+        this.$router.push('/selectquiz');
       }
     },
     moveCarousel(direction) {
@@ -119,11 +131,17 @@ export default {
         this.currentOffset += this.paginationFactor;
       }
     },
+    gotoparent() {
+      this.$router.push('/parent');
+    },
+    gotoselectkid() {
+      this.$router.push('/selectkid');
+    },
   },
 };
 </script>
 <style lang="scss">
-@import "../assets/sass/base.scss";
+@import '../assets/sass/base.scss';
 </style>
 <style lang="scss" scoped>
 .background .box {
@@ -145,28 +163,6 @@ export default {
   padding: 50px;
 }
 
-// 화살표 티키
-// .tiki {
-// float: bottom;
-// float: right;
-// margin-right: 6vw;
-// margin-top: 1vw;
-// }
-
-// .tiki img {
-//   width: 10vw;
-// }
-
-.tiki {
-  position: absolute;
-  top: 1.4vw;
-  right: 7.5vw;
-}
-
-.tiki img {
-  width: 15vw;
-}
-
 $arrowcolor: #ffffff;
 .card-carousel-wrapper {
   position: relative;
@@ -178,7 +174,7 @@ $arrowcolor: #ffffff;
 
 .card-carousel {
   position: relative;
-  top: 30vh;
+  top: 20vh;
   display: flex;
   justify-content: center;
   width: 70vw;
@@ -190,13 +186,13 @@ $arrowcolor: #ffffff;
   &--nav__left,
   &--nav__right {
     display: inline-block;
-    width: 15px;
-    height: 15px;
-    padding: 10px;
+    width: 30px;
+    height: 30px;
+    padding: 20px;
     box-sizing: border-box;
-    border-top: 10px solid $arrowcolor;
-    border-right: 10px solid $arrowcolor;
-    border-radius: 4px;
+    border-top: 20px solid $arrowcolor;
+    border-right: 20px solid $arrowcolor;
+    border-radius: 8px;
     cursor: pointer;
     margin: 0 50px;
     transition: transform 150ms linear;
@@ -208,7 +204,7 @@ $arrowcolor: #ffffff;
 
   &--nav__left {
     position: relative;
-    top: 30vh;
+    top: 20vh;
     transform: rotate(-135deg);
     &:active {
       transform: rotate(-135deg) scale(0.9);
@@ -217,7 +213,7 @@ $arrowcolor: #ffffff;
 
   &--nav__right {
     position: relative;
-    top: 30vh;
+    top: 20vh;
     transform: rotate(45deg);
     &:active {
       transform: rotate(45deg) scale(0.9);
@@ -236,7 +232,7 @@ $arrowcolor: #ffffff;
   .card-carousel--card {
     display: inline-block;
     position: relative;
-    margin: 0 10px;
+    margin: 0 1vw;
     cursor: pointer;
     // background-color: #fff;
     z-index: 3;
