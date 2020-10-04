@@ -111,11 +111,22 @@ export default {
   methods: {
     returnID(index) {
       if (this.option == 'quiz') {
-        this.$store.commit('setQuiz', this.datas[index].id);
-        console.log(
-          '버튼 클릭후 스토어 quiz값 조회 : ' + this.$store.state.quiz
-        );
-        this.$router.push('/quiz');
+        if (this.datas[index].id != 6) {
+          this.$store.commit('setQuiz', this.datas[index].id);
+          console.log(
+            '버튼 클릭후 스토어 quiz값 조회 : ' + this.$store.state.quiz
+          );
+          this.$router.push('/quiz');
+        } else {
+          this.$swal({
+            title:
+              '<div style="font-family: GmarketSansMedium;font-size:1vw;">서비스 준비중입니다</div>',
+            type: 'warning',
+            showCancelButton: false,
+            confirmButtonText: '확인',
+            showLoaderOnConfirm: true,
+          }).then((result) => {});
+        }
       } else if (this.option == 'kid') {
         this.$store.commit('setKid', this.datas[index]);
         // console.log(
