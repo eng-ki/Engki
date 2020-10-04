@@ -95,6 +95,8 @@ public class EduService {
 			)
 		);
 
+		Collections.shuffle(images);
+
 		// -> 6개 리턴
 		return images;
 	}
