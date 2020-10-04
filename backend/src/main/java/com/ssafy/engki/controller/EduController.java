@@ -70,7 +70,7 @@ public class EduController {
 	@GetMapping("{wordId}/images")
 	@ApiOperation(value = "Quiz 2 : 랜덤 이미지 목록 조회",
 		notes = "선택한 단어의 이미지 목록을 조회한다.\n",
-		response = List.class)
+		response = EduDto.Quiz2Response.class)
 	@ApiResponses(value = {
 		@ApiResponse(code = 200, message = "OK"),
 		@ApiResponse(code = 400, message = "Bad Request"),
@@ -78,7 +78,7 @@ public class EduController {
 		@ApiResponse(code = 403, message = "Forbidden"),
 		@ApiResponse(code = 404, message = "Not Found")
 	})
-	private ResponseEntity<List<EduDto.Image>> getRandomImagesWithWord(
+	private ResponseEntity<EduDto.Quiz2Response> getRandomImagesWithWord(
 		@ApiParam(value = "word id", example = "1") @PathVariable long wordId) {
 		logger.debug(String.format("get Random Images with word %d 호출", wordId));
 		return new ResponseEntity<>(eduService.getRandomImages(wordId), HttpStatus.OK);
