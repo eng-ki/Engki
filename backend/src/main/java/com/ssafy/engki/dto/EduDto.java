@@ -1,5 +1,6 @@
 package com.ssafy.engki.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -39,6 +40,18 @@ public class EduDto {
 
 		@ApiModelProperty(value = "image file path", example = "inputs\\bicycle\\bicycle1.jpg")
 		private String filePath;
+	}
+
+	@Builder
+	@Data
+	@AllArgsConstructor
+	@NoArgsConstructor
+	public static class Quiz2Response {
+		@ApiModelProperty(value = "정답 이미지 개수", example = "3")
+		private int answerNum;
+
+		@ApiModelProperty(value = "랜덤 이미지 목록")
+		private List<Image> images = new ArrayList<>();
 	}
 
 	@Builder

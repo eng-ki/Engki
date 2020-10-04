@@ -9,7 +9,7 @@ import com.ssafy.engki.entity.Word;
 
 public interface WordRepository extends JpaRepository<Word, Long> {
 	@Query(value = "select w from Word w where w.themeId = :themeId "
-		+ "and not exists (select kw from KidWord kw where kw.kidId = :kidId)")
+		+ "and not exists (select kw from KidWord kw where kw.kidId = :kidId and kw.word.id = w.id)")
 	List<Word> getUnlearnedWord(long themeId, long kidId);
 
 	@Query(value = "select * from word w where w.theme_id = :themeId "
