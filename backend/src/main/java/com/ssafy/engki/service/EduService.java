@@ -45,14 +45,13 @@ public class EduService {
 		Random rand = new Random(System.currentTimeMillis());
 
 		// themeId의 단어 목록 중, 1. 아이가 배우지 않은 단어 중 랜덤
-		List<com.ssafy.engki.entity.Word> words = wordRepository.getUnlearnedWord(themeId, kidId);
-		com.ssafy.engki.entity.Word word;
+		List<Word> words = wordRepository.getUnlearnedWord(themeId, kidId);
+		Word word;
 		if (!words.isEmpty()) {
 			word = words.get(rand.nextInt(words.size()));
 		} else { // 배우지 않은 단어가 없음
 			// 2. 가장 오래전에 배운 단어 고르기
 			word = wordRepository.getOldestLearnedWord(themeId, kidId);
-			System.out.println(word);
 		}
 
 		// 이 단어에 해당하는 사진 중, 이 단어만 있는 사진(다른 word가 없는 것) 고르기
