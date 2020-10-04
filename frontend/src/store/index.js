@@ -7,6 +7,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    isNew: null,
     parent: null,
     token: null,
     quiz: null,
@@ -33,6 +34,9 @@ export default new Vuex.Store({
     getExp: function (state) {
       return state.exp
     },
+    getIsNew: function (state) {
+      return state.isNew
+    },
   },
   mutations: {
     setParent(state, payload) {
@@ -53,20 +57,27 @@ export default new Vuex.Store({
     setExp(state, payload) {
       state.exp = payload
     },
+    setIsNew(state, payload) {
+      state.isNew = payload
+    },
   },
   actions: {
     kakaoLogin(context, { access_token }) {
       http
         .post('parents/login', { accessToken: access_token })
         .then(({ data }) => {
-          console.log('jwt : ' + data)
-          context.commit('setToken', data)
-          // 'sub' 라는 key로 jwt token 디코딩해서 parents ID 받아오기
-          var token = data
+          context.commit('setIsNew', data.new)
+          context.commit('setToken', data.token)
+          var token = data.token
           var parent_id = jwt_decode(token).sub
+
           console.log('parent_id : ' + parent_id)
+          console.log('jwt : ' + data.token)
+
           http
-            .get('parents/' + parent_id, { headers: { 'X-AUTH-TOKEN': data } })
+            .get('parents/' + parent_id, {
+              headers: { 'X-AUTH-TOKEN': data.token },
+            })
             .then(({ data }) => {
               context.commit('setParent', data)
             })
