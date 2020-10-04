@@ -125,11 +125,11 @@ export default {
       }).then((result) => {
         if (result.value) {
           http
-            .delete('parents/' + this.$store.state.user.id, {
+            .delete('parents/' + this.$store.state.parent.id, {
               headers: { 'X-AUTH-TOKEN': this.$store.state.token },
             })
             .then(({ data }) => {
-              this.$store.commit('setUser', null)
+              this.$store.commit('setParent', null)
               this.$store.commit('setToken', null)
               this.$router.push('/')
             })
@@ -151,7 +151,7 @@ export default {
           if (result.value) {
             http
               .put(
-                'parents/' + this.$store.state.user.id,
+                'parents/' + this.$store.state.parent.id,
                 {
                   email: this.parents.email,
                   name: this.parents.name,
@@ -183,7 +183,7 @@ export default {
           if (result.value) {
             http
               .put(
-                'parents/' + this.$store.state.user.id,
+                'parents/' + this.$store.state.parent.id,
                 {
                   email: this.parents.email,
                   name: this.parents.name,

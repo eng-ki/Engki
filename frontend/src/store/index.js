@@ -7,15 +7,15 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    user: null,
+    parent: null,
     token: null,
     quiz: null,
     quiz_adv: null,
     kid: null,
   },
   getters: {
-    getUser: function (state) {
-      return state.user
+    getParent: function (state) {
+      return state.parent
     },
     getToken: function (state) {
       return state.token
@@ -31,8 +31,8 @@ export default new Vuex.Store({
     },
   },
   mutations: {
-    setUser(state, payload) {
-      state.user = payload
+    setParent(state, payload) {
+      state.parent = payload
     },
     setToken(state, payload) {
       state.token = payload
@@ -61,7 +61,7 @@ export default new Vuex.Store({
           http
             .get('parents/' + parent_id, { headers: { 'X-AUTH-TOKEN': data } })
             .then(({ data }) => {
-              context.commit('setUser', data)
+              context.commit('setParent', data)
             })
         })
         .catch((err) => {

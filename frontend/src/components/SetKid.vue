@@ -76,7 +76,7 @@ export default {
                 birthday: this.kid.birthday,
                 icon: this.kid.icon,
                 name: this.kid.name,
-                parentId: this.$store.state.user.id,
+                parentId: this.$store.state.parent.id,
               },
               {
                 headers: { 'X-AUTH-TOKEN': this.$store.state.token },

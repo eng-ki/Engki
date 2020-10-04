@@ -16,7 +16,6 @@
           </div>
         </div>
         <div class="profile-icons">
-          <!-- dummy data -->
           <table>
             <tbody id="contacts">
               <tr v-for="i in 5" :key="i" style="background-color: white">
