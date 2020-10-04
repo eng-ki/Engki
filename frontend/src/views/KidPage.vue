@@ -40,10 +40,10 @@
 </template>
 
 <script>
-import SetProfileImage from "@/components/SetProfileImage.vue";
-import Inventory from "@/components/Inventory.vue";
+import SetProfileImage from '@/components/SetProfileImage.vue'
+import Inventory from '@/components/Inventory.vue'
 export default {
-  name: "KidPage",
+  name: 'KidPage',
   components: {
     SetProfileImage,
     Inventory,
@@ -52,26 +52,25 @@ export default {
     return {
       isChangeProfile: false,
       kid: null,
-    };
+    }
   },
   created() {
-    this.kid = this.$store.state.kid;
-    console.log(this.kid);
+    this.kid = this.$store.state.kid
+    console.log(this.kid)
   },
   methods: {
-    goChangeProfile(value) {
-      if (value != null) this.kid.icon = value;
-      this.isChangeProfile = !this.isChangeProfile;
+    goChangeProfile() {
+      this.isChangeProfile = !this.isChangeProfile
     },
     goSelectQuiz() {
-      this.$router.push("/selectquiz");
+      this.$router.push('/selectquiz')
     },
   },
-};
+}
 </script>
 
 <style lang="scss">
-@import "../assets/sass/base.scss";
+@import '../assets/sass/base.scss';
 </style>
 <style lang="scss" scoped>
 /* 자녀페이지 틀 */
@@ -124,7 +123,7 @@ export default {
   height: 40%;
   font-size: 9vw;
   border-radius: 10vh;
-  font-family: "Jua", sans-serif;
+  font-family: 'Jua', sans-serif;
   padding: 1%;
   color: #24282c;
 }

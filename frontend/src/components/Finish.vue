@@ -2,7 +2,7 @@
   <div>
     <div class="chest">
       <b-progress
-        :value="value"
+        :value="startExp"
         max="100"
         height="8vh"
         variant="success"
@@ -17,70 +17,87 @@
   </div>
 </template>
 <script>
+import http from '../utils/http-common.js'
 export default {
-  name: "GetItem",
-  props: {
-    correct: null,
-  },
+  name: 'GetItem',
   data: () => {
     return {
       level: 0, //현재 레벨
-      value: 0,
-      timer: null,
-      timer2: null,
-      point: 0, // 이전 경험치 + 새로 얻은 경험치
-      max: 0,
+      beforeExp: 0, // 이전 경험치
+      startExp: 0, //시작 경험치
+      endExp: 0, // 끝 경험치
+      timer: null, // 막대기 바 올라가는 타이머
+      timer2: null, // 경험치 수치 올라가는 타이머
       start: 0,
       exp: 0,
-    };
+    }
   },
   mounted() {
-    this.calculate();
-    // 이전 경험치 가져오는 api 호출
-    this.point = 152;
+    // 이전 경험치
+    this.beforeExp = this.$store.state.kid.exp
 
+    // 새로 얻은 경험치와 학습 단어 저장
+    http
+      .post(
+        'edu/' + this.$store.state.kid.id,
+        {
+          exp: this.$store.state.exp, // 새로 얻은 경험치
+          wordId: this.$store.state.quiz.id, // 새로 배운 단어
+        },
+        {
+          headers: { 'X-AUTH-TOKEN': this.$store.state.token },
+        }
+      )
+      .then(({ data }) => {
+        http
+          .get('/kids/' + this.$store.state.kid.id, {
+            headers: { 'X-AUTH-TOKEN': this.$store.state.token },
+          })
+          .then(({ data }) => {
+            this.$store.commit('setKid', data)
+          })
+      })
+    this.$store.state.exp = 0
     // 이전 경험치 % 100
-    this.value = this.point % 100;
+    this.startExp = this.beforeExp % 100
 
-    // (이전 경험치 + 새로 얻은 경험치) %100
-    this.max = this.correct + this.value;
+    // (이전 경험치 + 새로 얻은 경험치)
+    this.endExp = this.$store.state.exp + this.startExp
 
     // 이전 레벨
-    this.level = this.point / 100 - (this.point % 100) / 100;
+    this.level = this.beforeExp / 100 - (this.beforeExp % 100) / 100
 
-    if (this.max / 100 >= 1) this.level += 1;
+    // 만약 얻은 경험치를 추가했는데 레벨업을 할 경우 ? ? ? 레벨을 업 해야겠지? ? ? ?맞나 ? ? ??
+    if (this.endExp / 100 >= 1) this.level += 1
 
+    // exp progress Bar
     this.timer = setInterval(() => {
-      if (this.value == this.max) {
-        clearInterval(this.timer);
-        this.timer = null;
-      } else this.value = this.value + 1;
-    }, 60);
+      if (this.startExp == this.endExp) {
+        clearInterval(this.timer)
+        this.timer = null
+      } else this.startExp = this.startExp + 1
+    }, 60)
 
+    // exp circulate Bar
     this.timer2 = setInterval(() => {
-      if (this.start == this.correct) {
-        clearInterval(this.timer2);
-        this.timer2 = null;
-      } else this.start = this.start + 1;
-    }, 80);
+      if (this.start == this.$store.state.exp) {
+        clearInterval(this.timer2)
+        this.timer2 = null
+      } else this.start = this.start + 1
+    }, 80)
   },
   methods: {
     goMain() {
-      this.$router.push("/kid");
+      this.$router.push('/kid')
     },
     Again() {
-      this.$router.push("/selectquiz");
-    },
-    calculate() {
-      var score = 0;
-      for (var i = 0; i < this.correct.length; i++) score += this.correct[i];
-      this.correct = score;
+      this.$router.push('/selectquiz')
     },
   },
-};
+}
 </script>
 <style lang="scss">
-@import "../assets/sass/base.scss";
+@import '../assets/sass/base.scss';
 </style>
 <style lang="scss" scoped>
 .chest img {

@@ -13,6 +13,7 @@
               show-progress
               class="mb-3"
             ></b-progress>
+            <div style="margin-top: -0.5vw">level.{{ level + 1 }}</div>
           </div>
         </div>
         <div class="profile-icons">
@@ -126,6 +127,7 @@ export default {
     }
   },
   mounted() {
+    this.selectedIndex = this.fairytale.indexOf(this.$store.state.kid.icon)
     this.level = this.kid.exp / 100 - (this.kid.exp % 100) / 100
     this.timer = setInterval(() => {
       if (this.value == this.kid.exp % 100) {
@@ -160,6 +162,7 @@ export default {
               }
             )
             .then(({ data }) => {
+              this.$store.state.kid.icon = this.fairytale[this.selectedIndex]
               this.returnKidPage()
             })
         }

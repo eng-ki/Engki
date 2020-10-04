@@ -40,7 +40,8 @@ export default {
   },
   watch: {
     getToken(val, oldVal) {
-      this.$emit('child', true)
+      if (this.$store.state.isNew) this.$emit('child', true)
+      else this.$router.push('/selectkid')
     },
   },
   methods: {

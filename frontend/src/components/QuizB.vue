@@ -3,7 +3,7 @@
     <div class="row" v-for="j in 2" :key="j">
       <div
         class="col-4 imagebox"
-        v-for="(data, i) in datas"
+        v-for="(data, i) in datas.images"
         v-if="parseInt(i / 3) == j - 1"
       >
         <img
@@ -25,52 +25,47 @@
   </div>
 </template>
 <script>
-import http from '../utils/http-common.js';
+import http from '../utils/http-common.js'
 export default {
   props: ['isDone'],
   created() {
-    this.isDone = false;
-    this.quizapipath = '/edu/' + this.$store.state.quiz.id + '/images';
-    console.log('퀴즈2패스 : ' + this.quizapipath);
+    this.isDone = false
+    this.quizapipath = '/edu/' + this.$store.state.quiz.id + '/images'
+    console.log('퀴즈2패스 : ' + this.quizapipath)
     http
       .get(this.quizapipath, {
         headers: { 'X-AUTH-TOKEN': this.$store.state.token },
       })
       .then((data) => {
-        this.datas = data.data;
-        console.log(this.datas);
-      });
+        this.datas = data.data
+      })
   },
   watch: {
     isDone: function (val) {
-      if (this.isCorrect()) this.$emit('correct');
-      else this.$emit('wrong');
+      if (this.isCorrect()) this.$emit('correct')
+      else this.$emit('wrong')
     },
   },
   methods: {
     isCorrect() {
-      var count = 0;
-      for (var data in this.datas) {
-        // console.log(this.datas[data].word)
-        if (this.datas[data].selected) {
-          count++;
-          if (this.datas[data].word != this.$store.state.quiz.word) {
-            return false;
+      var count = 0
+      for (var data in this.datas.images) {
+        if (this.datas.images[data].selected) {
+          count++
+          if (this.datas.images[data].word != this.$store.state.quiz.word) {
+            return false
           }
         }
       }
-      if (count != 3) {
-        // isDone 한번 누르면 두번 누른것처럼 인식되는데 왤까요
-        alert('3개를 선택해주세요');
-        return false;
+      if (count != this.datas.answerNum) {
+        alert(this.datas.answerNum + '개를 선택해주세요')
+        return false
       }
-      return true;
+      return true
     },
     select(index) {
-      this.datas[index].selected = !this.datas[index].selected;
-      this.selects[index].selected = !this.selects[index].selected;
-      // alert(this.datas[index].selected);
-      console.log(this.datas);
+      this.datas.images[index].selected = !this.datas.images[index].selected
+      this.selects[index].selected = !this.selects[index].selected
     },
   },
   data: function () {
@@ -97,9 +92,9 @@ export default {
           selected: false,
         },
       ],
-    };
+    }
   },
-};
+}
 </script>
 <style lang="scss" scoped>
 .quiz-board {
