@@ -62,6 +62,7 @@ public class EduService {
 		return EduDto.Word.builder()
 			.id(word.getId())
 			.word(word.getWord())
+			.wordKor(word.getWordKor())
 			.filePath(image.getFilePath())
 			.build();
 	}
@@ -77,6 +78,7 @@ public class EduService {
 		rand.ints(3, 0, wordImages.size()).forEach(idx ->
 			images.add(EduDto.Image.builder()
 				.word(word.getWord())
+				.wordKor(word.getWordKor())
 				.filePath(wordImages.get(idx).getFilePath())
 				.build())
 		);
@@ -87,10 +89,13 @@ public class EduService {
 		rand.ints(3, 0, notWordImages.size()).forEach(idx ->
 			images.add(EduDto.Image.builder()
 				.word(notWordImages.get(idx).getWord().getWord())
+				.wordKor(notWordImages.get(idx).getWord().getWordKor())
 				.filePath(notWordImages.get(idx).getImage().getFilePath())
 				.build()
 			)
 		);
+
+		Collections.shuffle(images);
 
 		// -> 6개 리턴
 		return images;
@@ -102,9 +107,13 @@ public class EduService {
 		List<ImageWord> imageWords = imageWordRepository.getAllByWordId(wordId);
 		ImageWord imageWord = imageWords.get(rand.nextInt(imageWords.size()));
 
+		List<Word> randomWords = wordRepository.getWordsByThemeExceptWord(imageWord.getWord().getThemeId(), wordId);
+		Word randomWord = randomWords.get(rand.nextInt(randomWords.size()));
+
 		return EduDto.Segmentation.builder()
 			.filePath(imageWord.getImage().getFilePath())
 			.segFilePath(imageWord.getBoundary())
+			.randomWord(randomWord.getWord())
 			.build();
 	}
 
@@ -114,15 +123,27 @@ public class EduService {
 		List<ImageCaption> imageCaptions = imageCaptionRepository.getAllByWordId(wordId);
 		ImageCaption imageCaption = imageCaptions.get(rand.nextInt(imageCaptions.size()));
 
+		List<String> randomWords = new ArrayList<>(Collections.singletonList(imageCaption.getWord().getWord()));
+		List<Word> wordsExceptWord
+			= wordRepository.getWordsByThemeExceptWord(imageCaption.getWord().getThemeId(),
+			imageCaption.getWord().getId());
+		rand.ints(3, 0, wordsExceptWord.size()).forEach(idx ->
+			randomWords.add(wordsExceptWord.get(idx).getWord())
+		);
+		Collections.shuffle(randomWords);
+
 		List<String> captionsExceptWord = imageCaptionRepository.findExceptWord(wordId);
-		List<String> randomCaptions = new ArrayList<>();
+		List<String> randomCaptions = new ArrayList<>(Collections.singletonList(imageCaption.getCaption()));
 		rand.ints(3, 0, captionsExceptWord.size()).forEach(idx ->
 			randomCaptions.add(captionsExceptWord.get(idx))
 		);
+		Collections.shuffle(randomCaptions);
 
 		return EduDto.Caption.builder()
 			.filePath(imageCaption.getImage().getFilePath())
 			.caption(imageCaption.getCaption())
+			.captionKor(imageCaption.getCaptionKor())
+			.randomWords(randomWords)
 			.randomCaptions(randomCaptions)
 			.tokens(tokenize(imageCaption.getCaption()))
 			.build();

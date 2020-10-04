@@ -9,12 +9,17 @@ import com.ssafy.engki.entity.Word;
 
 public interface WordRepository extends JpaRepository<Word, Long> {
 	@Query(value = "select w from Word w where w.themeId = :themeId "
-		+ "and not exists (select kw from KidWord kw where kw.id.kidId = :kidId)")
+		+ "and not exists (select kw from KidWord kw where kw.kidId = :kidId)")
 	List<Word> getUnlearnedWord(long themeId, long kidId);
 
 	@Query(value = "select * from word w where w.theme_id = :themeId "
 		+ "and w.id = (select kw.word_id from kid_word kw join word w2 on kw.word_id = w2.id "
-		+ "where w2.theme_id = :themeId and kw.kid_id = :kidId order by kw.recent_date limit 1)",
+		+ "where w2.theme_id = :themeId and kw.kid_id = :kidId order by kw.studied_date limit 1)",
 		nativeQuery = true)
 	Word getOldestLearnedWord(long themeId, long kidId);
+
+	@Query(value = "select w from Word w "
+		+ "where w.id <> :wordId "
+		+ "and w.themeId = :themeId")
+	List<Word> getWordsByThemeExceptWord(long themeId, long wordId);
 }

@@ -34,6 +34,9 @@ public class EduDto {
 		@ApiModelProperty(value = "word", example = "bicycle")
 		private String word;
 
+		@ApiModelProperty(value = "word 한국어", example = "자전거")
+		private String wordKor;
+
 		@ApiModelProperty(value = "image file path", example = "inputs\\bicycle\\bicycle1.jpg")
 		private String filePath;
 	}
@@ -45,6 +48,9 @@ public class EduDto {
 	public static class Image {
 		@ApiModelProperty(value = "word", example = "bicycle")
 		private String word;
+
+		@ApiModelProperty(value = "word 한국어", example = "자전거")
+		private String wordKor;
 
 		@ApiModelProperty(value = "image file path", example = "inputs\\bicycle\\bicycle1.jpg")
 		private String filePath;
@@ -60,6 +66,9 @@ public class EduDto {
 
 		@ApiModelProperty(value = "classified image file path", example = "outputs/bicycle\\bicycle1_class_bicycle.png")
 		private String segFilePath;
+
+		@ApiModelProperty(value = "classified image의 word", example = "bicycle")
+		private String randomWord;
 	}
 
 	@Builder
@@ -73,8 +82,19 @@ public class EduDto {
 		@ApiModelProperty(value = "image caption", example = "a bike parked next to a metal bench .")
 		private String caption;
 
+		@ApiModelProperty(value = "image caption 한국어 번역", example = "금속 벤치 옆에 주차된 자전거")
+		private String captionKor;
+
+		@ApiModelProperty(value = "random word list (보기로 사용)",
+			example = "['bicycle', "
+				+ "'truck', "
+				+ "'airplane', "
+				+ "'train' ]")
+		private List<String> randomWords;
+
 		@ApiModelProperty(value = "random caption list (보기로 사용)",
 			example = "['a man on a horse in the snow .', "
+				+ "'a bike parked next to a metal bench .', "
 				+ "'a man with glasses and a tie is smiling', "
 				+ "'a man on a bike is riding a rail with a dog .' ]")
 		private List<String> randomCaptions;

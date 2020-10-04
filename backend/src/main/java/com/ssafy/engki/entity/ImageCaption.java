@@ -22,6 +22,9 @@ public class ImageCaption {
 	@Column(nullable = false, updatable = false, length = 100)
 	private String caption;
 
+	@Column(nullable = false, updatable = false, length = 100)
+	private String captionKor;
+
 	@ManyToOne
 	@MapsId(value = "imageId")
 	private Image image;
