@@ -46,82 +46,84 @@
   </div>
 </template>
 <script>
-import http from '../utils/http-common.js'
+import http from "../utils/http-common.js";
 export default {
   props: {
     option: String,
   },
   created() {
-    if (this.option == 'quiz') {
-      this.msg = '주제를 선택해주세요'
-      this.path = '/edu'
-    } else if (this.option == 'kid') {
-      this.$store.commit('setKid', null)
-      console.log('초기화하고나서 스토어 kid값 조회 : ' + this.$store.state.kid)
-      this.msg = '자신의 캐릭터를 선택해주세요'
-      this.path = '/parents/' + this.$store.state.parent.id + '/kids'
-      this.imgpath = ''
+    if (this.option == "quiz") {
+      this.msg = "주제를 선택해주세요";
+      this.path = "/edu";
+    } else if (this.option == "kid") {
+      this.$store.commit("setKid", null);
+      console.log(
+        "초기화하고나서 스토어 kid값 조회 : " + this.$store.state.kid
+      );
+      this.msg = "자신의 캐릭터를 선택해주세요";
+      this.path = "/parents/" + this.$store.state.parent.id + "/kids";
+      this.imgpath = "";
     }
-    console.log('path : ' + this.path)
+    console.log("path : " + this.path);
     http
       .get(this.path, {
-        headers: { 'X-AUTH-TOKEN': this.$store.state.token },
+        headers: { "X-AUTH-TOKEN": this.$store.state.token },
       })
       .then(({ data }) => {
-        this.datas = data
-        console.log(data)
-      })
+        this.datas = data;
+        console.log(data);
+      });
   },
   computed: {
     atEndOfList() {
       return (
         this.currentOffset <=
         this.paginationFactor * -1 * (this.datas.length - this.windowSize)
-      )
+      );
     },
     atHeadOfList() {
-      return this.currentOffset === 0
+      return this.currentOffset === 0;
     },
   },
   data: function () {
     return {
-      path: '',
-      imgpath: '/img/icon/',
-      msg: '',
+      path: "",
+      imgpath: "/img/icon/",
+      msg: "",
       datas: [],
       currentOffset: 0,
       windowSize: 3, // carousel에 띄워줄 아이콘 갯수! <- 반응형으로 할거면 화면에 몇개 나오는지 계산해서 여기 넣어야 공백 안생길듯
       paginationFactor: 222,
-    }
+    };
   },
   methods: {
     returnID(index) {
-      if (this.option == 'quiz') {
-        this.$store.commit('setQuiz', this.datas[index].id)
+      if (this.option == "quiz") {
+        this.$store.commit("setQuiz", this.datas[index].id);
         // console.log(
         //   '버튼 클릭후 스토어 quiz값 조회 : ' + this.$store.state.quiz
         // );
-        this.$router.push('/quiz')
-      } else if (this.option == 'kid') {
-        this.$store.commit('setKid', this.datas[index])
+        this.$router.push("/quiz");
+      } else if (this.option == "kid") {
+        this.$store.commit("setKid", this.datas[index]);
         // console.log(
         //   '버튼 클릭후 스토어 kid값 조회 : ' + this.$store.state.kid.name
         // );
-        this.$router.push('/selectquiz')
+        this.$router.push("/kid");
       }
     },
     moveCarousel(direction) {
       if (direction === 1 && !this.atEndOfList) {
-        this.currentOffset -= this.paginationFactor
+        this.currentOffset -= this.paginationFactor;
       } else if (direction === -1 && !this.atHeadOfList) {
-        this.currentOffset += this.paginationFactor
+        this.currentOffset += this.paginationFactor;
       }
     },
   },
-}
+};
 </script>
 <style lang="scss">
-@import '../assets/sass/base.scss';
+@import "../assets/sass/base.scss";
 </style>
 <style lang="scss" scoped>
 .background .box {

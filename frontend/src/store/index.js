@@ -12,6 +12,7 @@ export default new Vuex.Store({
     quiz: null,
     quiz_adv: null,
     kid: null,
+    exp: 0,
   },
   getters: {
     getParent: function (state) {
@@ -29,6 +30,9 @@ export default new Vuex.Store({
     getKid: function (state) {
       return state.kid
     },
+    getExp: function (state) {
+      return state.exp
+    },
   },
   mutations: {
     setParent(state, payload) {
@@ -45,6 +49,9 @@ export default new Vuex.Store({
     },
     setKid(state, payload) {
       state.kid = payload
+    },
+    setExp(state, payload) {
+      state.exp = payload
     },
   },
   actions: {
