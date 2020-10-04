@@ -8,6 +8,7 @@
     <!-- 오른쪽 영역 -->
     <div class="quiz-text">
       <!-- 질문 영역 -->
+
       <div class="quiz-question">
         <span v-for="(word, index) in quiz.sentence" v-bind:key="index">
           <!-- 질문 빈칸 영역 -->
@@ -43,7 +44,7 @@
   </div>
 </template>
 <script>
-import http from "../utils/http-common.js";
+import http from '../utils/http-common.js'
 export default {
   props: {
     isDone: false,
@@ -52,54 +53,64 @@ export default {
     return {
       quiz: null,
       selectedIndex: -1,
-      blank: "<span>&nbsp;&nbsp;</span>",
-    };
+      blank: '<span>&nbsp;&nbsp;</span>',
+    }
   },
   created() {
-    this.quizapipath = "/edu/" + this.$store.state.quiz.id + "/captions";
-    console.log("퀴즈4패스 : " + this.quizapipath);
+    this.quizapipath = '/edu/' + this.$store.state.quiz.id + '/captions'
+    console.log('퀴즈4패스 : ' + this.quizapipath)
     http
       .get(this.quizapipath, {
-        headers: { "X-AUTH-TOKEN": this.$store.state.token },
+        headers: { 'X-AUTH-TOKEN': this.$store.state.token },
       })
       .then((data) => {
-        console.log(data.data);
-        this.$store.commit("setQuizAdv", {
+        console.log(data.data)
+        this.$store.commit('setQuizAdv', {
           caption: data.data.caption,
+          captionKor: data.data.captionKor,
           filePath: data.data.filePath,
           randomCaptions: data.data.randomCaptions,
           tokens: data.data.tokens,
-        });
+        })
+
+        const idx = data.data.randomWords.indexOf(this.$store.state.quiz.word)
+        data.data.randomWords.splice(idx, 1)
+
         this.quiz = {
           url:
-            "http://j3a510.p.ssafy.io/images/" +
+            'http://j3a510.p.ssafy.io/images/' +
             this.$store.state.quiz_adv.filePath,
           sentence: this.$store.state.quiz_adv.caption,
           word: this.$store.state.quiz.word,
-          words: [this.$store.state.quiz.word, "random1", "random2", "random3"],
-        };
-        this.quiz.sentence = this.quiz.sentence.split(" ");
-      });
+          words: [
+            this.$store.state.quiz.word,
+            data.data.randomWords[0],
+            data.data.randomWords[1],
+            data.data.randomWords[2],
+          ],
+        }
+        this.quiz.sentence = this.quiz.sentence.split(' ')
+      })
   },
   watch: {
     isDone: function (val) {
-      if (this.isCorrect()) this.$emit("correct");
-      else this.$emit("wrong");
+      if (this.isCorrect()) this.$emit('correct')
+      else this.$emit('wrong')
     },
   },
   methods: {
     isCorrect() {
-      if (this.quiz.words[this.selectedIndex] == this.quiz.word) return true;
-      else return false;
+      if (this.quiz.words[this.selectedIndex] == this.quiz.word) return true
+      else return false
     },
     select(index) {
-      this.selectedIndex = index;
+      this.selectedIndex = index
     },
   },
-};
+}
 </script>
 <style lang="scss">
-@import "../assets/sass/base.scss";
+@import '../assets/sass/base.scss';
 </style>
 <style lang="scss" scoped>
 .quiz-img img {

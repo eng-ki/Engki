@@ -37,7 +37,7 @@ export default {
         this.quiz = {
           url: 'http://j3a510.p.ssafy.io/images/' + data.data.filePath,
           word_eng: data.data.word,
-          word_kor: data.data.word + '한국어',
+          word_kor: data.data.wordKor,
         }
         this.word = this.quiz.word_eng
         this.answer = this.quiz.word_eng

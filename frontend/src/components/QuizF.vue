@@ -66,7 +66,7 @@ export default {
         'http://j3a510.p.ssafy.io/images/' +
         this.$store.state.quiz_adv.filePath,
       sentence: this.$store.state.quiz_adv.caption,
-      sentence_kr: '번역본',
+      sentence_kr: this.$store.state.quiz_adv.captionKor,
       answers: this.$store.state.quiz_adv.tokens,
     }
     console.log(this.$store.state.quiz_adv.tokens)

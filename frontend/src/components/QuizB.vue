@@ -3,7 +3,7 @@
     <div class="row" v-for="j in 2" :key="j">
       <div
         class="col-4 imagebox"
-        v-for="(data, i) in datas"
+        v-for="(data, i) in datas.images"
         v-if="parseInt(i / 3) == j - 1"
       >
         <img
@@ -38,7 +38,6 @@ export default {
       })
       .then((data) => {
         this.datas = data.data
-        console.log(this.datas)
       })
   },
   watch: {
@@ -50,27 +49,23 @@ export default {
   methods: {
     isCorrect() {
       var count = 0
-      for (var data in this.datas) {
-        // console.log(this.datas[data].word)
-        if (this.datas[data].selected) {
+      for (var data in this.datas.images) {
+        if (this.datas.images[data].selected) {
           count++
-          if (this.datas[data].word != this.$store.state.quiz.word) {
+          if (this.datas.images[data].word != this.$store.state.quiz.word) {
             return false
           }
         }
       }
-      if (count != 3) {
-        // isDone 한번 누르면 두번 누른것처럼 인식되는데 왤까요 정답이 이제 3개가 아닙니다 이미지 개수가 모자란게 있어서
-        alert('3개를 선택해주세요')
+      if (count != this.datas.answerNum) {
+        alert(this.datas.answerNum + '개를 선택해주세요')
         return false
       }
       return true
     },
     select(index) {
-      this.datas[index].selected = !this.datas[index].selected
+      this.datas.images[index].selected = !this.datas.images[index].selected
       this.selects[index].selected = !this.selects[index].selected
-      // alert(this.datas[index].selected);
-      console.log(this.datas)
     },
   },
   data: function () {
