@@ -153,7 +153,7 @@ export default {
   methods: {
     getKids() {
       http
-        .get('parents/' + this.$store.state.user.id + '/kids', {
+        .get('parents/' + this.$store.state.parent.id + '/kids', {
           headers: { 'X-AUTH-TOKEN': this.$store.state.token },
         })
         .then(({ data }) => {
