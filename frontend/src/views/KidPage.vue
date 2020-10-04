@@ -31,6 +31,7 @@
         </button>
         <set-profile-image
           :point="point"
+          :kid="kid"
           v-if="isChangeProfile"
           @returnKidPage="goProfile()"
         />
@@ -40,11 +41,11 @@
 </template>
 
 <script>
-import SetProfileImage from "@/components/SetProfileImage.vue";
-import Inventory from "@/components/Inventory.vue";
+import SetProfileImage from '@/components/SetProfileImage.vue'
+import Inventory from '@/components/Inventory.vue'
 
 export default {
-  name: "KidPage",
+  name: 'KidPage',
   components: {
     SetProfileImage,
     Inventory,
@@ -52,34 +53,33 @@ export default {
   data: () => {
     return {
       isChangeProfile: false,
-      visible: false,
-      itemlist: [
-        "/img/icon/fairytale/001-knight.png",
-        "/img/icon/fairytale/002-wizard.png",
-        "/img/icon/fairytale/003-dwarf.png",
-      ],
       point: 152,
-    };
+      kid: {
+        id: 8,
+        name: '서주현',
+        birthday: '2020-02-01',
+        icon: '/img/icon/fairytale/001-knight.png',
+      },
+    }
   },
   created() {
-    this.point = 152;
+    this.point = 152
   },
   methods: {
-    goProfile() {
-      this.isChangeProfile = !this.isChangeProfile;
-    },
-    goInventory() {
-      this.visible = !this.visible;
+    goProfile(value) {
+      this.kid.icon = value
+      this.isChangeProfile = !this.isChangeProfile
+      // 여기서 키드 다시 받아오면 댐 ~ ~ ~ ~
     },
     goSelectQuiz() {
-      this.$router.push("/selectquiz");
+      this.$router.push('/selectquiz')
     },
   },
-};
+}
 </script>
 
 <style lang="scss">
-@import "../assets/sass/base.scss";
+@import '../assets/sass/base.scss';
 </style>
 <style lang="scss" scoped>
 /* 자녀페이지 틀 */
@@ -132,7 +132,7 @@ export default {
   height: 40%;
   font-size: 9vw;
   border-radius: 10vh;
-  font-family: "Jua", sans-serif;
+  font-family: 'Jua', sans-serif;
   padding: 1%;
   color: #24282c;
 }

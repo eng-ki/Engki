@@ -95,13 +95,13 @@
 </template>
 
 <script>
-import QuizA from '@/components/QuizA.vue';
-import QuizB from '@/components/QuizB.vue';
-import QuizC from '@/components/QuizC.vue';
-import QuizD from '@/components/QuizD.vue';
-import QuizE from '@/components/QuizE.vue';
-import QuizF from '@/components/QuizF.vue';
-import Etc from '@/components/Etc.vue';
+import QuizA from '@/components/QuizA.vue'
+import QuizB from '@/components/QuizB.vue'
+import QuizC from '@/components/QuizC.vue'
+import QuizD from '@/components/QuizD.vue'
+import QuizE from '@/components/QuizE.vue'
+import QuizF from '@/components/QuizF.vue'
+import Etc from '@/components/Etc.vue'
 
 export default {
   name: 'ParentPage',
@@ -116,6 +116,7 @@ export default {
   },
   data: () => {
     return {
+      answer: '',
       isDone: false, // 다했어요
       isHint: false, // 모르겠어요
       isBreakTime: false, // 쉬는시간
@@ -133,37 +134,43 @@ export default {
       // 웹캠 캡처 관련 데이터
       snapshotCanvas: null,
       camTimer: null,
-    };
+    }
   },
   mounted() {
     var handleSuccess = function (stream) {
-      player.srcObject = stream;
-    };
+      player.srcObject = stream
+    }
 
     this.camTimer = setInterval(() => {
       navigator.mediaDevices
         .getUserMedia({ video: true })
-        .then(handleSuccess, this.getEmotion());
-    }, 5000);
+        .then(handleSuccess, this.getEmotion())
+    }, 5000)
+  },
+  beforeDestroy() {
+    this.stopCapture()
   },
   methods: {
     isNextStage(flag) {
       // alert("눌림" + this.isDone)
-      this.isDone = false;
+      this.isDone = false
       // 정답일 경우 다음 스테이지
       if (flag) {
-        this.stage++;
+        this.stage++
       }
       if (this.stage == 6) {
-        this.stage = 5;
-        var score = 0;
-        this.isFinish = true;
-        this.stopCapture();
+        this.stage = 5
+        var score = 0
+        this.isFinish = true
+        this.stopCapture()
       }
+    },
+    setAnswer(answer) {
+      this.answer = answer
     },
     // 웹캠 끄기
     stopCapture() {
-      clearInterval(this.camTimer);
+      clearInterval(this.camTimer)
       // player.srcObject.getVideoTracks().forEach((track) => {
       //   track.stop()
       //   alert('암궈나')
@@ -184,24 +191,24 @@ export default {
     },
     // 웹캠 캡쳐하기
     getEmotion() {
-      var context = snapshot.getContext('2d');
-      context.drawImage(player, 0, 0, 320, 240);
-      var mydataURL = snapshot.toDataURL('image/jpg');
+      var context = snapshot.getContext('2d')
+      context.drawImage(player, 0, 0, 320, 240)
+      var mydataURL = snapshot.toDataURL('image/jpg')
 
       // console.log(mydataURL)
-      var blobBin = atob(mydataURL.split(',')[1]);
-      var array = [];
+      var blobBin = atob(mydataURL.split(',')[1])
+      var array = []
       for (var i = 0; i < blobBin.length; i++) {
-        array.push(blobBin.charCodeAt(i));
+        array.push(blobBin.charCodeAt(i))
       }
-      var file = new Blob([new Uint8Array(array)], { type: 'image/png' });
-      var formdata = new FormData();
-      formdata.append('file', file);
+      var file = new Blob([new Uint8Array(array)], { type: 'image/png' })
+      var formdata = new FormData()
+      formdata.append('file', file)
 
       //여기서 backend로 formdata 보내고 return 값 true : 쉬는시간 false : 그냥 하기~
     },
   },
-};
+}
 </script>
 <style lang="scss">
 @import '../assets/sass/base.scss';

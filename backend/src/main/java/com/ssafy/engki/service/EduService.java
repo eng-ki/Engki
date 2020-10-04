@@ -2,6 +2,7 @@ package com.ssafy.engki.service;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -13,11 +14,15 @@ import com.ssafy.engki.dto.EduDto;
 import com.ssafy.engki.entity.Image;
 import com.ssafy.engki.entity.ImageCaption;
 import com.ssafy.engki.entity.ImageWord;
+import com.ssafy.engki.entity.Kid;
+import com.ssafy.engki.entity.KidWord;
 import com.ssafy.engki.entity.Word;
 import com.ssafy.engki.mapper.EduMapper;
 import com.ssafy.engki.repository.ImageCaptionRepository;
 import com.ssafy.engki.repository.ImageRepository;
 import com.ssafy.engki.repository.ImageWordRepository;
+import com.ssafy.engki.repository.KidRepository;
+import com.ssafy.engki.repository.KidWordRepository;
 import com.ssafy.engki.repository.ThemeRepository;
 import com.ssafy.engki.repository.WordRepository;
 
@@ -29,6 +34,8 @@ public class EduService {
 	private final ImageRepository imageRepository;
 	private final ImageWordRepository imageWordRepository;
 	private final ImageCaptionRepository imageCaptionRepository;
+	private final KidWordRepository kidWordRepository;
+	private final KidRepository kidRepository;
 
 	public List<EduDto.Theme> getThemes() {
 		return EduMapper.INSTANCE.toTheme(themeRepository.findAll());
@@ -133,5 +140,18 @@ public class EduService {
 		Collections.shuffle(tokens, new Random(System.currentTimeMillis()));
 
 		return tokens;
+	}
+
+	public void completeStudy(long kidId, EduDto.Request studyInfo) {
+		KidWord kidWord = KidWord.builder()
+			.kidId(kidId)
+			.word(Word.builder().id(studyInfo.getWordId()).build())
+			.studiedDate(new Date())
+			.build();
+		kidWordRepository.save(kidWord);
+
+		Kid kid = kidRepository.getOne(kidId);
+		kid.addExp(studyInfo.getExp());
+		kidRepository.save(kid);
 	}
 }

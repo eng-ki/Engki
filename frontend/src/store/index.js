@@ -49,15 +49,15 @@ export default new Vuex.Store({
   },
   actions: {
     kakaoLogin(context, { access_token }) {
-      console.log(access_token);
-
       http
         .post('parents/login', { accessToken: access_token })
         .then(({ data }) => {
-          context.commit('setToken', data);
+          console.log('jwt : ' + data)
+          context.commit('setToken', data)
           // 'sub' 라는 key로 jwt token 디코딩해서 parents ID 받아오기
-          var token = data;
-          var parent_id = jwt_decode(token).sub;
+          var token = data
+          var parent_id = jwt_decode(token).sub
+          console.log('parent_id : ' + parent_id)
           http
             .get('parents/' + parent_id, { headers: { 'X-AUTH-TOKEN': data } })
             .then(({ data }) => {
