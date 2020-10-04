@@ -28,4 +28,7 @@ public class Word {
 
 	@Column(nullable = false, updatable = false, length = 20)
 	private String word;
+
+	@Column(nullable = false, updatable = false, length = 20)
+	private String wordKor;
 }

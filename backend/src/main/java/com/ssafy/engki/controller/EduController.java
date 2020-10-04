@@ -70,7 +70,7 @@ public class EduController {
 	@GetMapping("{wordId}/images")
 	@ApiOperation(value = "Quiz 2 : 랜덤 이미지 목록 조회",
 		notes = "선택한 단어의 이미지 목록을 조회한다.\n",
-		response = List.class)
+		response = EduDto.Quiz2Response.class)
 	@ApiResponses(value = {
 		@ApiResponse(code = 200, message = "OK"),
 		@ApiResponse(code = 400, message = "Bad Request"),
@@ -78,7 +78,7 @@ public class EduController {
 		@ApiResponse(code = 403, message = "Forbidden"),
 		@ApiResponse(code = 404, message = "Not Found")
 	})
-	private ResponseEntity<List<EduDto.Image>> getRandomImagesWithWord(
+	private ResponseEntity<EduDto.Quiz2Response> getRandomImagesWithWord(
 		@ApiParam(value = "word id", example = "1") @PathVariable long wordId) {
 		logger.debug(String.format("get Random Images with word %d 호출", wordId));
 		return new ResponseEntity<>(eduService.getRandomImages(wordId), HttpStatus.OK);
@@ -86,7 +86,7 @@ public class EduController {
 
 	@GetMapping("{wordId}/seg")
 	@ApiOperation(value = "Quiz 3 : 세그멘테이션 이미지 조회",
-		notes = "선택한 단어의 오리지널 이미지와 segmetation이 적용된 이미지를 조회한다.",
+		notes = "선택한 단어의 오리지널 이미지와 segmetation이 적용된 이미지, 보기로 사용할 랜덤 단어 하나를 조회한다.",
 		response = EduDto.Segmentation.class)
 	@ApiResponses(value = {
 		@ApiResponse(code = 200, message = "OK"),
@@ -103,9 +103,9 @@ public class EduController {
 
 	@GetMapping("{wordId}/captions")
 	@ApiOperation(value = "Quiz 4,5,6 : 이미지 캡션 조회",
-		notes = "1. Quiz 4 : 오리지널 이미지의 캡션\n"
-			+ "2. Quiz 5 : 같은 단어를 포함하지 않는 랜덤 캡션 3개\n"
-			+ "3. Quiz 6 : 오리지널 이미지 캡션의 랜덤 순서로 섞인 Token(+원래 순서) 목록\n"
+		notes = "1. Quiz 4 : 오리지널 이미지의 캡션, (랜덤 순서로 섞인) 랜덤 단어 3개 + 정답 단어\n"
+			+ "2. Quiz 5 : (랜덤 순서로 섞인) 같은 단어를 포함하지 않는 랜덤 캡션 3개 + 정답 캡션\n"
+			+ "3. Quiz 6 : 오리지널 이미지 캡션의 (랜덤 순서로 섞인) Token(+원래 순서) 목록\n"
 			+ "을 조회한다.",
 		response = EduDto.Caption.class)
 	@ApiResponses(value = {

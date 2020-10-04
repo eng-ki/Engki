@@ -23,8 +23,8 @@ import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
-import com.ssafy.engki.dto.AccessTokenDto;
 import com.ssafy.engki.dto.KidDto;
+import com.ssafy.engki.dto.LoginDto;
 import com.ssafy.engki.dto.ParentDto;
 import com.ssafy.engki.service.ParentService;
 
@@ -39,7 +39,7 @@ public class ParentController {
 	private final ParentService parentService;
 
 	@PostMapping("login")
-	@ApiOperation(value = "카카오 로그인", notes = "카카오 API를 이용한 로그인", response = String.class)
+	@ApiOperation(value = "카카오 로그인", notes = "카카오 API를 이용한 로그인", response = LoginDto.Response.class)
 	@ApiResponses(value = {
 		@ApiResponse(code = 200, message = "OK"),
 		@ApiResponse(code = 400, message = "Bad Request"),
@@ -47,9 +47,9 @@ public class ParentController {
 		@ApiResponse(code = 403, message = "Forbidden"),
 		@ApiResponse(code = 404, message = "Not Found")
 	})
-	private ResponseEntity<String> login(
-		@ApiParam(required = true) @RequestBody AccessTokenDto accessToken) {
-		logger.debug(String.format("login with {%s}호출", accessToken));
+	private ResponseEntity<LoginDto.Response> login(
+		@ApiParam(required = true) @RequestBody LoginDto.AccessToken accessToken) {
+		logger.debug(String.format("login with {%s}호출", accessToken.getAccessToken()));
 		return new ResponseEntity<>(parentService.login(accessToken.getAccessToken()), HttpStatus.OK);
 	}
 
