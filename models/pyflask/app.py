@@ -17,12 +17,18 @@ import config
 import sys
 import urllib.request
 
+import sys
+import urllib.request
+from flask import Flask
+from flask_cors import CORS
+
+
 app = Flask(__name__)
 app.config.from_pyfile('config.py')
+CORS(app)
 
 database = create_engine(app.config['DB_URL'], encoding='utf-8')
 app.database = database
-
 
 @app.route('/')
 def index():
@@ -166,8 +172,8 @@ def custom_save():
             data['word'] = caption_word[i]
             data['word_kor'] = caption_word_kor[i]
             app.database.execute(text("""
-                                        INSERT INTO custom_image_caption (image_id, word, word_kor caption,caption_kor)
-                                        VALUES (:image_id, :word, :word_kor, :caption :caption_kor)
+                                        INSERT INTO custom_image_caption (image_id, word, word_kor, caption, caption_kor)
+                                        VALUES (:image_id, :word, :word_kor, :caption, :caption_kor)
                                         """), data)
         for i in range(0, len(seg_word), 1):
             data['word'] = seg_word[i]
@@ -184,10 +190,12 @@ def custom_save():
 
 
 def get_sentence(caption):
+
     client_id = config.client_id
     # 개발자센터에서 발급받은 Client ID 값
     client_secret = config.client_secret
     # 개발자센터에서 발급받은 Client Secret 값
+
     encText = urllib.parse.quote(caption)
     data = "source=en&target=ko&text=" + encText
     url = "https://openapi.naver.com/v1/papago/n2mt"
