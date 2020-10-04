@@ -86,7 +86,7 @@ public class EduController {
 
 	@GetMapping("{wordId}/seg")
 	@ApiOperation(value = "Quiz 3 : 세그멘테이션 이미지 조회",
-		notes = "선택한 단어의 오리지널 이미지와 segmetation이 적용된 이미지를 조회한다.",
+		notes = "선택한 단어의 오리지널 이미지와 segmetation이 적용된 이미지, 보기로 사용할 랜덤 단어 하나를 조회한다.",
 		response = EduDto.Segmentation.class)
 	@ApiResponses(value = {
 		@ApiResponse(code = 200, message = "OK"),

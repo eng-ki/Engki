@@ -17,4 +17,9 @@ public interface WordRepository extends JpaRepository<Word, Long> {
 		+ "where w2.theme_id = :themeId and kw.kid_id = :kidId order by kw.studied_date limit 1)",
 		nativeQuery = true)
 	Word getOldestLearnedWord(long themeId, long kidId);
+
+	@Query(value = "select w from Word w "
+		+ "where w.id <> :wordId "
+		+ "and w.themeId = :themeId")
+	List<Word> getWordsByThemeExceptWord(long themeId, long wordId);
 }

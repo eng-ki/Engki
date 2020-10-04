@@ -107,9 +107,13 @@ public class EduService {
 		List<ImageWord> imageWords = imageWordRepository.getAllByWordId(wordId);
 		ImageWord imageWord = imageWords.get(rand.nextInt(imageWords.size()));
 
+		List<Word> randomWords = wordRepository.getWordsByThemeExceptWord(imageWord.getWord().getThemeId(), wordId);
+		Word randomWord = randomWords.get(rand.nextInt(randomWords.size()));
+
 		return EduDto.Segmentation.builder()
 			.filePath(imageWord.getImage().getFilePath())
 			.segFilePath(imageWord.getBoundary())
+			.randomWord(randomWord.getWord())
 			.build();
 	}
 
