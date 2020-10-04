@@ -150,7 +150,7 @@ def custom():
     value['caption_kor'] = caption_kor
     value['seg_word_kor'] = seg_word_kor
     value['caption_word_kor'] = caption_word_kor
-    return value, 404
+    return value, 200
 
 
 @app.route('/custom/quiz/save', methods=['POST'])
