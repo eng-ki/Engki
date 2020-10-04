@@ -84,6 +84,7 @@ public class EduDto {
 
 		@ApiModelProperty(value = "random caption list (보기로 사용)",
 			example = "['a man on a horse in the snow .', "
+				+ "'a bike parked next to a metal bench .', "
 				+ "'a man with glasses and a tie is smiling', "
 				+ "'a man on a bike is riding a rail with a dog .' ]")
 		private List<String> randomCaptions;

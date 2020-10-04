@@ -120,10 +120,11 @@ public class EduService {
 		ImageCaption imageCaption = imageCaptions.get(rand.nextInt(imageCaptions.size()));
 
 		List<String> captionsExceptWord = imageCaptionRepository.findExceptWord(wordId);
-		List<String> randomCaptions = new ArrayList<>();
+		List<String> randomCaptions = new ArrayList<>(Collections.singletonList(imageCaption.getCaption()));
 		rand.ints(3, 0, captionsExceptWord.size()).forEach(idx ->
 			randomCaptions.add(captionsExceptWord.get(idx))
 		);
+		Collections.shuffle(randomCaptions);
 
 		return EduDto.Caption.builder()
 			.filePath(imageCaption.getImage().getFilePath())
