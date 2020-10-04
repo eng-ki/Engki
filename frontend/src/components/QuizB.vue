@@ -7,9 +7,9 @@
         v-if="parseInt(i / 3) == j - 1"
       >
         <img
-          :src="data.url"
+          :src="'http://j3a510.p.ssafy.io/images/' + data.filePath"
           class="img"
-          :class="{ selected: data.selected }"
+          :class="{ selected: selects[i].selected }"
           @click="select(i)"
         />
       </div>
@@ -17,88 +17,89 @@
 
     <div class="row">
       <div class="col-3"></div>
-      <div class="col-6 quiz-text">DOG</div>
+      <div class="col-6 quiz-text">
+        {{ this.$store.state.quiz.word }}
+      </div>
       <div class="col-3"></div>
     </div>
   </div>
 </template>
 <script>
+import http from '../utils/http-common.js';
 export default {
-  props: ['isDone', 'answer'],
-  mounted() {
-    //api 호출
-  },
+  props: ['isDone'],
   created() {
-    this.isDone = false
+    this.isDone = false;
+    this.quizapipath = '/edu/' + this.$store.state.quiz.id + '/images';
+    console.log('퀴즈2패스 : ' + this.quizapipath);
+    http
+      .get(this.quizapipath, {
+        headers: { 'X-AUTH-TOKEN': this.$store.state.token },
+      })
+      .then((data) => {
+        this.datas = data.data;
+        console.log(this.datas);
+      });
   },
   watch: {
     isDone: function (val) {
-      if (this.isCorrect()) this.$emit('correct')
-      else this.$emit('wrong')
+      if (this.isCorrect()) this.$emit('correct');
+      else this.$emit('wrong');
     },
   },
   methods: {
     isCorrect() {
-      // console.log(this.answer)
-      var count = 0
+      var count = 0;
       for (var data in this.datas) {
         // console.log(this.datas[data].word)
         if (this.datas[data].selected) {
-          count++
-          if (this.datas[data].word != this.answer) {
-            return false
+          count++;
+          if (this.datas[data].word != this.$store.state.quiz.word) {
+            return false;
           }
         }
       }
       if (count != 3) {
         // isDone 한번 누르면 두번 누른것처럼 인식되는데 왤까요
-        alert('3개를 선택해주세요')
-        return false
+        alert('3개를 선택해주세요');
+        return false;
       }
-      return true
+      return true;
     },
     select(index) {
-      this.datas[index].selected = !this.datas[index].selected
+      this.datas[index].selected = !this.datas[index].selected;
+      this.selects[index].selected = !this.selects[index].selected;
+      // alert(this.datas[index].selected);
+      console.log(this.datas);
     },
   },
   data: function () {
     return {
       selectedIndex: -1,
-      datas: [
+      datas: [],
+      selects: [
         {
-          word: 'dog',
-          url: '/img/etc/puppy.jpg',
           selected: false,
         },
         {
-          word: 'cat',
-          url: '/img/icon/theme/cat.png',
           selected: false,
         },
         {
-          word: 'cat',
-          url: '/img/icon/theme/cat.png',
           selected: false,
         },
         {
-          word: 'dog',
-          url: '/img/etc/puppy.jpg',
           selected: false,
         },
         {
-          word: 'cat',
-          url: '/img/icon/theme/cat.png',
           selected: false,
         },
         {
-          word: 'dog',
-          url: '/img/etc/puppy.jpg',
           selected: false,
         },
       ],
-    }
+    };
   },
-}
+};
 </script>
 <style lang="scss" scoped>
 .quiz-board {

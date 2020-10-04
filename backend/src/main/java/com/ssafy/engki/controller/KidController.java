@@ -51,8 +51,8 @@ public class KidController {
 		return new ResponseEntity<>(kidService.add(kidRequest), HttpStatus.CREATED);
 	}
 
-	@GetMapping("{kidId}/inventory")
-	@ApiOperation(value = "아이 인벤토리 조회", notes = "아이의 인벤토리(스티커 목록)을 조회한다.", response = List.class)
+	@GetMapping("{kidId}")
+	@ApiOperation(value = "아이 정보 조회", notes = "아이의 정보를 조회한다.", response = KidDto.KidInfo.class)
 	@ApiResponses(value = {
 		@ApiResponse(code = 200, message = "OK"),
 		@ApiResponse(code = 400, message = "Bad Request"),
@@ -60,10 +60,10 @@ public class KidController {
 		@ApiResponse(code = 403, message = "Forbidden"),
 		@ApiResponse(code = 404, message = "Not Found")
 	})
-	private ResponseEntity<List<KidDto.KidSticker>> getKidInventory(
+	private ResponseEntity<KidDto.KidInfo> getKidInfo(
 		@ApiParam(value = "아이 id", required = true, example = "1") @PathVariable long kidId) {
-		logger.debug(String.format("get Kid {%d} inventory 호출", kidId));
-		return new ResponseEntity<>(kidService.getInventory(kidId), HttpStatus.OK);
+		logger.debug(String.format("get Kid {%d} 호출", kidId));
+		return new ResponseEntity<>(kidService.get(kidId), HttpStatus.OK);
 	}
 
 	@PutMapping("{kidId}")
@@ -96,5 +96,21 @@ public class KidController {
 		logger.debug(String.format("delete Kid with %d 호출", kidId));
 		kidService.delete(kidId);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+
+	@GetMapping("{kidId}/week/{prev}")
+	@ApiOperation(value = "아이 학습 정보 조회", notes = "아이의 학습 정보를 조회한다.", response = List.class)
+	@ApiResponses(value = {
+		@ApiResponse(code = 200, message = "OK"),
+		@ApiResponse(code = 400, message = "Bad Request"),
+		@ApiResponse(code = 401, message = "Unauthorized"),
+		@ApiResponse(code = 403, message = "Forbidden"),
+		@ApiResponse(code = 404, message = "Not Found")
+	})
+	private ResponseEntity<List<KidDto.StudyInfo>> getKidStudyInfo(
+		@ApiParam(value = "아이 id", required = true, example = "1") @PathVariable long kidId,
+		@ApiParam(value = "조회할 주간 정보 (이번주: 0, 저번주: 1, ...)", required = true, example = "0") @PathVariable int prev) {
+		logger.debug(String.format("get Kid {%d} Study info of prev {%d} 호출", kidId, prev));
+		return new ResponseEntity<>(kidService.getStudyInfo(kidId, prev), HttpStatus.OK);
 	}
 }

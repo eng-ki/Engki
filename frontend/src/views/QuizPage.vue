@@ -1,14 +1,5 @@
 <template>
   <div class="background">
-    <!-- 캡쳐 -->
-    <video style="display: none" id="player" controls autoplay></video>
-    <canvas
-      style="display: none"
-      id="snapshot"
-      width="320"
-      height="240"
-    ></canvas>
-
     <!-- etc : 종료 화면 / pause 화면 컴포넌트들 들어갈 자리-->
     <etc
       v-if="isBreakTime || isFinish"
@@ -22,8 +13,6 @@
       <div class="board">
         <quiz-a
           :isDone="isDone"
-          :answer="answer"
-          @set-answer="setAnswer"
           v-on:correct="isNextStage(true)"
           v-on:wrong="isNextStage(false)"
           class="quiz"
@@ -31,7 +20,6 @@
         />
         <quiz-b
           :isDone="isDone"
-          :answer="answer"
           v-on:correct="isNextStage(true)"
           v-on:wrong="isNextStage(false)"
           class="quiz"
@@ -39,7 +27,6 @@
         />
         <quiz-c
           :isDone="isDone"
-          :answer="answer"
           v-on:correct="isNextStage(true)"
           v-on:wrong="isNextStage(false)"
           class="quiz"
@@ -47,7 +34,6 @@
         />
         <quiz-d
           :isDone="isDone"
-          :answer="answer"
           v-on:correct="isNextStage(true)"
           v-on:wrong="isNextStage(false)"
           class="quiz"
@@ -55,7 +41,6 @@
         />
         <quiz-e
           :isDone="isDone"
-          :answer="answer"
           v-on:correct="isNextStage(true)"
           v-on:wrong="isNextStage(false)"
           class="quiz"
@@ -63,7 +48,6 @@
         />
         <quiz-f
           :isDone="isDone"
-          :answer="answer"
           v-on:correct="isNextStage(true)"
           v-on:wrong="isNextStage(false)"
           class="quiz"
@@ -109,7 +93,7 @@ import QuizD from "@/components/QuizD.vue";
 import QuizE from "@/components/QuizE.vue";
 import QuizF from "@/components/QuizF.vue";
 import Etc from "@/components/Etc.vue";
-
+import http from "../utils/http-common.js";
 export default {
   name: "ParentPage",
   components: {
@@ -139,20 +123,28 @@ export default {
         "사진 속 문장을 단어로 만들어보세요",
       ],
       // 웹캠 캡처 관련 데이터
-      snapshotCanvas: null,
       camTimer: null,
     };
   },
   mounted() {
-    var handleSuccess = function (stream) {
-      player.srcObject = stream;
-    };
-
     this.camTimer = setInterval(() => {
-      navigator.mediaDevices
-        .getUserMedia({ video: true })
-        .then(handleSuccess, this.getEmotion());
+      http
+        .post(
+          "http://j3a510.p.ssafy.io:8083/custom/emotion",
+          {
+            kid_id: this.$store.state.kid.id,
+          },
+          {
+            headers: { "X-AUTH-TOKEN": this.$store.state.token },
+          }
+        )
+        .then(({ data }) => {
+          console.log("쉴까요 말까요 ? " + data);
+        });
     }, 5000);
+  },
+  beforeDestroy() {
+    this.stopCapture();
   },
   methods: {
     isNextStage(flag) {
@@ -164,7 +156,6 @@ export default {
       }
       if (this.stage == 6) {
         this.stage = 5;
-        var score = 0;
         this.isFinish = true;
         this.stopCapture();
       }
@@ -172,44 +163,9 @@ export default {
     setAnswer(answer) {
       this.answer = answer;
     },
-    // 웹캠 끄기
+    // 감정 인식 중지
     stopCapture() {
       clearInterval(this.camTimer);
-      // player.srcObject.getVideoTracks().forEach((track) => {
-      //   track.stop()
-      //   alert('암궈나')
-      // })
-      // player.srcObject.getAudioTracks()[0].stop()
-      // player.srcObject.getVideoTracks()[0].stop()
-
-      // navigator.mediaDevices.getUserMedia().then((mediaStream) => {
-      //   const stream = mediaStream
-      //   const tracks = stream.getTracks()
-      //   tracks[0].stop
-      // })
-
-      // navigator.mediaDevices
-      //   .getUserMedia({ video: false })
-      //   .then(alert('아무거나'))
-      //  navigator.mediaDevices 이거로 웹캠 빨간불 들어오는거 자체를 꺼야하는데 어떻게 끄는지 모르겠어요
-    },
-    // 웹캠 캡쳐하기
-    getEmotion() {
-      var context = snapshot.getContext("2d");
-      context.drawImage(player, 0, 0, 320, 240);
-      var mydataURL = snapshot.toDataURL("image/jpg");
-
-      // console.log(mydataURL)
-      var blobBin = atob(mydataURL.split(",")[1]);
-      var array = [];
-      for (var i = 0; i < blobBin.length; i++) {
-        array.push(blobBin.charCodeAt(i));
-      }
-      var file = new Blob([new Uint8Array(array)], { type: "image/png" });
-      var formdata = new FormData();
-      formdata.append("file", file);
-
-      //여기서 backend로 formdata 보내고 return 값 true : 쉬는시간 false : 그냥 하기~
     },
   },
 };

@@ -2,7 +2,11 @@
   <div class="background">
     <div class="box">
       <div class="innerbox">
-        <span class="page-title">이메일 정보 수집</span>
+        <span v-if="from == 'parent'" class="page-title">내 정보</span>
+        <span v-else class="page-title">이메일 정보 수집</span>
+        <button v-if="from == 'parent'" @click="deleteInfo()" class="delete">
+          탈퇴하기
+        </button>
         <div class="parent-info-page">
           <div class="container page-text">
             <div class="row">
@@ -32,7 +36,9 @@
                     type="checkbox"
                     id="neumorphism"
                     checked
+                    v-model="parents.receiveEmailFlag"
                   />
+
                   <label for="neumorphism">
                     <div class="switch">
                       <div class="dot"></div>
@@ -80,6 +86,7 @@
 </template>
 <script>
 import http from '../utils/http-common.js'
+import jwt_decode from 'jwt-decode'
 export default {
   props: {
     from: null,
@@ -87,29 +94,64 @@ export default {
   data: function () {
     return {
       parents: {
-        name: '손명지',
-        email: 'ji_exitos@naver.com',
+        name: '',
+        email: '',
         receiveEmailFlag: true,
       },
-    };
+    }
+  },
+  created() {
+    var parent_id = jwt_decode(this.$store.state.token).sub
+    http
+      .get('parents/' + parent_id, {
+        headers: { 'X-AUTH-TOKEN': this.$store.state.token },
+      })
+      .then(({ data }) => {
+        this.parents = data
+      })
   },
   methods: {
+    deleteInfo() {
+      this.$swal({
+        title:
+          '<div style="font-family: GmarketSansMedium;font-size:2vw;">탈퇴하시겠습니까?<br><span style="font-family: GmarketSansMedium;font-size:1vw;">모든 데이터가 영구적으로 삭제됩니다.</span></div>',
+
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: '확인',
+        cancelButtonText: '취소',
+        showCloseButton: true,
+        showLoaderOnConfirm: true,
+      }).then((result) => {
+        if (result.value) {
+          http
+            .delete('parents/' + this.$store.state.parent.id, {
+              headers: { 'X-AUTH-TOKEN': this.$store.state.token },
+            })
+            .then(({ data }) => {
+              this.$store.commit('setParent', null)
+              this.$store.commit('setToken', null)
+              this.$router.push('/')
+            })
+        }
+      })
+    },
     saveInfo() {
       if (this.from == null) {
         this.$swal({
           title:
             '<div style="font-family: GmarketSansMedium;font-size:2vw;">이메일을 등록하시겠습니까?</div>',
-          type: "warning",
+          type: 'warning',
           showCancelButton: true,
-          confirmButtonText: "확인",
-          cancelButtonText: "취소",
+          confirmButtonText: '확인',
+          cancelButtonText: '취소',
           showCloseButton: true,
           showLoaderOnConfirm: true,
         }).then((result) => {
           if (result.value) {
             http
               .put(
-                'parents/' + this.$store.state.user.id,
+                'parents/' + this.$store.state.parent.id,
                 {
                   email: this.parents.email,
                   name: this.parents.name,
@@ -122,37 +164,50 @@ export default {
               .then(({ data }) => {
                 this.$router.push('/parent')
               })
+              .catch((err) => {
+                console.error(err)
+              })
           }
-        });
-      } else if (this.from == "parent") {
+        })
+      } else if (this.from == 'parent') {
         this.$swal({
           title:
             '<div style="font-family: GmarketSansMedium;font-size:2vw;">이메일을 수정하시겠습니까?</div>',
-          type: "warning",
+          type: 'warning',
           showCancelButton: true,
-          confirmButtonText: "확인",
-          cancelButtonText: "취소",
+          confirmButtonText: '확인',
+          cancelButtonText: '취소',
           showCloseButton: true,
           showLoaderOnConfirm: true,
         }).then((result) => {
           if (result.value) {
-            // 백엔드 부모 정보 update API
-
-            // 로그인 할 때 parent 정보 불러왔다면, 거기에 저장된 값도 수정해주기.
-            // or db 업데이트하고 통째로 다시 불러와서 parent 정보 갱신
-            this.$emit("visible");
+            http
+              .put(
+                'parents/' + this.$store.state.parent.id,
+                {
+                  email: this.parents.email,
+                  name: this.parents.name,
+                  receiveEmailFlag: this.parents.receiveEmailFlag,
+                },
+                {
+                  headers: { 'X-AUTH-TOKEN': this.$store.state.token },
+                }
+              )
+              .then(({ data }) => {
+                this.$emit('visible')
+              })
           }
-        });
+        })
       }
     },
     returnParentPage() {
-      this.$emit("returnParentPage");
+      this.$emit('returnParentPage')
     },
   },
-};
+}
 </script>
 <style lang="scss">
-@import "../assets/sass/base.scss";
+@import '../assets/sass/base.scss';
 </style>
 <style lang="scss" scoped>
 .background .box {
@@ -179,6 +234,12 @@ export default {
   position: inherit;
 }
 
+.delete {
+  position: absolute;
+  bottom: 2vw;
+  right: 3vw;
+  font-family: GmarketSansMedium;
+}
 .parents-button {
   /* 좌표 설정 */
   position: absolute;
@@ -246,7 +307,7 @@ export default {
         border-radius: 2.5vh;
         background: #eceffc;
         &:before {
-          content: "";
+          content: '';
           position: absolute;
           left: 0;
           top: 0;
@@ -270,7 +331,7 @@ export default {
           transform: translateX(var(--offset, 0));
           transition: transform 0.4s, box-shadow 0.4s;
           &:before {
-            content: "";
+            content: '';
             position: absolute;
             left: 0;
             top: 0;

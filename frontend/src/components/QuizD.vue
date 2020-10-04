@@ -43,46 +43,63 @@
   </div>
 </template>
 <script>
+import http from "../utils/http-common.js";
 export default {
-  props: ['isDone','answer'],
+  props: {
+    isDone: false,
+  },
   data: () => {
     return {
       quiz: null,
       selectedIndex: -1,
-      blank: '<span>&nbsp;&nbsp;</span>',
-    }
+      blank: "<span>&nbsp;&nbsp;</span>",
+    };
   },
   created() {
-    //api 호출
-    this.quiz = {
-      url: '/img/etc/puppy.jpg',
-      sentence: 'A little dog is running on the ground',
-      word: 'dog',
-      words: ['dog', 'cat', 'bird', 'cow'],
-    }
-    this.quiz.sentence = this.quiz.sentence.split(' ')
+    this.quizapipath = "/edu/" + this.$store.state.quiz.id + "/captions";
+    console.log("퀴즈4패스 : " + this.quizapipath);
+    http
+      .get(this.quizapipath, {
+        headers: { "X-AUTH-TOKEN": this.$store.state.token },
+      })
+      .then((data) => {
+        console.log(data.data);
+        this.$store.commit("setQuizAdv", {
+          caption: data.data.caption,
+          filePath: data.data.filePath,
+          randomCaptions: data.data.randomCaptions,
+          tokens: data.data.tokens,
+        });
+        this.quiz = {
+          url:
+            "http://j3a510.p.ssafy.io/images/" +
+            this.$store.state.quiz_adv.filePath,
+          sentence: this.$store.state.quiz_adv.caption,
+          word: this.$store.state.quiz.word,
+          words: [this.$store.state.quiz.word, "random1", "random2", "random3"],
+        };
+        this.quiz.sentence = this.quiz.sentence.split(" ");
+      });
   },
   watch: {
     isDone: function (val) {
-      if (this.isCorrect()) this.$emit('correct')
-      else this.$emit('wrong')
+      if (this.isCorrect()) this.$emit("correct");
+      else this.$emit("wrong");
     },
   },
   methods: {
     isCorrect() {
-      if (this.quiz.words[this.selectedIndex] == this.quiz.word) return true
-      else {
-        return false
-      }
+      if (this.quiz.words[this.selectedIndex] == this.quiz.word) return true;
+      else return false;
     },
     select(index) {
-      this.selectedIndex = index
+      this.selectedIndex = index;
     },
   },
-}
+};
 </script>
 <style lang="scss">
-@import '../assets/sass/base.scss';
+@import "../assets/sass/base.scss";
 </style>
 <style lang="scss" scoped>
 .quiz-img img {

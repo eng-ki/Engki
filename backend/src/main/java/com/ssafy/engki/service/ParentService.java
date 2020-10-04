@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import com.ssafy.engki.config.security.JwtTokenProvider;
 import com.ssafy.engki.dto.KakaoUserDto;
 import com.ssafy.engki.dto.KidDto;
+import com.ssafy.engki.dto.LoginDto;
 import com.ssafy.engki.dto.ParentDto;
 import com.ssafy.engki.entity.Parent;
 import com.ssafy.engki.exception.ParentNotFoundException;
@@ -34,19 +35,23 @@ public class ParentService {
 	@Value("${kakao.user.url}")
 	private String kakaoUserUrl;
 
-	public String login(String accessToken) {
+	public LoginDto.Response login(String accessToken) {
+		LoginDto.Response response = new LoginDto.Response();
+
 		// Kakao 서버로 accessToken 보내서 user info 받아오기
 		KakaoUserDto kakaoUserDto = getUserIdFromKakao(accessToken);
 
 		// DB에 parent id가 없으면 새로 저장
 		if (!parentRepository.existsById(kakaoUserDto.getId())) {
+			response.setNew(true);
 			save(kakaoUserDto.getId(), // id
 				kakaoUserDto.getKakaoAccount().getProfile().getNickname(), // name
 				kakaoUserDto.getKakaoAccount().getEmail() // email
 			);
 		}
 
-		return jwtTokenProvider.createToken(kakaoUserDto.getId());
+		response.setToken(jwtTokenProvider.createToken(kakaoUserDto.getId()));
+		return response;
 	}
 
 	private void save(long id, String name, String email) {
@@ -90,6 +95,6 @@ public class ParentService {
 	}
 
 	public List<KidDto.KidInfo> getKidList(long parentId) {
-		return KidMapper.INSTANCE.toInfo(parentRepository.getOne(parentId).getKids());
+		return KidMapper.INSTANCE.toInfoList(parentRepository.getOne(parentId).getKids());
 	}
 }

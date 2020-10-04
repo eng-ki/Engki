@@ -25,33 +25,6 @@
                 />
               </div>
             </div>
-            <div class="row">
-              <div class="col-sm-4">
-                <p>성별</p>
-              </div>
-              <div class="col-sm-8">
-                <button
-                  class="gender-button"
-                  @click="kid.gender = 'female'"
-                  :class="{ active: kid.gender == 'female' }"
-                >
-                  여자
-                </button>
-                <button
-                  class="gender-button"
-                  @click="kid.gender = 'male'"
-                  :class="{ active: kid.gender == 'male' }"
-                >
-                  남자
-                </button>
-                <!-- <v-btn-toggle
-                    v-model="gender"
-                    borderless>
-          <v-btn value="female">여자 </v-btn>
-          <v-btn value="male">남자</v-btn>
-                 </v-btn-toggle> -->
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -69,6 +42,7 @@
   </div>
 </template>
 <script>
+import http from '../utils/http-common.js'
 export default {
   props: {
     from: null,
@@ -76,41 +50,52 @@ export default {
   data: function () {
     return {
       kid: {
-        name: "손명지",
-        birthday: "1994-04-03",
-        gender: "female",
-        url: "/img/icon/fairytale/001-knight.png",
+        name: '',
+        birthday: '',
+        icon: '/img/icon/fairytale/001-knight.png',
       },
-    };
+    }
   },
   methods: {
     register() {
       this.$swal({
         title:
           '<div style="font-family: GmarketSansMedium;font-size:2vw;">자녀를 등록하시겠습니까?</div>',
-        type: "warning",
+        type: 'warning',
         showCancelButton: true,
-        confirmButtonText: "등록",
-        cancelButtonText: "취소",
+        confirmButtonText: '등록',
+        cancelButtonText: '취소',
         showCloseButton: true,
         showLoaderOnConfirm: true,
       }).then((result) => {
         if (result.value) {
-          // 백엔드 자녀 등록 api
-
-          // 등록 완료시 parentpage로 데이터 넘겨줌
-          this.$emit("update", this.kid);
+          http
+            .post(
+              'kids/',
+              {
+                birthday: this.kid.birthday,
+                icon: this.kid.icon,
+                name: this.kid.name,
+                parentId: this.$store.state.parent.id,
+              },
+              {
+                headers: { 'X-AUTH-TOKEN': this.$store.state.token },
+              }
+            )
+            .then(({ data }) => {
+              this.$emit('update', this.kid)
+            })
         }
-      });
+      })
     },
     returnParentPage() {
-      this.$emit("returnParentPage");
+      this.$emit('returnParentPage')
     },
   },
-};
+}
 </script>
 <style lang="scss">
-@import "../assets/sass/base.scss";
+@import '../assets/sass/base.scss';
 </style>
 <style lang="scss" scoped>
 * {

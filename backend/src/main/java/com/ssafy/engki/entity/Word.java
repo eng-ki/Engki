@@ -8,9 +8,11 @@ import javax.persistence.Id;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@Builder
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -26,4 +28,7 @@ public class Word {
 
 	@Column(nullable = false, updatable = false, length = 20)
 	private String word;
+
+	@Column(nullable = false, updatable = false, length = 20)
+	private String wordKor;
 }
