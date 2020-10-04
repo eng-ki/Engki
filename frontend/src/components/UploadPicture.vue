@@ -10,7 +10,7 @@
         <!-- 세그멘테이션 단어 (0~3개) 수정 -->
         <span class="word" v-for="(word, index) in words" v-bind:key="index">
           <input
-            :value="word"
+            :v-model="word"
             size="7vh"
             @click="selectedWord(index)"
             :readonly="!readW" />
@@ -32,7 +32,7 @@
 
           <input
             @click="readS = true"
-            :value="sentence"
+            :v-model="sentence"
             size="56vh"
             :readonly="!readS"
           />

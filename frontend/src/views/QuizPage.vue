@@ -5,7 +5,6 @@
       v-if="isBreakTime || isFinish"
       :isBreakTime="isBreakTime"
       :isFinish="isFinish"
-      :correct="correct"
       v-on:continue="isBreakTime = false"
     />
 
@@ -116,7 +115,6 @@ export default {
       isBreakTime: false, // 쉬는시간
       isFinish: false, // 퀴즈 종료
       stage: 0, // stage 0~5 : 퀴즈
-      correct: [1, 2, 3, 4, 5, 6], // 경험치
       subjects: [
         '사진 속 단어를 배워보세요',
         '단어에 해당하는 그림을 모두 선택해주세요',
@@ -130,35 +128,36 @@ export default {
     }
   },
   mounted() {
-    this.camTimer = setInterval(() => {
-      http
-        .post(
-          'http://j3a510.p.ssafy.io:8083/custom/emotion',
-          {
-            kid_id: this.$store.state.kid.id,
-          },
-          {
-            headers: { 'X-AUTH-TOKEN': this.$store.state.token },
-          }
-        )
-        .then(({ data }) => {
-          console.log('쉴까요 말까요 ? ' + data)
-        })
-    }, 5000)
+    // this.camTimer = setInterval(() => {
+    //   http
+    //     .post(
+    //       'http://j3a510.p.ssafy.io:8083/custom/emotion',
+    //       {
+    //         kid_id: this.$store.state.kid.id,
+    //       },
+    //       {
+    //         headers: { 'X-AUTH-TOKEN': this.$store.state.token },
+    //       }
+    //     )
+    //     .then(({ data }) => {
+    //       console.log('쉴까요 말까요 ? ' + data)
+    //     })
+    // }, 5000)
   },
   beforeDestroy() {
     this.stopCapture()
   },
   methods: {
     isNextStage(flag) {
-      // alert("눌림" + this.isDone)
       this.isDone = false
-      // 정답일 경우 다음 스테이지
       if (flag) {
         this.stage++
+        this.$store.commit('setExp', this.stage + 1)
       }
+
       if (this.stage == 6) {
         this.stage = 5
+        this.$store.commit('setExp', 6)
         this.isFinish = true
         this.stopCapture()
       }

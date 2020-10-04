@@ -46,8 +46,8 @@
   </div>
 </template>
 <script>
-import draggable from "vuedraggable";
-import http from "../utils/http-common.js";
+import draggable from 'vuedraggable'
+import http from '../utils/http-common.js'
 export default {
   props: {
     isDone: false,
@@ -58,109 +58,109 @@ export default {
       quiz: null,
       selectedIndex: -1,
       answers: [],
-    };
+    }
   },
   created() {
     this.quiz = {
       url:
-        "http://j3a510.p.ssafy.io/images/" +
+        'http://j3a510.p.ssafy.io/images/' +
         this.$store.state.quiz_adv.filePath,
       sentence: this.$store.state.quiz_adv.caption,
-      sentence_kr: "번역본",
+      sentence_kr: '번역본',
       answers: this.$store.state.quiz_adv.tokens,
-    };
-    console.log(this.$store.state.quiz_adv.tokens);
+    }
+    console.log(this.$store.state.quiz_adv.tokens)
   },
   watch: {
     isDone: function (val) {
-      if (this.isCorrect()) this.$emit("correct");
-      else this.$emit("wrong");
+      if (this.isCorrect()) this.$emit('correct')
+      else this.$emit('wrong')
     },
   },
   methods: {
     isCorrect() {
-      var compare = "";
+      var compare = ''
       // compare = this.answers.join(" ") + " .";
       for (var i = 0; i < this.answers.length; i++) {
-        compare += this.answers[i].token;
-        compare += " ";
+        compare += this.answers[i].token
+        compare += ' '
       }
-      compare += ".";
-      console.log("정답묶음 : " + compare);
-      if (compare == this.quiz.sentence) return true;
-      else return false;
+      compare += '.'
+      console.log('정답묶음 : ' + compare)
+      if (compare == this.quiz.sentence) return true
+      else return false
     },
     soundAndTranslation(sentence) {
-      speech(sentence);
+      speech(sentence)
     },
     goAnswer(answer) {
       if (answer[0] != false) {
         // 퀴즈 리스트에서 없애기
-        const idx = this.quiz.answers.indexOf(answer);
-        if (idx > -1) this.quiz.answers.splice(idx, 1);
-        this.quiz.answers.splice(idx, 0, [false, answer]);
+        const idx = this.quiz.answers.indexOf(answer)
+        if (idx > -1) this.quiz.answers.splice(idx, 1)
+        this.quiz.answers.splice(idx, 0, [false, answer])
         // 답변 리스트에 추가하기
-        this.answers.push(answer);
+        this.answers.push(answer)
       }
     },
     returnAnswer(answer) {
-      const idx = this.answers.indexOf(answer);
-      if (idx > -1) this.answers.splice(idx, 1);
+      const idx = this.answers.indexOf(answer)
+      if (idx > -1) this.answers.splice(idx, 1)
       for (var i = 0; i < this.quiz.answers.length; i++) {
         if (this.quiz.answers[i][1] == answer) {
-          this.quiz.answers.splice(i, 1);
-          this.quiz.answers.splice(i, 0, answer);
+          this.quiz.answers.splice(i, 1)
+          this.quiz.answers.splice(i, 0, answer)
         }
       }
     },
   },
-};
-
-var voices = [];
-function setVoiceList() {
-  voices = window.speechSynthesis.getVoices();
 }
-setVoiceList();
+
+var voices = []
+function setVoiceList() {
+  voices = window.speechSynthesis.getVoices()
+}
+setVoiceList()
 if (window.speechSynthesis.onvoiceschanged !== undefined) {
-  window.speechSynthesis.onvoiceschanged = setVoiceList;
+  window.speechSynthesis.onvoiceschanged = setVoiceList
 }
 function speech(txt) {
   if (!window.speechSynthesis) {
     alert(
-      "음성 재생을 지원하지 않는 브라우저입니다. 크롬, 파이어폭스 등의 최신 브라우저를 이용하세요"
-    );
-    return;
+      '음성 재생을 지원하지 않는 브라우저입니다. 크롬, 파이어폭스 등의 최신 브라우저를 이용하세요'
+    )
+    return
   }
-  var lang = "en-US";
-  var utterThis = new SpeechSynthesisUtterance(txt);
+  var lang = 'en-US'
+  var utterThis = new SpeechSynthesisUtterance(txt)
   utterThis.onend = function (event) {
-    console.log("end");
-  };
+    console.log('end')
+  }
   utterThis.onerror = function (event) {
-    console.log("error", event);
-  };
-  var voiceFound = false;
+    console.log('error', event)
+  }
+  var voiceFound = false
   for (var i = 0; i < voices.length; i++) {
     if (
       voices[i].lang.indexOf(lang) >= 0 ||
-      voices[i].lang.indexOf(lang.replace("-", "_")) >= 0
+      voices[i].lang.indexOf(lang.replace('-', '_')) >= 0
     ) {
-      utterThis.voice = voices[i];
-      voiceFound = true;
+      utterThis.voice = voices[i]
+      voiceFound = true
     }
   }
   if (!voiceFound) {
-    alert("voice not found");
-    return;
+    alert('voice not found')
+    return
   }
-  utterThis.lang = lang;
-  utterThis.pitch = 1;
-  utterThis.rate = 1; //속도
-  window.speechSynthesis.speak(utterThis);
+  utterThis.lang = lang
+  utterThis.pitch = 1
+  utterThis.rate = 0.6 //속도
+  window.speechSynthesis.speak(utterThis)
 }
 </script>
 <style lang="scss">
-@import "../assets/sass/base.scss";
+@import '../assets/sass/base.scss';
 </style>
 <style lang="scss" scoped>
 .quiz-sentence {

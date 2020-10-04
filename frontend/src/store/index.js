@@ -55,7 +55,7 @@ export default new Vuex.Store({
       state.kid = payload
     },
     setExp(state, payload) {
-      state.exp = payload
+      state.exp = state.exp + payload
     },
     setIsNew(state, payload) {
       state.isNew = payload

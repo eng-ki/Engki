@@ -1,19 +1,18 @@
 <template>
   <div>
     <div class="etc"></div>
-    {{ correct }}
     <break-time class="break-time" v-on:continue="goEtc()" v-if="isBreakTime" />
-    <finish :correct="correct" class="finish" v-else-if="isFinish" />
+    <finish class="finish" v-else-if="isFinish" />
     <img class="tiki" src="../../public/img/icon/moving_tiki.gif" />
   </div>
 </template>
 
 <script>
-import BreakTime from "@/components/BreakTime.vue";
-import Finish from "@/components/Finish.vue";
+import BreakTime from '@/components/BreakTime.vue'
+import Finish from '@/components/Finish.vue'
 
 export default {
-  name: "Etc",
+  name: 'Etc',
   components: {
     BreakTime,
     Finish,
@@ -21,17 +20,16 @@ export default {
   props: {
     isBreakTime: false,
     isFinish: false,
-    correct: null,
   },
   methods: {
     goEtc() {
-      this.$emit("continue");
+      this.$emit('continue')
     },
   },
-};
+}
 </script>
 <style lang="scss">
-@import "../assets/sass/base.scss";
+@import '../assets/sass/base.scss';
 </style>
 <style lang="scss" scoped>
 .etc {
