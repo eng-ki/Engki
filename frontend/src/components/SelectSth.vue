@@ -138,7 +138,7 @@ export default {
         // console.log(
         //   '버튼 클릭후 스토어 kid값 조회 : ' + this.$store.state.kid.name
         // );
-        this.$router.push('/selectquiz')
+        this.$router.push('/kid')
       }
     },
     moveCarousel(direction) {

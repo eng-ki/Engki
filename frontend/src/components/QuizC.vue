@@ -56,8 +56,10 @@ export default {
   },
   watch: {
     isDone: function (val) {
-      if (this.isCorrect()) this.$emit('correct')
-      else this.$emit('wrong')
+      if (this.isCorrect()) {
+        this.$store.commit('setExp', 3)
+        this.$emit('correct')
+      } else this.$emit('wrong')
     },
     url: function (val) {
       if (this.url == this.quiz.url1) {

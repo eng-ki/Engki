@@ -35,7 +35,6 @@ export default {
   mounted() {
     // 이전 경험치
     this.beforeExp = this.$store.state.kid.exp
-
     // 새로 얻은 경험치와 학습 단어 저장
     http
       .post(
@@ -57,7 +56,6 @@ export default {
             this.$store.commit('setKid', data)
           })
       })
-    this.$store.state.exp = 0
     // 이전 경험치 % 100
     this.startExp = this.beforeExp % 100
 
