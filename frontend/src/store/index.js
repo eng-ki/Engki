@@ -10,6 +10,7 @@ export default new Vuex.Store({
     user: {},
     token: null,
     quiz: null,
+    quiz_adv: null,
     kid: null,
   },
   getters: {
@@ -21,6 +22,9 @@ export default new Vuex.Store({
     },
     getQuiz: function (state) {
       return state.quiz;
+    },
+    getQuizAdv: function (state) {
+      return state.quiz_adv;
     },
     getKid: function (state) {
       return state.kid;
@@ -35,6 +39,9 @@ export default new Vuex.Store({
     },
     setQuiz(state, payload) {
       state.quiz = payload;
+    },
+    setQuizAdv(state, payload) {
+      state.quiz_adv = payload;
     },
     setKid(state, payload) {
       state.kid = payload;

@@ -23,49 +23,48 @@
   </div>
 </template>
 <script>
+import http from "../utils/http-common.js";
 export default {
-  props: ['isDone','answer'],
+  props: {
+    isDone: false,
+  },
   data: () => {
     return {
       quiz: null,
       selectedIndex: -1,
-    }
+    };
   },
   created() {
-    //api 호출
     this.quiz = {
-      url: '/img/etc/puppy2.jpg',
-      sentence: 'A dog is running',
-      answers: [
-        'A dog is running',
-        'I always eat cookie',
-        'There is a sky',
-        'Cat is really cute',
-      ],
-    }
+      url:
+        "http://j3a510.p.ssafy.io/images/" +
+        this.$store.state.quiz_adv.filePath,
+      sentence: this.$store.state.quiz_adv.caption,
+      answers: this.$store.state.quiz_adv.randomCaptions,
+    };
+    this.quiz.answers.push(this.$store.state.quiz_adv.caption);
+    // 랜덤으로 한번 섞어야되는데 어떻게해야되지 흠
   },
   watch: {
     isDone: function (val) {
-      if (this.isCorrect()) this.$emit('correct')
-      else this.$emit('wrong')
+      if (this.isCorrect()) this.$emit("correct");
+      else this.$emit("wrong");
     },
   },
   methods: {
     isCorrect() {
       if (this.quiz.answers[this.selectedIndex] == this.quiz.sentence)
-        return true
-      else {
-        return false
-      }
+        return true;
+      else return false;
     },
     select(index) {
-      this.selectedIndex = index
+      this.selectedIndex = index;
     },
   },
-}
+};
 </script>
 <style lang="scss">
-@import '../assets/sass/base.scss';
+@import "../assets/sass/base.scss";
 </style>
 <style lang="scss" scoped>
 .quiz-img img {

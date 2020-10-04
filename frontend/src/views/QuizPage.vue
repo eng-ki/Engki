@@ -22,8 +22,6 @@
       <div class="board">
         <quiz-a
           :isDone="isDone"
-          :answer="answer"
-          @set-answer="setAnswer"
           v-on:correct="isNextStage(true)"
           v-on:wrong="isNextStage(false)"
           class="quiz"
@@ -31,7 +29,6 @@
         />
         <quiz-b
           :isDone="isDone"
-          :answer="answer"
           v-on:correct="isNextStage(true)"
           v-on:wrong="isNextStage(false)"
           class="quiz"
@@ -39,7 +36,6 @@
         />
         <quiz-c
           :isDone="isDone"
-          :answer="answer"
           v-on:correct="isNextStage(true)"
           v-on:wrong="isNextStage(false)"
           class="quiz"
@@ -47,7 +43,6 @@
         />
         <quiz-d
           :isDone="isDone"
-          :answer="answer"
           v-on:correct="isNextStage(true)"
           v-on:wrong="isNextStage(false)"
           class="quiz"
@@ -55,7 +50,6 @@
         />
         <quiz-e
           :isDone="isDone"
-          :answer="answer"
           v-on:correct="isNextStage(true)"
           v-on:wrong="isNextStage(false)"
           class="quiz"
@@ -63,7 +57,6 @@
         />
         <quiz-f
           :isDone="isDone"
-          :answer="answer"
           v-on:correct="isNextStage(true)"
           v-on:wrong="isNextStage(false)"
           class="quiz"
