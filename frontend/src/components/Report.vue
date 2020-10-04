@@ -115,6 +115,7 @@
 </template>
 
 <script>
+import http from '../utils/http-common.js'
 // import VueCharts from "vue-chartjs";
 // import { Bar, Line } from 'vue-chartjs'
 export default {
@@ -168,9 +169,18 @@ export default {
         "Conference",
         "Party",
       ],
+      edu: [],
     };
   },
   mounted() {
+   http
+      .get('/kids/'+this.$store.state.kid.id+'/week/0', {
+        headers: { 'X-AUTH-TOKEN': this.$store.state.token },
+      })
+      .then(({ data }) => {
+        this.edu = data
+      })
+
     $(".v-calendar-daily__intervals-head").remove();
     $(".v-calendar-daily__body").remove();
     $(function () {

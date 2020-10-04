@@ -52,7 +52,13 @@
 
     <!-- 이미지 등록 -->
     <div v-else>
-      <input ref="imageInput" type="file" hidden @change="onChangeImages" />
+      <input
+        class="custom-image"
+        ref="imageInput"
+        type="file"
+        hidden
+        @change="onChangeImages"
+      />
       <button class="upload-image" @click="onClickImageUpload">
         학습에 사용할 이미지를 등록해주세요
       </button>
@@ -66,6 +72,7 @@
   </div>
 </template>
 <script>
+import http from '../utils/http-common.js'
 export default {
   name: 'UploadPicture',
   props: {
@@ -82,6 +89,7 @@ export default {
       ReadS: false, // 문장 readonly 여부
       ReadW: false, // 단어 readonly 여부
       overlay: false, // 로딩 여부
+      custom: null, //(file_path, boundaries, caption, seg_word, caption_word , caption_kor, seg_word_kor, caption_word_kor)
     }
   },
   methods: {
@@ -97,7 +105,17 @@ export default {
         showLoaderOnConfirm: true,
       }).then((result) => {
         if (result.value) {
-          this.$router.push('/quiz')
+          // http
+          //   .post(
+          //     'http://j3a510.p.ssafy.io:8083/custom/quiz/save',
+          //     { files: file, parent_id: this.$store.state.parent.id },
+          //     {
+          //       headers: { 'X-AUTH-TOKEN': this.$store.state.token },
+          //     }
+          //   )
+          //   .then(({ data }) => {
+          //     this.$router.push('/quiz')
+          //   })
         }
       })
     },
@@ -109,13 +127,33 @@ export default {
       this.$refs.imageInput.click()
     },
     onChangeImages(e) {
-      console.log(e.target.files)
-      const file = e.target.files[0]
       this.overlay = !this.overlay
-      setTimeout(() => {
-        this.overlay = false
-        this.isUploaded = true
-      }, 3000)
+
+      // file : image file
+      const file = e.target.files[0]
+      // frm : form data
+      const frm = new FormData()
+      frm.append('files', file)
+      frm.append('parent_id', this.$store.state.parent.id)
+
+      http
+        .post('http://j3a510.p.ssafy.io:8083/custom/quiz/make', frm, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            'Access-Control-Allow-Origin': '*',
+          },
+        })
+        .then(({ data }) => {
+          this.custom = data
+          console.log(data)
+          this.overlay = false
+          this.isUploaded = true
+        })
+        .catch((err) => {
+          console.error(err)
+          this.overlay = false
+        })
+
       this.img = URL.createObjectURL(file)
     },
   },
@@ -127,8 +165,6 @@ export default {
 <style lang="scss" scoped>
 * {
   font-family: 'GmarketSansMedium';
-  // z-index: 1000;
-  // padding: 20%;
 }
 .upload-image {
   position: absolute;

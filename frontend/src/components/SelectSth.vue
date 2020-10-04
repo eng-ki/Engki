@@ -102,7 +102,7 @@ export default {
         this.$store.commit("setQuiz", this.datas[index].id);
         // console.log(
         //   '버튼 클릭후 스토어 quiz값 조회 : ' + this.$store.state.quiz
-        // );
+        // );c
         this.$router.push("/quiz");
       } else if (this.option == "kid") {
         this.$store.commit("setKid", this.datas[index]);
