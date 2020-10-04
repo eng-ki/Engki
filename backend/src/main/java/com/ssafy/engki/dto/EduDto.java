@@ -85,6 +85,13 @@ public class EduDto {
 		@ApiModelProperty(value = "image caption 한국어 번역", example = "금속 벤치 옆에 주차된 자전거")
 		private String captionKor;
 
+		@ApiModelProperty(value = "random word list (보기로 사용)",
+			example = "['bicycle', "
+				+ "'truck', "
+				+ "'airplane', "
+				+ "'train' ]")
+		private List<String> randomWords;
+
 		@ApiModelProperty(value = "random caption list (보기로 사용)",
 			example = "['a man on a horse in the snow .', "
 				+ "'a bike parked next to a metal bench .', "

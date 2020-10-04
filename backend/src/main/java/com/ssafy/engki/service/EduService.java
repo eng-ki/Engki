@@ -123,6 +123,15 @@ public class EduService {
 		List<ImageCaption> imageCaptions = imageCaptionRepository.getAllByWordId(wordId);
 		ImageCaption imageCaption = imageCaptions.get(rand.nextInt(imageCaptions.size()));
 
+		List<String> randomWords = new ArrayList<>(Collections.singletonList(imageCaption.getWord().getWord()));
+		List<Word> wordsExceptWord
+			= wordRepository.getWordsByThemeExceptWord(imageCaption.getWord().getThemeId(),
+			imageCaption.getWord().getId());
+		rand.ints(3, 0, wordsExceptWord.size()).forEach(idx ->
+			randomWords.add(wordsExceptWord.get(idx).getWord())
+		);
+		Collections.shuffle(randomWords);
+
 		List<String> captionsExceptWord = imageCaptionRepository.findExceptWord(wordId);
 		List<String> randomCaptions = new ArrayList<>(Collections.singletonList(imageCaption.getCaption()));
 		rand.ints(3, 0, captionsExceptWord.size()).forEach(idx ->
@@ -134,6 +143,7 @@ public class EduService {
 			.filePath(imageCaption.getImage().getFilePath())
 			.caption(imageCaption.getCaption())
 			.captionKor(imageCaption.getCaptionKor())
+			.randomWords(randomWords)
 			.randomCaptions(randomCaptions)
 			.tokens(tokenize(imageCaption.getCaption()))
 			.build();
