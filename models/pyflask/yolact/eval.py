@@ -171,7 +171,7 @@ def prep_display(dets_out, img, h, w, undo_transform=True, class_color=False, ma
 
     if num_dets_to_consider == 0:
         # No detections found so just output the original image
-        return (img_gpu * 255).byte().cpu().numpy()
+        return (img_gpu * 255).byte().cpu().numpy(), []
 
     # Quick and dirty lambda for selecting the color for a particular index
     # Also keeps track of a per-gpu color cache for maximum speed

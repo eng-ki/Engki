@@ -21,7 +21,11 @@
               <input size="14" v-model="custom.caption_word_kor[index]" />
             </td>
           </tr>
-          <tr v-for="(word, index) in custom.seg_word" v-bind:key="'B' + index">
+          <tr
+            style="background-color: gray"
+            v-for="(word, index) in custom.seg_word"
+            v-bind:key="'B' + index"
+          >
             <td width="150" style="border-right: 2px solid lightgray">
               <input size="10" v-model="custom.seg_word[index]" />
             </td>
@@ -72,6 +76,7 @@
 </template>
 <script>
 import http from '../utils/http-common.js'
+
 export default {
   name: 'UploadPicture',
   props: {
@@ -101,11 +106,11 @@ export default {
         showLoaderOnConfirm: true,
       }).then((result) => {
         if (result.value) {
-          console.log(this.custom)
           http
             .post(
-              'http://j3a510.p.ssafy.io:8083/custom/quiz/save',
+              'https://j3a510.p.ssafy.io:8083/custom/quiz/save',
               {
+                parent_id: this.$store.state.parent.id,
                 file_path: this.custom.file_path,
                 boundaries: this.custom.boundaries,
                 caption: this.custom.caption,
@@ -117,15 +122,20 @@ export default {
               },
               {
                 headers: {
-                  'Access-Control-Allow-Origin': '*',
+                  'Content-Type': 'application/json',
                 },
               }
             )
             .then(({ data }) => {
-              console.log(data)
+              if (data == 'success') {
+                alert('학습이 저장됩니다.')
+                console.log('학습 성공')
+              }
             })
             .catch((err) => {
               console.error(err)
+
+              alert('학습에 실패하였습니다.')
             })
         }
       })
@@ -142,12 +152,10 @@ export default {
       const frm = new FormData()
       frm.append('files', file)
       frm.append('parent_id', this.$store.state.parent.id)
-
       http
-        .post('http://j3a510.p.ssafy.io:8083/custom/quiz/make', frm, {
+        .post('https://j3a510.p.ssafy.io:8083/custom/quiz/make', frm, {
           headers: {
             'Content-Type': 'multipart/form-data',
-            'Access-Control-Allow-Origin': '*',
           },
         })
         .then(({ data }) => {
@@ -269,7 +277,7 @@ export default {
 }
 .custom-start {
   position: absolute;
-  right: -3vw;
+  right: 0vw;
   top: 23vh;
 }
 
@@ -277,6 +285,12 @@ export default {
   width: 5vw;
   &:hover {
     opacity: 0.6;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .title .sentences .word td {
+    font-size: 0.9vw;
   }
 }
 </style>

@@ -190,8 +190,8 @@ export default {
   opacity: 0.8;
   border-radius: 50%;
   background: white;
-  width: 29vh;
-  height: 29vh;
+  width: 15%;
+  height: 15%;
   top: 18vh;
   left: 50vw;
   position: relative;
@@ -210,33 +210,33 @@ export default {
   margin-top: -1vw;
 }
 .profile-icon .bar {
-  position: absolute;
-  left: 2.5vw;
-  width: 10vw;
+  position: relative;
+  transform: translate(25%, 0%);
+  width: 68%;
 }
 .profile-icons {
   margin-top: -2%;
   margin-left: 10%;
   margin-right: 10%;
   background-color: white;
-  height: 70vh;
+  height: 70%;
   border-radius: 10vh;
   padding: 5vh 1vw 1vh 5vw;
 }
 
 .profile-icons .change-button {
-  left: 43%;
-  bottom: 7%;
-  position: absolute;
+  position: relative;
   display: inline-block;
 }
 .button-1 {
   float: left;
+  margin-left: -3.5vw;
   margin-right: 3.5vw;
 }
 .button-2 {
   float: left;
 }
+
 .active {
   border: 3px solid #8ebf43;
   border-style: dotted;
