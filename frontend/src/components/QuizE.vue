@@ -1,25 +1,34 @@
 <template>
   <div>
-    <!-- 사진 영역 -->
-    <div class="quiz-img">
-      <img :src="quiz.url" />
-    </div>
-    <!-- 사진 영역 끝-->
-    <!-- 답변 영역 -->
-    <div class="quiz-text">
-      <div class="quiz-answer">
-        <button
-          v-for="(answer, index) in quiz.answers"
-          v-bind:key="index"
-          class="quiz-button"
-          :class="{ selected: selectedIndex == index }"
-          @click="select(index)"
-        >
-          {{ answer }}
-        </button>
+    <!-- 오른쪽 영역 -->
+    <div class="right-side">
+      <!-- 사진 -->
+      <div class="quiz-img">
+        <img :src="quiz.url" />
       </div>
+      <!-- 사진 끝-->
     </div>
-    <!-- 답변 영역 끝 -->
+    <!-- 오른쪽 영역 끝-->
+
+    <!-- 왼쪽 영역 -->
+    <div class="left-side">
+      <!-- 답변 영역 -->
+      <div class="quiz-text">
+        <div class="quiz-answer">
+          <button
+            v-for="(answer, index) in quiz.answers"
+            v-bind:key="index"
+            class="quiz-button"
+            :class="{ selected: selectedIndex == index }"
+            @click="select(index)"
+          >
+            {{ answer }}
+          </button>
+        </div>
+      </div>
+      <!-- 답변 영역 끝 -->
+    </div>
+    <!--왼쪽 영역 끝-->
   </div>
 </template>
 <script>
@@ -46,9 +55,9 @@ export default {
   watch: {
     isDone: function (val) {
       if (this.isCorrect()) {
-        this.$store.commit('setExp', 5)
-        this.$emit('correct')
-      } else this.$emit('wrong')
+        this.$store.commit('setExp', 5);
+        this.$emit('correct');
+      } else this.$emit('wrong');
     },
   },
   methods: {
@@ -80,38 +89,66 @@ export default {
 @import '../assets/sass/base.scss';
 </style>
 <style lang="scss" scoped>
-.quiz-img img {
+.right-side {
   position: absolute;
-  top: 30%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 26%;
-  border-radius: 5vw;
-  border: 1vw solid #d5d5d5;
+  // display: inline-block;
+  top: 10vh;
+  left: 0px;
+  width: 30%;
+  height: 100%;
+  // background-color: yellow;
+  .quiz-img {
+    line-height: 100%;
+    img {
+      // vertical-align: middle;
+      display: inline-block;
+      position: relative;
+      // left: 1vw;
+      // top: 3vh;
+      // float: left;
+      // margin-top: 5vh;
+      // margin-top: auto;
+      width: 100%;
+      border-radius: 5vw;
+      border: 1vw solid #d5d5d5;
+    }
+  }
 }
-
-.quiz-answer {
-  top: 80%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.left-side {
   position: absolute;
-  width: 70vw;
-}
+  display: inline-block;
+  top: 10vh;
+  right: 0px;
+  width: 70%;
+  height: 100%;
+  // background-color: red;
 
-.quiz-button {
-  /* 사이즈 설정 */
-  width: 28vw;
-  height: 8vh;
-  margin: 1vw;
+  .quiz-answer {
+    display: inline-block;
+    position: relative;
+    // top: 80%;
+    // left: 50%;
+    // right: 1vw;
+    // transform: translate(-50%, -50%);
+    // top: 6vh;
+    .quiz-button {
+      display: block;
+      /* 사이즈 설정 */
+      width: 100%;
+      height: 8vh;
+      margin: 1vw;
 
-  /* 디자인 */
-  border-radius: 15vw;
-  background-color: #dfdfdf;
+      /* 디자인 */
+      border-radius: 15vw;
+      background-color: #dfdfdf;
 
-  /* 폰트 */
-  font-size: 3vh;
-  text-align: center;
-  color: black;
+      /* 폰트 */
+      font-size: 3vh;
+      font-weight: 100;
+      text-align: center;
+      color: black;
+    }
+  }
 }
 
 .selected {
