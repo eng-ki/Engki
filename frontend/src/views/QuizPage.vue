@@ -165,8 +165,6 @@ export default {
   },
   beforeDestroy() {
     this.stopCapture()
-
-    this.onStop()
   },
   computed: {
     device: function () {
@@ -174,6 +172,7 @@ export default {
     },
   },
   mounted() {
+    this.$store.state.exp = 0
     this.onStart()
     this.startCapture()
   },
@@ -234,7 +233,9 @@ export default {
     isPass() {
       this.$swal({
         title:
-          '<div style="font-weight:100; font-size:2vw; margin-top:1vw;">다음 퀴즈로 넘어갈까요?</div>',
+          this.stage != 5
+            ? '<div style="font-weight:100; font-size:2vw; margin-top:1vw;">다음 퀴즈로 넘어갈까요?</div>'
+            : '<div style="font-weight:100; font-size:2vw; margin-top:1vw;">퀴즈 푸는걸 그만할까요?</div>',
         type: 'warning',
         showCancelButton: true,
         confirmButtonText:

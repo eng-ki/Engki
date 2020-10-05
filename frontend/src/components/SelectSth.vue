@@ -26,6 +26,9 @@
               >
                 <img class="dataimage" :src="imgpath + data.icon" />
                 <div class="dataname">{{ data.name }}</div>
+                <div v-if="option == 'kid'">
+                  Level.{{ data.exp / 100 - (data.exp % 100) / 100 + 1 }}
+                </div>
               </div>
             </div>
           </div>
@@ -64,12 +67,12 @@ export default {
   },
   created() {
     if (this.option == 'quiz') {
-      this.msg = '주제를 선택해주세요'
+      this.msg = '학습할 주제를 선택하세요'
       this.path = '/edu'
     } else if (this.option == 'kid') {
       this.$store.commit('setKid', null)
       console.log('초기화하고나서 스토어 kid값 조회 : ' + this.$store.state.kid)
-      this.msg = '자신의 캐릭터를 선택해주세요'
+      this.msg = '학습을 시작할 프로필을 고르세요'
       this.path = '/parents/' + this.$store.state.parent.id + '/kids'
       this.imgpath = ''
     }
