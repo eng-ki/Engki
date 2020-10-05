@@ -35,13 +35,19 @@
           @returnKidPage="goChangeProfile()"
         />
       </div>
+
+      <img
+        src="../../public/img/icon/kid_logout.png"
+        style="height: 20vh; position: absolute; bottom: 0vh; left: 5vw"
+        @click="gotoselectkid"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import SetProfileImage from '@/components/SetProfileImage.vue'
-import Inventory from '@/components/Inventory.vue'
+import SetProfileImage from '@/components/SetProfileImage.vue';
+import Inventory from '@/components/Inventory.vue';
 
 export default {
   name: 'KidPage',
@@ -53,21 +59,24 @@ export default {
     return {
       isChangeProfile: false,
       kid: null,
-    }
+    };
   },
   created() {
-    this.kid = this.$store.state.kid
-    console.log(this.kid)
+    this.kid = this.$store.state.kid;
+    console.log(this.kid);
   },
   methods: {
     goChangeProfile() {
-      this.isChangeProfile = !this.isChangeProfile
+      this.isChangeProfile = !this.isChangeProfile;
     },
     goSelectQuiz() {
-      this.$router.push('/selectquiz')
+      this.$router.push('/selectquiz');
+    },
+    gotoselectkid() {
+      this.$router.push('/selectkid');
     },
   },
-}
+};
 </script>
 
 <style lang="scss">

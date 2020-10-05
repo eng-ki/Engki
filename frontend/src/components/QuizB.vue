@@ -43,9 +43,9 @@ export default {
   watch: {
     isDone: function (val) {
       if (this.isCorrect()) {
-        this.$store.commit('setExp', 2)
-        this.$emit('correct')
-      } else this.$emit('wrong')
+        this.$store.commit('setExp', 2);
+        this.$emit('correct');
+      } else this.$emit('wrong');
     },
   },
   methods: {
@@ -58,10 +58,8 @@ export default {
             this.$swal({
               title:
                 '<div><span style="font-weight:100; font-size:2vw;">정답이 아닙니다.</span><br><span  style="font-weight:100; font-size:2vw;">다시 한번 생각해보세요.</span></div>',
-              type: 'warning',
               showCancelButton: false,
               confirmButtonText: '확인',
-              showLoaderOnConfirm: true,
               timer: 1000,
             }).then((result) => {
               return true;
@@ -76,12 +74,9 @@ export default {
             '<div style="font-weight:100; font-size:2vw;"> ' +
             this.datas.answerNum +
             '개를 선택해주세요</div>',
-          type: 'warning',
           showCancelButton: false,
           confirmButtonText: '확인',
-          showLoaderOnConfirm: true,
         }).then((result) => {});
-        // alert(this.datas.answerNum + '')
         return false;
       }
       return true;
