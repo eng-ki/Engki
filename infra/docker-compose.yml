@@ -12,7 +12,7 @@ services:
                         - MYSQL_RANDOM_ROOT_PASSWORD=yes
                         - MYSQL_DATABASE=ENGKI
                         - MYSQL_USER=deki
-                        - MYSQL_PASSWORD=./db_password
+                        - MYSQL_PASSWORD_FILE=./db_password
                         - TZ=Asia/Seoul
                 ports:
                         - 3306:3306
