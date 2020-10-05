@@ -112,13 +112,13 @@
 </template>
 
 <script>
-import SetKid from '@/components/SetKid.vue';
-import Report from '@/components/Report.vue';
-import UploadPicture from '@/components/UploadPicture.vue';
-import SetEmail from '@/components/SetEmail.vue';
-import http from '../utils/http-common.js';
+import SetKid from "@/components/SetKid.vue";
+import Report from "@/components/Report.vue";
+import UploadPicture from "@/components/UploadPicture.vue";
+import SetEmail from "@/components/SetEmail.vue";
+import http from "../utils/http-common.js";
 export default {
-  name: 'ParentPage',
+  name: "ParentPage",
   components: {
     SetKid,
     Report,
@@ -127,7 +127,9 @@ export default {
   },
   data: () => {
     return {
-      kids: [],
+      // kid 비어있으니까 자녀 등록페이지 깜빡이는 현상 생겨서 일단 데이터 넣어뒀는데 이것때문에 400에러 뜸. 아까 구현했는데 merge하다가 날아갔어요ㅠㅠ
+      // 시간 남으면 고쳐보겠슴다
+      kids: "not empty",
       selectedIndex: 0,
       isReport: true,
       isAddKid: false,
@@ -138,7 +140,6 @@ export default {
   },
   created() {
     this.getKids();
-    console.log('적용');
   },
   computed: {
     atEndOfList() {
@@ -156,14 +157,14 @@ export default {
       // console.log('띄움');
       // console.log(this.$store.state.parent.id);
       http
-        .get('parents/' + this.$store.state.parent.id + '/kids', {
-          headers: { 'X-AUTH-TOKEN': this.$store.state.token },
+        .get("parents/" + this.$store.state.parent.id + "/kids", {
+          headers: { "X-AUTH-TOKEN": this.$store.state.token },
         })
         .then(({ data }) => {
           this.kids = data;
           // console.log(this.kids);
           // console.log(this.kids[0].id);
-          this.$store.commit('setSelectedKid', this.kids[0].id);
+          this.$store.commit("setSelectedKid", this.kids[0].id);
         });
     },
     selectKid(index) {
@@ -171,24 +172,24 @@ export default {
       // console.log('자녀정보:');
       // console.log(this.kids[index].id);
       // this.$store.commit('getSelectedKid', this.kids[index].id);
-      this.$store.commit('setSelectedKid', this.kids[index].id);
+      this.$store.commit("setSelectedKid", this.kids[index].id);
     },
     deleteKid(index) {
       this.$swal({
         title:
           '<span style="font-family: GmarketSansMedium;font-size:1.5vw;">자녀 데이터를 삭제하시겠습니까?</span>',
 
-        type: 'warning',
+        type: "warning",
         showCancelButton: true,
-        confirmButtonText: '삭제',
-        cancelButtonText: '취소',
+        confirmButtonText: "삭제",
+        cancelButtonText: "취소",
         showCloseButton: true,
         showLoaderOnConfirm: true,
       }).then((result) => {
         if (result.value) {
           http
-            .delete('/kids/' + this.kids[this.selectedIndex].id, {
-              headers: { 'X-AUTH-TOKEN': this.$store.state.token },
+            .delete("/kids/" + this.kids[this.selectedIndex].id, {
+              headers: { "X-AUTH-TOKEN": this.$store.state.token },
             })
             .then(({ data }) => {
               this.kids.splice(index, 1);
@@ -209,13 +210,13 @@ export default {
       }
     },
     backtomain() {
-      this.$router.push('/selectkid');
+      this.$router.push("/selectkid");
     },
   },
 };
 </script>
 <style lang="scss">
-@import '../assets/sass/base.scss';
+@import "../assets/sass/base.scss";
 </style>
 <style lang="scss" scoped>
 $top-margin: 16vh;
@@ -230,7 +231,7 @@ $font-size: 2.5vh;
 $arrowcolor: black;
 
 * {
-  font-family: 'GmarketSansMedium';
+  font-family: "GmarketSansMedium";
   color: #4b4b4b;
 }
 

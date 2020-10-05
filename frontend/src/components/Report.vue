@@ -5,9 +5,8 @@
         <v-col cols="12" style="padding: 5px">
           <v-row class="row-title">
             <div class="cal-left">
-              <v-btn icon class="ma-2" @click="$refs.calendar.prev()">
+              <v-btn icon class="ma-2 toprev" @click="toprevious();">
                 <v-icon>mdi-chevron-left</v-icon>
-               
               </v-btn>
             </div>
             <div class="cal">
@@ -16,21 +15,20 @@
               </v-toolbar-title>
             </div>
             <div class="cal-right">
-              <v-btn icon class="ma-2" @click="$refs.calendar.next()">
+              <v-btn icon class="ma-2 tonext" @click="tonext();">
                 <v-icon>mdi-chevron-right</v-icon>
               </v-btn>
             </div>
           </v-row>
           <v-row>
             <v-col cols="12" style="text-align: center">
-              <v-sheet height="50vh">
+              <v-sheet >
                 <v-calendar
                   ref="calendar"
                   type="week"
                   v-model="value"
                   :weekdays="weekday"
                   :events="events"
-                  @change="getEvents"
                 ></v-calendar>
               </v-sheet>
             </v-col>
@@ -40,31 +38,25 @@
       <div class="showemotion">
         <div class="x-axis">
           <div style="display: inline-block; float: left">
-            <h3 style="text-align: left">감정 그래프</h3>
+            <h3 style="text-align: left">감정 그래프 <span style="font-size:1.5vh"> 이번주 데이터만 조회 가능합니다. </span> </h3>
           </div>
           <div style="display: inline-block; float: right">
             <ul class="legend">
-              <li v-for="(emotion,index) in emotions" v-bind:key="index">{{emotion.text}}</li>
+              <li v-for="(emotion,index) in emotions" v-bind:key="index">{{emo[emotion.text]}}</li>
             </ul>
           </div>
         </div>
         <div class="graphic">
-          <div class="row">
-            <div class="chart">
-              <span v-for="(eachemotion,index) in edu[0].emotion" v-bind:key="index" class="block" :title=index>
-                <span class="val" v-text="eachemotion"></span>
+            <div v-if="emotions" class="chart">
+              <span v-for="(eachemotion,index) in emotions" v-bind:key="index" class="block" :title=emo[eachemotion.text]>
+                <span class="val" v-text="eachemotion.value"></span>
               </span>
             </div>
-
-
-            <!-- {{edu[0].emotion}} -->
-            <!-- <div class="chart">
-              <span v-for="(eachemotion,index) in edu[0].emotion" v-bind:key="index" class="block" :title=index>
-                 <span class="value">{{eachemotion}}</span>
+          <div v-if="emotions==''" class="chart">
+              <span class="block" style="background-color:yellow">
+                <span class="val">데이터가 존재하지 않습니다</span>
               </span>
-            </div> -->
-
-          </div>
+            </div>
         </div>
       </div>
     </v-app>
@@ -76,98 +68,109 @@ import http from "../utils/http-common.js";
 export default {
   name: "Report",
   props: {
-    kid: null,
+    kid: '',
   },
   data: function () {
     return {
+      test:0,
+      thisweek: 0,
       type: "week",
       mode: "stack",
       weekday: [1, 2, 3, 4, 5, 6, 0],
       value: "",
       events: [],
-      colors: [
-        "cyan",
-      ],
-      names: [
-        "A",
-        "B",
-        "C",
-        "D",
-        "E",
-        "F",
-        "G",
-      ],
-      emotions:
-      [],
-      // emo:
-      // {'angry':'분노','disgusting':'역겨움'},
+      emotions: [],
+      temp:[],
+      emo:
+      {'angry':'분노','disgusting':'역겨움','fearful':'무서움','happy':'행복','sad':'슬픔','surprising':'놀라움','neutral':'무표정'},
       edu: [
         {date:'',emotion:'', words:' '},
       ],
+      dayclicked:'',
     };
   },
   watch:{
     kid:function(){
-      http
-        .get('/kids/'+this.$store.state.selected_kid+'/week/0', {
-          headers: { 'X-AUTH-TOKEN': this.$store.state.token },
-        })
-        .then(({ data }) => {
-          // $(".legend li").remove();
-          this.emotions=[];
-          this.edu = data
-          for(var val in data[0].emotion){
-            // console.log(val + ' ' + data[0].emotion[val])
-            this.emotions.push({text:val, value:data[0].emotion[val]})
-          }
-          console.log(this.emotions)
-          setTimeout(() => {
-            $(function () {
-            $(".val").each(function () {
-              var text = $(this).text()+'%';
-              $(this).parent().css("width", text);
-            });
-          });
-          }, 100);
-        })
-    }
+      this.refreshdata();
+    },   
+    thisweek:function(){
+      this.refreshdata();
+    },
   },
-  created(){    
-     http
-        .get('/kids/'+this.$store.state.selected_kid+'/week/0', {
-          headers: { 'X-AUTH-TOKEN': this.$store.state.token },
-        })
-        .then(({ data }) => {
-          this.edu = data
-          for(var val in data[0].emotion){
-            this.emotions.push({text:val, value:data[0].emotion[val]})
-          }
-          console.log(this.edu)
-          setTimeout(() => {
-            $(function () {
-            $(".val").each(function () {
-              var text = $(this).text()+'%';
-              $(this).parent().css("width", text);
-            });
-          });
-          }, 5);
-        })
-  }
-  ,mounted() {
+  created(){   
+    this.dayclicked = new Date().getDay()-1;
+    this.refreshdata(); 
+  },
+  mounted(){
+    var vm = this;
     $(".v-calendar-daily__intervals-head").remove();
     $(".v-calendar-daily__body").remove();
+    $(".v-calendar-daily_head-day-label button").click(function(event) {
+      // $(this).addClass("colored");
+      // $(this).removeClass("transparent");
+      vm.dayclicked = $(this).parent().parent().index();
+      vm.setEmotionGraph();
+      console.log(vm.dayclicked );
+    })
   },
   methods: {
-    getEvents({ start, end }) {
-      this.events.push({
-          name: "A",
-          start: "2020-10-06",
-          color: "red",
-      });
+    toprevious(){ 
+      // console.log('previous 클릭됨')
+      // $(".v-calendar-daily_head-day").parent().addClass("colored");
+      // console.log($('.v-calendar-daily_head-day').className);
+      this.thisweek++;
+      this.$refs.calendar.prev();
+    },
+    tonext(){
+      this.thisweek--;
+      this.$refs.calendar.next();
+    },
+    setEmotionGraph(){
+      this.emotions=[];
+      console.log(this.dayclicked);
+      console.log(this.edu);
+      for(var val in this.edu[this.dayclicked].emotion){
+        this.emotions.push({text:val, value:this.edu[this.dayclicked].emotion[val]})
+      }
+        setTimeout(() => {
+          $(function () {
+          $(".val").each(function () {
+            var text = $(this).text()+'%';
+            if(text=='데이터가 존재하지 않습니다%'){
+              $(this).parent().css("width", "100%");
+            }else{
+              $(this).parent().css("width", text);
+            }
+          });
+        });
+        }, 1);
+      
+      
+    },
+    refreshdata(){
+      this.events = []; 
+      http
+        .get('/kids/'+this.kid.id+'/week/'+this.thisweek, {
+          headers: { 'X-AUTH-TOKEN': this.$store.state.token },
+        })
+        .then(({ data }) => {
+          this.edu = data;
+          console.log(this.edu)
+          for(var val in data){
+              this.temp = data[val].words;
+              for (var w in this.temp){
+                this.events.push({
+                name: this.temp[w],
+                start: data[val].date,
+                color: "red",
+                });
+              }
+          }
+          this.setEmotionGraph();
+        })
     },
   },
 };
-    
 </script>
 
 </script>
@@ -327,7 +330,8 @@ figure {
 }
 .block {
   display: block;
-  height: 4.5vh;;
+  height: 4.5vh;
+  line-height: 4.5vh;
   color: #fff;
   font-size: 0.75em;
   float: left;
@@ -359,9 +363,10 @@ figure {
   background-color: #962d3e;
 }
 
-.value {
+.val {
   display: block;
   line-height: 1vh;
+  // vertical-align: middle;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -408,6 +413,9 @@ figure {
   }
   .legend {
     width: 100%;
+  }
+  .colored{
+    background-color: red!important;
   }
 }
 </style>
