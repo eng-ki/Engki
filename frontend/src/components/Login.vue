@@ -11,11 +11,9 @@
               src="../../public//img/icon/moving_tiki.gif"
             />
             <!-- <button class="kakao_btn font-weight-bold"  혹시 이런식으로 class에 kakao_btm 한번 넣어보실래요? -->
-            <button class="inputbox kakao_btn">
+            <button class="inputbox kakao_btn" @click="kakaoLogin()">
               <img src="../../public/img/kakao.png" class="kakao_img" />
-              <span class="kakao_font" @click="kakaoLogin()"
-                >카카오 로그인</span
-              >
+              <span class="kakao_font">카카오 로그인</span>
             </button>
           </div>
         </div>

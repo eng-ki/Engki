@@ -29,7 +29,6 @@
         >
           공부 시작하기
         </button>
-        <vue-web-cam />
         <set-profile-image
           :kid="kid"
           v-if="isChangeProfile"
