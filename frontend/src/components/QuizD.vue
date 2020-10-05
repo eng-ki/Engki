@@ -1,5 +1,19 @@
 <template>
   <div>
+    <!-- 질문 영역 -->
+    <div class="quiz-question">
+      <span v-for="(word, index) in quiz.sentence" v-bind:key="index">
+        <!-- 질문 빈칸 영역 -->
+        <span class="quiz-blank" v-if="word == quiz.word">
+          <span
+            ><span v-for="i in word.length" v-bind:key="i" v-html="blank"></span
+          ></span>
+        </span>
+        <span v-else>&nbsp;{{ word }}&nbsp;</span>
+        <!-- 질문 빈칸 영역 끝 -->
+      </span>
+    </div>
+    <!-- 질문 영역 끝 -->
     <!-- 왼쪽 영역 -->
     <div class="quiz-img">
       <img :src="quiz.url" />
@@ -7,25 +21,6 @@
     <!-- 왼쪽 영역 끝-->
     <!-- 오른쪽 영역 -->
     <div class="quiz-text">
-      <!-- 질문 영역 -->
-
-      <div class="quiz-question">
-        <span v-for="(word, index) in quiz.sentence" v-bind:key="index">
-          <!-- 질문 빈칸 영역 -->
-          <span class="quiz-blank" v-if="word == quiz.word">
-            <span
-              ><span
-                v-for="i in word.length"
-                v-bind:key="i"
-                v-html="blank"
-              ></span
-            ></span>
-          </span>
-          <span v-else>&nbsp;{{ word }}&nbsp;</span>
-          <!-- 질문 빈칸 영역 끝 -->
-        </span>
-      </div>
-      <!-- 질문 영역 끝 -->
       <!-- 답변 영역 -->
       <div class="quiz-answer">
         <button
@@ -95,9 +90,9 @@ export default {
   watch: {
     isDone: function (val) {
       if (this.isCorrect()) {
-        this.$store.commit('setExp', 4)
-        this.$emit('correct')
-      } else this.$emit('wrong')
+        this.$store.commit('setExp', 4);
+        this.$emit('correct');
+      } else this.$emit('wrong');
     },
   },
   methods: {
@@ -129,12 +124,14 @@ export default {
 </style>
 <style lang="scss" scoped>
 .quiz-img img {
+  position: absolute;
+  top: 8.5vh;
+  left: 2vw;
   float: left;
   margin-top: 3vh;
-  width: 40%;
-  height: 40%;
-  border-radius: 8vw;
-  border: 1vw solid #d5d5d5;
+  width: 50vh;
+  border-radius: 2vw;
+  border: 1.5vh solid #d5d5d5;
 }
 
 .quiz-text {
@@ -145,43 +142,54 @@ export default {
   width: 57%;
   color: #393939;
 }
-
-.quiz-text .quiz-question {
-  margin-top: 3vh;
-  margin-left: 1vw;
-  height: 15vh;
+.quiz-question {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 100%;
+  // margin-top: 3vh;
+  // margin-left: 1vw;
+  // height: 15vh;
+  // text-align: left;
+  // line-height: 10vh;
   word-break: break-all;
   display: inline-block;
-  font-size: 2.9vw;
-  text-align: left;
-  line-height: 10vh;
+  span {
+    font-size: 2.5vw;
+  }
 }
 
+.quiz-blank {
+  width: 13vw;
+  height: 8vh;
+  border-bottom: 0.3vw solid #393939;
+  color: #393939;
+}
 .quiz-answer {
-  margin-top: 2vh;
+  position: absolute;
+  top: 10vh;
+  right: 0px;
+
+  // margin-top: 2vh;
 }
 
 .quiz-button {
   /* 사이즈 설정 */
-  width: 15.5vw;
-  height: 13vh;
+  width: 30vw;
+  height: 10vh;
   /* 디자인 */
   border-radius: 15vw;
   margin: 1vw;
   background-color: #dfdfdf;
 
+  display: block;
   /* 폰트 */
-  line-height: 9vh;
-  font-size: 6vh;
+  line-height: 8vh;
+  font-size: 5vh;
   font-display: inherit;
   color: black;
 }
-.quiz-blank {
-  width: 13vw;
-  height: 8vh;
-  border-bottom: 0.5vw solid #393939;
-  color: #393939;
-}
+
 .selected {
   border: 1vw solid #f4b759;
 }
