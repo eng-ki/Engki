@@ -24,6 +24,7 @@
   </div>
 </template>
 <script>
+import http from '../utils/http-common.js'
 export default {
   // props: {
   //   isNew: false,
@@ -41,7 +42,16 @@ export default {
   watch: {
     getToken(val, oldVal) {
       if (this.$store.state.isNew) this.$emit('child', true)
-      else this.$router.push('/selectkid')
+      else {
+        http
+          .get('parents/' + this.$store.state.parent.id + '/kids', {
+            headers: { 'X-AUTH-TOKEN': this.$store.state.token },
+          })
+          .then(({ data }) => {
+            if (data.length == 0) this.$router.push('/parent')
+            else this.$router.push('/selectkid')
+          })
+      }
     },
   },
   methods: {
