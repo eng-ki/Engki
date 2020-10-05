@@ -112,11 +112,11 @@
 </template>
 
 <script>
-import SetKid from '@/components/SetKid.vue'
-import Report from '@/components/Report.vue'
-import UploadPicture from '@/components/UploadPicture.vue'
-import SetEmail from '@/components/SetEmail.vue'
-import http from '../utils/http-common.js'
+import SetKid from '@/components/SetKid.vue';
+import Report from '@/components/Report.vue';
+import UploadPicture from '@/components/UploadPicture.vue';
+import SetEmail from '@/components/SetEmail.vue';
+import http from '../utils/http-common.js';
 export default {
   name: 'ParentPage',
   components: {
@@ -134,35 +134,44 @@ export default {
       currentOffset: 0,
       windowSize: 5, // carousel에 띄워줄 아이콘 갯수! <- 반응형으로 할거면 화면에 몇개 나오는지 계산해서 여기 넣어야 공백 안생길듯
       paginationFactor: 50,
-    }
+    };
   },
-  mounted() {
-    this.getKids()
+  created() {
+    this.getKids();
+    console.log('적용');
   },
   computed: {
     atEndOfList() {
       return (
         this.currentOffset <=
         this.paginationFactor * -1 * (this.kids.length - this.windowSize)
-      )
+      );
     },
     atHeadOfList() {
-      return this.currentOffset === 0
+      return this.currentOffset === 0;
     },
   },
   methods: {
     getKids() {
+      // console.log('띄움');
+      // console.log(this.$store.state.parent.id);
       http
         .get('parents/' + this.$store.state.parent.id + '/kids', {
           headers: { 'X-AUTH-TOKEN': this.$store.state.token },
         })
         .then(({ data }) => {
-          this.kids = data
-          console.log(this.kids)
-        })
+          this.kids = data;
+          // console.log(this.kids);
+          // console.log(this.kids[0].id);
+          this.$store.commit('setSelectedKid', this.kids[0].id);
+        });
     },
     selectKid(index) {
-      this.selectedIndex = index
+      this.selectedIndex = index;
+      // console.log('자녀정보:');
+      // console.log(this.kids[index].id);
+      // this.$store.commit('getSelectedKid', this.kids[index].id);
+      this.$store.commit('setSelectedKid', this.kids[index].id);
     },
     deleteKid(index) {
       this.$swal({
@@ -182,28 +191,28 @@ export default {
               headers: { 'X-AUTH-TOKEN': this.$store.state.token },
             })
             .then(({ data }) => {
-              this.kids.splice(index, 1)
-              if (this.kids.length != 0) this.selectedIndex = 0
-            })
+              this.kids.splice(index, 1);
+              if (this.kids.length != 0) this.selectedIndex = 0;
+            });
         }
-      })
+      });
     },
     updateKid: function (kid) {
-      this.getKids()
-      this.isAddKid = false
+      this.getKids();
+      this.isAddKid = false;
     },
     moveCarousel(direction) {
       if (direction === 1 && !this.atEndOfList) {
-        this.currentOffset -= this.paginationFactor
+        this.currentOffset -= this.paginationFactor;
       } else if (direction === -1 && !this.atHeadOfList) {
-        this.currentOffset += this.paginationFactor
+        this.currentOffset += this.paginationFactor;
       }
     },
     backtomain() {
-      this.$router.push('/selectkid')
+      this.$router.push('/selectkid');
     },
   },
-}
+};
 </script>
 <style lang="scss">
 @import '../assets/sass/base.scss';
