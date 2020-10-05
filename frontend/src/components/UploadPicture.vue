@@ -21,7 +21,11 @@
               <input size="14" v-model="custom.caption_word_kor[index]" />
             </td>
           </tr>
-          <tr v-for="(word, index) in custom.seg_word" v-bind:key="'B' + index">
+          <tr
+            style="background-color: gray"
+            v-for="(word, index) in custom.seg_word"
+            v-bind:key="'B' + index"
+          >
             <td width="150" style="border-right: 2px solid lightgray">
               <input size="10" v-model="custom.seg_word[index]" />
             </td>
@@ -280,6 +284,12 @@ export default {
   width: 5vw;
   &:hover {
     opacity: 0.6;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .title .sentences .word td {
+    font-size: 0.9vw;
   }
 }
 </style>
