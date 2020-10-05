@@ -69,27 +69,93 @@ export default {
         showLoaderOnConfirm: true,
       }).then((result) => {
         if (result.value) {
-          http
-            .post(
-              'kids/',
-              {
-                birthday: this.kid.birthday,
-                icon: this.kid.icon,
-                name: this.kid.name,
-                parentId: this.$store.state.parent.id,
-              },
-              {
-                headers: { 'X-AUTH-TOKEN': this.$store.state.token },
-              }
-            )
-            .then(({ data }) => {
-              this.$emit('update', this.kid)
-            })
+          if (this.kid.name.length == 0) {
+            alert('이름을 입력해주세요.')
+          } else if (!this.isValidDate(this.kid.birthday)) {
+            alert('메일을 형식에 맞게 입력해주세요.')
+          } else {
+            http
+              .post(
+                'kids/',
+                {
+                  birthday: this.kid.birthday,
+                  icon: this.kid.icon,
+                  name: this.kid.name,
+                  parentId: this.$store.state.parent.id,
+                },
+                {
+                  headers: { 'X-AUTH-TOKEN': this.$store.state.token },
+                }
+              )
+              .then(({ data }) => {
+                this.$emit('update', this.kid)
+              })
+          }
         }
       })
     },
     returnParentPage() {
       this.$emit('returnParentPage')
+    },
+    isDateFormat(d) {
+      var df = /[0-9]{4}-[0-9]{2}-[0-9]{2}/
+      return d.match(df)
+    },
+    isLeaf(year) {
+      var leaf = false
+
+      if (year % 4 == 0) {
+        leaf = true
+
+        if (year % 100 == 0) {
+          leaf = false
+        }
+
+        if (year % 400 == 0) {
+          leaf = true
+        }
+      }
+
+      return leaf
+    },
+    isValidDate(d) {
+      // 포맷에 안맞으면 false리턴
+      if (!this.isDateFormat(d)) {
+        return false
+      }
+
+      var month_day = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+
+      var dateToken = d.split('-')
+      var year = Number(dateToken[0])
+      var month = Number(dateToken[1])
+      var day = Number(dateToken[2])
+
+      // 날짜가 0이면 false
+      if (day == 0) {
+        return false
+      }
+
+      var isValid = false
+
+      // 윤년일때
+      if (this.isLeaf(year)) {
+        if (month == 2) {
+          if (day <= month_day[month - 1] + 1) {
+            isValid = true
+          }
+        } else {
+          if (day <= month_day[month - 1]) {
+            isValid = true
+          }
+        }
+      } else {
+        if (day <= month_day[month - 1]) {
+          isValid = true
+        }
+      }
+
+      return isValid
     },
   },
 }

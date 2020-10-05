@@ -68,21 +68,17 @@ export default {
       this.path = '/edu'
     } else if (this.option == 'kid') {
       this.$store.commit('setKid', null)
-      console.log('초기화하고나서 스토어 kid값 조회 : ' + this.$store.state.kid)
       this.msg = '자신의 캐릭터를 선택해주세요'
       this.path = '/parents/' + this.$store.state.parent.id + '/kids'
       this.imgpath = ''
     }
-    console.log('path : ' + this.path)
     http
       .get(this.path, {
         headers: { 'X-AUTH-TOKEN': this.$store.state.token },
       })
       .then(({ data }) => {
         this.datas = data
-        console.log(data)
       })
-    console.log('한 캐러셀에 나타나는 개수 :' + this.windowSize)
   },
   computed: {
     atEndOfList() {
@@ -122,22 +118,15 @@ export default {
           // person 퀴즈가 제대로 안받아와짐..
           // 일단 1~5로 지정해둠
           var num = (Math.round(Math.random() * 100) % 5) + 1
-          console.log('랜덤주제 : ' + num)
           this.$store.commit('setQuiz', num)
           this.$router.push('/quiz')
           // 랜덤주제
         } else {
           this.$store.commit('setQuiz', this.datas[index].id)
-          console.log(
-            '버튼 클릭후 스토어 quiz값 조회 : ' + this.$store.state.quiz
-          )
           this.$router.push('/quiz')
         }
       } else if (this.option == 'kid') {
         this.$store.commit('setKid', this.datas[index])
-        // console.log(
-        //   '버튼 클릭후 스토어 kid값 조회 : ' + this.$store.state.kid.name
-        // );
         this.$router.push('/kid')
       }
     },

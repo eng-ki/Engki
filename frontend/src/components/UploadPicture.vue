@@ -101,11 +101,13 @@ export default {
         showLoaderOnConfirm: true,
       }).then((result) => {
         if (result.value) {
-          console.log(this.custom)
+          // console.log(this.custom)
+          // console.log(this.$store.state.parent.id)
           http
             .post(
               'http://j3a510.p.ssafy.io:8083/custom/quiz/save',
               {
+                parent_id: this.$store.state.parent.id,
                 file_path: this.custom.file_path,
                 boundaries: this.custom.boundaries,
                 caption: this.custom.caption,
@@ -117,6 +119,7 @@ export default {
               },
               {
                 headers: {
+                  'Content-Type': 'application/json',
                   'Access-Control-Allow-Origin': '*',
                 },
               }
@@ -269,7 +272,7 @@ export default {
 }
 .custom-start {
   position: absolute;
-  right: -3vw;
+  right: 0vw;
   top: 23vh;
 }
 

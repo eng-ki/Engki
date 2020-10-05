@@ -169,20 +169,6 @@ export default {
       clearInterval(this.camTimer)
     },
     // 모르겠어요 버튼 눌렀을때 완전 끝내기랑 다음으로가기
-
-    // isDone() {
-    //   this.$swal({
-    //     title:
-    //       '<div><span style="font-weight:100; font-size:2vw;">정답이 아닙니다.</span><br><span  style="font-weight:100; font-size:2vw;">다시 한번 생각해보세요.</span></div>',
-    //     type: 'warning',
-    //     showCancelButton: false,
-    //     confirmButtonText: '확인',
-    //     showLoaderOnConfirm: true,
-    //     timer: 1000,
-    //   }).then((result) => {
-    //     return true;
-    //   });
-    // },
     isPass() {
       this.$swal({
         title:
@@ -190,9 +176,9 @@ export default {
         type: 'warning',
         showCancelButton: true,
         confirmButtonText:
-          '<span style="font-weight:100; font-size:1.5vw;">다음 퀴즈로</span>',
+          '<span style="font-weight:100; font-size:1.5vw;">네</span>',
         cancelButtonText:
-          '<span style="font-weight:100; font-size:1.5vw;">퀴즈 끝내기</span>',
+          '<span style="font-weight:100; font-size:1.5vw;">계속 풀래요</span>',
 
         // 이거 뒤로가기 버튼 있어야 할 듯..
         showCloseButton: true,
@@ -201,8 +187,7 @@ export default {
         if (result.value) {
           this.isNextStage(true)
         } else {
-          this.stage = 5
-          this.isNextStage(true)
+          this.isNextStage(false)
         }
       })
     },

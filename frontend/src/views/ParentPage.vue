@@ -158,7 +158,6 @@ export default {
         })
         .then(({ data }) => {
           this.kids = data
-          console.log(this.kids)
         })
     },
     selectKid(index) {
