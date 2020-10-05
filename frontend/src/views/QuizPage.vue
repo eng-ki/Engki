@@ -89,14 +89,14 @@
 </template>
 
 <script>
-import QuizA from '@/components/QuizA.vue'
-import QuizB from '@/components/QuizB.vue'
-import QuizC from '@/components/QuizC.vue'
-import QuizD from '@/components/QuizD.vue'
-import QuizE from '@/components/QuizE.vue'
-import QuizF from '@/components/QuizF.vue'
-import Etc from '@/components/Etc.vue'
-import http from '../utils/http-common.js'
+import QuizA from '@/components/QuizA.vue';
+import QuizB from '@/components/QuizB.vue';
+import QuizC from '@/components/QuizC.vue';
+import QuizD from '@/components/QuizD.vue';
+import QuizE from '@/components/QuizE.vue';
+import QuizF from '@/components/QuizF.vue';
+import Etc from '@/components/Etc.vue';
+import http from '../utils/http-common.js';
 export default {
   name: 'ParentPage',
   components: {
@@ -125,7 +125,7 @@ export default {
       ],
       // 웹캠 캡처 관련 데이터
       camTimer: null,
-    }
+    };
   },
   mounted() {
     this.$store.state.exp = 0
@@ -146,11 +146,11 @@ export default {
     // }, 5000)
   },
   beforeDestroy() {
-    this.stopCapture()
+    this.stopCapture();
   },
   methods: {
     isNextStage(flag) {
-      this.isDone = false
+      this.isDone = false;
       if (flag) {
         this.stage++
       }
@@ -162,33 +162,52 @@ export default {
       }
     },
     setAnswer(answer) {
-      this.answer = answer
+      this.answer = answer;
     },
     // 감정 인식 중지
     stopCapture() {
-      clearInterval(this.camTimer)
+      clearInterval(this.camTimer);
     },
     // 모르겠어요 버튼 눌렀을때 완전 끝내기랑 다음으로가기
+
+    // isDone() {
+    //   this.$swal({
+    //     title:
+    //       '<div><span style="font-weight:100; font-size:2vw;">정답이 아닙니다.</span><br><span  style="font-weight:100; font-size:2vw;">다시 한번 생각해보세요.</span></div>',
+    //     type: 'warning',
+    //     showCancelButton: false,
+    //     confirmButtonText: '확인',
+    //     showLoaderOnConfirm: true,
+    //     timer: 1000,
+    //   }).then((result) => {
+    //     return true;
+    //   });
+    // },
     isPass() {
       this.$swal({
-        title: '다음 퀴즈로 넘어갈까요?',
+        title:
+          '<div style="font-weight:100; font-size:2vw; margin-top:1vw;">다음 퀴즈로 넘어갈까요?</div>',
         type: 'warning',
         showCancelButton: true,
-        confirmButtonText: '다음 퀴즈로',
-        cancelButtonText: '퀴즈 끝내기',
+        confirmButtonText:
+          '<span style="font-weight:100; font-size:1.5vw;">다음 퀴즈로</span>',
+        cancelButtonText:
+          '<span style="font-weight:100; font-size:1.5vw;">퀴즈 끝내기</span>',
+
+        // 이거 뒤로가기 버튼 있어야 할 듯..
         showCloseButton: true,
         showLoaderOnConfirm: true,
       }).then((result) => {
         if (result.value) {
-          this.isNextStage(true)
+          this.isNextStage(true);
         } else {
-          this.stage = 5
-          this.isNextStage(true)
+          this.stage = 5;
+          this.isNextStage(true);
         }
-      })
+      });
     },
   },
-}
+};
 </script>
 <style lang="scss">
 @import '../assets/sass/base.scss';
