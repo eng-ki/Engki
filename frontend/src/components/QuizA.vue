@@ -9,11 +9,15 @@
 <script>
 import http from '../utils/http-common.js';
 export default {
-  props: ['isDone', 'answer'],
+  props: ['isDone'],
   data: () => {
     return {
       quizapipath: '',
-      quiz: null,
+      quiz: {
+        url: '',
+        word_eng: '',
+        word_kor: '',
+      },
       selectedIndex: -1,
       showKorean: false,
       word: '',
@@ -46,8 +50,8 @@ export default {
   },
   watch: {
     isDone: function (val) {
-      this.$store.commit('setExp', 1)
-      this.$emit('correct')
+      this.$store.commit('setExp', 1);
+      this.$emit('correct');
     },
     showKorean: function (val) {
       if (this.showKorean) {
@@ -73,16 +77,10 @@ var voices = [];
 function setVoiceList() {
   voices = window.speechSynthesis.getVoices();
 }
-// 왜 여기서 실행하면 어쩔땐 되고 어쩔땐 안되는거지
-// setVoiceList()
 if (window.speechSynthesis.onvoiceschanged !== undefined) {
   window.speechSynthesis.onvoiceschanged = setVoiceList;
-  // alert(setVoiceList)
 }
 function speech(txt) {
-  // https://stackoverflow.com/questions/49506716/speechsynthesis-getvoices-returns-empty-array-on-windows
-  // window.speechSynthesis.onvoiceschanged 불러오는데 시간이 좀 걸리는데 이걸 미리 불러올 수 있을까
-
   if (!window.speechSynthesis) {
     alert(
       '음성 재생을 지원하지 않는 브라우저입니다. 크롬, 파이어폭스 등의 최신 브라우저를 이용하세요'

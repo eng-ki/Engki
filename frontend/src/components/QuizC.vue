@@ -26,7 +26,12 @@ export default {
   },
   data: () => {
     return {
-      quiz: null,
+      quiz: {
+        url1: '',
+        url2: '',
+        word: '',
+        words: '',
+      },
       selectedIndex: -1,
       showKorean: false,
       url: '/img/etc/twoanimals1.png',
@@ -48,6 +53,8 @@ export default {
           word: this.$store.state.quiz.word,
           words: [this.$store.state.quiz.word, data.data.randomWord],
         };
+        console.log(this.quiz.url1);
+        console.log(this.quiz.url2);
         this.url = this.quiz.url1;
       });
   },
@@ -57,9 +64,9 @@ export default {
   watch: {
     isDone: function (val) {
       if (this.isCorrect()) {
-        this.$store.commit('setExp', 3)
-        this.$emit('correct')
-      } else this.$emit('wrong')
+        this.$store.commit('setExp', 3);
+        this.$emit('correct');
+      } else this.$emit('wrong');
     },
     url: function (val) {
       if (this.url == this.quiz.url1) {
@@ -81,10 +88,8 @@ export default {
         this.$swal({
           title:
             '<div><span style="font-weight:100; font-size:2vw;">정답이 아닙니다.</span><br><span  style="font-weight:100; font-size:2vw;">다시 한번 생각해보세요.</span></div>',
-          type: 'warning',
           showCancelButton: false,
           confirmButtonText: '확인',
-          showLoaderOnConfirm: true,
           timer: 1000,
         }).then((result) => {
           return true;
