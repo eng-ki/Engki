@@ -89,14 +89,14 @@
 </template>
 
 <script>
-import QuizA from '@/components/QuizA.vue';
-import QuizB from '@/components/QuizB.vue';
-import QuizC from '@/components/QuizC.vue';
-import QuizD from '@/components/QuizD.vue';
-import QuizE from '@/components/QuizE.vue';
-import QuizF from '@/components/QuizF.vue';
-import Etc from '@/components/Etc.vue';
-import http from '../utils/http-common.js';
+import QuizA from '@/components/QuizA.vue'
+import QuizB from '@/components/QuizB.vue'
+import QuizC from '@/components/QuizC.vue'
+import QuizD from '@/components/QuizD.vue'
+import QuizE from '@/components/QuizE.vue'
+import QuizF from '@/components/QuizF.vue'
+import Etc from '@/components/Etc.vue'
+import http from '../utils/http-common.js'
 export default {
   name: 'ParentPage',
   components: {
@@ -125,7 +125,7 @@ export default {
       ],
       // 웹캠 캡처 관련 데이터
       camTimer: null,
-    };
+    }
   },
   mounted() {
     this.$store.state.exp = 0
@@ -146,11 +146,11 @@ export default {
     // }, 5000)
   },
   beforeDestroy() {
-    this.stopCapture();
+    this.stopCapture()
   },
   methods: {
     isNextStage(flag) {
-      this.isDone = false;
+      this.isDone = false
       if (flag) {
         this.stage++
       }
@@ -162,11 +162,11 @@ export default {
       }
     },
     setAnswer(answer) {
-      this.answer = answer;
+      this.answer = answer
     },
     // 감정 인식 중지
     stopCapture() {
-      clearInterval(this.camTimer);
+      clearInterval(this.camTimer)
     },
     // 모르겠어요 버튼 눌렀을때 완전 끝내기랑 다음으로가기
 
@@ -199,15 +199,15 @@ export default {
         showLoaderOnConfirm: true,
       }).then((result) => {
         if (result.value) {
-          this.isNextStage(true);
+          this.isNextStage(true)
         } else {
-          this.stage = 5;
-          this.isNextStage(true);
+          this.stage = 5
+          this.isNextStage(true)
         }
-      });
+      })
     },
   },
-};
+}
 </script>
 <style lang="scss">
 @import '../assets/sass/base.scss';
