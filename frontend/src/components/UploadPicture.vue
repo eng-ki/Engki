@@ -3,56 +3,61 @@
     <div v-if="isUploaded">
       <div class="custom-edu">
         <img class="custom-img" :src="img" />
-        <!-- 타이틀 -->
-        <span class="title"
-          >아이가 학습할 단어와 문장을 커스터마이징 하세요!</span
+        <span class="title">
+          아이가 학습할 단어와 문장을 커스터마이징 하세요!</span
         >
-        <!-- 세그멘테이션 단어 (0~3개) 수정 -->
-        <span class="word" v-for="(word, index) in words" v-bind:key="index">
-          <input
-            :v-model="word"
-            size="7vh"
-            @click="selectedWord(index)"
-            :readonly="!readW" />
-          <img
-            src="../../public/img/icon/pencil.png"
-            :class="{ selectedpencil: selectedPencil == index }"
-            class="btn-update2"
-        /></span>
+      </div>
+
+      <div class="words">
+        <table class="word">
+          <tr
+            v-for="(word, index) in custom.caption_word"
+            v-bind:key="'A' + index"
+          >
+            <td width="150" style="border-right: 2px solid lightgray">
+              <input size="10" v-model="custom.caption_word[index]" />
+            </td>
+            <td>
+              <input size="14" v-model="custom.caption_word_kor[index]" />
+            </td>
+          </tr>
+          <tr v-for="(word, index) in custom.seg_word" v-bind:key="'B' + index">
+            <td width="150" style="border-right: 2px solid lightgray">
+              <input size="10" v-model="custom.seg_word[index]" />
+            </td>
+            <td><input size="14" v-model="custom.seg_word_kor[index]" /></td>
+          </tr>
+        </table>
       </div>
 
       <!-- 이미지 캡셔닝 문장 수정 -->
-      <div
-        class="sentences"
-        v-for="(sentence, index) in sentences"
-        v-bind:key="index"
-      >
+      <div class="sentences">
         <div class="sentence">
-          <img src="../../public/img/icon/copy.png" />
+          <span>영)</span>
 
-          <input
-            @click="readS = true"
-            :v-model="sentence"
-            size="56vh"
-            :readonly="!readS"
-          />
+          <input v-model="custom.caption" size="56vh" />
+        </div>
+        <div class="sentence">
+          <span>한)</span>
+          <input v-model="custom.caption_kor" size="56vh" />
         </div>
       </div>
 
       <!-- 학습 시작 버튼 -->
       <div class="custom-start">
-        <img
-          v-bind="attrs"
-          v-on="on"
-          @click="test()"
-          src="../../public/img/icon/next.png"
-        />
+        <img @click="test()" src="../../public/img/icon/next.png" />
       </div>
     </div>
 
     <!-- 이미지 등록 -->
     <div v-else>
-      <input ref="imageInput" type="file" hidden @change="onChangeImages" />
+      <input
+        class="custom-image"
+        ref="imageInput"
+        type="file"
+        hidden
+        @change="onChangeImages"
+      />
       <button class="upload-image" @click="onClickImageUpload">
         학습에 사용할 이미지를 등록해주세요
       </button>
@@ -66,6 +71,7 @@
   </div>
 </template>
 <script>
+import http from '../utils/http-common.js'
 export default {
   name: 'UploadPicture',
   props: {
@@ -73,15 +79,13 @@ export default {
   },
   data: () => {
     return {
-      img: '/img/etc/womanpuppy.jpg',
-      sentences: ['The dog and the woman are running beside the seaside'],
-      words: ['dog', 'woman', 'sea'],
+      caption_word_index: null,
+      img: null,
       isUploaded: false, // 이미지 등록 여부
       selectedPencil: -1, // 연필 아이콘 focus,hover
       imageUrl: null, // 등록한 이미지 링크
-      ReadS: false, // 문장 readonly 여부
-      ReadW: false, // 단어 readonly 여부
       overlay: false, // 로딩 여부
+      custom: null, //(file_path, boundaries, caption, seg_word, caption_word , caption_kor, seg_word_kor, caption_word_kor)
     }
   },
   methods: {
@@ -97,25 +101,64 @@ export default {
         showLoaderOnConfirm: true,
       }).then((result) => {
         if (result.value) {
-          this.$router.push('/quiz')
+          http
+            .post(
+              'http://j3a510.p.ssafy.io:8083/custom/quiz/save',
+              {
+                file_path: this.custom.file_path,
+                boundaries: this.custom.boundaries,
+                caption: this.custom.caption,
+                caption_kor: this.custom.caption_kor,
+                seg_word: this.custom.seg_word,
+                seg_word_kor: this.custom.seg_word_kor,
+                caption_word: this.custom.caption_word,
+                caption_word_kor: this.custom.caption_word_kor,
+              },
+              {
+                headers: {
+                  'Access-Control-Allow-Origin': '*',
+                },
+              }
+            )
+            .then(({ data }) => {
+              console.log(data)
+            })
+            .catch((err) => {
+              console.error(err)
+            })
         }
       })
     },
     selectedWord(index) {
-      this.readW = true
       this.selectedPencil = index
     },
     onClickImageUpload() {
       this.$refs.imageInput.click()
     },
     onChangeImages(e) {
-      console.log(e.target.files)
-      const file = e.target.files[0]
       this.overlay = !this.overlay
-      setTimeout(() => {
-        this.overlay = false
-        this.isUploaded = true
-      }, 3000)
+      const file = e.target.files[0]
+      const frm = new FormData()
+      frm.append('files', file)
+      frm.append('parent_id', this.$store.state.parent.id)
+
+      http
+        .post('http://j3a510.p.ssafy.io:8083/custom/quiz/make', frm, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            'Access-Control-Allow-Origin': '*',
+          },
+        })
+        .then(({ data }) => {
+          this.custom = data
+          this.overlay = false
+          this.isUploaded = true
+        })
+        .catch((err) => {
+          console.error(err)
+          this.overlay = false
+        })
+
       this.img = URL.createObjectURL(file)
     },
   },
@@ -127,8 +170,6 @@ export default {
 <style lang="scss" scoped>
 * {
   font-family: 'GmarketSansMedium';
-  // z-index: 1000;
-  // padding: 20%;
 }
 .upload-image {
   position: absolute;
@@ -148,6 +189,8 @@ export default {
 }
 .custom-edu .custom-img {
   width: 18vw;
+  height: 18vw;
+  overflow: hidden;
   float: left;
   border-radius: 3vw;
   margin-right: 2.2vw;
@@ -174,21 +217,20 @@ export default {
   display: inline-block;
   // box-shadow: rgba(10, 5, 26, 0.15) 0px 48px 100px 0px;
 }
-.sentence img {
+.sentence span {
   float: left;
-  width: 2.2vw;
+
   opacity: 0.6;
-  margin-top: 1.2vw;
+  margin-top: 1.3vw;
   margin-left: 1vw;
   margin-right: 0.6vw;
 }
 .sentence input {
   float: left;
   border-bottom: 3px dashed #f2f2f2;
-  padding-bottom: 0.3vw;
   color: #4b4b4b;
   margin-right: 0.5vw;
-  height: 10vh;
+  height: 9vh;
   padding: 0 1vw 0 1vw;
 
   &:hover {
@@ -203,56 +245,27 @@ export default {
   }
 }
 
-.word {
-  float: left;
-  width: 14.5vw;
-  height: 9vh;
-  /* 디자인 */
-  border-radius: 10vw;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 1px 2px;
+.words {
+  position: absolute;
+  left: 29.5vw;
+  top: 7.5vw;
+  // background-color: red;
+}
+.words table {
+  width: 31.5vw;
+  height: 15vh;
   background-color: #f2f2f2;
-  margin-top: 4vh;
-  margin-right: 2.3vw;
-  margin-bottom: 1.5vh;
-  padding-top: 2.5vh;
-  padding-left: 1.4vw;
-
-  /* 폰트 */
+  border-radius: 1vw;
+}
+.word td {
   font-size: 1.5vw;
+  text-align: left;
+  border-bottom: 2px solid lightgray;
+  padding: 1vw 1vw 1vw 2vw;
 }
-
-.word input {
+.word td input {
   color: #4b4b4b;
-  text-align: center;
-  vertical-align: middle;
-  &:focus {
-    color: green;
-    opacity: 0.8;
-  }
 }
-.word .btn-update2 {
-  opacity: 0;
-  width: 1vw;
-  float: right;
-  margin-top: 1vh;
-  margin-right: 1vw;
-}
-.word:hover .btn-update2 {
-  opacity: 1;
-  transform: scale(1vw);
-  float: right;
-  margin-top: 1vh;
-  margin-right: 1vw;
-}
-
-.word .selectedpencil {
-  opacity: 1;
-  transform: scale(1vw);
-  float: right;
-  margin-top: 1vh;
-  margin-right: 1vw;
-}
-
 .custom-start {
   position: absolute;
   right: -3vw;

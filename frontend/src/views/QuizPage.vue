@@ -128,6 +128,7 @@ export default {
     };
   },
   mounted() {
+    this.$store.state.exp = 0
     // this.camTimer = setInterval(() => {
     //   http
     //     .post(
@@ -151,15 +152,13 @@ export default {
     isNextStage(flag) {
       this.isDone = false;
       if (flag) {
-        this.stage++;
-        this.$store.commit('setExp', this.stage + 1);
+        this.stage++
       }
 
       if (this.stage == 6) {
-        this.stage = 5;
-        this.$store.commit('setExp', 6);
-        this.isFinish = true;
-        this.stopCapture();
+        this.stage = 5
+        this.isFinish = true
+        this.stopCapture()
       }
     },
     setAnswer(answer) {

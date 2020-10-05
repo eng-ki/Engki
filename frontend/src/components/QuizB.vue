@@ -42,13 +42,10 @@ export default {
   },
   watch: {
     isDone: function (val) {
-      if (this.isCorrect()) this.$emit('correct');
-      else this.$emit('wrong');
-      {
-        setTimeout(() => {
-          showLoaderOnConfirm: false;
-        }, 1000);
-      }
+      if (this.isCorrect()) {
+        this.$store.commit('setExp', 2)
+        this.$emit('correct')
+      } else this.$emit('wrong')
     },
   },
   methods: {

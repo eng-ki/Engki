@@ -46,7 +46,8 @@ export default {
   },
   watch: {
     isDone: function (val) {
-      this.$emit('correct');
+      this.$store.commit('setExp', 1)
+      this.$emit('correct')
     },
     showKorean: function (val) {
       if (this.showKorean) {

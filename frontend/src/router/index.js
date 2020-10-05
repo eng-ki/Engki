@@ -1,14 +1,15 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
-import LoginPage from '../views/LoginPage.vue';
-import SelectKidPage from '../views/SelectKidPage.vue';
-import ParentPage from '../views/ParentPage.vue';
-import KidPage from '../views/KidPage.vue';
-import SelectQuizPage from '../views/SelectQuizPage.vue';
-import QuizPage from '../views/QuizPage.vue';
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import LoginPage from '../views/LoginPage.vue'
+import SelectKidPage from '../views/SelectKidPage.vue'
+import ParentPage from '../views/ParentPage.vue'
+import KidPage from '../views/KidPage.vue'
+import SelectQuizPage from '../views/SelectQuizPage.vue'
+import QuizPage from '../views/QuizPage.vue'
+import WebCam from '../views/WebCam.vue'
 // import Test from '../views/Test.vue';
 
-Vue.use(VueRouter);
+Vue.use(VueRouter)
 
 const routes = [
   {
@@ -32,6 +33,11 @@ const routes = [
     component: KidPage,
   },
   {
+    path: '/webcam',
+    name: 'WebCam',
+    component: WebCam,
+  },
+  {
     path: '/selectquiz',
     name: 'SelectQuizPage',
     component: SelectQuizPage,
@@ -46,12 +52,12 @@ const routes = [
   //   name: 'Test',
   //   component: Test,
   // },
-];
+]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes,
-});
+})
 
-export default router;
+export default router
