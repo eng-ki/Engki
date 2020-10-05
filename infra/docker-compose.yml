@@ -51,6 +51,7 @@ services:
                         - /etc/timezone:/etc/timezone
                         - /etc/localtime:/etc/localtime
                         - ./data/api_log:/log
+                        - /etc/letsencrypt:/etc/letsencrypt
         AI:
                 image: pyflask_engki
                 container_name: "engki_flask"
@@ -60,3 +61,4 @@ services:
                         - TZ=Asia/Seoul
                 volumes:
                         - ./data/custom:/app/custom
+                        - /etc/letsencrypt:/etc/letsencrypt
