@@ -55,3 +55,13 @@ services:
                         - TZ=Asia/Seoul
                 volumes:
                         - ./data/custom:/app/custom
+        report:
+                image: report_engki
+                container_name: "engki_report"
+                ports:
+                        - 8889:8889
+                depends_on:
+                        - db
+                volumes: 
+                        - /etc/timezone:/etc/timezone
+                        - /etc/localtime:/etc/localtime
