@@ -25,20 +25,20 @@
   </div>
 </template>
 <script>
-import http from '../utils/http-common.js'
+import http from '../utils/http-common.js';
 export default {
   props: ['isDone'],
   created() {
-    this.isDone = false
-    this.quizapipath = '/edu/' + this.$store.state.quiz.id + '/images'
-    console.log('퀴즈2패스 : ' + this.quizapipath)
+    this.isDone = false;
+    this.quizapipath = '/edu/' + this.$store.state.quiz.id + '/images';
+    console.log('퀴즈2패스 : ' + this.quizapipath);
     http
       .get(this.quizapipath, {
         headers: { 'X-AUTH-TOKEN': this.$store.state.token },
       })
       .then((data) => {
-        this.datas = data.data
-      })
+        this.datas = data.data;
+      });
   },
   watch: {
     isDone: function (val) {
@@ -50,24 +50,45 @@ export default {
   },
   methods: {
     isCorrect() {
-      var count = 0
+      var count = 0;
       for (var data in this.datas.images) {
         if (this.datas.images[data].selected) {
-          count++
+          count++;
           if (this.datas.images[data].word != this.$store.state.quiz.word) {
-            return false
+            this.$swal({
+              title:
+                '<div><span style="font-weight:100; font-size:2vw;">정답이 아닙니다.</span><br><span  style="font-weight:100; font-size:2vw;">다시 한번 생각해보세요.</span></div>',
+              type: 'warning',
+              showCancelButton: false,
+              confirmButtonText: '확인',
+              showLoaderOnConfirm: true,
+              timer: 1000,
+            }).then((result) => {
+              return true;
+            });
+            return false;
           }
         }
       }
       if (count != this.datas.answerNum) {
-        alert(this.datas.answerNum + '개를 선택해주세요')
-        return false
+        this.$swal({
+          title:
+            '<div style="font-weight:100; font-size:2vw;"> ' +
+            this.datas.answerNum +
+            '개를 선택해주세요</div>',
+          type: 'warning',
+          showCancelButton: false,
+          confirmButtonText: '확인',
+          showLoaderOnConfirm: true,
+        }).then((result) => {});
+        // alert(this.datas.answerNum + '')
+        return false;
       }
-      return true
+      return true;
     },
     select(index) {
-      this.datas.images[index].selected = !this.datas.images[index].selected
-      this.selects[index].selected = !this.selects[index].selected
+      this.datas.images[index].selected = !this.datas.images[index].selected;
+      this.selects[index].selected = !this.selects[index].selected;
     },
   },
   data: function () {
@@ -94,9 +115,9 @@ export default {
           selected: false,
         },
       ],
-    }
+    };
   },
-}
+};
 </script>
 <style lang="scss" scoped>
 .quiz-board {
