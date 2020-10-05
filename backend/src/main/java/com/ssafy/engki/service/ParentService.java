@@ -59,7 +59,8 @@ public class ParentService {
 			.id(id)
 			.name(name)
 			.email(email)
-			.receiveEmailFlag(!email.isBlank()) // initially true, but if email is blank, flag should be false
+			.receiveEmailFlag(
+				email != null && !email.isBlank()) // initially true, but if email is blank, flag should be false
 			.build();
 		parentRepository.save(parent);
 	}
