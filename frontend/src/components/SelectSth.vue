@@ -70,7 +70,7 @@ export default {
       this.$store.commit('setKid', null)
       console.log('초기화하고나서 스토어 kid값 조회 : ' + this.$store.state.kid)
       this.msg = '자신의 캐릭터를 선택해주세요'
-      this.path = '/parents/' + this.$store.state.user.id + '/kids'
+      this.path = '/parents/' + this.$store.state.parent.id + '/kids'
       this.imgpath = ''
     }
     console.log('path : ' + this.path)
