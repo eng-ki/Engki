@@ -4,7 +4,14 @@
     <div class="quiz-question">
       <span v-for="(word, index) in quiz.sentence" v-bind:key="index">
         <!-- 질문 빈칸 영역 -->
-        <span class="quiz-blank" v-if="word == quiz.word">
+        <span
+          class="quiz-blank"
+          v-if="
+            word == quiz.word ||
+            word == quiz.word + 's' ||
+            word == quiz.word + 'es'
+          "
+        >
           <span
             ><span v-for="i in word.length" v-bind:key="i" v-html="blank"></span
           ></span>
