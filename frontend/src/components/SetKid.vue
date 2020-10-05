@@ -70,9 +70,23 @@ export default {
       }).then((result) => {
         if (result.value) {
           if (this.kid.name.length == 0) {
-            alert('이름을 입력해주세요.')
+            this.$swal({
+              title:
+                '<div style="font-family: GmarketSansMedium;font-size:1vw;">이름을 입력해주세요</div>',
+              type: 'warning',
+              showCancelButton: false,
+              confirmButtonText: '확인',
+              showLoaderOnConfirm: true,
+            }).then((result) => {})
           } else if (!this.isValidDate(this.kid.birthday)) {
-            alert('메일을 형식에 맞게 입력해주세요.')
+            this.$swal({
+              title:
+                '<div style="font-family: GmarketSansMedium;font-size:1vw;">메일을 형식에 맞게 입력해주세요</div>',
+              type: 'warning',
+              showCancelButton: false,
+              confirmButtonText: '확인',
+              showLoaderOnConfirm: true,
+            }).then((result) => {})
           } else {
             http
               .post(
