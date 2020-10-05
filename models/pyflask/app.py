@@ -21,6 +21,8 @@ import sys
 import urllib.request
 from flask import Flask
 from flask_cors import CORS
+# from OpenSSL import SSL
+import ssl
 
 
 app = Flask(__name__)
@@ -29,6 +31,11 @@ CORS(app)
 
 database = create_engine(app.config['DB_URL'], encoding='utf-8')
 app.database = database
+
+
+# context.use_privatekey_file(pkey)
+# context.use_certificate_file(cert)
+
 
 @app.route('/')
 def index():
@@ -235,7 +242,13 @@ def seg(filestr, parents_id):
 
 
 if __name__ == '__main__':
+    ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS)
+    cert = "/etc/letsencrypt/live/j3a510.p.ssafy.io/cert.pem"
+    pkey = "/etc/letsencrypt/live/j3a510.p.ssafy.io/privkey.pem"
+    ssl_context.load_cert_chain(certfile=cert, keyfile=pkey)
     app.run(
         host="0.0.0.0",
-        debug=True
+        debug=True,
+        # ssl_context=(cert, pkey)
+        ssl_context=ssl_context
     )

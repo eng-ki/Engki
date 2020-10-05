@@ -29,12 +29,17 @@ services:
                 container_name: "engki_web"
                 ports:
                         - 80:80
+                        - 443:443
                 environment:
                         - TZ=Asia/Seoul
                 volumes:
                         - ./data/inputs:/usr/share/nginx/html/images/inputs
                         - ./data/outputs:/usr/share/nginx/html/images/outputs
                         - ./data/custom:/usr/share/nignx/html/images/custom  
+                        - ./data/custom:/usr/share/nignx/html/images/custom
+                          # 아래는 https용
+                        - /var/www/letsencrypt:/var/www/letsencrypt
+                        - /etc/letsencrypt:/etc/letsencrypt
         api:
                 image: api_engki
                 container_name: "engki_api"
@@ -46,6 +51,7 @@ services:
                         - /etc/timezone:/etc/timezone
                         - /etc/localtime:/etc/localtime
                         - ./data/api_log:/log
+                        - /etc/letsencrypt:/etc/letsencrypt
         AI:
                 image: pyflask_engki
                 container_name: "engki_flask"
@@ -55,6 +61,7 @@ services:
                         - TZ=Asia/Seoul
                 volumes:
                         - ./data/custom:/app/custom
+                        - /etc/letsencrypt:/etc/letsencrypt
         report:
                 image: report_engki
                 container_name: "engki_report"
