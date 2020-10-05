@@ -101,6 +101,7 @@ export default {
         showLoaderOnConfirm: true,
       }).then((result) => {
         if (result.value) {
+          console.log(this.custom)
           http
             .post(
               'http://j3a510.p.ssafy.io:8083/custom/quiz/save',
