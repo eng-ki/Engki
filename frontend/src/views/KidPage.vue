@@ -29,6 +29,7 @@
         >
           공부 시작하기
         </button>
+        <vue-web-cam />
         <set-profile-image
           :kid="kid"
           v-if="isChangeProfile"
@@ -42,6 +43,7 @@
 <script>
 import SetProfileImage from '@/components/SetProfileImage.vue'
 import Inventory from '@/components/Inventory.vue'
+
 export default {
   name: 'KidPage',
   components: {

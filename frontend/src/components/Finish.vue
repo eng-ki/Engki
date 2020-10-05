@@ -1,6 +1,10 @@
 <template>
   <div>
     <div class="chest">
+      <div v-if="isLevelUp">
+        <img :src="fairytale[level]" />
+        <span style="font-size: 1vw">새로운 캐릭터를 획득하였습니다!</span>
+      </div>
       <b-progress
         :value="startExp"
         max="100"
@@ -30,12 +34,64 @@ export default {
       timer2: null, // 경험치 수치 올라가는 타이머
       start: 0,
       exp: 0,
+      isLevelUp: false,
+      fairytale: [
+        '/img/icon/fairytale/001-knight.png',
+        '/img/icon/fairytale/002-wizard.png',
+        '/img/icon/fairytale/003-dwarf.png',
+        '/img/icon/fairytale/004-elf.png',
+        '/img/icon/fairytale/005-witch.png',
+        '/img/icon/fairytale/006-ogre.png',
+        '/img/icon/fairytale/007-giant.png',
+        '/img/icon/fairytale/008-gnome.png',
+        '/img/icon/fairytale/009-little red riding hood.png',
+        '/img/icon/fairytale/010-wolf.png',
+        '/img/icon/fairytale/011-queen.png',
+        '/img/icon/fairytale/012-king.png',
+        '/img/icon/fairytale/013-princess.png',
+        '/img/icon/fairytale/014-prince.png',
+        '/img/icon/fairytale/015-frog prince.png',
+        '/img/icon/fairytale/016-fairy.png',
+        '/img/icon/fairytale/017-robin hood.png',
+        '/img/icon/fairytale/018-pirate.png',
+        '/img/icon/fairytale/019-goblin.png',
+        '/img/icon/fairytale/020-elf.png',
+        '/img/icon/fairytale/021-pig.png',
+        '/img/icon/fairytale/022-tin man.png',
+        '/img/icon/fairytale/023-scarecrow.png',
+        '/img/icon/fairytale/024-cowardly lion.png',
+        '/img/icon/fairytale/025-pinocchio.png',
+        '/img/icon/fairytale/026-puss in boots.png',
+        '/img/icon/fairytale/027-mad hatter.png',
+        '/img/icon/fairytale/028-cyclops.png',
+        '/img/icon/fairytale/029-white rabbit.png',
+        '/img/icon/fairytale/030-mermaid.png',
+        '/img/icon/fairytale/031-genie.png',
+        '/img/icon/fairytale/032-vampire.png',
+        '/img/icon/fairytale/033-unicorn.png',
+        '/img/icon/fairytale/034-dragon.png',
+        '/img/icon/fairytale/035-phoenix.png',
+        '/img/icon/fairytale/036-poison.png',
+        '/img/icon/fairytale/037-poison.png',
+        '/img/icon/fairytale/038-cauldron.png',
+        '/img/icon/fairytale/039-poisonous.png',
+        '/img/icon/fairytale/040-magic mirror.png',
+        '/img/icon/fairytale/041-excalibur.png',
+        '/img/icon/fairytale/042-glass shoes.png',
+        '/img/icon/fairytale/043-magic lamp.png',
+        '/img/icon/fairytale/044-crystal ball.png',
+        '/img/icon/fairytale/045-ring.png',
+        '/img/icon/fairytale/046-broom.png',
+        '/img/icon/fairytale/047-magic wand.png',
+        '/img/icon/fairytale/048-tower.png',
+        '/img/icon/fairytale/049-castle.png',
+        '/img/icon/fairytale/050-fairytale.png',
+      ],
     }
   },
   mounted() {
     // 이전 경험치
     this.beforeExp = this.$store.state.kid.exp
-
     // 새로 얻은 경험치와 학습 단어 저장
     http
       .post(
@@ -57,7 +113,6 @@ export default {
             this.$store.commit('setKid', data)
           })
       })
-    this.$store.state.exp = 0
     // 이전 경험치 % 100
     this.startExp = this.beforeExp % 100
 
@@ -65,14 +120,17 @@ export default {
     this.endExp = this.$store.state.exp + this.startExp
 
     // 이전 레벨
-    this.level = this.beforeExp / 100 - (this.beforeExp % 100) / 100
+    this.level = parseInt(this.beforeExp / 100 - (this.beforeExp % 100) / 100)
 
     // 만약 얻은 경험치를 추가했는데 레벨업을 할 경우 ? ? ? 레벨을 업 해야겠지? ? ? ?맞나 ? ? ??
-    if (this.endExp / 100 >= 1) this.level += 1
+    if (this.endExp / 100 >= 1) {
+      this.isLevelUp = true
+      this.level += 1
+    }
 
     // exp progress Bar
     this.timer = setInterval(() => {
-      if (this.startExp == this.endExp) {
+      if (this.startExp == this.endExp || this.startExp == 100) {
         clearInterval(this.timer)
         this.timer = null
       } else this.startExp = this.startExp + 1
