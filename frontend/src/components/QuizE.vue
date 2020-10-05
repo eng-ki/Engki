@@ -68,10 +68,8 @@ export default {
         this.$swal({
           title:
             '<div><span style="font-weight:100; font-size:2vw;">정답이 아닙니다.</span><br><span  style="font-weight:100; font-size:2vw;">다시 한번 생각해보세요.</span></div>',
-          type: 'warning',
           showCancelButton: false,
           confirmButtonText: '확인',
-          showLoaderOnConfirm: true,
           timer: 1000,
         }).then((result) => {
           return true;
