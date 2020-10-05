@@ -1,7 +1,8 @@
 <template>
   <div class="background">
     <vue-web-cam
-      v-if="!isBreakTime && !isFinish"
+      v-if="!isFinish"
+      style="display: none"
       ref="webcam"
       :device-id="deviceId"
       width="0%"
@@ -11,7 +12,6 @@
       @cameras="onCameras"
       @camera-change="onCameraChange"
     />
-
     <!-- etc : 종료 화면 / pause 화면 컴포넌트들 들어갈 자리-->
     <etc
       v-if="isBreakTime || isFinish"
@@ -163,17 +163,19 @@ export default {
       }
     },
   },
+  beforeDestroy() {
+    this.stopCapture()
 
+    this.onStop()
+  },
   computed: {
     device: function () {
       return this.devices.find((n) => n.deviceId === this.deviceId)
     },
   },
   mounted() {
+    this.onStart()
     this.startCapture()
-  },
-  beforeDestroy() {
-    this.stopCapture()
   },
   methods: {
     isNextStage(flag) {
@@ -191,7 +193,6 @@ export default {
       this.answer = answer
     },
     startCapture() {
-      this.onStart()
       this.camTimer = setInterval(() => {
         this.onCapture()
         var dt = new Date()
@@ -211,10 +212,9 @@ export default {
         frm.append('kid_id', this.$store.state.kid.id)
 
         http
-          .post('http://j3a510.p.ssafy.io:8083/custom/emotion', frm, {
+          .post('https://j3a510.p.ssafy.io:8083/custom/emotion', frm, {
             headers: {
               'Content-Type': 'multipart/form-data',
-              'Access-Control-Allow-Origin': '*',
             },
           })
           .then(({ data }) => {
@@ -227,8 +227,8 @@ export default {
     },
     // 감정 인식 중지
     stopCapture() {
+      // 캡쳐 중지
       clearInterval(this.camTimer)
-      this.onStop()
     },
     // 모르겠어요 버튼 눌렀을때 완전 끝내기랑 다음으로가기
     isPass() {

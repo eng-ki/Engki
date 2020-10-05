@@ -106,11 +106,9 @@ export default {
         showLoaderOnConfirm: true,
       }).then((result) => {
         if (result.value) {
-          // console.log(this.custom)
-          // console.log(this.$store.state.parent.id)
           http
             .post(
-              'http://j3a510.p.ssafy.io:8083/custom/quiz/save',
+              'https://j3a510.p.ssafy.io:8083/custom/quiz/save',
               {
                 parent_id: this.$store.state.parent.id,
                 file_path: this.custom.file_path,
@@ -125,7 +123,6 @@ export default {
               {
                 headers: {
                   'Content-Type': 'application/json',
-                  'Access-Control-Allow-Origin': '*',
                 },
               }
             )
@@ -155,10 +152,8 @@ export default {
       const frm = new FormData()
       frm.append('files', file)
       frm.append('parent_id', this.$store.state.parent.id)
-      console.log(file)
-      console.log(this.$store.state.parent.id)
       http
-        .post('http://j3a510.p.ssafy.io:8083/custom/quiz/make', frm, {
+        .post('https://j3a510.p.ssafy.io:8083/custom/quiz/make', frm, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
