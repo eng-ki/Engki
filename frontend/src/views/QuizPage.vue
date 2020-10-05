@@ -1,5 +1,17 @@
 <template>
   <div class="background">
+    <vue-web-cam
+      v-if="!isBreakTime && !isFinish"
+      ref="webcam"
+      :device-id="deviceId"
+      width="0%"
+      @started="onStarted"
+      @stopped="onStopped"
+      @error="onError"
+      @cameras="onCameras"
+      @camera-change="onCameraChange"
+    />
+
     <!-- etc : 종료 화면 / pause 화면 컴포넌트들 들어갈 자리-->
     <etc
       v-if="isBreakTime || isFinish"
@@ -97,6 +109,8 @@ import QuizE from '@/components/QuizE.vue'
 import QuizF from '@/components/QuizF.vue'
 import Etc from '@/components/Etc.vue'
 import http from '../utils/http-common.js'
+import { WebCam } from 'vue-web-cam'
+
 export default {
   name: 'ParentPage',
   components: {
@@ -107,6 +121,7 @@ export default {
     QuizE,
     QuizF,
     Etc,
+    'vue-web-cam': WebCam,
   },
   data: () => {
     return {
@@ -118,32 +133,44 @@ export default {
       subjects: [
         '사진 속 단어를 배워보세요',
         '단어에 해당하는 그림을 모두 선택해주세요',
-        '단어에 해당하는 부분을 선택해주세요',
+        '색칠된 물체에 해당하는 단어를 선택해주세요',
         '빈칸에 해당하는 단어를 선택해주세요',
         '사진의 내용과 일치하는 문장을 선택해주세요',
         '사진 속 문장을 단어로 만들어보세요',
       ],
-      // 웹캠 캡처 관련 데이터
-      camTimer: null,
+      img: null,
+      camera: null,
+      deviceId: null,
+      devices: [],
     }
   },
+  watch: {
+    isBreakTime: function (val) {
+      if (val) {
+        this.stopCapture()
+      } else {
+        this.startCapture()
+      }
+    },
+    camera: function (id) {
+      this.deviceId = id
+    },
+    devices: function () {
+      const [first, ...tail] = this.devices
+      if (first) {
+        this.camera = first.deviceId
+        this.deviceId = first.deviceId
+      }
+    },
+  },
+
+  computed: {
+    device: function () {
+      return this.devices.find((n) => n.deviceId === this.deviceId)
+    },
+  },
   mounted() {
-    this.$store.state.exp = 0
-    // this.camTimer = setInterval(() => {
-    //   http
-    //     .post(
-    //       'http://j3a510.p.ssafy.io:8083/custom/emotion',
-    //       {
-    //         kid_id: this.$store.state.kid.id,
-    //       },
-    //       {
-    //         headers: { 'X-AUTH-TOKEN': this.$store.state.token },
-    //       }
-    //     )
-    //     .then(({ data }) => {
-    //       console.log('쉴까요 말까요 ? ' + data)
-    //     })
-    // }, 5000)
+    this.startCapture()
   },
   beforeDestroy() {
     this.stopCapture()
@@ -158,15 +185,50 @@ export default {
       if (this.stage == 6) {
         this.stage = 5
         this.isFinish = true
-        this.stopCapture()
       }
     },
     setAnswer(answer) {
       this.answer = answer
     },
+    startCapture() {
+      this.onStart()
+      this.camTimer = setInterval(() => {
+        this.onCapture()
+        var dt = new Date()
+
+        dt =
+          dt.getFullYear() +
+          (dt.getMonth() + 1) +
+          dt.getDate() +
+          dt.getHours() +
+          dt.getMinutes() +
+          dt.getSeconds()
+
+        var file = this.dataURLtoFile(this.img, dt)
+
+        var frm = new FormData()
+        frm.append('files', file)
+        frm.append('kid_id', this.$store.state.kid.id)
+
+        http
+          .post('http://j3a510.p.ssafy.io:8083/custom/emotion', frm, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              'Access-Control-Allow-Origin': '*',
+            },
+          })
+          .then(({ data }) => {
+            console.log(data)
+            if (data == 'STOP') {
+              this.isBreakTime = true
+            }
+          })
+      }, 5000)
+    },
     // 감정 인식 중지
     stopCapture() {
       clearInterval(this.camTimer)
+      this.onStop()
     },
     // 모르겠어요 버튼 눌렀을때 완전 끝내기랑 다음으로가기
     isPass() {
@@ -190,6 +252,47 @@ export default {
           this.isNextStage(false)
         }
       })
+    },
+    onCapture() {
+      this.img = this.$refs.webcam.capture()
+    },
+    onStarted(stream) {
+      console.log('On Started Event', stream)
+    },
+    onStopped(stream) {
+      console.log('On Stopped Event', stream)
+    },
+    onStop() {
+      this.$refs.webcam.stop()
+    },
+    onStart() {
+      this.$refs.webcam.start()
+    },
+    onError(error) {
+      console.log('On Error Event', error)
+    },
+    onCameras(cameras) {
+      this.devices = cameras
+      console.log('On Cameras Event', cameras)
+    },
+    onCameraChange(deviceId) {
+      this.deviceId = deviceId
+      this.camera = deviceId
+      console.log('On Camera Change Event', deviceId)
+    },
+
+    dataURLtoFile(dataurl, fileName) {
+      var arr = dataurl.split(','),
+        mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]),
+        n = bstr.length,
+        u8arr = new Uint8Array(n)
+
+      while (n--) {
+        u8arr[n] = bstr.charCodeAt(n)
+      }
+
+      return new File([u8arr], fileName, { type: mime })
     },
   },
 }

@@ -76,6 +76,7 @@
 </template>
 <script>
 import http from '../utils/http-common.js'
+
 export default {
   name: 'UploadPicture',
   props: {
@@ -129,10 +130,15 @@ export default {
               }
             )
             .then(({ data }) => {
-              console.log(data)
+              if (data == 'success') {
+                alert('학습이 저장됩니다.')
+                console.log('학습 성공')
+              }
             })
             .catch((err) => {
               console.error(err)
+
+              alert('학습에 실패하였습니다.')
             })
         }
       })
@@ -149,12 +155,12 @@ export default {
       const frm = new FormData()
       frm.append('files', file)
       frm.append('parent_id', this.$store.state.parent.id)
-
+      console.log(file)
+      console.log(this.$store.state.parent.id)
       http
         .post('http://j3a510.p.ssafy.io:8083/custom/quiz/make', frm, {
           headers: {
             'Content-Type': 'multipart/form-data',
-            'Access-Control-Allow-Origin': '*',
           },
         })
         .then(({ data }) => {
