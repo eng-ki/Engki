@@ -23,7 +23,7 @@
   </div>
 </template>
 <script>
-import http from '../utils/http-common.js'
+import http from '../utils/http-common.js';
 export default {
   props: {
     isDone: false,
@@ -32,7 +32,7 @@ export default {
     return {
       quiz: null,
       selectedIndex: -1,
-    }
+    };
   },
   created() {
     this.quiz = {
@@ -41,25 +41,38 @@ export default {
         this.$store.state.quiz_adv.filePath,
       sentence: this.$store.state.quiz_adv.caption,
       answers: this.$store.state.quiz_adv.randomCaptions,
-    }
+    };
   },
   watch: {
     isDone: function (val) {
-      if (this.isCorrect()) this.$emit('correct')
-      else this.$emit('wrong')
+      if (this.isCorrect()) this.$emit('correct');
+      else this.$emit('wrong');
     },
   },
   methods: {
     isCorrect() {
       if (this.quiz.answers[this.selectedIndex] == this.quiz.sentence)
-        return true
-      else return false
+        return true;
+      else {
+        this.$swal({
+          title:
+            '<div><span style="font-weight:100; font-size:2vw;">정답이 아닙니다.</span><br><span  style="font-weight:100; font-size:2vw;">다시 한번 생각해보세요.</span></div>',
+          type: 'warning',
+          showCancelButton: false,
+          confirmButtonText: '확인',
+          showLoaderOnConfirm: true,
+          timer: 1000,
+        }).then((result) => {
+          return true;
+        });
+        return false;
+      }
     },
     select(index) {
-      this.selectedIndex = index
+      this.selectedIndex = index;
     },
   },
-}
+};
 </script>
 <style lang="scss">
 @import '../assets/sass/base.scss';

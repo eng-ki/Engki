@@ -44,7 +44,7 @@
   </div>
 </template>
 <script>
-import http from '../utils/http-common.js'
+import http from '../utils/http-common.js';
 export default {
   props: {
     isDone: false,
@@ -54,27 +54,27 @@ export default {
       quiz: null,
       selectedIndex: -1,
       blank: '<span>&nbsp;&nbsp;</span>',
-    }
+    };
   },
   created() {
-    this.quizapipath = '/edu/' + this.$store.state.quiz.id + '/captions'
-    console.log('퀴즈4패스 : ' + this.quizapipath)
+    this.quizapipath = '/edu/' + this.$store.state.quiz.id + '/captions';
+    console.log('퀴즈4패스 : ' + this.quizapipath);
     http
       .get(this.quizapipath, {
         headers: { 'X-AUTH-TOKEN': this.$store.state.token },
       })
       .then((data) => {
-        console.log(data.data)
+        console.log(data.data);
         this.$store.commit('setQuizAdv', {
           caption: data.data.caption,
           captionKor: data.data.captionKor,
           filePath: data.data.filePath,
           randomCaptions: data.data.randomCaptions,
           tokens: data.data.tokens,
-        })
+        });
 
-        const idx = data.data.randomWords.indexOf(this.$store.state.quiz.word)
-        data.data.randomWords.splice(idx, 1)
+        const idx = data.data.randomWords.indexOf(this.$store.state.quiz.word);
+        data.data.randomWords.splice(idx, 1);
 
         this.quiz = {
           url:
@@ -88,26 +88,39 @@ export default {
             data.data.randomWords[1],
             data.data.randomWords[2],
           ],
-        }
-        this.quiz.sentence = this.quiz.sentence.split(' ')
-      })
+        };
+        this.quiz.sentence = this.quiz.sentence.split(' ');
+      });
   },
   watch: {
     isDone: function (val) {
-      if (this.isCorrect()) this.$emit('correct')
-      else this.$emit('wrong')
+      if (this.isCorrect()) this.$emit('correct');
+      else this.$emit('wrong');
     },
   },
   methods: {
     isCorrect() {
-      if (this.quiz.words[this.selectedIndex] == this.quiz.word) return true
-      else return false
+      if (this.quiz.words[this.selectedIndex] == this.quiz.word) return true;
+      else {
+        this.$swal({
+          title:
+            '<div><span style="font-weight:100; font-size:2vw;">정답이 아닙니다.</span><br><span  style="font-weight:100; font-size:2vw;">다시 한번 생각해보세요.</span></div>',
+          type: 'warning',
+          showCancelButton: false,
+          confirmButtonText: '확인',
+          showLoaderOnConfirm: true,
+          timer: 1000,
+        }).then((result) => {
+          return true;
+        });
+        return false;
+      }
     },
     select(index) {
-      this.selectedIndex = index
+      this.selectedIndex = index;
     },
   },
-}
+};
 </script>
 <style lang="scss">
 @import '../assets/sass/base.scss';
