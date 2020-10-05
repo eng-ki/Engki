@@ -23,7 +23,7 @@ from flask import Flask
 from flask_cors import CORS
 # from OpenSSL import SSL
 import ssl
-
+import traceback
 
 app = Flask(__name__)
 app.config.from_pyfile('config.py')
@@ -193,6 +193,7 @@ def custom_save():
 
         return 'success', 201
     except:
+        traceback.print_exc()
         return 'fail', 409
 
 
