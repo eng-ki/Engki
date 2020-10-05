@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.ssafy.engkiMail'
-version = '0.0.1-SNAPSHOT'
+version = '1.0'
 sourceCompatibility = '11'
 
 repositories {
@@ -21,7 +21,6 @@ dependencies {
 	compile 'org.mariadb.jdbc:mariadb-java-client'
 	compile "org.springframework.boot:spring-boot-starter-mail"
 	compile "org.springframework.boot:spring-boot-starter-thymeleaf"
-	compile "com.sun.mail:javax.mail"
 }	
 
 test {
