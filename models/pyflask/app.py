@@ -41,24 +41,24 @@ def emotion():
 
     er_model = Emotion_Recognition
 
-    # filestr = request.files['files'].read()
-    try:
-        capture = cv2.VideoCapture(0)
-        capture.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
-        capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
-
-        ret, frame = capture.read()
-    except:
-        return 'No camera', 204
+    filestr = request.files['files'].read()
+    # try:
+    #     capture = cv2.VideoCapture(0)
+    #     capture.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+    #     capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+    #
+    #     ret, frame = capture.read()
+    # except:
+    #     return 'No camera', 204
     # filstr = frame.getvalue()
     kid_id = request.form['kid_id']
     emotion_data = {}
     # convert string data to numpy array
-    # npimg = numpy.fromstring(frame, numpy.uint8)
+    npimg = numpy.fromstring(filestr, numpy.uint8)
     # convert numpy array to image
-    # img = cv2.imdecode(npimg, cv2.IMREAD_COLOR)
+    img = cv2.imdecode(npimg, cv2.IMREAD_COLOR)
 
-    emotion_dict = er_model.emotion_recognition(frame)
+    emotion_dict = er_model.emotion_recognition(img)
 
     if len(emotion_dict) > 0:
 
