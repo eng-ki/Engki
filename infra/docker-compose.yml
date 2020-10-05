@@ -6,17 +6,16 @@ services:
                 container_name: "engki_db"
                 restart: always
                 volumes:
-                         - ./data/mysql:/var/lib/mysql
+                        - ./data/mysql:/var/lib/mysql
                 environment:
                         - MYSQL_ROOT_PASSWORD=
                         - MYSQL_RANDOM_ROOT_PASSWORD=yes
                         - MYSQL_DATABASE=ENGKI
                         - MYSQL_USER=deki
-                        - MYSQL_PASSWORD_FILE=./db_password
-                        - TZ=Asia/Seoula
+                        - MYSQL_PASSWORD=./db_password
+                        - TZ=Asia/Seoul
                 ports:
                         - 3306:3306
-
         adminer:
                 image: adminer
                 container_name: "engki_adminer"
@@ -32,6 +31,10 @@ services:
                         - 80:80
                 environment:
                         - TZ=Asia/Seoul
+                volumes:
+                        - ./data/inputs:/usr/share/nginx/html/images/inputs
+                        - ./data/outputs:/usr/share/nginx/html/images/outputs
+                        - ./data/custom:/usr/share/nignx/html/images/custom  
         api:
                 image: api_engki
                 container_name: "engki_api"
@@ -42,3 +45,13 @@ services:
                 volumes: 
                         - /etc/timezone:/etc/timezone
                         - /etc/localtime:/etc/localtime
+                        - ./data/api_log:/log
+        AI:
+                image: pyflask_engki
+                container_name: "engki_flask"
+                ports:
+                        - 8083:5000 
+                environment:
+                        - TZ=Asia/Seoul
+                volumes:
+                        - ./data/custom:/app/custom
