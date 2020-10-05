@@ -21,7 +21,9 @@ import sys
 import urllib.request
 from flask import Flask
 from flask_cors import CORS
-
+# from OpenSSL import SSL
+import ssl
+import traceback
 
 app = Flask(__name__)
 app.config.from_pyfile('config.py')
@@ -29,6 +31,11 @@ CORS(app)
 
 database = create_engine(app.config['DB_URL'], encoding='utf-8')
 app.database = database
+
+
+# context.use_privatekey_file(pkey)
+# context.use_certificate_file(cert)
+
 
 @app.route('/')
 def index():
@@ -41,24 +48,24 @@ def emotion():
 
     er_model = Emotion_Recognition
 
-    # filestr = request.files['files'].read()
-    try:
-        capture = cv2.VideoCapture(0)
-        capture.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
-        capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
-
-        ret, frame = capture.read()
-    except:
-        return 'No camera', 204
+    filestr = request.files['files'].read()
+    # try:
+    #     capture = cv2.VideoCapture(0)
+    #     capture.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+    #     capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+    #
+    #     ret, frame = capture.read()
+    # except:
+    #     return 'No camera', 204
     # filstr = frame.getvalue()
     kid_id = request.form['kid_id']
     emotion_data = {}
     # convert string data to numpy array
-    # npimg = numpy.fromstring(frame, numpy.uint8)
+    npimg = numpy.fromstring(filestr, numpy.uint8)
     # convert numpy array to image
-    # img = cv2.imdecode(npimg, cv2.IMREAD_COLOR)
+    img = cv2.imdecode(npimg, cv2.IMREAD_COLOR)
 
-    emotion_dict = er_model.emotion_recognition(frame)
+    emotion_dict = er_model.emotion_recognition(img)
 
     if len(emotion_dict) > 0:
 
@@ -186,6 +193,7 @@ def custom_save():
 
         return 'success', 201
     except:
+        traceback.print_exc()
         return 'fail', 409
 
 
@@ -235,7 +243,13 @@ def seg(filestr, parents_id):
 
 
 if __name__ == '__main__':
+    ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS)
+    cert = "/etc/letsencrypt/live/j3a510.p.ssafy.io/cert.pem"
+    pkey = "/etc/letsencrypt/live/j3a510.p.ssafy.io/privkey.pem"
+    ssl_context.load_cert_chain(certfile=cert, keyfile=pkey)
     app.run(
         host="0.0.0.0",
-        debug=True
+        debug=True,
+        # ssl_context=(cert, pkey)
+        ssl_context=ssl_context
     )

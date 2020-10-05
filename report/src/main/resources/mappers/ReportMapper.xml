@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.engkiMail.mapper.ReportMapper">   
+            
+	
+	<select id="selectAllKids" resultType="ReportDto">
+		select k.id kid_id, k.name kid_name, p.email email
+		from kid k join parent p on k.parent_id = p.id
+		where p.receive_email_flag = 1 and p.email is not null
+	</select>
+	
+	<select id="selectWordByKidId" resultType="String">
+		select word
+		from kid_word join word on kid_word.word_id = word.id
+		where kid_id = #{kid_id} and studied_date = curdate()
+	</select>
+	
+	<select id="selectEmotionByKidId" resultType="String">
+		select concat('angry : ' ,truncate(avg(angry),0), '% sad : ' ,truncate(avg(sad),0),'% surprising : ' ,truncate(avg(surprising),0),'% happy : ' ,truncate(avg(happy),0) , '%') emotion
+		from kid_emotion
+		where kid_id = #{kid_id} and date_format(evaluate_time,"%Y-%m-%d") = curdate()
+	</select>
+	
+</mapper>
+

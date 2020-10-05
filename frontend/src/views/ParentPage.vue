@@ -255,7 +255,6 @@ $arrowcolor: black;
   // background-color :red;
   // opacity:50%;
   .board-header-kid {
-    float: left;
     // margin:10px;
     display: inline-block;
     // background:yellow;
