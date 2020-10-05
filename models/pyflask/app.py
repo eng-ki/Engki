@@ -168,6 +168,7 @@ def custom_save():
     caption_word = data['caption_word']
     seg_word_kor = data['seg_word_kor']
     caption_word_kor = data['caption_word_kor']
+    file_path = data['file_path']
     try:
         image_id = app.database.execute(text("""
                                             INSERT INTO custom_image (file_path, parent_id)
