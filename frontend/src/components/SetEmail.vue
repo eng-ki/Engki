@@ -85,8 +85,8 @@
   </div>
 </template>
 <script>
-import http from '../utils/http-common.js'
-import jwt_decode from 'jwt-decode'
+import http from '../utils/http-common.js';
+import jwt_decode from 'jwt-decode';
 export default {
   props: {
     from: null,
@@ -98,17 +98,17 @@ export default {
         email: '',
         receiveEmailFlag: true,
       },
-    }
+    };
   },
   created() {
-    var parent_id = jwt_decode(this.$store.state.token).sub
+    var parent_id = jwt_decode(this.$store.state.token).sub;
     http
       .get('parents/' + parent_id, {
         headers: { 'X-AUTH-TOKEN': this.$store.state.token },
       })
       .then(({ data }) => {
-        this.parents = data
-      })
+        this.parents = data;
+      });
   },
   methods: {
     deleteInfo() {
@@ -129,12 +129,12 @@ export default {
               headers: { 'X-AUTH-TOKEN': this.$store.state.token },
             })
             .then(({ data }) => {
-              this.$store.commit('setParent', null)
-              this.$store.commit('setToken', null)
-              this.$router.push('/')
-            })
+              this.$store.commit('setParent', null);
+              this.$store.commit('setToken', null);
+              this.$router.push('/');
+            });
         }
-      })
+      });
     },
     saveInfo() {
       if (this.from == null) {
@@ -162,13 +162,13 @@ export default {
                 }
               )
               .then(({ data }) => {
-                this.$router.push('/parent')
+                this.$router.push('/parent');
               })
               .catch((err) => {
-                console.error(err)
-              })
+                console.error(err);
+              });
           }
-        })
+        });
       } else if (this.from == 'parent') {
         this.$swal({
           title:
@@ -194,17 +194,17 @@ export default {
                 }
               )
               .then(({ data }) => {
-                this.$emit('visible')
-              })
+                this.$emit('visible');
+              });
           }
-        })
+        });
       }
     },
     returnParentPage() {
-      this.$emit('returnParentPage')
+      this.$emit('returnParentPage');
     },
   },
-}
+};
 </script>
 <style lang="scss">
 @import '../assets/sass/base.scss';
@@ -263,11 +263,19 @@ export default {
 .page-title {
   // text-align: left;
   font-size: 8vh;
+  top: 2vh;
+  left: 4vw;
+  position: relative;
+  font-family: GmarketSansMedium;
+  color: black;
 }
 
 /* 회원가입 내용 */
-.page-text {
+.innerbox .page-text {
+  color: black;
   text-align: left;
+  margin-top: 3vh;
+  margin-left: 3vw;
 }
 
 .row {
