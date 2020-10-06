@@ -392,7 +392,7 @@ export default {
   width: 65vw;
   height: 65vh;
   overflow: hidden;
-  display: inline-block;
+  display: block;
   text-align: center;
 }
 .img-block {
@@ -404,7 +404,7 @@ export default {
   margin-left: 8.4vw;
   margin-right: 8.4vw;
   margin-bottom: 2vw;
-  display: inline-block;
+  display: block;
 }
 .upload-image {
   float: top;

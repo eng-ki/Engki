@@ -49,8 +49,7 @@ const routes = [
   },
   {
     path: '*',
-    name: 'LoginPage',
-    component: LoginPage,
+    redirect: '/',
   },
 ]
 
