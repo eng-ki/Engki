@@ -286,12 +286,9 @@ export default {
                   showCancelButton: false,
                   confirmButtonText: '확인',
                 }).then((result) => {})
-                console.log('학습 성공')
               }
             })
             .catch((err) => {
-              console.error(err)
-
               this.$swal({
                 title:
                   '<span style="font-family: GmarketSansMedium;font-size:1.2vw;">퀴즈 데이터에 성공적으로 저장되었습니다</span>',
@@ -323,8 +320,13 @@ export default {
           this.isUploaded = true
         })
         .catch((err) => {
-          console.error(err)
           this.overlay = false
+          this.$swal({
+            title:
+              '<span style="font-family: GmarketSansMedium;font-size:1.2vw;">사진에서 개체를 찾을 수 없습니다<br>다른 사진을 등록해주세요</span>',
+            showCancelButton: false,
+            confirmButtonText: '확인',
+          }).then((result) => {})
         })
 
       this.img = URL.createObjectURL(file)
@@ -390,7 +392,7 @@ export default {
   width: 65vw;
   height: 65vh;
   overflow: hidden;
-  display: inline-block;
+  display: block;
   text-align: center;
 }
 .img-block {
@@ -402,7 +404,7 @@ export default {
   margin-left: 8.4vw;
   margin-right: 8.4vw;
   margin-bottom: 2vw;
-  display: inline-block;
+  display: block;
 }
 .upload-image {
   float: top;
@@ -429,15 +431,15 @@ export default {
   float: right;
   width: 35%;
   height: 100%;
-  background-color: #f2f2f2;
+  background-color: white;
   overflow: hidden;
 }
 .custom-img img {
-  width: 100%;
-  height: auto;
+  width: 22vw;
+  height: 22vw;
   max-height: 21vw;
-  border: 10px solid #f2f2f2;
-  border-radius: 30%;
+  border: 10px solid white;
+  border-radius: 20%;
   float: right;
 }
 
@@ -450,6 +452,7 @@ export default {
   background-color: yellowgreen;
   float: bottom;
   color: darkgreen;
+
   &:hover {
     opacity: 0.8;
     transition: all 0.1s;
@@ -465,6 +468,7 @@ export default {
 
 .custom-title {
   float: top;
+  padding-left: 1vw;
   padding-top: 1.2vw;
   padding-bottom: 1.2vw;
   font-size: 1vw;

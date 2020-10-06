@@ -47,11 +47,10 @@ const routes = [
     name: 'QuizPage',
     component: QuizPage,
   },
-  // {
-  //   path: '/test',
-  //   name: 'Test',
-  //   component: Test,
-  // },
+  {
+    path: '*',
+    redirect: '/',
+  },
 ]
 
 const router = new VueRouter({
