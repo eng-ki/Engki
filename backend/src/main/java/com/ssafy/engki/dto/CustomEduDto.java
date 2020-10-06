@@ -97,14 +97,7 @@ public class CustomEduDto {
 				+ "{ 'token': 'light', 'order': 3 },"
 				+ "{ 'token': 'a', 'order': 5 },"
 				+ "{ 'token': 'a', 'order': 1 } ]")
-		private List<Token> tokens;
-	}
-
-	@Data
-	@AllArgsConstructor
-	public static class Token {
-		private String token;
-		private int order;
+		private List<EduDto.Token> tokens;
 	}
 
 	@Data
