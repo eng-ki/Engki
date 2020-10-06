@@ -6,7 +6,7 @@
     <div class="header">{{ item.name }}을 획득했습니다!</div>
     <div class="gi-buttons">
       <button class="blue-button wide" @click="goMain()">메인으로</button>
-      <button class="green-button wide" @click="Again()">한판 더 하기</button>
+      <button class="green-button wide" @click="Again()">공부 더 하기</button>
     </div>
   </div>
 </template>
@@ -19,20 +19,20 @@ export default {
         url: '/img/icon/jungle/049-mushroom.png',
         name: '버섯',
       },
-    }
+    };
   },
   mounted() {
     // 아이템 가져오는 api 호출
   },
   methods: {
     goMain() {
-      this.$router.push('/kid')
+      this.$router.push('/kid');
     },
     Again() {
-      this.$router.push('/selectquiz')
+      this.$router.push('/selectquiz');
     },
   },
-}
+};
 </script>
 <style lang="scss">
 @import '../assets/sass/base.scss';

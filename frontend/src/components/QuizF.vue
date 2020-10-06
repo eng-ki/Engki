@@ -74,7 +74,7 @@ export default {
     }
     this.answer = this.answer.join(' ');
 
-    console.log(this.$store.state.quiz_adv.tokens);
+    // console.log(this.$store.state.quiz_adv.tokens);
   },
   watch: {
     isDone: function (val) {
@@ -90,8 +90,9 @@ export default {
       for (var i = 0; i < this.answers.length; i++) {
         compare.splice(i, 0, this.answers[i].token);
       }
-
       compare = compare.join(' ');
+      // console.log(compare);
+      // console.log(this.answer);
 
       if (compare == this.answer) return true;
       else {
@@ -151,10 +152,10 @@ function speech(txt) {
   var lang = 'en-US';
   var utterThis = new SpeechSynthesisUtterance(txt);
   utterThis.onend = function (event) {
-    console.log('end');
+    // console.log('end');
   };
   utterThis.onerror = function (event) {
-    console.log('error', event);
+    // console.log('error', event);
   };
   var voiceFound = false;
   for (var i = 0; i < voices.length; i++) {
