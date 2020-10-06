@@ -58,7 +58,7 @@
   </div>
 </template>
 <script>
-import http from '../utils/http-common.js'
+import http from '../utils/http-common.js';
 export default {
   name: 'SetProfileImage',
   props: {
@@ -124,31 +124,29 @@ export default {
       max: 100,
       timer: null,
       isChangeProfile: false,
-    }
+    };
   },
   mounted() {
-    this.selectedIndex = this.fairytale.indexOf(this.$store.state.kid.icon)
-    this.level = this.kid.exp / 100 - (this.kid.exp % 100) / 100
+    this.selectedIndex = this.fairytale.indexOf(this.$store.state.kid.icon);
+    this.level = this.kid.exp / 100 - (this.kid.exp % 100) / 100;
     this.timer = setInterval(() => {
       if (this.value == this.kid.exp % 100) {
-        clearInterval(this.timer)
-        this.timer = null
-      } else this.value = this.value + 1
-    }, 30)
+        clearInterval(this.timer);
+        this.timer = null;
+      } else this.value = this.value + 1;
+    }, 30);
   },
   methods: {
     returnKidPage() {
-      this.$emit('returnKidPage', this.fairytale[this.selectedIndex])
+      this.$emit('returnKidPage', this.fairytale[this.selectedIndex]);
     },
     setProfileImage() {
       this.$swal({
         title: '선택된 아바타로 변경하시겠습니까?',
-        type: 'warning',
         showCancelButton: true,
         confirmButtonText: '네',
         cancelButtonText: '아니오',
         showCloseButton: true,
-        showLoaderOnConfirm: true,
       }).then((result) => {
         if (result.value) {
           http
@@ -162,20 +160,20 @@ export default {
               }
             )
             .then(({ data }) => {
-              this.$store.state.kid.icon = this.fairytale[this.selectedIndex]
-              this.returnKidPage()
-            })
+              this.$store.state.kid.icon = this.fairytale[this.selectedIndex];
+              this.returnKidPage();
+            });
         }
-      })
+      });
     },
     selectProfileImage(num) {
       if (this.level >= num) {
-        this.selectedIndex = num
-        this.profileImage = this.fairytale[this.selectedIndex]
+        this.selectedIndex = num;
+        this.profileImage = this.fairytale[this.selectedIndex];
       }
     },
   },
-}
+};
 </script>
 
 <style lang="scss">
