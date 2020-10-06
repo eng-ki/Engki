@@ -77,7 +77,7 @@ CREATE TABLE `kid_word`
 CREATE TABLE `image`
 (
     `id`        bigint      NOT NULL AUTO_INCREMENT,
-    `file_path` varchar(40) NOT NULL,
+    `file_path` varchar(100) NOT NULL,
     CONSTRAINT `image_pk` PRIMARY KEY (`id`)
 );
 
@@ -105,7 +105,7 @@ CREATE TABLE `image_caption`
 CREATE TABLE `custom_image`
 (
     `id`        bigint      NOT NULL AUTO_INCREMENT,
-    `file_path` varchar(40) NOT NULL,
+    `file_path` varchar(100) NOT NULL,
     `parent_id` bigint      NOT NULL,
     CONSTRAINT `custom_image_pk` PRIMARY KEY (`id`),
     CONSTRAINT `custom_image_parent_id_fk` FOREIGN KEY (`parent_id`) REFERENCES `parent` (`id`) ON DELETE CASCADE ON UPDATE CASCADE

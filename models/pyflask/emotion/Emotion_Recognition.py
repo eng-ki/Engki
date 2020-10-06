@@ -1,5 +1,7 @@
 import cv2
 import numpy as np
+import math
+
 from keras.preprocessing.image import img_to_array
 from keras.models import load_model
 
@@ -57,7 +59,8 @@ def emotion_recognition(img):
             # w = int(prob * 300)
             # cv2.rectangle(canvas, (7, (i * 35) + 5), (w, (i * 35) + 35), (0, 0, 255), -1)
             # cv2.putText(canvas, text, (10, (i * 35) + 23), cv2.FONT_HERSHEY_SIMPLEX, 0.45, (255, 255, 255), 2)
-            emotions[emotion] = format(prob*100, ".2f")
+            t = math.floor(prob * 10000) / 10000
+            emotions[emotion] = format(t*100, ".2f")
 
     # Open two windows
     # Display image ("Emotion Recognition")
