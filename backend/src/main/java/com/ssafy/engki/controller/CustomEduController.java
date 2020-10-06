@@ -82,4 +82,25 @@ public class CustomEduController {
 		logger.debug(String.format("get Segmentation image with word %s 호출", word));
 		return new ResponseEntity<>(customEduService.getSegmentation(word, parentId), HttpStatus.OK);
 	}
+
+	@GetMapping("{word}/captions/by/{parentId}")
+	@ApiOperation(value = "Quiz 4,5,6 : 이미지 캡션 조회",
+		notes = "1. Quiz 4 : 오리지널 이미지의 캡션, (랜덤 순서로 섞인) 랜덤 단어 3개 + 정답 단어\n"
+			+ "2. Quiz 5 : (랜덤 순서로 섞인) 같은 단어를 포함하지 않는 랜덤 캡션 3개 + 정답 캡션\n"
+			+ "3. Quiz 6 : 오리지널 이미지 캡션의 (랜덤 순서로 섞인) Token(+원래 순서) 목록\n"
+			+ "을 조회한다.",
+		response = CustomEduDto.Caption.class)
+	@ApiResponses(value = {
+		@ApiResponse(code = 200, message = "OK"),
+		@ApiResponse(code = 400, message = "Bad Request"),
+		@ApiResponse(code = 401, message = "Unauthorized"),
+		@ApiResponse(code = 403, message = "Forbidden"),
+		@ApiResponse(code = 404, message = "Not Found")
+	})
+	private ResponseEntity<CustomEduDto.Caption> getCaption(
+		@ApiParam(value = "word", example = "traffic light") @PathVariable String word,
+		@ApiParam(value = "부모 id", example = "1486633352") @PathVariable long parentId) {
+		logger.debug(String.format("get Caption with word %s 호출", word));
+		return new ResponseEntity<>(customEduService.getCaption(word, parentId), HttpStatus.OK);
+	}
 }

@@ -1,5 +1,8 @@
 package com.ssafy.engki.service;
 
+import static com.ssafy.engki.service.Util.*;
+
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -11,12 +14,14 @@ import lombok.RequiredArgsConstructor;
 
 import com.ssafy.engki.dto.CustomEduDto;
 import com.ssafy.engki.entity.CustomImage;
+import com.ssafy.engki.entity.CustomImageCaption;
 import com.ssafy.engki.entity.CustomImageWord;
 import com.ssafy.engki.entity.ImageWord;
 import com.ssafy.engki.entity.Word;
 import com.ssafy.engki.repository.CustomImageCaptionRepository;
 import com.ssafy.engki.repository.CustomImageRepository;
 import com.ssafy.engki.repository.CustomImageWordRepository;
+import com.ssafy.engki.repository.ImageCaptionRepository;
 import com.ssafy.engki.repository.ImageWordRepository;
 import com.ssafy.engki.repository.KidRepository;
 import com.ssafy.engki.repository.ParentRepository;
@@ -32,6 +37,7 @@ public class CustomEduService {
 	private final CustomImageCaptionRepository customImageCaptionRepository;
 	private final ImageWordRepository imageWordRepository;
 	private final WordRepository wordRepository;
+	private final ImageCaptionRepository imageCaptionRepository;
 
 	public CustomEduDto.CImage getRandomImage(long parentId) {
 		Random rand = new Random(System.currentTimeMillis());
@@ -95,6 +101,36 @@ public class CustomEduService {
 			.filePath(customImageWord.getImage().getFilePath())
 			.segFilePath(customImageWord.getBoundary())
 			.randomWord(randomWord.getWord())
+			.build();
+	}
+
+	public CustomEduDto.Caption getCaption(String word, long parentId) {
+		Random rand = new Random(System.currentTimeMillis());
+
+		List<CustomImageCaption> imageWords = customImageCaptionRepository.getImagesOfWord(word, parentId);
+		CustomImageCaption customImageCaption = imageWords.get(rand.nextInt(imageWords.size()));
+
+		List<String> randomWords = new ArrayList<>(Collections.singletonList(word));
+		List<Word> wordsExceptWord = wordRepository.getWordsExceptWord(word);
+		Util.getRandomNumbers(3, wordsExceptWord.size()).forEach(idx ->
+			randomWords.add(wordsExceptWord.get(idx).getWord())
+		);
+		Collections.shuffle(randomWords);
+
+		List<String> captionsExceptWord = imageCaptionRepository.getWordsExceptWord(word);
+		List<String> randomCaptions = new ArrayList<>(Collections.singletonList(customImageCaption.getCaption()));
+		Util.getRandomNumbers(3, captionsExceptWord.size()).forEach(idx ->
+			randomCaptions.add(captionsExceptWord.get(idx))
+		);
+		Collections.shuffle(randomCaptions);
+
+		return CustomEduDto.Caption.builder()
+			.filePath(customImageCaption.getImage().getFilePath())
+			.caption(customImageCaption.getCaption())
+			.captionKor(customImageCaption.getCaptionKor())
+			.randomWords(randomWords)
+			.randomCaptions(randomCaptions)
+			.tokens(tokenize(customImageCaption.getCaption()))
 			.build();
 	}
 }
