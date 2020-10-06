@@ -166,7 +166,8 @@ export default {
           this.kids = data
           console.log(this.kids)
           // console.log(this.kids[0]);
-          this.$store.commit('setSelectedKid', this.kids[0].id)
+          if (data.length != 0)
+            this.$store.commit('setSelectedKid', this.kids[0].id)
         })
     },
     selectKid(index) {

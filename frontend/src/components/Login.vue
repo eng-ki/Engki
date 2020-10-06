@@ -47,7 +47,7 @@
               다양한 클릭 이벤트 기반의 이미지 학습<br />
             </span>
           </v-col>
-          <v-col cols="12" sm="8" md="7" align="center" justify="center">
+          <v-col cols="12" sm="8" md="6" align="center" justify="center">
             <v-carousel
               reverse-transition="fade-transition"
               transition="fade-transition"
@@ -72,6 +72,13 @@
               ></v-carousel-item>
             </v-carousel>
           </v-col>
+          <v-col
+            cols="12"
+            sm="8"
+            md="1"
+            align="center"
+            justify="center"
+          ></v-col>
         </v-row>
       </v-layout>
     </v-layout>
@@ -84,7 +91,14 @@
         :data-aos-duration="$vuetify.breakpoint.mdAndUp ? '1000' : ''"
       >
         <v-row align="center" justify="center">
-          <v-col cols="12" sm="8" md="7" align="center" justify="center">
+          <v-col
+            cols="12"
+            sm="8"
+            md="1"
+            align="center"
+            justify="center"
+          ></v-col>
+          <v-col cols="12" sm="8" md="6" align="center" justify="center">
             <v-carousel
               reverse-transition="fade-transition"
               transition="fade-transition"
@@ -132,6 +146,73 @@
         </v-row>
       </v-layout>
     </v-layout>
+
+    <v-layout fluid fill-height class="fullpage">
+      <v-layout
+        row
+        wrap
+        align-center
+        :data-aos="$vuetify.breakpoint.mdAndUp ? 'fade-right' : ''"
+        :data-aos-duration="$vuetify.breakpoint.mdAndUp ? '1000' : ''"
+      >
+        <v-row align="center" justify="center">
+          <v-col
+            cols="12"
+            sm="8"
+            md="5"
+            :align="$vuetify.breakpoint.mdAndUp ? 'right' : 'center'"
+            justify="center"
+          >
+            <span
+              :class="{
+                title2: $vuetify.breakpoint.mdAndUp,
+                titleSmDown: $vuetify.breakpoint.smAndDown,
+              }"
+            >
+              커스텀 학습 </span
+            ><br /><br />
+            <span class="content">
+              학습자료를 직접 등록하고 수정할 수 있어요<br />
+              자녀의 눈높이에 맞춰<br />
+              직접 퀴즈를 만들어보세요<br />
+            </span>
+          </v-col>
+          <v-col cols="12" sm="8" md="6" align="center" justify="center">
+            <v-carousel
+              reverse-transition="fade-transition"
+              transition="fade-transition"
+              hide-delimiters
+              :next-icon="false"
+              :prev-icon="false"
+              :style="{
+                width: $vuetify.breakpoint.mdAndUp ? '90vh' : '35vh',
+              }"
+              height="auto"
+              interval="2500"
+              :cycle="true"
+            >
+              <v-carousel-item
+                src="../../public/img/etc/ex.png"
+              ></v-carousel-item>
+              <v-carousel-item
+                src="../../public/img/etc/ex.png"
+              ></v-carousel-item>
+              <v-carousel-item
+                src="../../public/img/etc/ex.png"
+              ></v-carousel-item>
+            </v-carousel>
+          </v-col>
+          <v-col
+            cols="12"
+            sm="8"
+            md="6"
+            align="center"
+            justify="center"
+          ></v-col>
+        </v-row>
+      </v-layout>
+    </v-layout>
+
     <v-layout fluid fill-height class="fullpage">
       <v-layout row wrap align="center" justify="center">
         <v-row align="center" justify="center">
@@ -217,64 +298,7 @@
         </v-row>
       </v-layout>
     </v-layout>
-    <v-layout fluid fill-height class="fullpage">
-      <v-layout
-        row
-        wrap
-        align-center
-        :data-aos="$vuetify.breakpoint.mdAndUp ? 'fade-right' : ''"
-        :data-aos-duration="$vuetify.breakpoint.mdAndUp ? '1000' : ''"
-      >
-        <v-row align="center" justify="center">
-          <v-col
-            cols="12"
-            sm="8"
-            md="5"
-            :align="$vuetify.breakpoint.mdAndUp ? 'right' : 'center'"
-            justify="center"
-          >
-            <span
-              :class="{
-                title2: $vuetify.breakpoint.mdAndUp,
-                titleSmDown: $vuetify.breakpoint.smAndDown,
-              }"
-            >
-              커스텀 학습 </span
-            ><br /><br />
-            <span class="content">
-              학습자료를 직접 등록하고 수정할 수 있어요<br />
-              자녀의 눈높이에 맞춰<br />
-              직접 퀴즈를 만들어보세요<br />
-            </span>
-          </v-col>
-          <v-col cols="12" sm="8" md="7" align="center" justify="center">
-            <v-carousel
-              reverse-transition="fade-transition"
-              transition="fade-transition"
-              hide-delimiters
-              :next-icon="false"
-              :prev-icon="false"
-              :style="{
-                width: $vuetify.breakpoint.mdAndUp ? '90vh' : '35vh',
-              }"
-              height="auto"
-              interval="2500"
-              :cycle="true"
-            >
-              <v-carousel-item
-                src="../../public/img/etc/ex.png"
-              ></v-carousel-item>
-              <v-carousel-item
-                src="../../public/img/etc/ex.png"
-              ></v-carousel-item>
-              <v-carousel-item
-                src="../../public/img/etc/ex.png"
-              ></v-carousel-item>
-            </v-carousel>
-          </v-col>
-        </v-row>
-      </v-layout>
-    </v-layout>
+
     <v-layout fluid fill-height class="fullpage">
       <v-layout row wrap align-center>
         <v-row align="center" justify="center">
@@ -299,7 +323,7 @@
                 mdUp: $vuetify.breakpoint.mdAndUp,
                 smDown: $vuetify.breakpoint.smAndDown,
               }"
-              style="font-family: 'GmarketSansBold' !important; font-size: 9vw"
+              style="font-family: 'GmarketSansBold' !important; font-size: 10vw"
             >
               <span>E</span>
               <span>N</span>
@@ -556,9 +580,6 @@ html {
   color: white;
   font-family: GmarketSansMedium;
   text-shadow: 2px 2px 2px #2a632e;
-  // text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
-  // -moz-text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
-  // -webkit-text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
 }
 .titleSmDown {
   font-family: GmarketSansMedium;
@@ -571,30 +592,32 @@ html {
   font-family: GmarketSansMedium;
   text-shadow: 1.2px 1.2px 1.2px #2a632e;
   border-bottom: 3px solid green;
+  line-height: 2.1em;
 }
 .popout {
   font-family: GmarketSansMedium;
   font-weight: 900;
+  letter-spacing: 0.5vw;
   @keyframes ani {
     0% {
       transform: translate3d(0, 0, 0);
       text-shadow: 0em 0em 0 $back;
-      color: $front;
+      color: #ff9a00;
     }
     30% {
       transform: translate3d(0, 0, 0);
       text-shadow: 0em 0em 0 $back;
-      color: $front;
+      color: #ff9a00;
     }
     70% {
       transform: translate3d($d, -$d, 0);
-      text-shadow: -$d $d $back;
-      color: $front;
+      text-shadow: 15px 15px 15px rgba(0, 0, 0, 0.65);
+      color: #ff9a00;
     }
     100% {
       transform: translate3d($d, -$d, 0);
-      text-shadow: -$d $d $back;
-      color: $front;
+      text-shadow: 15px 15px 15px rgba(0, 0, 0, 0.65);
+      color: #ff9a00;
     }
   }
   span {
