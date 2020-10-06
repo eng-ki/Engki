@@ -14,4 +14,7 @@ public interface ImageCaptionRepository extends JpaRepository<ImageCaption, Imag
 
 	@Query(value = "select ic.caption from ImageCaption ic where ic.id.imageId <> :imageId")
 	List<String> findExceptImage(long imageId);
+
+	@Query(value = "select ic.caption from ImageCaption ic where ic.word.word <> :word")
+	List<String> getWordsExceptWord(String word);
 }
