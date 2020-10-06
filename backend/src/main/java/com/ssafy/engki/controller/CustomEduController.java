@@ -47,7 +47,7 @@ public class CustomEduController {
 		return new ResponseEntity<>(customEduService.getRandomImage(parentId), HttpStatus.OK);
 	}
 
-	@GetMapping("{word}/images")
+	@GetMapping("{word}/images/by/{parentId}")
 	@ApiOperation(value = "Quiz 2 : 랜덤 이미지 목록 조회",
 		notes = "선택한 단어의 이미지 목록을 조회한다.\n",
 		response = CustomEduDto.CQuiz2Response.class)
@@ -59,8 +59,27 @@ public class CustomEduController {
 		@ApiResponse(code = 404, message = "Not Found")
 	})
 	private ResponseEntity<CustomEduDto.CQuiz2Response> getRandomImagesWithWord(
-		@ApiParam(value = "배우는 word", example = "pinky") @PathVariable String word) {
+		@ApiParam(value = "배울 word", example = "traffic light") @PathVariable String word,
+		@ApiParam(value = "부모 id", example = "1486633352") @PathVariable long parentId) {
 		logger.debug(String.format("get Random Images with word %s 호출", word));
-		return new ResponseEntity<>(customEduService.getRandomImages(word), HttpStatus.OK);
+		return new ResponseEntity<>(customEduService.getRandomImages(word, parentId), HttpStatus.OK);
+	}
+
+	@GetMapping("{word}/seg/by/{parentId}")
+	@ApiOperation(value = "Quiz 3 : 세그멘테이션 이미지 조회",
+		notes = "선택한 단어의 오리지널 이미지와 segmetation이 적용된 이미지, 보기로 사용할 랜덤 단어 하나를 조회한다.",
+		response = CustomEduDto.Segmentation.class)
+	@ApiResponses(value = {
+		@ApiResponse(code = 200, message = "OK"),
+		@ApiResponse(code = 400, message = "Bad Request"),
+		@ApiResponse(code = 401, message = "Unauthorized"),
+		@ApiResponse(code = 403, message = "Forbidden"),
+		@ApiResponse(code = 404, message = "Not Found")
+	})
+	private ResponseEntity<CustomEduDto.Segmentation> getSegmentation(
+		@ApiParam(value = "배울 word", example = "traffic light") @PathVariable String word,
+		@ApiParam(value = "부모 id", example = "1486633352") @PathVariable long parentId) {
+		logger.debug(String.format("get Segmentation image with word %s 호출", word));
+		return new ResponseEntity<>(customEduService.getSegmentation(word, parentId), HttpStatus.OK);
 	}
 }

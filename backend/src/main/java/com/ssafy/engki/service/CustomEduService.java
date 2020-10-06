@@ -13,12 +13,14 @@ import com.ssafy.engki.dto.CustomEduDto;
 import com.ssafy.engki.entity.CustomImage;
 import com.ssafy.engki.entity.CustomImageWord;
 import com.ssafy.engki.entity.ImageWord;
+import com.ssafy.engki.entity.Word;
 import com.ssafy.engki.repository.CustomImageCaptionRepository;
 import com.ssafy.engki.repository.CustomImageRepository;
 import com.ssafy.engki.repository.CustomImageWordRepository;
 import com.ssafy.engki.repository.ImageWordRepository;
 import com.ssafy.engki.repository.KidRepository;
 import com.ssafy.engki.repository.ParentRepository;
+import com.ssafy.engki.repository.WordRepository;
 
 @RequiredArgsConstructor
 @Service
@@ -29,6 +31,7 @@ public class CustomEduService {
 	private final CustomImageWordRepository customImageWordRepository;
 	private final CustomImageCaptionRepository customImageCaptionRepository;
 	private final ImageWordRepository imageWordRepository;
+	private final WordRepository wordRepository;
 
 	public CustomEduDto.CImage getRandomImage(long parentId) {
 		Random rand = new Random(System.currentTimeMillis());
@@ -48,11 +51,11 @@ public class CustomEduService {
 			.build();
 	}
 
-	public CustomEduDto.CQuiz2Response getRandomImages(String word) {
+	public CustomEduDto.CQuiz2Response getRandomImages(String word, long parentId) {
 		CustomEduDto.CQuiz2Response response = new CustomEduDto.CQuiz2Response();
 
 		// word의 이미지 최대 3개
-		List<CustomImageWord> wordImages = customImageWordRepository.getImagesOfWord(word);
+		List<CustomImageWord> wordImages = customImageWordRepository.getImagesOfWord(word, parentId);
 		Util.getRandomNumbers(3, wordImages.size()).forEach(idx ->
 			response.getImages().add(CustomEduDto.CImage.builder()
 				.word(wordImages.get(idx).getId().getWord())
@@ -77,5 +80,21 @@ public class CustomEduService {
 
 		// -> 6개 리턴
 		return response;
+	}
+
+	public CustomEduDto.Segmentation getSegmentation(String word, long parentId) {
+		Random rand = new Random(System.currentTimeMillis());
+
+		List<CustomImageWord> imageWords = customImageWordRepository.getImagesOfWord(word, parentId);
+		CustomImageWord customImageWord = imageWords.get(rand.nextInt(imageWords.size()));
+
+		List<Word> randomWords = wordRepository.getWordsExceptWord(word);
+		Word randomWord = randomWords.get(rand.nextInt(randomWords.size()));
+
+		return CustomEduDto.Segmentation.builder()
+			.filePath(customImageWord.getImage().getFilePath())
+			.segFilePath(customImageWord.getBoundary())
+			.randomWord(randomWord.getWord())
+			.build();
 	}
 }
