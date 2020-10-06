@@ -61,7 +61,6 @@ public class KidService {
 		List<KidDto.StudyInfo> info = new ArrayList<>();
 		for (int i = 0; i < 7; i++) {
 			Date today = Date.valueOf(lastMonday.plusDays(i));
-			System.out.println("#############" + today);
 			info.add(KidDto.StudyInfo.builder()
 				.date(today)
 				.words(kidWordRepository.findWordByKidIdAndDate(kidId, today)
