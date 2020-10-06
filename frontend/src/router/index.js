@@ -47,11 +47,11 @@ const routes = [
     name: 'QuizPage',
     component: QuizPage,
   },
-  // {
-  //   path: '/test',
-  //   name: 'Test',
-  //   component: Test,
-  // },
+  {
+    path: '*',
+    name: 'LoginPage',
+    component: LoginPage,
+  },
 ]
 
 const router = new VueRouter({
