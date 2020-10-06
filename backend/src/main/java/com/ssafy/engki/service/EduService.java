@@ -135,7 +135,7 @@ public class EduService {
 		);
 		Collections.shuffle(randomWords);
 
-		List<String> captionsExceptWord = imageCaptionRepository.findExceptWord(wordId);
+		List<String> captionsExceptWord = imageCaptionRepository.findExceptWord(imageCaption.getId().getImageId());
 		List<String> randomCaptions = new ArrayList<>(Collections.singletonList(imageCaption.getCaption()));
 		getRandomNumbers(3, captionsExceptWord.size()).forEach(idx ->
 			randomCaptions.add(captionsExceptWord.get(idx))
