@@ -12,4 +12,7 @@ public interface CustomImageWordRepository extends JpaRepository<CustomImageWord
 	@Query("select ciw from CustomImageWord ciw join CustomImageCaption cic on ciw.id.word = cic.id.word "
 		+ "where ciw.id.imageId in :ids and cic.id.imageId in :ids")
 	List<CustomImageWord> findAllWords(List<Long> ids);
+
+	@Query("select ciw from CustomImageWord ciw where ciw.id.word = :word")
+	List<CustomImageWord> getImagesOfWord(String word);
 }

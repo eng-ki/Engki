@@ -1,5 +1,6 @@
 package com.ssafy.engki.service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -11,9 +12,11 @@ import lombok.RequiredArgsConstructor;
 import com.ssafy.engki.dto.CustomEduDto;
 import com.ssafy.engki.entity.CustomImage;
 import com.ssafy.engki.entity.CustomImageWord;
+import com.ssafy.engki.entity.ImageWord;
 import com.ssafy.engki.repository.CustomImageCaptionRepository;
 import com.ssafy.engki.repository.CustomImageRepository;
 import com.ssafy.engki.repository.CustomImageWordRepository;
+import com.ssafy.engki.repository.ImageWordRepository;
 import com.ssafy.engki.repository.KidRepository;
 import com.ssafy.engki.repository.ParentRepository;
 
@@ -25,6 +28,7 @@ public class CustomEduService {
 	private final CustomImageRepository customImageRepository;
 	private final CustomImageWordRepository customImageWordRepository;
 	private final CustomImageCaptionRepository customImageCaptionRepository;
+	private final ImageWordRepository imageWordRepository;
 
 	public CustomEduDto.CImage getRandomImage(long parentId) {
 		Random rand = new Random(System.currentTimeMillis());
@@ -42,5 +46,36 @@ public class CustomEduService {
 			.wordKor(customImageWord.getWordKor())
 			.filePath(customImageWord.getImage().getFilePath())
 			.build();
+	}
+
+	public CustomEduDto.CQuiz2Response getRandomImages(String word) {
+		CustomEduDto.CQuiz2Response response = new CustomEduDto.CQuiz2Response();
+
+		// word의 이미지 최대 3개
+		List<CustomImageWord> wordImages = customImageWordRepository.getImagesOfWord(word);
+		Util.getRandomNumbers(3, wordImages.size()).forEach(idx ->
+			response.getImages().add(CustomEduDto.CImage.builder()
+				.word(wordImages.get(idx).getId().getWord())
+				.wordKor(wordImages.get(idx).getWordKor())
+				.filePath(wordImages.get(idx).getImage().getFilePath())
+				.build())
+		);
+		response.setAnswerNum(Math.min(3, wordImages.size()));
+
+		// word가 아닌 이미지 (6 - word 이미지 개수) 개
+		List<ImageWord> notWordImages = imageWordRepository.getImagesNotWord(word);
+		Util.getRandomNumbers(6 - response.getAnswerNum(), notWordImages.size()).forEach(idx ->
+			response.getImages().add(CustomEduDto.CImage.builder()
+				.word(notWordImages.get(idx).getWord().getWord())
+				.wordKor(notWordImages.get(idx).getWord().getWordKor())
+				.filePath(notWordImages.get(idx).getImage().getFilePath())
+				.build()
+			)
+		);
+
+		Collections.shuffle(response.getImages());
+
+		// -> 6개 리턴
+		return response;
 	}
 }
