@@ -65,13 +65,13 @@ export default {
   },
   created() {
     this.quizapipath = '/edu/' + this.$store.state.quiz.id + '/captions';
-    console.log('퀴즈4패스 : ' + this.quizapipath);
+    // console.log('퀴즈4패스 : ' + this.quizapipath);
     http
       .get(this.quizapipath, {
         headers: { 'X-AUTH-TOKEN': this.$store.state.token },
       })
       .then((data) => {
-        console.log(data.data);
+        // console.log(data.data);
         this.$store.commit('setQuizAdv', {
           caption: data.data.caption,
           captionKor: data.data.captionKor,

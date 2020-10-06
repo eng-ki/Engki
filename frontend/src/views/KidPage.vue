@@ -63,7 +63,7 @@ export default {
   },
   created() {
     this.kid = this.$store.state.kid;
-    console.log(this.kid);
+    // console.log(this.kid);
   },
   methods: {
     goChangeProfile() {

@@ -110,7 +110,7 @@ export default {
       // $(this).removeClass("transparent");
       vm.dayclicked = $(this).parent().parent().index();
       vm.setEmotionGraph();
-      console.log(vm.dayclicked );
+      // console.log(vm.dayclicked );
     })
   },
   methods: {
@@ -127,8 +127,8 @@ export default {
     },
     setEmotionGraph(){
       this.emotions=[];
-      console.log(this.dayclicked);
-      console.log(this.edu);
+      // console.log(this.dayclicked);
+      // console.log(this.edu);
       for(var val in this.edu[this.dayclicked].emotion){
         this.emotions.push({text:val, value:this.edu[this.dayclicked].emotion[val]})
       }
@@ -155,7 +155,7 @@ export default {
         })
         .then(({ data }) => {
           this.edu = data;
-          console.log(this.edu)
+          // console.log(this.edu)
           for(var val in data){
               this.temp = data[val].words;
               for (var w in this.temp){

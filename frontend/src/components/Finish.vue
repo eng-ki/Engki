@@ -16,12 +16,12 @@
     <div class="header">+ {{ start }} exp</div>
     <div class="gi-buttons">
       <button class="blue-button wide" @click="goMain()">메인으로</button>
-      <button class="green-button wide" @click="Again()">한판 더 하기</button>
+      <button class="green-button wide" @click="Again()">공부 더 하기</button>
     </div>
   </div>
 </template>
 <script>
-import http from '../utils/http-common.js'
+import http from '../utils/http-common.js';
 export default {
   name: 'GetItem',
   data: () => {
@@ -87,11 +87,11 @@ export default {
         '/img/icon/fairytale/049-castle.png',
         '/img/icon/fairytale/050-fairytale.png',
       ],
-    }
+    };
   },
   mounted() {
     // 이전 경험치
-    this.beforeExp = this.$store.state.kid.exp
+    this.beforeExp = this.$store.state.kid.exp;
     // 새로 얻은 경험치와 학습 단어 저장
     http
       .post(
@@ -110,49 +110,49 @@ export default {
             headers: { 'X-AUTH-TOKEN': this.$store.state.token },
           })
           .then(({ data }) => {
-            this.$store.commit('setKid', data)
-          })
-      })
+            this.$store.commit('setKid', data);
+          });
+      });
     // 이전 경험치 % 100
-    this.startExp = this.beforeExp % 100
+    this.startExp = this.beforeExp % 100;
 
     // (이전 경험치 + 새로 얻은 경험치)
-    this.endExp = this.$store.state.exp + this.startExp
+    this.endExp = this.$store.state.exp + this.startExp;
 
     // 이전 레벨
-    this.level = parseInt(this.beforeExp / 100 - (this.beforeExp % 100) / 100)
+    this.level = parseInt(this.beforeExp / 100 - (this.beforeExp % 100) / 100);
 
     // 만약 얻은 경험치를 추가했는데 레벨업을 할 경우 ? ? ? 레벨을 업 해야겠지? ? ? ?맞나 ? ? ??
     if (this.endExp / 100 >= 1) {
-      this.isLevelUp = true
-      this.level += 1
+      this.isLevelUp = true;
+      this.level += 1;
     }
 
     // exp progress Bar
     this.timer = setInterval(() => {
       if (this.startExp == this.endExp || this.startExp == 100) {
-        clearInterval(this.timer)
-        this.timer = null
-      } else this.startExp = this.startExp + 1
-    }, 60)
+        clearInterval(this.timer);
+        this.timer = null;
+      } else this.startExp = this.startExp + 1;
+    }, 60);
 
     // exp circulate Bar
     this.timer2 = setInterval(() => {
       if (this.start == this.$store.state.exp) {
-        clearInterval(this.timer2)
-        this.timer2 = null
-      } else this.start = this.start + 1
-    }, 80)
+        clearInterval(this.timer2);
+        this.timer2 = null;
+      } else this.start = this.start + 1;
+    }, 80);
   },
   methods: {
     goMain() {
-      this.$router.push('/kid')
+      this.$router.push('/kid');
     },
     Again() {
-      this.$router.push('/selectquiz')
+      this.$router.push('/selectquiz');
     },
   },
-}
+};
 </script>
 <style lang="scss">
 @import '../assets/sass/base.scss';

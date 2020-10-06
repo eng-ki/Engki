@@ -39,22 +39,22 @@ export default {
   },
   created() {
     this.quizapipath = '/edu/' + this.$store.state.quiz.id + '/seg';
-    console.log('퀴즈3패스 : ' + this.quizapipath);
+    // console.log('퀴즈3패스 : ' + this.quizapipath);
     http
       .get(this.quizapipath, {
         headers: { 'X-AUTH-TOKEN': this.$store.state.token },
       })
       .then((data) => {
         this.datas = data.data;
-        console.log(data);
+        // console.log(data);
         this.quiz = {
           url1: 'http://j3a510.p.ssafy.io/images/' + data.data.filePath,
           url2: 'http://j3a510.p.ssafy.io/images/' + data.data.segFilePath,
           word: this.$store.state.quiz.word,
           words: [this.$store.state.quiz.word, data.data.randomWord],
         };
-        console.log(this.quiz.url1);
-        console.log(this.quiz.url2);
+        // console.log(this.quiz.url1);
+        // console.log(this.quiz.url2);
         this.url = this.quiz.url1;
       });
   },

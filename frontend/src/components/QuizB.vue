@@ -31,7 +31,7 @@ export default {
   created() {
     this.isDone = false;
     this.quizapipath = '/edu/' + this.$store.state.quiz.id + '/images';
-    console.log('퀴즈2패스 : ' + this.quizapipath);
+    // console.log('퀴즈2패스 : ' + this.quizapipath);
     http
       .get(this.quizapipath, {
         headers: { 'X-AUTH-TOKEN': this.$store.state.token },

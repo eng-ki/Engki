@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import { WebCam } from 'vue-web-cam'
+import { WebCam } from 'vue-web-cam';
 export default {
   name: 'App',
   components: {
@@ -66,54 +66,54 @@ export default {
       camera: null,
       deviceId: null,
       devices: [],
-    }
+    };
   },
   computed: {
     device: function () {
-      return this.devices.find((n) => n.deviceId === this.deviceId)
+      return this.devices.find((n) => n.deviceId === this.deviceId);
     },
   },
   watch: {
     camera: function (id) {
-      this.deviceId = id
+      this.deviceId = id;
     },
     devices: function () {
       // Once we have a list select the first one
-      const [first, ...tail] = this.devices
+      const [first, ...tail] = this.devices;
       if (first) {
-        this.camera = first.deviceId
-        this.deviceId = first.deviceId
+        this.camera = first.deviceId;
+        this.deviceId = first.deviceId;
       }
     },
   },
   methods: {
     onCapture() {
-      this.img = this.$refs.webcam.capture()
+      this.img = this.$refs.webcam.capture();
     },
     onStarted(stream) {
-      console.log('On Started Event', stream)
+      // console.log('On Started Event', stream)
     },
     onStopped(stream) {
-      console.log('On Stopped Event', stream)
+      // console.log('On Stopped Event', stream)
     },
     onStop() {
-      this.$refs.webcam.stop()
+      this.$refs.webcam.stop();
     },
     onStart() {
-      this.$refs.webcam.start()
+      this.$refs.webcam.start();
     },
     onError(error) {
-      console.log('On Error Event', error)
+      // console.log('On Error Event', error)
     },
     onCameras(cameras) {
-      this.devices = cameras
-      console.log('On Cameras Event', cameras)
+      this.devices = cameras;
+      // console.log('On Cameras Event', cameras)
     },
     onCameraChange(deviceId) {
-      this.deviceId = deviceId
-      this.camera = deviceId
-      console.log('On Camera Change Event', deviceId)
+      this.deviceId = deviceId;
+      this.camera = deviceId;
+      // console.log('On Camera Change Event', deviceId)
     },
   },
-}
+};
 </script>
