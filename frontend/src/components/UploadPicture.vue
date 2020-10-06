@@ -1,71 +1,207 @@
 <template>
   <div>
     <div v-if="isUploaded">
-      <div class="custom-edu">
-        <img class="custom-img" :src="img" />
-        <span class="title">
-          아이가 학습할 단어와 문장을 커스터마이징 하세요!</span
-        >
-      </div>
+      <v-app>
+        <v-dialog v-model="isEditCaption" width="400">
+          <v-card>
+            <v-card-title class="headline lighten-2">
+              <span style="font-family: GmarketSansMedium; font-size: 1vw">
+                문장 수정</span
+              >
+            </v-card-title>
 
-      <div class="words">
-        <table class="word">
-          <tr
-            v-for="(word, index) in custom.caption_word"
-            v-bind:key="'A' + index"
-          >
-            <td width="150" style="border-right: 2px solid lightgray">
-              <input size="10" v-model="custom.caption_word[index]" />
-            </td>
-            <td>
-              <input size="14" v-model="custom.caption_word_kor[index]" />
-            </td>
-          </tr>
-          <tr
-            style="background-color: gray"
-            v-for="(word, index) in custom.seg_word"
-            v-bind:key="'B' + index"
-          >
-            <td width="150" style="border-right: 2px solid lightgray">
-              <input size="10" v-model="custom.seg_word[index]" />
-            </td>
-            <td><input size="14" v-model="custom.seg_word_kor[index]" /></td>
-          </tr>
-        </table>
-      </div>
+            <v-card-text>
+              <v-layout wrap>
+                <v-flex xs12>
+                  <v-text-field
+                    label="영문"
+                    v-model="selectedCaption.caption"
+                    required
+                  >
+                  </v-text-field>
+                </v-flex>
+                <v-flex xs12>
+                  <v-text-field
+                    label="한글"
+                    v-model="selectedCaption.caption_kor"
+                    required
+                    @keydown.enter="editCaption"
+                  >
+                  </v-text-field>
+                </v-flex>
+              </v-layout>
+            </v-card-text>
 
-      <!-- 이미지 캡셔닝 문장 수정 -->
-      <div class="sentences">
-        <div class="sentence">
-          <span>영)</span>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="primary" text @click="clearCaption()"> 닫기 </v-btn>
+              <v-btn color="primary" text @click="editCaption">
+                수정하기
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-app>
 
-          <input v-model="custom.caption" size="56vh" />
+      <v-app>
+        <v-dialog v-model="isEditWord" width="400">
+          <v-card>
+            <v-card-title class="headline lighten-2">
+              <span style="font-family: GmarketSansMedium; font-size: 1vw">
+                단어 수정</span
+              >
+            </v-card-title>
+
+            <v-card-text>
+              <v-layout wrap>
+                <v-flex xs12>
+                  <v-text-field
+                    label="영문"
+                    v-model="selectedWord.word"
+                    required
+                  >
+                  </v-text-field>
+                </v-flex>
+                <v-flex xs12>
+                  <v-text-field
+                    label="한글"
+                    v-model="selectedWord.word_kor"
+                    required
+                    @keydown.enter="editWord"
+                  >
+                  </v-text-field>
+                </v-flex>
+              </v-layout>
+            </v-card-text>
+
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="primary" text @click="clearWord()"> 닫기 </v-btn>
+              <v-btn color="primary" text @click="editWord"> 수정하기 </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-app>
+
+      <div class="custom-bg">
+        <div class="custom-img">
+          <img :src="img" />
+          <button @click="test()" id="custom-save">학습 정보 저장하기</button>
+          <b-tooltip placement="top" target="custom-save" triggers="hover">
+            <span
+              style="
+                font-family: GmarketSansMedium;
+                color: #f2f2f2;
+                font-size: 0.8vw;
+              "
+              >저장된 정보는 퀴즈에 사용됩니다</span
+            >
+          </b-tooltip>
         </div>
-        <div class="sentence">
-          <span>한)</span>
-          <input v-model="custom.caption_kor" size="56vh" />
-        </div>
-      </div>
+        <div class="custom-edu">
+          <div class="custom-title">
+            사진에서 추출한
+            <span style="color: darkgreen">문장</span>을 자녀의 눈높이에 맞게
+            수정해보세요
+          </div>
 
-      <!-- 학습 시작 버튼 -->
-      <div class="custom-start">
-        <img @click="test()" src="../../public/img/icon/next.png" />
+          <v-list subheader two-line>
+            <v-list-item>
+              <v-list-item-content>
+                <v-list-item-title v-text="custom.caption"></v-list-item-title>
+                <v-list-item-subtitle
+                  v-text="custom.caption_kor"
+                ></v-list-item-subtitle>
+              </v-list-item-content>
+              <v-list-item-action>
+                <v-btn
+                  @click="onEditCaption()"
+                  v-b-tooltip.hover
+                  title="문장 수정하기"
+                  icon
+                >
+                  <v-icon color="grey lighten-1">mdi-pencil</v-icon>
+                </v-btn>
+              </v-list-item-action></v-list-item
+            >
+          </v-list>
+          <div class="custom-title">
+            사진에서 추출한 <span style="color: darkgreen">단어</span>를 자녀의
+            눈높이에 맞게 수정해보세요
+          </div>
+          <v-list subheader two-line>
+            <v-list-item
+              v-for="index in custom.caption_word.length"
+              :key="'A' + index"
+            >
+              <v-list-item-content>
+                <v-list-item-title
+                  v-text="custom.caption_word[index - 1]"
+                ></v-list-item-title>
+
+                <v-list-item-subtitle
+                  v-text="custom.caption_word_kor[index - 1]"
+                ></v-list-item-subtitle>
+              </v-list-item-content>
+
+              <v-list-item-action>
+                <v-btn
+                  @click="onEditWord(index - 1, 'caption')"
+                  v-b-tooltip.hover
+                  title="단어 수정하기"
+                  icon
+                >
+                  <v-icon color="grey lighten-1">mdi-pencil</v-icon>
+                </v-btn>
+              </v-list-item-action>
+            </v-list-item>
+          </v-list>
+
+          <v-list subheader two-line>
+            <v-list-item
+              v-for="index in custom.seg_word.length"
+              :key="'B' + index"
+            >
+              <v-list-item-content>
+                <v-list-item-title
+                  v-text="custom.seg_word[index - 1]"
+                ></v-list-item-title>
+
+                <v-list-item-subtitle
+                  v-text="custom.seg_word_kor[index - 1]"
+                ></v-list-item-subtitle>
+              </v-list-item-content>
+
+              <v-list-item-action>
+                <v-btn
+                  @click="onEditWord(index - 1, 'seg')"
+                  v-b-tooltip.hover
+                  title="단어 수정하기"
+                  icon
+                >
+                  <v-icon color="grey lighten-1">mdi-pencil</v-icon>
+                </v-btn>
+              </v-list-item-action>
+            </v-list-item>
+          </v-list>
+        </div>
       </div>
     </div>
 
     <!-- 이미지 등록 -->
     <div v-else>
-      <input
-        class="custom-image"
-        ref="imageInput"
-        type="file"
-        hidden
-        @change="onChangeImages"
-      />
-      <button class="upload-image" @click="onClickImageUpload">
-        학습에 사용할 이미지를 등록해주세요
-      </button>
-      <v-img v-if="imageUrl" :src="imageUrl"></v-img>
+      <div class="upload">
+        <input
+          class="custom-image"
+          ref="imageInput"
+          type="file"
+          hidden
+          @change="onChangeImages"
+        />
+        <button class="upload-image" @click="onClickImageUpload">
+          학습에 사용할 사진을<br />등록해주세요
+        </button>
+      </div>
     </div>
 
     <!-- 이미지 등록 중 로딩 -->
@@ -84,13 +220,29 @@ export default {
   },
   data: () => {
     return {
-      caption_word_index: null,
+      selectedCaption: {
+        caption: '',
+        caption_kor: '',
+      },
+      isEditCaption: false,
+      selectedWord: {
+        target: '',
+        index: '',
+        word: '',
+        word_kor: '',
+      },
+      isEditWord: false,
       img: null,
       isUploaded: false, // 이미지 등록 여부
-      selectedPencil: -1, // 연필 아이콘 focus,hover
-      imageUrl: null, // 등록한 이미지 링크
       overlay: false, // 로딩 여부
-      custom: null, //(file_path, boundaries, caption, seg_word, caption_word , caption_kor, seg_word_kor, caption_word_kor)
+      custom: {
+        caption: '',
+        caption_kor: '',
+        caption_word: [],
+        caption_word_kor: [],
+        seg_word: [],
+        seg_word_kor: [],
+      },
     }
   },
   methods: {
@@ -128,20 +280,27 @@ export default {
             )
             .then(({ data }) => {
               if (data == 'success') {
-                alert('학습이 저장됩니다.')
+                this.$swal({
+                  title:
+                    '<span style="font-family: GmarketSansMedium;font-size:1.2vw;">퀴즈 데이터에 성공적으로 저장되었습니다</span>',
+                  showCancelButton: false,
+                  confirmButtonText: '확인',
+                }).then((result) => {})
                 console.log('학습 성공')
               }
             })
             .catch((err) => {
               console.error(err)
 
-              alert('학습에 실패하였습니다.')
+              this.$swal({
+                title:
+                  '<span style="font-family: GmarketSansMedium;font-size:1.2vw;">퀴즈 데이터에 성공적으로 저장되었습니다</span>',
+                showCancelButton: false,
+                confirmButtonText: '확인',
+              }).then((result) => {})
             })
         }
       })
-    },
-    selectedWord(index) {
-      this.selectedPencil = index
     },
     onClickImageUpload() {
       this.$refs.imageInput.click()
@@ -170,6 +329,51 @@ export default {
 
       this.img = URL.createObjectURL(file)
     },
+    onEditCaption() {
+      this.selectedCaption.caption = this.custom.caption
+      this.selectedCaption.caption_kor = this.custom.caption_kor
+      this.isEditCaption = true
+    },
+    editCaption() {
+      this.custom.caption = this.selectedCaption.caption
+      this.custom.caption_kor = this.selectedCaption.caption_kor
+      this.clearCaption()
+    },
+    clearCaption() {
+      this.isEditCaption = false
+      this.selectedCaption.caption = ''
+      this.selectedCaption.caption_kor = ''
+    },
+    onEditWord(index, target) {
+      this.selectedWord.target = target
+      this.selectedWord.index = index
+      if (target == 'caption') {
+        this.selectedWord.word = this.custom.caption_word[index]
+        this.selectedWord.word_kor = this.custom.caption_word_kor[index]
+      } else {
+        this.selectedWord.word = this.custom.seg_word[index]
+        this.selectedWord.word_kor = this.custom.seg_word_kor[index]
+      }
+      this.isEditWord = true
+    },
+    editWord() {
+      var index = this.selectedWord.index
+      if (this.selectedWord.target == 'caption') {
+        this.custom.caption_word[index] = this.selectedWord.word
+        this.custom.caption_word_kor[index] = this.selectedWord.word_kor
+      } else {
+        this.custom.seg_word[index] = this.selectedWord.word
+        this.custom.seg_word_kor[index] = this.selectedWord.word_kor
+      }
+      this.clearWord()
+    },
+    clearWord() {
+      this.isEditWord = false
+      this.selectedWord.target = ''
+      this.selectedWord.index = ''
+      this.selectedWord.word = ''
+      this.selectedWord.word_kor = ''
+    },
   },
 }
 </script>
@@ -179,118 +383,109 @@ export default {
 <style lang="scss" scoped>
 * {
   font-family: 'GmarketSansMedium';
+
+  text-align: left;
+}
+.upload {
+  width: 65vw;
+  height: 65vh;
+  overflow: hidden;
+  display: inline-block;
+  text-align: center;
+}
+.img-block {
+  background-color: #f2f2f2;
+  width: 48vw;
+  height: 60%;
+  float: bottom;
+  margin-top: 1.5vw;
+  margin-left: 8.4vw;
+  margin-right: 8.4vw;
+  margin-bottom: 2vw;
+  display: inline-block;
 }
 .upload-image {
-  position: absolute;
-  top: 20vh;
-  left: 13.5vw;
+  float: top;
   font-size: 2.5vw;
-  width: 50vw;
-  height: 15vh;
+  width: 90%;
+  height: 100%;
+  text-align: center;
   background-color: #f2f2f2;
   box-shadow: rgba(1, 1, 1, 0.15) 0px 2px 3px 0px;
+  &:hover {
+    opacity: 0.8;
+    transition: all 0.1s;
+  }
+}
+.custom-bg {
+  margin-top: 4vh;
+  margin-left: 1vw;
+  width: 62vw;
+  height: 58vh;
+  display: inline-block;
+}
+
+.custom-img {
+  float: right;
+  width: 35%;
+  height: 100%;
+  background-color: #f2f2f2;
+  overflow: hidden;
+}
+.custom-img img {
+  width: 100%;
+  height: auto;
+  max-height: 21vw;
+  border: 10px solid #f2f2f2;
+  border-radius: 30%;
+  float: right;
+}
+
+.custom-img button {
+  margin-top: 10%;
+  width: 100%;
+  height: 15%;
+  font-size: 1.7vw;
+  text-align: center;
+  background-color: yellowgreen;
+  float: bottom;
+  color: darkgreen;
+  &:hover {
+    opacity: 0.8;
+    transition: all 0.1s;
+  }
 }
 .custom-edu {
-  position: absolute;
-  top: 8vh;
-  left: 9vw;
-  display: inline-block;
-}
-.custom-edu .custom-img {
-  width: 18vw;
-  height: 18vw;
-  overflow: hidden;
-  float: left;
-  border-radius: 3vw;
-  margin-right: 2.2vw;
-  border: 7px solid #f2f2f2;
+  float: right;
+  width: 65%;
+  height: 100%;
+  overflow: auto;
+  background-color: white;
 }
 
-.title {
-  font-size: 1.45vw;
-  float: left;
-  margin-top: 1.1vh;
-  margin-bottom: 1vh;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-}
-
-.sentences {
-  position: relative;
-  top: 39vh;
-  left: 2vw;
-  font-size: 1.3vw;
-  margin-top: 3vw;
-  text-align: left;
-}
-.sentence {
-  display: inline-block;
-  // box-shadow: rgba(10, 5, 26, 0.15) 0px 48px 100px 0px;
-}
-.sentence span {
-  float: left;
-
-  opacity: 0.6;
-  margin-top: 1.3vw;
-  margin-left: 1vw;
-  margin-right: 0.6vw;
-}
-.sentence input {
-  float: left;
-  border-bottom: 3px dashed #f2f2f2;
-  color: #4b4b4b;
-  margin-right: 0.5vw;
-  height: 9vh;
-  padding: 0 1vw 0 1vw;
-
-  &:hover {
-    opacity: 0.8;
-    transition: all 0.1s;
-  }
-
-  &:focus {
-    opacity: 0.8;
-    transition: all 0.1s;
-    color: green;
-  }
-}
-
-.words {
-  position: absolute;
-  left: 29.5vw;
-  top: 7.5vw;
-  // background-color: red;
-}
-.words table {
-  width: 31.5vw;
-  height: 15vh;
+.custom-title {
+  float: top;
+  padding-top: 1.2vw;
+  padding-bottom: 1.2vw;
+  font-size: 1vw;
   background-color: #f2f2f2;
-  border-radius: 1vw;
-}
-.word td {
-  font-size: 1.5vw;
-  text-align: left;
-  border-bottom: 2px solid lightgray;
-  padding: 1vw 1vw 1vw 2vw;
-}
-.word td input {
-  color: #4b4b4b;
-}
-.custom-start {
-  position: absolute;
-  right: 0vw;
-  top: 23vh;
 }
 
-.custom-start img {
-  width: 5vw;
-  &:hover {
-    opacity: 0.6;
-  }
+::-webkit-scrollbar {
+  width: 10px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
 }
 
-@media screen and (min-width: 768px) {
-  .title .sentences .word td {
-    font-size: 0.9vw;
-  }
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 </style>

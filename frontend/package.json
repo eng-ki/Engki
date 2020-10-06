@@ -29,6 +29,7 @@
     "vue": "^2.6.11",
     "vue-chartjs": "^3.5.1",
     "vue-loader": "^15.9.3",
+    "vue-mindmap": "^0.0.4",
     "vue-router": "^3.2.0",
     "vue-sweetalert2": "^3.0.8",
     "vue-web-cam": "^1.9.0",
