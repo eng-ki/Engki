@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -102,5 +104,23 @@ public class CustomEduController {
 		@ApiParam(value = "부모 id", example = "1486633352") @PathVariable long parentId) {
 		logger.debug(String.format("get Caption with word %s 호출", word));
 		return new ResponseEntity<>(customEduService.getCaption(word, parentId), HttpStatus.OK);
+	}
+
+	@PostMapping("{kidId}")
+	@ApiOperation(value = "학습 정보 저장", notes = "아이가 오늘 학습한 내용을 저장한다.")
+	@ApiResponses(value = {
+		@ApiResponse(code = 201, message = "Created"),
+		@ApiResponse(code = 400, message = "Bad Request"),
+		@ApiResponse(code = 401, message = "Unauthorized"),
+		@ApiResponse(code = 403, message = "Forbidden"),
+		@ApiResponse(code = 404, message = "Not Found")
+	})
+	private ResponseEntity<?> completeStudy(
+		@ApiParam(value = "kid id", example = "1") @PathVariable long kidId,
+		@ApiParam(value = "학습 정보") @RequestBody CustomEduDto.CRequest studiedInfo
+	) {
+		logger.debug(String.format("complete study with kid %d 호출", kidId));
+		customEduService.completeStudy(kidId, studiedInfo);
+		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 }

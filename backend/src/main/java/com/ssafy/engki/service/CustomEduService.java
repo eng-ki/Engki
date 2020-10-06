@@ -17,6 +17,7 @@ import com.ssafy.engki.entity.CustomImage;
 import com.ssafy.engki.entity.CustomImageCaption;
 import com.ssafy.engki.entity.CustomImageWord;
 import com.ssafy.engki.entity.ImageWord;
+import com.ssafy.engki.entity.Kid;
 import com.ssafy.engki.entity.Word;
 import com.ssafy.engki.repository.CustomImageCaptionRepository;
 import com.ssafy.engki.repository.CustomImageRepository;
@@ -132,5 +133,11 @@ public class CustomEduService {
 			.randomCaptions(randomCaptions)
 			.tokens(tokenize(customImageCaption.getCaption()))
 			.build();
+	}
+
+	public void completeStudy(long kidId, CustomEduDto.CRequest studiedInfo) {
+		Kid kid = kidRepository.getOne(kidId);
+		kid.addExp(studiedInfo.getExp());
+		kidRepository.save(kid);
 	}
 }

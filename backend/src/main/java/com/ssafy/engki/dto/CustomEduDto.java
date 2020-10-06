@@ -103,7 +103,7 @@ public class CustomEduDto {
 	@Data
 	@AllArgsConstructor
 	@NoArgsConstructor
-	public static class Request {
+	public static class CRequest {
 		@ApiModelProperty(value = "추가될 exp", example = "21")
 		private int exp;
 	}
