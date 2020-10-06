@@ -167,16 +167,23 @@ public class EduService {
 	}
 
 	public void completeStudy(long kidId, EduDto.Request studyInfo) {
+		Kid kid = kidRepository.getOne(kidId);
+		kid.addExp(studyInfo.getExp());
+		kidRepository.save(kid);
+
 		KidWord kidWord = KidWord.builder()
 			.kidId(kidId)
 			.word(Word.builder().id(studyInfo.getWordId()).build())
 			.studiedDate(new Date())
 			.build();
-		kidWordRepository.save(kidWord);
 
-		Kid kid = kidRepository.getOne(kidId);
-		kid.addExp(studyInfo.getExp());
-		kidRepository.save(kid);
+		try {
+			kidWordRepository.save(kidWord);
+		} catch (Exception e) {
+			if (!e.getMessage().contains("constraint [kid_word_date_uq]")) { // 중복 단어 배제(에러아님)
+				throw e;
+			}
+		}
 	}
 
 	private Stream<Integer> getRandomNumbers(int count, int upperbound) {
