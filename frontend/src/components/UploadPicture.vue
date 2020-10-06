@@ -332,9 +332,11 @@ export default {
         .post('https://j3a510.p.ssafy.io:8083/custom/quiz/make', frm, {
           headers: {
             'Content-Type': 'multipart/form-data',
+            'access-control-allow-origin': '*',
           },
         })
         .then(({ data }) => {
+          console.log(data)
           this.custom = data
           this.overlay = false
           this.isUploaded = true
