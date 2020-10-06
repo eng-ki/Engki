@@ -5,20 +5,25 @@
         <v-col cols="12" style="padding: 5px">
           <v-row class="row-title">
             <div class="cal-left">
-              <v-btn icon class="ma-2 toprev" @click="toprevious();">
+              <v-btn icon class="toprev" @click="toprevious();" >
                 <v-icon>mdi-chevron-left</v-icon>
               </v-btn>
             </div>
             <div class="cal">
-              <v-toolbar-title v-if="$refs.calendar">
-                {{ $refs.calendar.title }}
+              <v-toolbar-title v-if="$refs.calendar" style="font-size:25px">
+                {{ calendartitle }}
               </v-toolbar-title>
             </div>
             <div class="cal-right">
-              <v-btn icon class="ma-2 tonext" @click="tonext();">
+              <v-btn icon class="tonext" @click="tonext();">
                 <v-icon>mdi-chevron-right</v-icon>
               </v-btn>
             </div>
+          </v-row>
+          <v-row style="text-align:center; width:100%;">
+            <v-col style=" padding:0px;">          
+              <span style="font-size:15px" @click="today();">today</span>
+            </v-col>
           </v-row>
           <v-row>
             <v-col cols="12" style="text-align: center">
@@ -38,7 +43,9 @@
       <div class="showemotion">
         <div class="x-axis">
           <div style="display: inline-block; float: left">
-            <h3 style="text-align: left">감정 그래프 <span style="font-size:1.5vh"> 이번주 데이터만 조회 가능합니다. </span> </h3>
+            <h3 style="text-align: left">감정 그래프 
+              <!-- <span style="font-size:1.5vh"> 이번주 데이터만 조회 가능합니다. </span>  -->
+              </h3>
           </div>
           <div style="display: inline-block; float: right">
             <ul class="legend">
@@ -68,7 +75,7 @@ import http from "../utils/http-common.js";
 export default {
   name: "Report",
   props: {
-    kid: '',
+    kid: null,
   },
   data: function () {
     return {
@@ -87,6 +94,7 @@ export default {
         {date:'',emotion:'', words:' '},
       ],
       dayclicked:'',
+      calendartitle:'',
     };
   },
   watch:{
@@ -102,33 +110,58 @@ export default {
     this.refreshdata(); 
   },
   mounted(){
-    var vm = this;
     $(".v-calendar-daily__intervals-head").remove();
     $(".v-calendar-daily__body").remove();
-    $(".v-calendar-daily_head-day-label button").click(function(event) {
-      // $(this).addClass("colored");
-      // $(this).removeClass("transparent");
-      vm.dayclicked = $(this).parent().parent().index();
-      vm.setEmotionGraph();
-      // console.log(vm.dayclicked );
-    })
+    // this.$refs.calendar.checkChange()
+    this.activate_button();
   },
   methods: {
-    toprevious(){ 
-      // console.log('previous 클릭됨')
-      // $(".v-calendar-daily_head-day").parent().addClass("colored");
-      // console.log($('.v-calendar-daily_head-day').className);
+    activate_button(){
+      setTimeout(() => {
+      // console.log(this.$refs.calendar.title);
+      var datereform = this.$refs.calendar.title.split(" "); 
+      var month, year;
+      if(datereform.length==4){
+        month = datereform[0]+'/'+datereform[2];
+        year = datereform[3]+'년';
+      }else{
+        month = datereform[0];
+        year = datereform[1]+'년';
+      }
+      this.calendartitle = year + ' ' + month;
+
+      },1)
+      var vm = this;
+      setTimeout(() => {
+      $(".v-calendar-daily_head-day-label button").click(function(event) {
+        vm.dayclicked = $(this).parent().parent().index();
+        // console.log('clicked')
+        vm.setEmotionGraph();
+      })},1)
+    },
+    toprevious(){
       this.thisweek++;
       this.$refs.calendar.prev();
+      this.activate_button();
     },
     tonext(){
-      this.thisweek--;
-      this.$refs.calendar.next();
+      if(this.thisweek>0){
+        this.thisweek--;
+        this.$refs.calendar.next();
+        this.activate_button();
+      }else{
+      this.$swal({
+          title:
+            '<span style="font-weight:100; font-family:GmarketSansMedium;font-size:25px; ">이번주 정보까지만 조회 가능합니다.</span>',
+          confirmButtonText: '확인',
+          showLoaderOnConfirm: false,
+          timer: 100000,
+      }).then((result) => {
+      });
+      }
     },
     setEmotionGraph(){
       this.emotions=[];
-      // console.log(this.dayclicked);
-      // console.log(this.edu);
       for(var val in this.edu[this.dayclicked].emotion){
         this.emotions.push({text:val, value:this.edu[this.dayclicked].emotion[val]})
       }
@@ -144,13 +177,11 @@ export default {
           });
         });
         }, 1);
-      
-      
     },
     refreshdata(){
-      this.events = []; 
+      this.events = [];
       http
-        .get('/kids/'+this.kid.id+'/week/'+this.thisweek, {
+        .get('/kids/'+this.$store.state.selected_kid+'/week/'+this.thisweek, {
           headers: { 'X-AUTH-TOKEN': this.$store.state.token },
         })
         .then(({ data }) => {
@@ -169,6 +200,10 @@ export default {
           this.setEmotionGraph();
         })
     },
+    today(){
+      this.thisweek=0;
+      this.value = '';
+    }
   },
 };
 </script>
@@ -176,11 +211,12 @@ export default {
 </script>
 <style lang="scss">
 @import "../assets/sass/base.scss";
-
+$calendartitle-height: 35px;
 .v-application--wrap {
   width: auto;
   min-height: 1vh !important;
 }
+
 .v-calendar-daily__interval {
   background-color: transparent;
 }
@@ -210,15 +246,31 @@ export default {
   .v-calendar-daily_head-day {
     border-left: #e0e0e0 1px solid;
   }
-
   .canvas {
     width: 100% !important;
     height: 10vh !important;
   }
-  .row-title {
-    height: 5vh;
+}
+.row-title {
+  width:100%;
+  height:35px;
+  .cal-left {
+    width: 20%;
+    height:$calendartitle-height;
+  }
+  .cal {
+    width: 60%;
+    .v-toolbar__title{
+      line-height:$calendartitle-height+5px;
+      vertical-align: middle;
+    }
+  }
+  .cal-right {
+    width: 20%;
+    height:$calendartitle-height;
   }
 }
+
 </style>
 <style lang="scss" scoped>
 * {
@@ -257,28 +309,7 @@ export default {
   margin-right: 0px;
 }
 
-.cal-left {
-  width: 8%;
-  // background-color: yellow;
-  display: inline-block;
-  position: relative;
-}
 
-.cal {
-  width: 80%;
-  // background-color: green;
-  display: inline-block;
-  position: relative;
-  // height: 100%;
-  vertical-align: middle;
-}
-
-.cal-right {
-  width: 8%;
-  // background-color: yellow;
-  display: inline-block;
-  position: relative;
-}
 
 .showemotion {
   width: 100%;
