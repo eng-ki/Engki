@@ -70,7 +70,8 @@ CREATE TABLE `kid_word`
     `studied_date` date   NOT NULL,
     CONSTRAINT `kid_word_pk` PRIMARY KEY (`id`),
     CONSTRAINT `kid_word_kid_id_fk` FOREIGN KEY (`kid_id`) REFERENCES `kid` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT `kid_word_word_id_fk` FOREIGN KEY (`word_id`) REFERENCES `word` (`id`)
+    CONSTRAINT `kid_word_word_id_fk` FOREIGN KEY (`word_id`) REFERENCES `word` (`id`),
+    CONSTRAINT `kid_word_date_uq` UNIQUE (`kid_id`, `word_id`, `studied_date`)
 );
 
 CREATE TABLE `image`
