@@ -1,10 +1,13 @@
 <template>
   <div class="background">
     <set-email
-      v-on:returnParentPage="selectedIndex = 0"
-      v-on:visible="selectKid(0)"
+      v-on:returnParentPage="isMypage = false"
+      v-on:visible="
+        selectKid(0)
+        isMypage = false
+      "
       from="parent"
-      v-if="selectedIndex == -1"
+      v-if="isMypage"
     />
     <set-kid
       v-on:returnParentPage="isAddKid = false"
@@ -61,7 +64,7 @@
             <img src="../../public/img/icon/plus3.png" />
             <div>자녀 등록</div>
           </div>
-          <div class="parent" @click="selectKid(-1)">
+          <div class="parent" @click="isMypage = true">
             <img src="../../public/img/icon/couple.png" />
             <div>내 정보</div>
           </div>
@@ -112,11 +115,11 @@
 </template>
 
 <script>
-import SetKid from '@/components/SetKid.vue';
-import Report from '@/components/Report.vue';
-import UploadPicture from '@/components/UploadPicture.vue';
-import SetEmail from '@/components/SetEmail.vue';
-import http from '../utils/http-common.js';
+import SetKid from '@/components/SetKid.vue'
+import Report from '@/components/Report.vue'
+import UploadPicture from '@/components/UploadPicture.vue'
+import SetEmail from '@/components/SetEmail.vue'
+import http from '../utils/http-common.js'
 export default {
   name: 'ParentPage',
   components: {
@@ -133,23 +136,24 @@ export default {
       selectedIndex: 0,
       isReport: true,
       isAddKid: false,
+      isMypage: false,
       currentOffset: 0,
       windowSize: 5, // carousel에 띄워줄 아이콘 갯수! <- 반응형으로 할거면 화면에 몇개 나오는지 계산해서 여기 넣어야 공백 안생길듯
       paginationFactor: 50,
-    };
+    }
   },
   created() {
-    this.getKids();
+    this.getKids()
   },
   computed: {
     atEndOfList() {
       return (
         this.currentOffset <=
         this.paginationFactor * -1 * (this.kids.length - this.windowSize)
-      );
+      )
     },
     atHeadOfList() {
-      return this.currentOffset === 0;
+      return this.currentOffset === 0
     },
   },
   methods: {
@@ -159,18 +163,15 @@ export default {
           headers: { 'X-AUTH-TOKEN': this.$store.state.token },
         })
         .then(({ data }) => {
-          this.kids = data;
-          console.log(this.kids);
+          this.kids = data
+          console.log(this.kids)
           // console.log(this.kids[0]);
-          this.$store.commit('setSelectedKid', this.kids[0].id);
-        });
+          this.$store.commit('setSelectedKid', this.kids[0].id)
+        })
     },
     selectKid(index) {
-      this.selectedIndex = index;
-      // console.log('자녀정보:');
-      // console.log(this.kids[index].id);
-      // this.$store.commit('getSelectedKid', this.kids[index].id);
-      this.$store.commit('setSelectedKid', this.kids[index].id);
+      this.selectedIndex = index
+      this.$store.commit('setSelectedKid', this.kids[index].id)
     },
     deleteKid(index) {
       this.$swal({
@@ -188,28 +189,28 @@ export default {
               headers: { 'X-AUTH-TOKEN': this.$store.state.token },
             })
             .then(({ data }) => {
-              this.kids.splice(index, 1);
-              if (this.kids.length != 0) this.selectedIndex = 0;
-            });
+              this.kids.splice(index, 1)
+              if (this.kids.length != 0) this.selectedIndex = 0
+            })
         }
-      });
+      })
     },
     updateKid: function (kid) {
-      this.getKids();
-      this.isAddKid = false;
+      this.getKids()
+      this.isAddKid = false
     },
     moveCarousel(direction) {
       if (direction === 1 && !this.atEndOfList) {
-        this.currentOffset -= this.paginationFactor;
+        this.currentOffset -= this.paginationFactor
       } else if (direction === -1 && !this.atHeadOfList) {
-        this.currentOffset += this.paginationFactor;
+        this.currentOffset += this.paginationFactor
       }
     },
     backtomain() {
-      this.$router.push('/selectkid');
+      this.$router.push('/selectkid')
     },
   },
-};
+}
 </script>
 <style lang="scss">
 @import '../assets/sass/base.scss';

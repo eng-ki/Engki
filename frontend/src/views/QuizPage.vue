@@ -204,7 +204,6 @@ export default {
           dt.getSeconds()
 
         var file = this.dataURLtoFile(this.img, dt)
-
         var frm = new FormData()
         frm.append('files', file)
         frm.append('kid_id', this.$store.state.kid.id)
@@ -216,7 +215,6 @@ export default {
             },
           })
           .then(({ data }) => {
-            // console.log(data)
             if (data == 'STOP') {
               this.isBreakTime = true
             }
