@@ -62,7 +62,8 @@ const router = new VueRouter({
 
 // 로그인 후에 이용 가능
 router.beforeEach((to, from, next) => {
-  if (to.name !== 'LoginPage' && store.getters.getToken == null) next({ name: 'LoginPage' })
+  if (to.name !== 'LoginPage' && store.getters.getToken == null)
+    next({ name: 'LoginPage' })
   else next()
 })
 
