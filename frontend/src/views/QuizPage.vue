@@ -114,15 +114,15 @@
 </template>
 
 <script>
-import QuizA from '@/components/QuizA.vue';
-import QuizB from '@/components/QuizB.vue';
-import QuizC from '@/components/QuizC.vue';
-import QuizD from '@/components/QuizD.vue';
-import QuizE from '@/components/QuizE.vue';
-import QuizF from '@/components/QuizF.vue';
-import Etc from '@/components/Etc.vue';
-import http from '../utils/http-common.js';
-import { WebCam } from 'vue-web-cam';
+import QuizA from '@/components/QuizA.vue'
+import QuizB from '@/components/QuizB.vue'
+import QuizC from '@/components/QuizC.vue'
+import QuizD from '@/components/QuizD.vue'
+import QuizE from '@/components/QuizE.vue'
+import QuizF from '@/components/QuizF.vue'
+import Etc from '@/components/Etc.vue'
+import http from '../utils/http-common.js'
+import { WebCam } from 'vue-web-cam'
 
 export default {
   name: 'ParentPage',
@@ -155,66 +155,68 @@ export default {
       camera: null,
       deviceId: null,
       devices: [],
-    };
+    }
   },
   watch: {
     isBreakTime: function (val) {
       if (val) {
-        this.stopCapture();
+        this.stopCapture()
       } else {
-        this.startCapture();
+        this.startCapture()
       }
     },
     camera: function (id) {
-      this.deviceId = id;
+      this.deviceId = id
     },
     devices: function () {
-      const [first, ...tail] = this.devices;
+      const [first, ...tail] = this.devices
       if (first) {
-        this.camera = first.deviceId;
-        this.deviceId = first.deviceId;
+        this.camera = first.deviceId
+        this.deviceId = first.deviceId
       }
     },
   },
   beforeDestroy() {
-    this.stopCapture();
+    this.stopCapture()
   },
   computed: {
     device: function () {
-      return this.devices.find((n) => n.deviceId === this.deviceId);
+      return this.devices.find((n) => n.deviceId === this.deviceId)
     },
   },
   mounted() {
-    this.$store.state.exp = 0;
-    console.log(this.$store.state.is_test);
+    this.$store.state.exp = 0
+    console.log(this.$store.state.is_test)
     if (!this.$store.state.is_test) {
-      this.onStart();
-      this.startCapture();
+      this.onStart()
+      this.startCapture()
     }
   },
   methods: {
     goKid() {
-      this.stopCapture();
-      this.$router.push('/kid');
+      setTimeout(() => {
+        this.stopCapture()
+      }, 600)
+      this.$router.push('/kid')
     },
     isNextStage(flag) {
-      this.isDone = false;
+      this.isDone = false
       if (flag) {
-        this.stage++;
+        this.stage++
       }
 
       if (this.stage == 6) {
-        this.stage = 5;
-        this.isFinish = true;
+        this.stage = 5
+        this.isFinish = true
       }
     },
     setAnswer(answer) {
-      this.answer = answer;
+      this.answer = answer
     },
     startCapture() {
       this.camTimer = setInterval(() => {
-        this.onCapture();
-        var dt = new Date();
+        this.onCapture()
+        var dt = new Date()
 
         dt =
           dt.getFullYear() +
@@ -222,12 +224,12 @@ export default {
           dt.getDate() +
           dt.getHours() +
           dt.getMinutes() +
-          dt.getSeconds();
+          dt.getSeconds()
 
-        var file = this.dataURLtoFile(this.img, dt);
-        var frm = new FormData();
-        frm.append('files', file);
-        frm.append('kid_id', this.$store.state.kid.id);
+        var file = this.dataURLtoFile(this.img, dt)
+        var frm = new FormData()
+        frm.append('files', file)
+        frm.append('kid_id', this.$store.state.kid.id)
 
         http
           .post('https://j3a510.p.ssafy.io:8083/custom/emotion', frm, {
@@ -236,17 +238,18 @@ export default {
             },
           })
           .then(({ data }) => {
-            console.log(data);
+            console.log(data)
             if (data == 'STOP') {
-              this.isBreakTime = true;
+              this.isBreakTime = true
             }
-          });
-      }, 5000);
+          })
+      }, 5000)
     },
     // 감정 인식 중지
     stopCapture() {
       // 캡쳐 중지
-      clearInterval(this.camTimer);
+
+      clearInterval(this.camTimer)
     },
     // 모르겠어요 버튼 눌렀을때 완전 끝내기랑 다음으로가기
     isPass() {
@@ -265,14 +268,14 @@ export default {
         showCloseButton: true,
       }).then((result) => {
         if (result.value) {
-          this.isNextStage(true);
+          this.isNextStage(true)
         } else {
-          this.isNextStage(false);
+          this.isNextStage(false)
         }
-      });
+      })
     },
     onCapture() {
-      this.img = this.$refs.webcam.capture();
+      this.img = this.$refs.webcam.capture()
     },
     onStarted(stream) {
       // console.log('On Started Event', stream)
@@ -281,21 +284,21 @@ export default {
       // console.log('On Stopped Event', stream)
     },
     onStop() {
-      this.$refs.webcam.stop();
+      this.$refs.webcam.stop()
     },
     onStart() {
-      this.$refs.webcam.start();
+      this.$refs.webcam.start()
     },
     onError(error) {
       // console.log('On Error Event', error)
     },
     onCameras(cameras) {
-      this.devices = cameras;
+      this.devices = cameras
       // console.log('On Cameras Event', cameras)
     },
     onCameraChange(deviceId) {
-      this.deviceId = deviceId;
-      this.camera = deviceId;
+      this.deviceId = deviceId
+      this.camera = deviceId
       // console.log('On Camera Change Event', deviceId)
     },
 
@@ -304,16 +307,16 @@ export default {
         mime = arr[0].match(/:(.*?);/)[1],
         bstr = atob(arr[1]),
         n = bstr.length,
-        u8arr = new Uint8Array(n);
+        u8arr = new Uint8Array(n)
 
       while (n--) {
-        u8arr[n] = bstr.charCodeAt(n);
+        u8arr[n] = bstr.charCodeAt(n)
       }
 
-      return new File([u8arr], fileName, { type: mime });
+      return new File([u8arr], fileName, { type: mime })
     },
   },
-};
+}
 </script>
 <style lang="scss">
 @import '../assets/sass/base.scss';
