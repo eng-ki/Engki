@@ -46,7 +46,7 @@ export default {
   created() {
     this.quiz = {
       url:
-        'http://j3a510.p.ssafy.io/images/' +
+        'https://j3a510.p.ssafy.io/images/' +
         this.$store.state.quiz_adv.filePath,
       sentence: this.$store.state.quiz_adv.caption,
       answers: this.$store.state.quiz_adv.randomCaptions,

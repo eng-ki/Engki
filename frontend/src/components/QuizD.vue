@@ -86,6 +86,7 @@ export default {
             randomCaptions: data.data.randomCaptions,
             tokens: data.data.tokens,
           });
+          this.setLocalVariable();
           const idx = data.data.randomWords.indexOf(
             this.$store.state.quiz.word
           );
@@ -93,7 +94,7 @@ export default {
 
           this.quiz = {
             url:
-              'http://j3a510.p.ssafy.io/images/' +
+              'https://j3a510.p.ssafy.io/images/' +
               this.$store.state.quiz_adv.filePath,
             sentence: this.insertSpanTag(
               this.$store.state.quiz_adv.caption,
@@ -119,6 +120,7 @@ export default {
     },
   },
   methods: {
+    setLocalVariable() {},
     isCorrect() {
       if (this.quiz.words[this.selectedIndex] == this.quiz.word) return true;
       else {
