@@ -347,7 +347,7 @@ export default {
     },
     returnID(index) {
       if (this.option == 'quiz') {
-        if (this.datas[index].id == 6) {
+        if (this.datas[index].id == 7) {
           this.$swal({
             title:
               '<div style="font-family: GmarketSansMedium;font-size:1vw;">서비스 준비중입니다</div>',
