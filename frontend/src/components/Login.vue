@@ -14,6 +14,9 @@
             <span class="kakao_font">카카오 로그인</span>
           </button>
         </div>
+        <div class="pointerdown">
+          <img src="../../public/img/icon/arrow-down.png" />
+        </div>
       </div>
     </v-layout>
 
@@ -460,11 +463,38 @@ export default {
   position: inherit;
 }
 
+.pointerdown {
+  position: absolute;
+  bottom: 2vw;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.pointerdown img {
+  width: 4.5vw;
+  opacity: 0.8;
+  animation: pointers 1.5s linear 1.5s infinite alternate running;
+}
+
+@keyframes pointers {
+  from {
+    opacity: 0.8;
+  }
+  20% {
+    opacity: 0.8;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0.8;
+    transform: translate(0px, -25px);
+  }
+}
+
 /* 로그인페이지 제목 - 잉키 */
 .login .title {
   /* 좌표 설정 */
   position: absolute;
-  top: 38vh;
+  top: 36vh;
   left: 50%;
   transform: translate(-50%, -50%);
   /* text-align: center; */
@@ -479,7 +509,7 @@ export default {
 .login .subtitle {
   /* 좌표 설정 */
   position: absolute;
-  top: 55vh;
+  top: 53vh;
   left: 50%;
   transform: translate(-50%, -50%);
 
@@ -493,7 +523,7 @@ export default {
 .login .input-with-tiki {
   /* 좌표 설정 */
   position: absolute;
-  top: 76vh;
+  top: 70vh;
   left: 50%;
   width: 100%;
   text-align: center;
