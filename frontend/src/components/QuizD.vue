@@ -41,7 +41,11 @@
   </div>
 </template>
 <script>
+<<<<<<< HEAD
 import http from "../utils/http-common.js";
+=======
+import http from '../utils/http-common.js'
+>>>>>>> 851b0e92a42dbd641277e1586dd767ea7a1155ae
 export default {
   props: {
     isDone: false,
@@ -57,11 +61,19 @@ export default {
       isLong: false,
       quizLength: this.quiz.word.length,
       selectedIndex: -1,
+<<<<<<< HEAD
       blank: "<span>&nbsp;&nbsp;</span>",
     };
   },
   created() {
     this.quizapipath = "/edu/" + this.$store.state.quiz.id + "/captions";
+=======
+      blank: '<span>&nbsp;&nbsp;</span>',
+    }
+  },
+  created() {
+    this.quizapipath = '/edu/' + this.$store.state.quiz.id + '/captions'
+>>>>>>> 851b0e92a42dbd641277e1586dd767ea7a1155ae
     // console.log('퀴즈4패스 : ' + this.quizapipath);
     http
       .get(this.quizapipath, {
@@ -75,11 +87,17 @@ export default {
           filePath: data.data.filePath,
           randomCaptions: data.data.randomCaptions,
           tokens: data.data.tokens,
-        });
+        })
 
+        const idx = data.data.randomWords.indexOf(this.$store.state.quiz.word)
+        data.data.randomWords.splice(idx, 1)
+
+<<<<<<< HEAD
         const idx = data.data.randomWords.indexOf(this.$store.state.quiz.word);
         data.data.randomWords.splice(idx, 1);
 
+=======
+>>>>>>> 851b0e92a42dbd641277e1586dd767ea7a1155ae
         this.quiz = {
           url:
             "http://j3a510.p.ssafy.io/images/" +
@@ -95,21 +113,32 @@ export default {
             data.data.randomWords[1],
             data.data.randomWords[2],
           ],
+<<<<<<< HEAD
         };
       });
     calLength(this.quiz.word);
+=======
+        }
+      })
+>>>>>>> 851b0e92a42dbd641277e1586dd767ea7a1155ae
   },
   watch: {
     isDone: function (val) {
       if (this.isCorrect()) {
+<<<<<<< HEAD
         this.$store.commit("setExp", 4);
         this.$emit("correct");
       } else this.$emit("wrong");
+=======
+        this.$store.commit('setExp', 4)
+        this.$emit('correct')
+      } else this.$emit('wrong')
+>>>>>>> 851b0e92a42dbd641277e1586dd767ea7a1155ae
     },
   },
   methods: {
     isCorrect() {
-      if (this.quiz.words[this.selectedIndex] == this.quiz.word) return true;
+      if (this.quiz.words[this.selectedIndex] == this.quiz.word) return true
       else {
         this.$swal({
           title:
@@ -119,15 +148,16 @@ export default {
           confirmButtonText: "확인",
           timer: 1000,
         }).then((result) => {
-          return true;
-        });
-        return false;
+          return true
+        })
+        return false
       }
     },
     select(index) {
-      this.selectedIndex = index;
+      this.selectedIndex = index
     },
     insertSpanTag(caption, word) {
+<<<<<<< HEAD
       const regexp = new RegExp(
         `${this.$store.state.quiz.word}(es)?(s)?`,
         "gi"
@@ -142,9 +172,19 @@ export default {
     },
     calLength(word) {
       if (word.length > 100) this.isLong = true;
+=======
+      const regexp = new RegExp(`${this.$store.state.quiz.word}(es)?(s)?`, 'gi')
+      regexp.test(caption)
+
+      const before = caption.indexOf(word)
+      const after = regexp.lastIndex
+
+      const inserted = [caption.substring(0, before), caption.substring(after)]
+      return inserted
+>>>>>>> 851b0e92a42dbd641277e1586dd767ea7a1155ae
     },
   },
-};
+}
 </script>
 <style lang="scss">
 @import "../assets/sass/base.scss";
