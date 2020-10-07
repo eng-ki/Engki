@@ -1,11 +1,10 @@
 <template>
   <div>
     <div class="header">
-      <p>{{ kid.name }} 어린이</p>
+      <p>{{ this.$store.state.kid.name }} 어린이</p>
       <p>5분 동안</p>
       <p>쉬는시간을 가져볼까요?</p>
     </div>
-
     <div v-if="isTimer">
       <div class="timer">
         <span class="minute">{{ minutes }}</span>
@@ -28,26 +27,30 @@ export default {
   name: 'BreakTime',
   data: () => {
     return {
-      kid: { name: '김싸피' },
       isTimer: false,
       timer: null,
       totalTime: 5 * 60,
-    };
+    }
+  },
+  watch: {
+    totalTime: function (val) {
+      if (val == 0) this.$emit('continue')
+    },
   },
   computed: {
     minutes: function () {
-      const minutes = Math.floor(this.totalTime / 60);
-      return this.padTime(minutes);
+      const minutes = Math.floor(this.totalTime / 60)
+      return this.padTime(minutes)
     },
     seconds: function () {
-      const seconds = this.totalTime - this.minutes * 60;
-      return this.padTime(seconds);
+      const seconds = this.totalTime - this.minutes * 60
+      return this.padTime(seconds)
     },
   },
   methods: {
     goQuizPage() {
       if (this.isTimer) {
-        this.stopTimer();
+        this.stopTimer()
       }
       this.$swal({
         title: '퀴즈 페이지로 돌아갈까요?',
@@ -57,30 +60,30 @@ export default {
         showCloseButton: true,
       }).then((result) => {
         if (result.value) {
-          this.$emit('continue');
+          this.$emit('continue')
         } else {
           if (this.isTimer) {
-            this.startTimer();
+            this.startTimer()
           }
         }
-      });
+      })
     },
     startTimer: function () {
-      this.isTimer = true;
-      this.timer = setInterval(() => this.countdown(), 1000); //1000ms = 1 second
+      this.isTimer = true
+      this.timer = setInterval(() => this.countdown(), 1000) //1000ms = 1 second
     },
     stopTimer: function () {
-      clearInterval(this.timer);
-      this.timer = null;
+      clearInterval(this.timer)
+      this.timer = null
     },
     padTime: function (time) {
-      return (time < 10 ? '0' : '') + time;
+      return (time < 10 ? '0' : '') + time
     },
     countdown: function () {
-      this.totalTime--;
+      this.totalTime--
     },
   },
-};
+}
 </script>
 <style lang="scss">
 @import '../assets/sass/base.scss';

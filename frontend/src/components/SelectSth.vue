@@ -397,16 +397,10 @@ export default {
 </script>
 
 <style>
-.selectmodal1 > div {
-}
-
 .selectmodal2 > div {
   position: absolute !important;
   bottom: 3vh !important;
   right: 18vw !important;
-}
-
-.selectmodal3 > div {
 }
 
 .selectmodal4 > div {

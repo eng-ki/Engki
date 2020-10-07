@@ -447,13 +447,14 @@ export default {
         .then(({ data }) => {
           this.kids = data
           console.log(this.kids)
-          if (data.length != 0){
-            this.$store.commit('setSelectedKid', this.kids[0]);
-        });
+          if (data.length != 0) {
+            this.$store.commit('setSelectedKid', this.kids[0])
+          }
+        })
     },
     selectKid(index) {
-      this.selectedIndex = index;
-      this.$store.commit('setSelectedKid', this.kids[index]);
+      this.selectedIndex = index
+      this.$store.commit('setSelectedKid', this.kids[index])
     },
     deleteKid(index) {
       this.$swal({
