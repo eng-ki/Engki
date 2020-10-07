@@ -9,7 +9,7 @@
             @click="startTutorial()"
             class="page-title-img"
             id="tutorial"
-            src="../../public/img/icon/question.png"
+            src="../../public/img/icon/question-mark1.png"
         /></span>
         <div class="parent-info-page">
           <div class="container page-text">
@@ -56,6 +56,7 @@
 
     <!-- 첫번째 튜토리얼 -->
     <b-modal
+      modal-class="mymodal"
       ref="my-modal1"
       title-html="<span style='
   padding: 1vw;font-family: GmarketSansMedium; color: #263747;'>자녀 등록</span>"
@@ -64,7 +65,7 @@
     >
       <div class="modal-body">
         <span>
-          자녀를 한 명 이상 필수로 등록해야 합니다.<br />
+          자녀는 한 명 이상 필수로 등록해야 합니다.<br />
           서비스를 이용할 자녀의 이름과 생년월일을 입력해주세요.
         </span>
       </div>
@@ -79,15 +80,23 @@
             :class="{ isButtonBlock: stage == 1 }"
             @click="prevTutorial(stage)"
           >
-            < 이전
+            &lt; 이전
           </b-button>
           <b-button
             size="sm"
             variant="primary"
-            :class="{ isButtonBlock: stage == limit }"
+            v-if="stage < limit"
             @click="nextTutorial(stage)"
           >
             다음 >
+          </b-button>
+          <b-button
+            size="sm"
+            variant="primary"
+            v-else
+            @click="nextTutorial(stage)"
+          >
+            종료 >
           </b-button>
         </div>
       </div>
@@ -119,15 +128,23 @@
             :class="{ isButtonBlock: stage == 1 }"
             @click="prevTutorial(stage)"
           >
-            < 이전
+            &lt; 이전
           </b-button>
           <b-button
             size="sm"
             variant="primary"
-            :class="{ isButtonBlock: stage == limit }"
+            v-if="stage < limit"
             @click="nextTutorial(stage)"
           >
             다음 >
+          </b-button>
+          <b-button
+            size="sm"
+            variant="primary"
+            v-else
+            @click="nextTutorial(stage)"
+          >
+            종료 >
           </b-button>
         </div>
       </div>
@@ -136,7 +153,7 @@
   </div>
 </template>
 <script>
-import http from "../utils/http-common.js";
+import http from '../utils/http-common.js'
 export default {
   props: {
     from: null,
@@ -144,46 +161,47 @@ export default {
   data: function () {
     return {
       kid: {
-        name: "",
-        birthday: "",
-        icon: "/img/icon/fairytale/001-knight.png",
+        name: '',
+        birthday: '',
+        icon: '/img/icon/fairytale/001-knight.png',
       },
       stage: 1,
       limit: 2,
       isHideFooter: true,
-    };
+      mymodal: ['mymodal'],
+    }
   },
   methods: {
     prevTutorial(stage) {
       if (stage > 1) {
-        this.$refs["my-modal" + stage].hide();
-        this.stage--;
-        this.showTutorial(this.stage);
+        this.$refs['my-modal' + stage].hide()
+        this.stage--
+        this.showTutorial(this.stage)
       }
     },
     nextTutorial(stage) {
+      this.$refs['my-modal' + stage].hide()
       if (stage < this.limit) {
-        this.$refs["my-modal" + stage].hide();
-        this.stage++;
-        this.showTutorial(this.stage);
+        this.stage++
+        this.showTutorial(this.stage)
       }
     },
     showTutorial(index) {
-      this.$refs["my-modal" + index].show();
+      this.$refs['my-modal' + index].show()
     },
     startTutorial() {
-      this.stage = 1;
-      this.$refs["my-modal1"].show();
+      this.stage = 1
+      this.$refs['my-modal1'].show()
     },
 
     register() {
       this.$swal({
         title:
           '<div style="font-family: GmarketSansMedium;font-size:2vw;">자녀를 등록하시겠습니까?</div>',
-        type: "warning",
+        type: 'warning',
         showCancelButton: true,
-        confirmButtonText: "등록",
-        cancelButtonText: "취소",
+        confirmButtonText: '등록',
+        cancelButtonText: '취소',
         showCloseButton: true,
         showLoaderOnConfirm: true,
       }).then((result) => {
@@ -192,24 +210,24 @@ export default {
             this.$swal({
               title:
                 '<div style="font-family: GmarketSansMedium;font-size:1vw;">이름을 입력해주세요</div>',
-              type: "warning",
+              type: 'warning',
               showCancelButton: false,
-              confirmButtonText: "확인",
+              confirmButtonText: '확인',
               showLoaderOnConfirm: true,
-            }).then((result) => {});
+            }).then((result) => {})
           } else if (!this.isValidDate(this.kid.birthday)) {
             this.$swal({
               title:
                 '<div style="font-family: GmarketSansMedium;font-size:1vw;">생일을 형식에 맞게 입력해주세요</div>',
-              type: "warning",
+              type: 'warning',
               showCancelButton: false,
-              confirmButtonText: "확인",
+              confirmButtonText: '확인',
               showLoaderOnConfirm: true,
-            }).then((result) => {});
+            }).then((result) => {})
           } else {
             http
               .post(
-                "kids/",
+                'kids/',
                 {
                   birthday: this.kid.birthday,
                   icon: this.kid.icon,
@@ -217,84 +235,84 @@ export default {
                   parentId: this.$store.state.parent.id,
                 },
                 {
-                  headers: { "X-AUTH-TOKEN": this.$store.state.token },
+                  headers: { 'X-AUTH-TOKEN': this.$store.state.token },
                 }
               )
               .then(({ data }) => {
-                this.$emit("update", this.kid);
-              });
+                this.$emit('update', this.kid)
+              })
           }
         }
-      });
+      })
     },
     returnParentPage() {
-      this.$emit("returnParentPage");
+      this.$emit('returnParentPage')
     },
     isDateFormat(d) {
-      var df = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
-      return d.match(df);
+      var df = /[0-9]{4}-[0-9]{2}-[0-9]{2}/
+      return d.match(df)
     },
     isLeaf(year) {
-      var leaf = false;
+      var leaf = false
 
       if (year % 4 == 0) {
-        leaf = true;
+        leaf = true
 
         if (year % 100 == 0) {
-          leaf = false;
+          leaf = false
         }
 
         if (year % 400 == 0) {
-          leaf = true;
+          leaf = true
         }
       }
 
-      return leaf;
+      return leaf
     },
     isValidDate(d) {
       // 포맷에 안맞으면 false리턴
       if (!this.isDateFormat(d)) {
-        return false;
+        return false
       }
 
-      var month_day = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+      var month_day = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
-      var dateToken = d.split("-");
-      var year = Number(dateToken[0]);
-      var month = Number(dateToken[1]);
-      var day = Number(dateToken[2]);
+      var dateToken = d.split('-')
+      var year = Number(dateToken[0])
+      var month = Number(dateToken[1])
+      var day = Number(dateToken[2])
 
       // 날짜가 0이면 false
       if (day == 0) {
-        return false;
+        return false
       }
 
-      var isValid = false;
+      var isValid = false
 
       // 윤년일때
       if (this.isLeaf(year)) {
         if (month == 2) {
           if (day <= month_day[month - 1] + 1) {
-            isValid = true;
+            isValid = true
           }
         } else {
           if (day <= month_day[month - 1]) {
-            isValid = true;
+            isValid = true
           }
         }
       } else {
         if (day <= month_day[month - 1]) {
-          isValid = true;
+          isValid = true
         }
       }
 
-      return isValid;
+      return isValid
     },
   },
-};
+}
 </script>
 <style lang="scss">
-@import "../assets/sass/base.scss";
+@import '../assets/sass/base.scss';
 </style>
 <style lang="scss" scoped>
 * {
@@ -428,5 +446,11 @@ export default {
 .modal-body span {
   color: #263747;
   opacity: 0.9;
+}
+
+.mymodal > div {
+  position: fixed !important;
+  top: 0 !important;
+  left: -23vw !important;
 }
 </style>

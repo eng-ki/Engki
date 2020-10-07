@@ -15,6 +15,22 @@
       v-else-if="kids.length == 0 || isAddKid"
     />
     <div v-else class="board">
+      <img
+        @click="startTutorial()"
+        class="page-title-img"
+        id="tutorial"
+        src="../../public/img/icon/question-mark1.png"
+      />
+      <b-tooltip placement="top" target="tutorial" triggers="hover">
+        <span
+          style="
+            font-family: GmarketSansMedium;
+            color: #f2f2f2;
+            font-size: 0.8vw;
+          "
+          >도움말</span
+        >
+      </b-tooltip>
       <div class="board-header">
         <div class="board-header-kid">
           <div class="card-carousel-wrapper">
@@ -111,6 +127,238 @@
 
       <!-- </div> -->
     </div>
+
+    <!-- 첫번째 튜토리얼 -->
+    <b-modal
+      modal-class="mymodal"
+      ref="my-modal1"
+      centered="isCentered"
+      title-html="<span style='
+  padding: 1vw;font-family: GmarketSansMedium; color: #263747;'>학습 리포트</span>"
+      :hide-footer="isHideFooter"
+      header-border-variant="0"
+    >
+      <div class="modal-body">
+        <span>
+          날짜별로 자녀의 학습 기록을 볼 수 있습니다.<br />
+          자녀의 학습 중 감정을 파악하여 피드백 할 수 있습니다.
+        </span>
+      </div>
+      <div>
+        <div class="modal-foot">{{ stage }}/{{ limit }}</div>
+        <div class="modal-foot2">
+          <b-button
+            size="sm"
+            variant="primary"
+            :class="{ isButtonBlock: stage == 1 }"
+            @click="prevTutorial(stage)"
+          >
+            &lt; 이전
+          </b-button>
+          <b-button
+            size="sm"
+            variant="primary"
+            v-if="stage < limit"
+            @click="nextTutorial(stage)"
+          >
+            다음 >
+          </b-button>
+          <b-button
+            size="sm"
+            variant="primary"
+            v-else
+            @click="nextTutorial(stage)"
+          >
+            종료 >
+          </b-button>
+        </div>
+      </div>
+    </b-modal>
+    <!-- 첫번째 튜토리얼 끝-->
+
+    <!-- 두번째 튜토리얼 -->
+    <b-modal
+      ref="my-modal2"
+      title-html="<span style='
+  padding: 1vw;font-family: GmarketSansMedium; color: #263747;'>커스텀 학습</span>"
+      :hide-footer="isHideFooter"
+      header-border-variant="0"
+    >
+      <div class="modal-body">
+        <span>
+          사진을 등록해서 자녀의 학습자료를 직접 만들 수 있습니다.<br />
+          자녀의 눈높이에 맞춰 단어와 문장을 커스터마이징 해보세요.<br />
+        </span>
+      </div>
+      <div>
+        <div class="modal-foot">{{ stage }}/{{ limit }}</div>
+        <div class="modal-foot2">
+          <b-button
+            size="sm"
+            variant="primary"
+            :class="{ isButtonBlock: stage == 1 }"
+            @click="prevTutorial(stage)"
+          >
+            &lt; 이전
+          </b-button>
+          <b-button
+            size="sm"
+            variant="primary"
+            v-if="stage < limit"
+            @click="nextTutorial(stage)"
+          >
+            다음 >
+          </b-button>
+          <b-button
+            size="sm"
+            variant="primary"
+            v-else
+            @click="nextTutorial(stage)"
+          >
+            종료 >
+          </b-button>
+        </div>
+      </div>
+    </b-modal>
+    <!-- 두번째 튜토리얼 끝-->
+
+    <!-- 세번째 튜토리얼 -->
+    <b-modal
+      ref="my-modal3"
+      title-html="<span style='
+  padding: 1vw;font-family: GmarketSansMedium; color: #263747;'>자녀 등록</span>"
+      :hide-footer="isHideFooter"
+      header-border-variant="0"
+    >
+      <div class="modal-body">
+        <span>
+          우측 상단 아이콘을 눌러 자녀를 등록해보세요.<br />
+          이름과 생년월일만 입력하면 서비스를 이용할 수 있습니다.
+        </span>
+      </div>
+      <div>
+        <div class="modal-foot">{{ stage }}/{{ limit }}</div>
+        <div class="modal-foot2">
+          <b-button
+            size="sm"
+            variant="primary"
+            :class="{ isButtonBlock: stage == 1 }"
+            @click="prevTutorial(stage)"
+          >
+            &lt; 이전
+          </b-button>
+          <b-button
+            size="sm"
+            variant="primary"
+            v-if="stage < limit"
+            @click="nextTutorial(stage)"
+          >
+            다음 >
+          </b-button>
+          <b-button
+            size="sm"
+            variant="primary"
+            v-else
+            @click="nextTutorial(stage)"
+          >
+            종료 >
+          </b-button>
+        </div>
+      </div>
+    </b-modal>
+    <!-- 세번째 튜토리얼 끝-->
+
+    <!-- 네번째 튜토리얼 -->
+    <b-modal
+      ref="my-modal4"
+      title-html="<span style='
+  padding: 1vw;font-family: GmarketSansMedium; color: #263747;'>내 정보</span>"
+      :hide-footer="isHideFooter"
+      header-border-variant="0"
+    >
+      <div class="modal-body">
+        <span>
+          우측 상단 아이콘을 눌러 부모님 정보를 수정해보세요.<br />
+          이름, 이메일, 학습 보고서 수신 여부를 수정할 수 있습니다.
+        </span>
+      </div>
+      <div>
+        <div class="modal-foot">{{ stage }}/{{ limit }}</div>
+        <div class="modal-foot2">
+          <b-button
+            size="sm"
+            variant="primary"
+            :class="{ isButtonBlock: stage == 1 }"
+            @click="prevTutorial(stage)"
+          >
+            &lt; 이전
+          </b-button>
+          <b-button
+            size="sm"
+            variant="primary"
+            v-if="stage < limit"
+            @click="nextTutorial(stage)"
+          >
+            다음 >
+          </b-button>
+          <b-button
+            size="sm"
+            variant="primary"
+            v-else
+            @click="nextTutorial(stage)"
+          >
+            종료 >
+          </b-button>
+        </div>
+      </div>
+    </b-modal>
+    <!-- 네번째 튜토리얼 끝-->
+
+    <!-- 다섯번째 튜토리얼 -->
+    <b-modal
+      ref="my-modal5"
+      title-html="<span style='
+  padding: 1vw;font-family: GmarketSansMedium; color: #263747;'>메인으로</span>"
+      :hide-footer="isHideFooter"
+      header-border-variant="0"
+    >
+      <div class="modal-body">
+        <span>
+          좌측 하단 표지판의 메인으로 가기를 클릭해보세요.<br />
+          학습할 자녀의 프로필을 선택할 수 있습니다.<br />
+        </span>
+      </div>
+      <div>
+        <div class="modal-foot">{{ stage }}/{{ limit }}</div>
+        <div class="modal-foot2">
+          <b-button
+            size="sm"
+            variant="primary"
+            :class="{ isButtonBlock: stage == 1 }"
+            @click="prevTutorial(stage)"
+          >
+            &lt; 이전
+          </b-button>
+          <b-button
+            size="sm"
+            variant="primary"
+            v-if="stage < limit"
+            @click="nextTutorial(stage)"
+          >
+            다음 >
+          </b-button>
+          <b-button
+            size="sm"
+            variant="primary"
+            v-else
+            @click="nextTutorial(stage)"
+          >
+            종료 >
+          </b-button>
+        </div>
+      </div>
+    </b-modal>
+    <!-- 다섯번째 튜토리얼 끝-->
   </div>
 </template>
 
@@ -140,6 +388,11 @@ export default {
       currentOffset: 0,
       windowSize: 5, // carousel에 띄워줄 아이콘 갯수! <- 반응형으로 할거면 화면에 몇개 나오는지 계산해서 여기 넣어야 공백 안생길듯
       paginationFactor: 50,
+      stage: 1,
+      limit: 5,
+      isHideFooter: true,
+      mymodal: ['mymodal'],
+      isCentered: false,
     }
   },
   created() {
@@ -157,6 +410,27 @@ export default {
     },
   },
   methods: {
+    prevTutorial(stage) {
+      if (stage > 1) {
+        this.$refs['my-modal' + stage].hide()
+        this.stage--
+        this.showTutorial(this.stage)
+      }
+    },
+    nextTutorial(stage) {
+      this.$refs['my-modal' + stage].hide()
+      if (stage < this.limit) {
+        this.stage++
+        this.showTutorial(this.stage)
+      }
+    },
+    showTutorial(index) {
+      this.$refs['my-modal' + index].show()
+    },
+    startTutorial() {
+      this.stage = 1
+      this.$refs['my-modal1'].show()
+    },
     getKids() {
       http
         .get('parents/' + this.$store.state.parent.id + '/kids', {
@@ -469,5 +743,60 @@ $arrowcolor: black;
   left: 3vh;
   z-index: 5;
   position: absolute;
+}
+.page-title-img {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 3%;
+  margin-right: 3vw;
+  &:hover {
+    opacity: 0.6;
+  }
+  z-index: 1000;
+}
+
+.isButtonBlock {
+  opacity: 0.6;
+  pointer-events: none;
+}
+.modal-body {
+  margin-top: -2vw;
+  margin-bottom: 1vw;
+}
+
+.modal-body span {
+  color: #263747;
+  opacity: 0.9;
+  font-family: GmarketSansMedium;
+}
+.modal-foot {
+  float: left;
+  color: gray;
+  padding-left: 1vw;
+  font-family: GmarketSansMedium;
+}
+.modal-foot2 {
+  float: right;
+  font-family: GmarketSansMedium;
+}
+.mymodal > div {
+  position: fixed !important;
+  top: 0 !important;
+  left: -23vw !important;
+  width: 100vw;
+  height: 100vh;
+}
+
+.modal-dialog.modal-fullsize {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+.modal-content.modal-fullsize {
+  height: auto;
+  min-height: 100%;
+  border-radius: 0;
 }
 </style>
