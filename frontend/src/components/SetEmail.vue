@@ -248,8 +248,8 @@
   </div>
 </template>
 <script>
-import http from '../utils/http-common.js'
-import jwt_decode from 'jwt-decode'
+import http from '../utils/http-common.js';
+import jwt_decode from 'jwt-decode';
 export default {
   props: {
     from: null,
@@ -265,64 +265,61 @@ export default {
       limit: this.$store.state.isNew ? 1 : 2,
       isHideFooter: true,
       mymodal: ['mymodal'],
-    }
+    };
   },
   created() {
-    var parent_id = jwt_decode(this.$store.state.token).sub
+    var parent_id = jwt_decode(this.$store.state.token).sub;
     http
       .get('parents/' + parent_id, {
         headers: { 'X-AUTH-TOKEN': this.$store.state.token },
       })
       .then(({ data }) => {
-        this.parents = data
-      })
+        this.parents = data;
+      });
   },
   methods: {
     prevTutorial(stage) {
       if (stage > 1) {
         if (this.from == null) {
-          this.$refs['first-modal'].hide()
+          this.$refs['first-modal'].hide();
         } else {
-          this.$refs['my-modal' + stage].hide()
+          this.$refs['my-modal' + stage].hide();
         }
-        this.stage--
+        this.stage--;
 
-        this.showTutorial(this.stage)
+        this.showTutorial(this.stage);
       }
     },
     nextTutorial(stage) {
       if (this.from == null) {
-        this.$refs['first-modal'].hide()
+        this.$refs['first-modal'].hide();
       } else {
-        this.$refs['my-modal' + stage].hide()
+        this.$refs['my-modal' + stage].hide();
       }
       if (stage < this.limit) {
-        this.stage++
-        this.showTutorial(this.stage)
+        this.stage++;
+        this.showTutorial(this.stage);
       }
     },
     showTutorial(index) {
       if (this.from == null) {
-        this.$refs['first-modal'].show()
-      } else this.$refs['my-modal' + index].show()
+        this.$refs['first-modal'].show();
+      } else this.$refs['my-modal' + index].show();
     },
     startTutorial() {
-      this.stage = 1
+      this.stage = 1;
       if (this.from == null) {
-        this.$refs['first-modal'].show()
-      } else this.$refs['my-modal1'].show()
+        this.$refs['first-modal'].show();
+      } else this.$refs['my-modal1'].show();
     },
     deleteInfo() {
       this.$swal({
         title:
           '<div style="font-family: GmarketSansMedium;font-size:2vw;">탈퇴하시겠습니까?<br><span style="font-family: GmarketSansMedium;font-size:1vw;">모든 데이터가 영구적으로 삭제됩니다.</span></div>',
-
-        type: 'warning',
         showCancelButton: true,
         confirmButtonText: '확인',
         cancelButtonText: '취소',
         showCloseButton: true,
-        showLoaderOnConfirm: true,
       }).then((result) => {
         if (result.value) {
           http
@@ -330,24 +327,22 @@ export default {
               headers: { 'X-AUTH-TOKEN': this.$store.state.token },
             })
             .then(({ data }) => {
-              this.$store.commit('setParent', null)
-              this.$store.commit('setToken', null)
-              this.$router.push('/')
-            })
+              this.$store.commit('setParent', null);
+              this.$store.commit('setToken', null);
+              this.$router.push('/');
+            });
         }
-      })
+      });
     },
     saveInfo() {
       if (this.from == null) {
         this.$swal({
           title:
             '<div style="font-family: GmarketSansMedium;font-size:2vw;">이메일을 등록하시겠습니까?</div>',
-          type: 'warning',
           showCancelButton: true,
           confirmButtonText: '확인',
           cancelButtonText: '취소',
           showCloseButton: true,
-          showLoaderOnConfirm: true,
         }).then((result) => {
           if (result.value) {
             http
@@ -363,23 +358,21 @@ export default {
                 }
               )
               .then(({ data }) => {
-                this.$router.push('/parent')
+                this.$router.push('/parent');
               })
               .catch((err) => {
-                console.error(err)
-              })
+                console.error(err);
+              });
           }
-        })
+        });
       } else if (this.from == 'parent') {
         this.$swal({
           title:
             '<div style="font-family: GmarketSansMedium;font-size:2vw;">이메일을 수정하시겠습니까?</div>',
-          type: 'warning',
           showCancelButton: true,
           confirmButtonText: '확인',
           cancelButtonText: '취소',
           showCloseButton: true,
-          showLoaderOnConfirm: true,
         }).then((result) => {
           if (result.value) {
             http
@@ -395,17 +388,17 @@ export default {
                 }
               )
               .then(({ data }) => {
-                this.$emit('visible')
-              })
+                this.$emit('visible');
+              });
           }
-        })
+        });
       }
     },
     returnParentPage() {
-      this.$emit('returnParentPage')
+      this.$emit('returnParentPage');
     },
   },
-}
+};
 </script>
 <style lang="scss">
 @import '../assets/sass/base.scss';

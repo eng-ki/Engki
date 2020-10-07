@@ -153,7 +153,7 @@
   </div>
 </template>
 <script>
-import http from '../utils/http-common.js'
+import http from '../utils/http-common.js';
 export default {
   props: {
     from: null,
@@ -169,61 +169,55 @@ export default {
       limit: 2,
       isHideFooter: true,
       mymodal: ['mymodal'],
-    }
+    };
   },
   methods: {
     prevTutorial(stage) {
       if (stage > 1) {
-        this.$refs['my-modal' + stage].hide()
-        this.stage--
-        this.showTutorial(this.stage)
+        this.$refs['my-modal' + stage].hide();
+        this.stage--;
+        this.showTutorial(this.stage);
       }
     },
     nextTutorial(stage) {
-      this.$refs['my-modal' + stage].hide()
+      this.$refs['my-modal' + stage].hide();
       if (stage < this.limit) {
-        this.stage++
-        this.showTutorial(this.stage)
+        this.stage++;
+        this.showTutorial(this.stage);
       }
     },
     showTutorial(index) {
-      this.$refs['my-modal' + index].show()
+      this.$refs['my-modal' + index].show();
     },
     startTutorial() {
-      this.stage = 1
-      this.$refs['my-modal1'].show()
+      this.stage = 1;
+      this.$refs['my-modal1'].show();
     },
 
     register() {
       this.$swal({
         title:
           '<div style="font-family: GmarketSansMedium;font-size:2vw;">자녀를 등록하시겠습니까?</div>',
-        type: 'warning',
         showCancelButton: true,
         confirmButtonText: '등록',
         cancelButtonText: '취소',
         showCloseButton: true,
-        showLoaderOnConfirm: true,
       }).then((result) => {
         if (result.value) {
           if (this.kid.name.length == 0) {
             this.$swal({
               title:
                 '<div style="font-family: GmarketSansMedium;font-size:1vw;">이름을 입력해주세요</div>',
-              type: 'warning',
               showCancelButton: false,
               confirmButtonText: '확인',
-              showLoaderOnConfirm: true,
-            }).then((result) => {})
+            }).then((result) => {});
           } else if (!this.isValidDate(this.kid.birthday)) {
             this.$swal({
               title:
                 '<div style="font-family: GmarketSansMedium;font-size:1vw;">생일을 형식에 맞게 입력해주세요</div>',
-              type: 'warning',
               showCancelButton: false,
               confirmButtonText: '확인',
-              showLoaderOnConfirm: true,
-            }).then((result) => {})
+            }).then((result) => {});
           } else {
             http
               .post(
@@ -239,25 +233,25 @@ export default {
                 }
               )
               .then(({ data }) => {
-                this.$emit('update', this.kid)
-              })
+                this.$emit('update', this.kid);
+              });
           }
         }
-      })
+      });
     },
     returnParentPage() {
-      this.$emit('returnParentPage')
+      this.$emit('returnParentPage');
     },
     isValidDate(dateString) {
-      var regEx = /^\d{4}-\d{2}-\d{2}$/
-      if (!dateString.match(regEx)) return false // Invalid format
-      var d = new Date(dateString)
-      var dNum = d.getTime()
-      if (!dNum && dNum !== 0) return false // NaN value, Invalid date
-      return d.toISOString().slice(0, 10) === dateString
+      var regEx = /^\d{4}-\d{2}-\d{2}$/;
+      if (!dateString.match(regEx)) return false; // Invalid format
+      var d = new Date(dateString);
+      var dNum = d.getTime();
+      if (!dNum && dNum !== 0) return false; // NaN value, Invalid date
+      return d.toISOString().slice(0, 10) === dateString;
     },
   },
-}
+};
 </script>
 <style lang="scss">
 @import '../assets/sass/base.scss';

@@ -3,8 +3,8 @@
     <set-email
       v-on:returnParentPage="isMypage = false"
       v-on:visible="
-        selectKid(0)
-        isMypage = false
+        selectKid(0);
+        isMypage = false;
       "
       from="parent"
       v-if="isMypage"
@@ -369,11 +369,11 @@
 </template>
 
 <script>
-import SetKid from '@/components/SetKid.vue'
-import Report from '@/components/Report.vue'
-import UploadPicture from '@/components/UploadPicture.vue'
-import SetEmail from '@/components/SetEmail.vue'
-import http from '../utils/http-common.js'
+import SetKid from '@/components/SetKid.vue';
+import Report from '@/components/Report.vue';
+import UploadPicture from '@/components/UploadPicture.vue';
+import SetEmail from '@/components/SetEmail.vue';
+import http from '../utils/http-common.js';
 export default {
   name: 'ParentPage',
   components: {
@@ -399,45 +399,45 @@ export default {
       isHideFooter: true,
       mymodal: ['mymodal1', 'mymodal2', 'mymodal3', 'mymodal4', 'mymodal5'],
       isCentered: false,
-    }
+    };
   },
   created() {
-    this.getKids()
+    this.getKids();
   },
   computed: {
     atEndOfList() {
       return (
         this.currentOffset <=
         this.paginationFactor * -1 * (this.kids.length - this.windowSize)
-      )
+      );
     },
     atHeadOfList() {
-      return this.currentOffset === 0
+      return this.currentOffset === 0;
     },
   },
   methods: {
     prevTutorial(stage) {
       if (stage > 1) {
-        this.$refs['my-modal' + stage].hide()
-        this.stage--
-        this.showTutorial(this.stage)
+        this.$refs['my-modal' + stage].hide();
+        this.stage--;
+        this.showTutorial(this.stage);
       }
     },
     nextTutorial(stage) {
-      this.$refs['my-modal' + stage].hide()
+      this.$refs['my-modal' + stage].hide();
       if (stage < this.limit) {
-        this.stage++
-        this.showTutorial(this.stage)
+        this.stage++;
+        this.showTutorial(this.stage);
       }
     },
     showTutorial(index) {
-      this.$refs['my-modal' + index].show()
-      let $ref = this.$refs['my-modal' + index]
-      $ref.style.backgroundColor = '#66bb6a'
+      this.$refs['my-modal' + index].show();
+      let $ref = this.$refs['my-modal' + index];
+      $ref.style.backgroundColor = '#66bb6a';
     },
     startTutorial() {
-      this.stage = 1
-      this.$refs['my-modal1'].show()
+      this.stage = 1;
+      this.$refs['my-modal1'].show();
     },
     getKids() {
       http
@@ -445,16 +445,16 @@ export default {
           headers: { 'X-AUTH-TOKEN': this.$store.state.token },
         })
         .then(({ data }) => {
-          this.kids = data
-          console.log(this.kids)
+          this.kids = data;
+          console.log(this.kids);
           if (data.length != 0) {
-            this.$store.commit('setSelectedKid', this.kids[0])
+            this.$store.commit('setSelectedKid', this.kids[0]);
           }
-        })
+        });
     },
     selectKid(index) {
-      this.selectedIndex = index
-      this.$store.commit('setSelectedKid', this.kids[index])
+      this.selectedIndex = index;
+      this.$store.commit('setSelectedKid', this.kids[index]);
     },
     deleteKid(index) {
       this.$swal({
@@ -464,7 +464,6 @@ export default {
         confirmButtonText: '삭제',
         cancelButtonText: '취소',
         showCloseButton: true,
-        showLoaderOnConfirm: true,
       }).then((result) => {
         if (result.value) {
           http
@@ -472,28 +471,30 @@ export default {
               headers: { 'X-AUTH-TOKEN': this.$store.state.token },
             })
             .then(({ data }) => {
-              this.kids.splice(index, 1)
-              if (this.kids.length != 0) this.selectedIndex = 0
-            })
+              this.kids.splice(index, 1);
+              if (this.kids.length != 0) {
+                this.$store.commit('setSelectedKid', this.kids[0]);
+              }
+            });
         }
-      })
+      });
     },
     updateKid: function (kid) {
-      this.getKids()
-      this.isAddKid = false
+      this.getKids();
+      this.isAddKid = false;
     },
     moveCarousel(direction) {
       if (direction === 1 && !this.atEndOfList) {
-        this.currentOffset -= this.paginationFactor
+        this.currentOffset -= this.paginationFactor;
       } else if (direction === -1 && !this.atHeadOfList) {
-        this.currentOffset += this.paginationFactor
+        this.currentOffset += this.paginationFactor;
       }
     },
     backtomain() {
-      this.$router.push('/selectkid')
+      this.$router.push('/selectkid');
     },
   },
-}
+};
 </script>
 <style>
 .mymodal1 > div {

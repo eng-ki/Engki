@@ -270,7 +270,6 @@ export default {
         confirmButtonText: '네',
         cancelButtonText: '아니요',
         showCloseButton: true,
-        showLoaderOnConfirm: true,
       }).then((result) => {
         if (result.value) {
           http
@@ -418,12 +417,12 @@ export default {
       if (this.selectedWord.target == 'caption') {
         for (let i = 0; i < this.seg_word_duplicate.length; i++) {
           if (this.custom.caption_word[index] == this.seg_word_duplicate[i]) {
-            this.seg_word_duplicate[i] = this.selectedWord.word
-            this.seg_word_duplicate_kor[i] = this.selectedWord.word_kor
+            this.seg_word_duplicate[i] = this.selectedWord.word;
+            this.seg_word_duplicate_kor[i] = this.selectedWord.word_kor;
           }
         }
-        this.custom.caption_word[index] = this.selectedWord.word
-        this.custom.caption_word_kor[index] = this.selectedWord.word_kor
+        this.custom.caption_word[index] = this.selectedWord.word;
+        this.custom.caption_word_kor[index] = this.selectedWord.word_kor;
       } else {
         this.custom.seg_word[index] = this.selectedWord.word;
         this.custom.seg_word_kor[index] = this.selectedWord.word_kor;
@@ -443,18 +442,18 @@ export default {
       for (let i = 0; i < this.custom.caption_word.length; i++) {
         for (let j = 0; j < this.custom.seg_word.length; j++) {
           if (this.custom.caption_word[i] == this.custom.seg_word[j]) {
-            this.seg_word_duplicate.push(this.custom.caption_word[i])
-            this.seg_word_duplicate_kor.push(this.custom.caption_word_kor[i])
+            this.seg_word_duplicate.push(this.custom.caption_word[i]);
+            this.seg_word_duplicate_kor.push(this.custom.caption_word_kor[i]);
           }
         }
       }
       for (let k = 0; k < this.seg_word_duplicate.length; k++) {
-        const idx1 = this.custom.seg_word.indexOf(this.seg_word_duplicate[k])
-        if (idx1 > -1) this.custom.seg_word.splice(idx1, 1)
+        const idx1 = this.custom.seg_word.indexOf(this.seg_word_duplicate[k]);
+        if (idx1 > -1) this.custom.seg_word.splice(idx1, 1);
         const idx2 = this.custom.seg_word_kor.indexOf(
           this.seg_word_duplicate_kor[k]
-        )
-        if (idx2 > -1) this.custom.seg_word_kor.splice(idx2, 1)
+        );
+        if (idx2 > -1) this.custom.seg_word_kor.splice(idx2, 1);
       }
     },
   },

@@ -41,7 +41,7 @@
   </div>
 </template>
 <script>
-import http from "../utils/http-common.js";
+import http from '../utils/http-common.js';
 export default {
   props: {
     isDone: false,
@@ -57,56 +57,65 @@ export default {
       originSentence: "",
       isLong: false,
       selectedIndex: -1,
-      blank: "<span>&nbsp;&nbsp;</span>",
+      blank: '<span>&nbsp;&nbsp;</span>',
     };
   },
   created() {
-    this.quizapipath = "/edu/" + this.$store.state.quiz.id + "/captions";
-    // console.log('퀴즈4패스 : ' + this.quizapipath);
-    http
-      .get(this.quizapipath, {
-        headers: { "X-AUTH-TOKEN": this.$store.state.token },
-      })
-      .then((data) => {
-        // console.log(data.data);
-        this.$store.commit("setQuizAdv", {
-          caption: data.data.caption,
-          captionKor: data.data.captionKor,
-          filePath: data.data.filePath,
-          randomCaptions: data.data.randomCaptions,
-          tokens: data.data.tokens,
-        });
-
-        const idx = data.data.randomWords.indexOf(this.$store.state.quiz.word);
-        data.data.randomWords.splice(idx, 1);
-        this.originSentence = data.data.caption;
-        // this.calculate(this.originSentence);
-        this.quiz = {
-          url:
-            "http://j3a510.p.ssafy.io/images/" +
-            this.$store.state.quiz_adv.filePath,
-          sentence: this.insertSpanTag(
-            data.data.caption,
+    if (this.$store.state.is_test) {
+      // 부모 테스트 - 커스텀 퀴즈일 때
+    } else {
+      if (this.$store.state.theme == 1) {
+        this.quizapipath =
+          '/custom/' +
+          this.$store.state.quiz.word +
+          '/captions/by/' +
+          this.$store.state.parent.id;
+      } else {
+        this.quizapipath = '/edu/' + this.$store.state.quiz.id + '/captions';
+      }
+      http
+        .get(this.quizapipath, {
+          headers: { 'X-AUTH-TOKEN': this.$store.state.token },
+        })
+        .then((data) => {
+          // console.log(data.data);
+          this.$store.commit('setQuizAdv', {
+            caption: data.data.caption,
+            captionKor: data.data.captionKor,
+            filePath: data.data.filePath,
+            randomCaptions: data.data.randomCaptions,
+            tokens: data.data.tokens,
+          });
+          const idx = data.data.randomWords.indexOf(
             this.$store.state.quiz.word
-          ),
-          word: this.$store.state.quiz.word,
-          words: [
-            this.$store.state.quiz.word,
-            data.data.randomWords[0],
-            data.data.randomWords[1],
-            data.data.randomWords[2],
-          ],
-        };
-      });
+          );
+          data.data.randomWords.splice(idx, 1);
 
-    // console.log(data.data.caption.length);
+          this.quiz = {
+            url:
+              'http://j3a510.p.ssafy.io/images/' +
+              this.$store.state.quiz_adv.filePath,
+            sentence: this.insertSpanTag(
+              this.$store.state.quiz_adv.caption,
+              this.$store.state.quiz.word
+            ),
+            word: this.$store.state.quiz.word,
+            words: [
+              this.$store.state.quiz.word,
+              data.data.randomWords[0],
+              data.data.randomWords[1],
+              data.data.randomWords[2],
+            ],
+          };
+        });
+    }
   },
   watch: {
     isDone: function (val) {
       if (this.isCorrect()) {
-        this.$store.commit("setExp", 4);
-        this.$emit("correct");
-      } else this.$emit("wrong");
+        this.$store.commit('setExp', 4);
+        this.$emit('correct');
+      } else this.$emit('wrong');
     },
   },
   methods: {
@@ -129,14 +138,10 @@ export default {
     select(index) {
       this.selectedIndex = index;
     },
-    calculate() {
-      if (this.originSentence.length > 50) return true;
-      else return false;
-    },
     insertSpanTag(caption, word) {
       const regexp = new RegExp(
         `${this.$store.state.quiz.word}(es)?(s)?`,
-        "gi"
+        'gi'
       );
       regexp.test(caption);
 

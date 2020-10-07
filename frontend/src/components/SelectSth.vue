@@ -263,23 +263,23 @@
   </div>
 </template>
 <script>
-import http from '../utils/http-common.js'
+import http from '../utils/http-common.js';
 export default {
   props: {
     option: String,
   },
   created() {
     if (this.option == 'quiz') {
-      this.msg = '학습할 주제를 선택하세요'
-      this.path = '/edu'
-      this.isFromKid = 1
+      this.msg = '학습할 주제를 선택하세요';
+      this.path = '/edu';
+      this.isFromKid = 1;
     } else if (this.option == 'kid') {
-      this.$store.commit('setKid', null)
+      this.$store.commit('setKid', null);
       // console.log('초기화하고나서 스토어 kid값 조회 : ' + this.$store.state.kid)
-      this.msg = '학습을 시작할 프로필을 고르세요'
-      this.path = '/parents/' + this.$store.state.parent.id + '/kids'
-      this.imgpath = ''
-      this.isFromKid = 0
+      this.msg = '학습을 시작할 프로필을 고르세요';
+      this.path = '/parents/' + this.$store.state.parent.id + '/kids';
+      this.imgpath = '';
+      this.isFromKid = 0;
     }
     // console.log('path : ' + this.path)
     http
@@ -287,9 +287,9 @@ export default {
         headers: { 'X-AUTH-TOKEN': this.$store.state.token },
       })
       .then(({ data }) => {
-        this.datas = data
+        this.datas = data;
         // console.log(data)
-      })
+      });
     // console.log('한 캐러셀에 나타나는 개수 :' + this.windowSize)
   },
   computed: {
@@ -297,10 +297,10 @@ export default {
       return (
         this.currentOffset <=
         this.paginationFactor * -1 * (this.datas.length - this.windowSize)
-      )
+      );
     },
     atHeadOfList() {
-      return this.currentOffset === 0
+      return this.currentOffset === 0;
     },
   },
   data: function () {
@@ -321,29 +321,29 @@ export default {
         'selectmodal3',
         'selectmodal4',
       ],
-    }
+    };
   },
   methods: {
     prevTutorial(stage) {
       if (stage > 1) {
-        this.$refs[this.option + '-modal' + stage].hide()
-        this.stage--
-        this.showTutorial(this.stage)
+        this.$refs[this.option + '-modal' + stage].hide();
+        this.stage--;
+        this.showTutorial(this.stage);
       }
     },
     nextTutorial(stage) {
-      this.$refs[this.option + '-modal' + stage].hide()
+      this.$refs[this.option + '-modal' + stage].hide();
       if (stage < this.limit) {
-        this.stage++
-        this.showTutorial(this.stage)
+        this.stage++;
+        this.showTutorial(this.stage);
       }
     },
     showTutorial(index) {
-      this.$refs[this.option + '-modal' + index].show()
+      this.$refs[this.option + '-modal' + index].show();
     },
     startTutorial() {
-      this.stage = 1
-      this.$refs[this.option + '-modal1'].show()
+      this.stage = 1;
+      this.$refs[this.option + '-modal1'].show();
     },
     returnID(index) {
       if (this.option == 'quiz') {
@@ -351,49 +351,41 @@ export default {
           this.$swal({
             title:
               '<div style="font-family: GmarketSansMedium;font-size:1vw;">서비스 준비중입니다</div>',
-            type: 'warning',
             showCancelButton: false,
             confirmButtonText: '확인',
-            showLoaderOnConfirm: true,
-          }).then((result) => {})
-        } else if (this.datas[index].id == 7) {
+          }).then((result) => {});
+        } else if (this.datas[index].id == 8) {
           // person 퀴즈가 제대로 안받아와짐..
           // 일단 1~5로 지정해둠
-          var num = (Math.round(Math.random() * 100) % 5) + 1
+          var num = (Math.round(Math.random() * 100) % 6) + 1;
           // console.log('랜덤주제 : ' + num)
-          this.$store.commit('setQuiz', num)
-          this.$router.push('/quiz')
+          this.$store.commit('setTheme', num);
+          this.$router.push('/quiz');
           // 랜덤주제
         } else {
-          this.$store.commit('setQuiz', this.datas[index].id)
-          // console.log(
-          //   '버튼 클릭후 스토어 quiz값 조회 : ' + this.$store.state.quiz
-          // )
-          this.$router.push('/quiz')
+          this.$store.commit('setTheme', this.datas[index].id);
+          this.$router.push('/quiz');
         }
       } else if (this.option == 'kid') {
-        this.$store.commit('setKid', this.datas[index])
-        // console.log(
-        //   '버튼 클릭후 스토어 kid값 조회 : ' + this.$store.state.kid.name
-        // );
-        this.$router.push('/kid')
+        this.$store.commit('setKid', this.datas[index]);
+        this.$router.push('/kid');
       }
     },
     moveCarousel(direction) {
       if (direction === 1 && !this.atEndOfList) {
-        this.currentOffset -= this.paginationFactor
+        this.currentOffset -= this.paginationFactor;
       } else if (direction === -1 && !this.atHeadOfList) {
-        this.currentOffset += this.paginationFactor
+        this.currentOffset += this.paginationFactor;
       }
     },
     gotoparent() {
-      this.$router.push('/parent')
+      this.$router.push('/parent');
     },
     gotomypage() {
-      this.$router.push('/kid')
+      this.$router.push('/kid');
     },
   },
-}
+};
 </script>
 
 <style>
