@@ -14,6 +14,6 @@ public interface ImageRepository extends JpaRepository<Image, Long> {
 	List<Image> getOneObjectImagesOfWord(long wordId);
 	
 	@Query(value = "select i from Image i where i.id in ("
-			+ "select iw.id.imageId from ImageWord iw where iw.id.wordId = :wordId) ")
+		+ "select iw.id.imageId from ImageWord iw where iw.id.wordId = :wordId) ")
 	List<Image> getAllByWordId(long id);
 }
