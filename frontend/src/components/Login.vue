@@ -198,10 +198,10 @@
                 src="../../public/img/etc/ex.png"
               ></v-carousel-item>
               <v-carousel-item
-                src="../../public/img/etc/ex.png"
+                src="../../public/img/etc/ex1.png"
               ></v-carousel-item>
               <v-carousel-item
-                src="../../public/img/etc/ex.png"
+                src="../../public/img/etc/ex2.png"
               ></v-carousel-item>
             </v-carousel>
           </v-col>
@@ -353,7 +353,7 @@
   </div>
 </template>
 <script>
-import http from '../utils/http-common.js';
+import http from '../utils/http-common.js'
 export default {
   data: function () {
     return {
@@ -365,7 +365,7 @@ export default {
   },
   computed: {
     getToken() {
-      return this.$store.getters.getToken;
+      return this.$store.getters.getToken
     },
   },
   mounted() {
@@ -383,16 +383,16 @@ export default {
   },
   watch: {
     getToken(val, oldVal) {
-      if (this.$store.state.isNew) this.$emit('child', true);
+      if (this.$store.state.isNew) this.$emit('child', true)
       else {
         http
           .get('parents/' + this.$store.state.parent.id + '/kids', {
             headers: { 'X-AUTH-TOKEN': this.$store.state.token },
           })
           .then(({ data }) => {
-            if (data.length == 0) this.$router.push('/parent');
-            else this.$router.push('/selectkid');
-          });
+            if (data.length == 0) this.$router.push('/parent')
+            else this.$router.push('/selectkid')
+          })
       }
     },
   },
@@ -400,13 +400,13 @@ export default {
     kakaoLogin() {
       Kakao.Auth.login({
         success: this.kakaoLoginStore,
-      });
-      this.$store.commit('setIsTest', false);
+      })
+      this.$store.commit('setIsTest', false)
     },
     kakaoLoginStore(authObj) {
       this.$store.dispatch('kakaoLogin', {
         access_token: authObj.access_token,
-      });
+      })
     },
     calculateSectionOffsets() {
       // 한 화면 크기 저장
@@ -453,7 +453,7 @@ export default {
       this.scrollToSection(this.activeSection, true)
     },
   },
-};
+}
 </script>
 <style lang="scss">
 @import '../assets/sass/base.scss';
@@ -472,21 +472,21 @@ export default {
 }
 
 .pointerdown img {
-  width: 4.5vw;
-  opacity: 0.8;
+  width: 5.6vw;
+  opacity: 0.82;
   animation: pointers 1.5s linear 1.5s infinite alternate running;
 }
 
 @keyframes pointers {
   from {
-    opacity: 0.8;
+    opacity: 0.82;
   }
   20% {
-    opacity: 0.8;
+    opacity: 0.82;
     transform: translateX(0);
   }
   to {
-    opacity: 0.8;
+    opacity: 0.82;
     transform: translate(0px, -25px);
   }
 }
@@ -495,7 +495,7 @@ export default {
 .login .title {
   /* 좌표 설정 */
   position: absolute;
-  top: 36vh;
+  top: 35vh;
   left: 50%;
   transform: translate(-50%, -50%);
   /* text-align: center; */
@@ -510,7 +510,7 @@ export default {
 .login .subtitle {
   /* 좌표 설정 */
   position: absolute;
-  top: 53vh;
+  top: 52vh;
   left: 50%;
   transform: translate(-50%, -50%);
 
@@ -524,7 +524,7 @@ export default {
 .login .input-with-tiki {
   /* 좌표 설정 */
   position: absolute;
-  top: 70vh;
+  top: 68vh;
   left: 50%;
   width: 100%;
   text-align: center;
