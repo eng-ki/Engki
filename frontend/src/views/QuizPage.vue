@@ -194,7 +194,9 @@ export default {
   },
   methods: {
     goKid() {
-      this.stopCapture()
+      setTimeout(() => {
+        this.stopCapture()
+      }, 600)
       this.$router.push('/kid')
     },
     isNextStage(flag) {
@@ -246,6 +248,7 @@ export default {
     // 감정 인식 중지
     stopCapture() {
       // 캡쳐 중지
+
       clearInterval(this.camTimer)
     },
     // 모르겠어요 버튼 눌렀을때 완전 끝내기랑 다음으로가기
