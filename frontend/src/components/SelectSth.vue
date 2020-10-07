@@ -112,25 +112,24 @@ export default {
   methods: {
     returnID(index) {
       if (this.option == 'quiz') {
-        if (this.datas[index].id == 6) {
+        if (this.datas[index].id == 7) {
           this.$swal({
             title:
               '<div style="font-family: GmarketSansMedium;font-size:1vw;">서비스 준비중입니다</div>',
-            type: 'warning',
             showCancelButton: false,
             confirmButtonText: '확인',
-            showLoaderOnConfirm: true,
           }).then((result) => {});
         } else if (this.datas[index].id == 7) {
           // person 퀴즈가 제대로 안받아와짐..
           // 일단 1~5로 지정해둠
-          var num = (Math.round(Math.random() * 100) % 5) + 1;
+          var num = (Math.round(Math.random() * 100) % 6) + 1;
           // console.log('랜덤주제 : ' + num)
           this.$store.commit('setQuiz', num);
           this.$router.push('/quiz');
           // 랜덤주제
         } else {
-          this.$store.commit('setQuiz', this.datas[index].id);
+          this.$store.commit('setTheme', this.datas[index].id);
+
           // console.log(
           //   '버튼 클릭후 스토어 quiz값 조회 : ' + this.$store.state.quiz
           // )

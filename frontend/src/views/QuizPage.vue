@@ -173,8 +173,11 @@ export default {
   },
   mounted() {
     this.$store.state.exp = 0;
-    this.onStart();
-    this.startCapture();
+    console.log(this.$store.state.is_test);
+    if (!this.$store.state.is_test) {
+      this.onStart();
+      this.startCapture();
+    }
   },
   methods: {
     isNextStage(flag) {
