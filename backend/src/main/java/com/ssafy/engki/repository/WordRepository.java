@@ -22,4 +22,7 @@ public interface WordRepository extends JpaRepository<Word, Long> {
 		+ "where w.id <> :wordId "
 		+ "and w.themeId = :themeId")
 	List<Word> getWordsByThemeExceptWord(long themeId, long wordId);
+
+	@Query("select w from Word w where w.word <> :word")
+	List<Word> getWordsExceptWord(String word);
 }
