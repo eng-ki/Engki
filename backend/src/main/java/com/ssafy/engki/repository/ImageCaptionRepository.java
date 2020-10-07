@@ -9,12 +9,21 @@ import com.ssafy.engki.entity.ImageCaption;
 import com.ssafy.engki.entity.ImageCaptionId;
 
 public interface ImageCaptionRepository extends JpaRepository<ImageCaption, ImageCaptionId> {
-	@Query(value = "select ic from ImageCaption ic where ic.id.wordId = :wordId")
-	List<ImageCaption> getAllByWordId(long wordId);
+	@Query(value = "select * from image_caption "
+		+ "where word_id = :wordId "
+		+ "order by rand() limit 1;",
+		nativeQuery = true)
+	ImageCaption getRandomByWord(long wordId);
 
-	@Query(value = "select ic.caption from ImageCaption ic where ic.id.imageId <> :imageId")
-	List<String> findExceptImage(long imageId);
+	@Query(value = "select * from image_caption "
+		+ "where image_id <> :imageId "
+		+ "order by rand() limit :num",
+		nativeQuery = true)
+	List<ImageCaption> getRandomListExceptImage(long imageId, int num);
 
-	@Query(value = "select ic.caption from ImageCaption ic where ic.word.word <> :word")
-	List<String> getWordsExceptWord(String word);
+	@Query(value = "select * from image_caption ic inner join word w on ic.word_id = w.id "
+		+ "where w.word <> :word "
+		+ "order by rand() limit :num",
+		nativeQuery = true)
+	List<ImageCaption> getRandomListExceptWord(String word, int num);
 }

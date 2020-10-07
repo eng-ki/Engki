@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 import org.springframework.stereotype.Service;
 
@@ -44,24 +43,15 @@ public class EduService {
 	}
 
 	public EduDto.Word getRandomImage(long themeId, long kidId) {
-		Random rand = new Random(System.currentTimeMillis());
-
 		// themeId의 단어 목록 중, 1. 아이가 배우지 않은 단어 중 랜덤
-		List<Word> words = wordRepository.getUnlearnedWord(themeId, kidId);
-		Word word;
-		if (!words.isEmpty()) {
-			word = words.get(rand.nextInt(words.size()));
-		} else { // 배우지 않은 단어가 없음
-			// 2. 랜덤 단어 고르기
-			word = wordRepository.getRandomWordByTheme(themeId);
-		}
+		Word word = wordRepository.getRandomUnlearned(themeId, kidId)
+			// 배우지 않은 단어가 없음 -> 2. 랜덤 단어 고르기
+			.orElse(wordRepository.getRandomByTheme(themeId));
 
 		// 이 단어에 해당하는 사진 중, 이 단어만 있는 사진(다른 word가 없는 것) 고르기
-		List<Image> images = imageRepository.getOneObjectImagesOfWord(word.getId());
-		if (images.isEmpty()) {
-			images = imageRepository.getAllByWordId(word.getId());
-		}
-		Image image = images.get(rand.nextInt(images.size()));
+		Image image = imageRepository.getRandomOneObjectByWord(word.getId())
+			// 없으면 단어를 포함하는 사진 중 랜덤
+			.orElse(imageRepository.getRandomByWord(word.getId()));
 
 		return EduDto.Word.builder()
 			.id(word.getId())
@@ -77,42 +67,49 @@ public class EduService {
 		Word word = wordRepository.getOne(wordId);
 
 		// word의 이미지 최대 3개
-		List<Image> wordImages = imageRepository.getOneObjectImagesOfWord(wordId);
-		Util.getRandomNumbers(3, wordImages.size()).forEach(idx ->
-			response.getImages().add(EduDto.Image.builder()
-				.word(word.getWord())
-				.wordKor(word.getWordKor())
-				.filePath(wordImages.get(idx).getFilePath())
-				.build())
-		);
-		response.setAnswerNum(Math.min(3, wordImages.size()));
+		imageRepository.getRandomListOneObjectByWord(wordId, 3)
+			.forEach(image ->
+				response.getImages().add(
+					EduDto.Image.builder()
+						.word(word.getWord())
+						.wordKor(word.getWordKor())
+						.filePath(image.getFilePath())
+						.build()));
+		response.setAnswerNum(Math.min(3, response.getImages().size()));
 
 		// word와 같은 theme의 이미지 중, wordId가 아닌 이미지 (6 - word 이미지 개수) 개
-		List<ImageWord> notWordImages = imageWordRepository.getOneObjectImagesFromThemeNotWord(word.getThemeId(),
-			wordId);
-		Util.getRandomNumbers(6 - response.getAnswerNum(), notWordImages.size()).forEach(idx ->
-			response.getImages().add(EduDto.Image.builder()
-				.word(notWordImages.get(idx).getWord().getWord())
-				.wordKor(notWordImages.get(idx).getWord().getWordKor())
-				.filePath(notWordImages.get(idx).getImage().getFilePath())
-				.build()
-			)
-		);
+		imageWordRepository.getRandomListOneObjectByThemeExceptWord(
+			word.getThemeId(), wordId, 6 - response.getAnswerNum())
+			.forEach(notWordImage ->
+				response.getImages().add(
+					EduDto.Image.builder()
+						.word(notWordImage.getWord().getWord())
+						.wordKor(notWordImage.getWord().getWordKor())
+						.filePath(notWordImage.getImage().getFilePath())
+						.build()));
+
+		// 같은 테마의 이미지가 부족하면 다른 테마에서 가져온다
+		if (response.getImages().size() < 6) {
+			imageWordRepository.getRandomListOneObjectExceptTheme(
+				word.getThemeId(), 6 - response.getImages().size())
+				.forEach(notWordImage ->
+					response.getImages().add(
+						EduDto.Image.builder()
+							.word(notWordImage.getWord().getWord())
+							.wordKor(notWordImage.getWord().getWordKor())
+							.filePath(notWordImage.getImage().getFilePath())
+							.build()));
+		}
 
 		Collections.shuffle(response.getImages());
-
-		// -> 6개 리턴
 		return response;
 	}
 
 	public EduDto.Segmentation getSegmentation(long wordId) {
-		Random rand = new Random(System.currentTimeMillis());
-
-		List<ImageWord> imageWords = imageWordRepository.getAllByWordId(wordId);
-		ImageWord imageWord = imageWords.get(rand.nextInt(imageWords.size()));
-
-		List<Word> randomWords = wordRepository.getWordsByThemeExceptWord(imageWord.getWord().getThemeId(), wordId);
-		Word randomWord = randomWords.get(rand.nextInt(randomWords.size()));
+		ImageWord imageWord = imageWordRepository.getRandomByWord(wordId);
+		Word randomWord = wordRepository.getRandomByThemeExceptWord(imageWord.getWord().getThemeId(), wordId)
+			// 테마에 다른 word가 없으면 다른 테마에서 랜덤으로 가져온다
+			.orElse(wordRepository.getRandomExceptTheme(imageWord.getWord().getThemeId()));
 
 		return EduDto.Segmentation.builder()
 			.filePath(imageWord.getImage().getFilePath())
@@ -122,27 +119,35 @@ public class EduService {
 	}
 
 	public EduDto.Caption getCaption(long wordId) {
-		Random rand = new Random(System.currentTimeMillis());
+		ImageCaption imageCaption = imageCaptionRepository.getRandomByWord(wordId);
 
-		List<ImageCaption> imageCaptions = imageCaptionRepository.getAllByWordId(wordId);
-		ImageCaption imageCaption = imageCaptions.get(rand.nextInt(imageCaptions.size()));
+		List<String> randomWords
+			= new ArrayList<>(Collections.singletonList(imageCaption.getWord().getWord()));
 
-		List<String> randomWords = new ArrayList<>(Collections.singletonList(imageCaption.getWord().getWord()));
-		List<Word> wordsExceptWord
-			= wordRepository.getWordsByThemeExceptWord(imageCaption.getWord().getThemeId(),
-			imageCaption.getWord().getId());
-		Util.getRandomNumbers(3, wordsExceptWord.size()).forEach(idx ->
-			randomWords.add(wordsExceptWord.get(idx).getWord())
-		);
+		// 같은 테마의 Random word 3개 가져오기
+		wordRepository.getRandomListByThemeExceptWord(
+			imageCaption.getWord().getThemeId(), imageCaption.getWord().getId(), 3)
+			.forEach(word ->
+				randomWords.add(word.getWord()));
+
+		// 가져온 Random word가 부족하면 다른 테마에서 추가 조회
+		if (randomWords.size() < 4) {
+			wordRepository.getRandomListExceptTheme(
+				imageCaption.getWord().getThemeId(), 4 - randomWords.size())
+				.forEach(word ->
+					randomWords.add(word.getWord()));
+		}
+
+		List<String> randomCaptions
+			= new ArrayList<>(Collections.singletonList(imageCaption.getCaption()));
+
+		// Random caption 3개 가져오기 (다른 이미지)
+		imageCaptionRepository.getRandomListExceptImage(imageCaption.getId().getImageId(), 3)
+			.forEach(caption ->
+				randomCaptions.add(caption.getCaption()));
+
 		Collections.shuffle(randomWords);
-
-		List<String> captionsExceptWord = imageCaptionRepository.findExceptImage(imageCaption.getId().getImageId());
-		List<String> randomCaptions = new ArrayList<>(Collections.singletonList(imageCaption.getCaption()));
-		Util.getRandomNumbers(3, captionsExceptWord.size()).forEach(idx ->
-			randomCaptions.add(captionsExceptWord.get(idx))
-		);
 		Collections.shuffle(randomCaptions);
-
 		return EduDto.Caption.builder()
 			.filePath(imageCaption.getImage().getFilePath())
 			.caption(imageCaption.getCaption())
