@@ -1,16 +1,18 @@
 <template>
   <div>
     <!-- 질문 영역 -->
-    <div class="quiz-question">
+    AAAA{{ isLong }}
+    <div class="quiz-question" :class="{ quizQuestionLong: isLong }">
       <span>
-        {{quiz.sentence[0]}}
-        <span 
-          class="quiz-blank" 
-          v-for="i in quiz.word.length" 
-          v-bind:key="'A' + i" 
-          v-html="blank">
+        {{ quiz.sentence[0] }}
+        <span
+          class="quiz-blank"
+          v-for="i in quiz.word.length"
+          v-bind:key="'A' + i"
+          v-html="blank"
+        >
         </span>
-        {{quiz.sentence[1]}}
+        {{ quiz.sentence[1] }}
       </span>
     </div>
     <!-- 질문 영역 끝 -->
@@ -39,7 +41,7 @@
   </div>
 </template>
 <script>
-import http from '../utils/http-common.js';
+import http from "../utils/http-common.js";
 export default {
   props: {
     isDone: false,
@@ -47,25 +49,27 @@ export default {
   data: () => {
     return {
       quiz: {
-        url: '',
-        sentence: '',
-        word: '',
-        words: '',
+        url: "",
+        sentence: "",
+        word: "",
+        words: "",
       },
+      isLong: false,
+      quizLength: this.quiz.word.length,
       selectedIndex: -1,
-      blank: '<span>&nbsp;&nbsp;</span>',
+      blank: "<span>&nbsp;&nbsp;</span>",
     };
   },
   created() {
-    this.quizapipath = '/edu/' + this.$store.state.quiz.id + '/captions';
+    this.quizapipath = "/edu/" + this.$store.state.quiz.id + "/captions";
     // console.log('퀴즈4패스 : ' + this.quizapipath);
     http
       .get(this.quizapipath, {
-        headers: { 'X-AUTH-TOKEN': this.$store.state.token },
+        headers: { "X-AUTH-TOKEN": this.$store.state.token },
       })
       .then((data) => {
         // console.log(data.data);
-        this.$store.commit('setQuizAdv', {
+        this.$store.commit("setQuizAdv", {
           caption: data.data.caption,
           captionKor: data.data.captionKor,
           filePath: data.data.filePath,
@@ -75,12 +79,15 @@ export default {
 
         const idx = data.data.randomWords.indexOf(this.$store.state.quiz.word);
         data.data.randomWords.splice(idx, 1);
-        
+
         this.quiz = {
           url:
-            'http://j3a510.p.ssafy.io/images/' +
+            "http://j3a510.p.ssafy.io/images/" +
             this.$store.state.quiz_adv.filePath,
-          sentence: this.insertSpanTag(data.data.caption, this.$store.state.quiz.word),
+          sentence: this.insertSpanTag(
+            data.data.caption,
+            this.$store.state.quiz.word
+          ),
           word: this.$store.state.quiz.word,
           words: [
             this.$store.state.quiz.word,
@@ -90,13 +97,14 @@ export default {
           ],
         };
       });
+    calLength(this.quiz.word);
   },
   watch: {
     isDone: function (val) {
       if (this.isCorrect()) {
-        this.$store.commit('setExp', 4);
-        this.$emit('correct');
-      } else this.$emit('wrong');
+        this.$store.commit("setExp", 4);
+        this.$emit("correct");
+      } else this.$emit("wrong");
     },
   },
   methods: {
@@ -108,7 +116,7 @@ export default {
             '<div><span style="font-weight:100; font-size:2vw;">정답이 아닙니다.</span><br><span  style="font-weight:100; font-size:2vw;">다시 한번 생각해보세요.</span></div>',
 
           showCancelButton: false,
-          confirmButtonText: '확인',
+          confirmButtonText: "확인",
           timer: 1000,
         }).then((result) => {
           return true;
@@ -120,20 +128,26 @@ export default {
       this.selectedIndex = index;
     },
     insertSpanTag(caption, word) {
-      const regexp = new RegExp(`${this.$store.state.quiz.word}(es)?(s)?`, "gi")
-      regexp.test(caption)
+      const regexp = new RegExp(
+        `${this.$store.state.quiz.word}(es)?(s)?`,
+        "gi"
+      );
+      regexp.test(caption);
 
-      const before = caption.indexOf(word)
-      const after = regexp.lastIndex
-      
-      const inserted = [ caption.substring(0, before), caption.substring(after) ]
-      return inserted
-    }
+      const before = caption.indexOf(word);
+      const after = regexp.lastIndex;
+
+      const inserted = [caption.substring(0, before), caption.substring(after)];
+      return inserted;
+    },
+    calLength(word) {
+      if (word.length > 100) this.isLong = true;
+    },
   },
 };
 </script>
 <style lang="scss">
-@import '../assets/sass/base.scss';
+@import "../assets/sass/base.scss";
 </style>
 <style lang="scss" scoped>
 .quiz-img img {
@@ -169,6 +183,22 @@ export default {
   display: inline-block;
   span {
     font-size: 2.5vw;
+  }
+}
+.quizQuestionLong {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 100%;
+  // margin-top: 3vh;
+  // margin-left: 1vw;
+  // height: 15vh;
+  // text-align: left;
+  // line-height: 10vh;
+  word-break: break-all;
+  display: inline-block;
+  span {
+    font-size: 2vw;
   }
 }
 
