@@ -48,8 +48,8 @@
   </div>
 </template>
 <script>
-import draggable from "vuedraggable";
-import http from "../utils/http-common.js";
+import draggable from 'vuedraggable';
+import http from '../utils/http-common.js';
 export default {
   props: {
     isDone: false,
@@ -63,13 +63,13 @@ export default {
       answer: [],
       blanck_answers: [],
       blanck_answer: [],
-      padding: " ",
+      padding: ' ',
     };
   },
   created() {
     this.quiz = {
       url:
-        "http://j3a510.p.ssafy.io/images/" +
+        'https://j3a510.p.ssafy.io/images/' +
         this.$store.state.quiz_adv.filePath,
       sentence: this.$store.state.quiz_adv.caption,
       sentence_kr: this.$store.state.quiz_adv.captionKor,
@@ -82,17 +82,17 @@ export default {
         this.quiz.blanck_answers[i].order
       ] = this.quiz.blanck_answers[i].token;
     }
-    this.answer = this.answer.join(" ");
-    this.blanck_answer = this.blanck_answer.join(" ");
+    this.answer = this.answer.join(' ');
+    this.blanck_answer = this.blanck_answer.join(' ');
     // console.log(this.blanck_answer);
     // console.log(this.$store.state.quiz_adv.tokens);
   },
   watch: {
     isDone: function (val) {
       if (this.isCorrect()) {
-        this.$store.commit("setExp", 6);
-        this.$emit("correct");
-      } else this.$emit("wrong");
+        this.$store.commit('setExp', 6);
+        this.$emit('correct');
+      } else this.$emit('wrong');
     },
   },
   methods: {
@@ -101,7 +101,7 @@ export default {
       for (var i = 0; i < this.answers.length; i++) {
         compare.splice(i, 0, this.answers[i].token);
       }
-      compare = compare.join(" ");
+      compare = compare.join(' ');
       // console.log(compare);
       // console.log(this.answer);
 
@@ -111,7 +111,7 @@ export default {
           title:
             '<div><span style="font-weight:100; font-size:2vw;">정답이 아닙니다.</span><br><span  style="font-weight:100; font-size:2vw;">다시 한번 생각해보세요.</span></div>',
           showCancelButton: false,
-          confirmButtonText: "확인",
+          confirmButtonText: '확인',
           timer: 1000,
         }).then((result) => {
           return true;
@@ -159,11 +159,11 @@ if (window.speechSynthesis.onvoiceschanged !== undefined) {
 function speech(txt) {
   if (!window.speechSynthesis) {
     alert(
-      "음성 재생을 지원하지 않는 브라우저입니다. 크롬, 파이어폭스 등의 최신 브라우저를 이용하세요"
+      '음성 재생을 지원하지 않는 브라우저입니다. 크롬, 파이어폭스 등의 최신 브라우저를 이용하세요'
     );
     return;
   }
-  var lang = "en-US";
+  var lang = 'en-US';
   var utterThis = new SpeechSynthesisUtterance(txt);
   utterThis.onend = function (event) {
     // console.log('end');
@@ -175,14 +175,14 @@ function speech(txt) {
   for (var i = 0; i < voices.length; i++) {
     if (
       voices[i].lang.indexOf(lang) >= 0 ||
-      voices[i].lang.indexOf(lang.replace("-", "_")) >= 0
+      voices[i].lang.indexOf(lang.replace('-', '_')) >= 0
     ) {
       utterThis.voice = voices[i];
       voiceFound = true;
     }
   }
   if (!voiceFound) {
-    alert("voice not found");
+    alert('voice not found');
     return;
   }
   utterThis.lang = lang;
@@ -192,7 +192,7 @@ function speech(txt) {
 }
 </script>
 <style lang="scss">
-@import "../assets/sass/base.scss";
+@import '../assets/sass/base.scss';
 </style>
 <style lang="scss" scoped>
 .quiz-sentence {
