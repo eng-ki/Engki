@@ -58,6 +58,9 @@ public class EduService {
 
 		// 이 단어에 해당하는 사진 중, 이 단어만 있는 사진(다른 word가 없는 것) 고르기
 		List<Image> images = imageRepository.getOneObjectImagesOfWord(word.getId());
+		if (images.isEmpty()) {
+			images = imageRepository.getAllByWordId(word.getId());
+		}
 		Image image = images.get(rand.nextInt(images.size()));
 
 		return EduDto.Word.builder()
