@@ -1,5 +1,19 @@
 <template>
   <div class="background">
+    <img
+      src="../../public/img/icon/exit (2).png"
+      width="90vw"
+      style="float: right; margin-top: 1vh; margin-right: 3vw"
+      id="goKid"
+      @click="goKid()"
+    />
+
+    <b-tooltip placement="bottom" target="goKid" triggers="hover">
+      <span
+        style="font-family: GmarketSansMedium; color: #f2f2f2; font-size: 0.8vw"
+        >퀴즈 그만하기</span
+      >
+    </b-tooltip>
     <vue-web-cam
       v-if="!isFinish"
       style="display: none"
@@ -176,6 +190,10 @@ export default {
     this.startCapture()
   },
   methods: {
+    goKid() {
+      this.stopCapture()
+      this.$router.push('/kid')
+    },
     isNextStage(flag) {
       this.isDone = false
       if (flag) {
@@ -215,6 +233,7 @@ export default {
             },
           })
           .then(({ data }) => {
+            console.log(data)
             if (data == 'STOP') {
               this.isBreakTime = true
             }
