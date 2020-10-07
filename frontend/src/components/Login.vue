@@ -22,7 +22,7 @@
   </div>
 </template>
 <script>
-import http from '../utils/http-common.js'
+import http from '../utils/http-common.js';
 export default {
   // props: {
   //   isNew: false,
@@ -30,25 +30,25 @@ export default {
   data: function () {
     return {
       // submsg1: '아이디가 생각나지 않으세요?',
-    }
+    };
   },
   computed: {
     getToken() {
-      return this.$store.getters.getToken
+      return this.$store.getters.getToken;
     },
   },
   watch: {
     getToken(val, oldVal) {
-      if (this.$store.state.isNew) this.$emit('child', true)
+      if (this.$store.state.isNew) this.$emit('child', true);
       else {
         http
           .get('parents/' + this.$store.state.parent.id + '/kids', {
             headers: { 'X-AUTH-TOKEN': this.$store.state.token },
           })
           .then(({ data }) => {
-            if (data.length == 0) this.$router.push('/parent')
-            else this.$router.push('/selectkid')
-          })
+            if (data.length == 0) this.$router.push('/parent');
+            else this.$router.push('/selectkid');
+          });
       }
     },
   },
@@ -56,15 +56,16 @@ export default {
     kakaoLogin() {
       Kakao.Auth.login({
         success: this.kakaoLoginStore,
-      })
+      });
+      this.$store.commit('setIsTest', false);
     },
     kakaoLoginStore(authObj) {
       this.$store.dispatch('kakaoLogin', {
         access_token: authObj.access_token,
-      })
+      });
     },
   },
-}
+};
 </script>
 <style lang="scss">
 @import '../assets/sass/base.scss';
