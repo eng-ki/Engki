@@ -130,14 +130,14 @@
 
     <!-- 첫번째 튜토리얼 -->
     <b-modal
-      modal-class="mymodal"
+      :modal-class="mymodal[0]"
       ref="my-modal1"
-      centered="isCentered"
       title-html="<span style='
   padding: 1vw;font-family: GmarketSansMedium; color: #263747;'>학습 리포트</span>"
       :hide-footer="isHideFooter"
       header-border-variant="0"
     >
+      <div class="arrow-left"></div>
       <div class="modal-body">
         <span>
           날짜별로 자녀의 학습 기록을 볼 수 있습니다.<br />
@@ -178,12 +178,14 @@
 
     <!-- 두번째 튜토리얼 -->
     <b-modal
+      :modal-class="mymodal[1]"
       ref="my-modal2"
       title-html="<span style='
   padding: 1vw;font-family: GmarketSansMedium; color: #263747;'>커스텀 학습</span>"
       :hide-footer="isHideFooter"
       header-border-variant="0"
     >
+      <div class="arrow-left"></div>
       <div class="modal-body">
         <span>
           사진을 등록해서 자녀의 학습자료를 직접 만들 수 있습니다.<br />
@@ -224,16 +226,18 @@
 
     <!-- 세번째 튜토리얼 -->
     <b-modal
+      :modal-class="mymodal[2]"
       ref="my-modal3"
       title-html="<span style='
   padding: 1vw;font-family: GmarketSansMedium; color: #263747;'>자녀 등록</span>"
       :hide-footer="isHideFooter"
       header-border-variant="0"
     >
+      <div class="arrow-right"></div>
       <div class="modal-body">
         <span>
-          우측 상단 아이콘을 눌러 자녀를 등록해보세요.<br />
-          이름과 생년월일만 입력하면 서비스를 이용할 수 있습니다.
+          우측 상단 아이콘을 눌러 나의 자녀를 등록해보세요.<br />
+          이름과 생년월일로 자녀를 간편하게 등록할 수 있습니다.
         </span>
       </div>
       <div>
@@ -270,12 +274,13 @@
 
     <!-- 네번째 튜토리얼 -->
     <b-modal
+      :modal-class="mymodal[3]"
       ref="my-modal4"
       title-html="<span style='
   padding: 1vw;font-family: GmarketSansMedium; color: #263747;'>내 정보</span>"
       :hide-footer="isHideFooter"
       header-border-variant="0"
-    >
+      ><div class="arrow-up"></div>
       <div class="modal-body">
         <span>
           우측 상단 아이콘을 눌러 부모님 정보를 수정해보세요.<br />
@@ -316,12 +321,13 @@
 
     <!-- 다섯번째 튜토리얼 -->
     <b-modal
+      :modal-class="mymodal[4]"
       ref="my-modal5"
       title-html="<span style='
   padding: 1vw;font-family: GmarketSansMedium; color: #263747;'>메인으로</span>"
       :hide-footer="isHideFooter"
       header-border-variant="0"
-    >
+      ><div class="arrow-left"></div>
       <div class="modal-body">
         <span>
           좌측 하단 표지판의 메인으로 가기를 클릭해보세요.<br />
@@ -391,7 +397,7 @@ export default {
       stage: 1,
       limit: 5,
       isHideFooter: true,
-      mymodal: ['mymodal'],
+      mymodal: ['mymodal1', 'mymodal2', 'mymodal3', 'mymodal4', 'mymodal5'],
       isCentered: false,
     }
   },
@@ -426,6 +432,8 @@ export default {
     },
     showTutorial(index) {
       this.$refs['my-modal' + index].show()
+      let $ref = this.$refs['my-modal' + index]
+      $ref.style.backgroundColor = '#66bb6a'
     },
     startTutorial() {
       this.stage = 1
@@ -487,6 +495,38 @@ export default {
   },
 }
 </script>
+<style>
+.mymodal1 > div {
+  position: absolute !important;
+  top: 25vh !important;
+  right: 5vw !important;
+}
+
+.mymodal2 > div {
+  position: absolute !important;
+  bottom: 22vh !important;
+  left: 20vw !important;
+}
+
+.mymodal3 > div {
+  position: absolute !important;
+  top: 3vh !important;
+  right: 32vw !important;
+}
+
+.mymodal4 > div {
+  position: absolute !important;
+  top: 25vh !important;
+  right: 1vw !important;
+}
+
+.mymodal5 > div {
+  position: absolute !important;
+  bottom: 13vh !important;
+  left: 20vw !important;
+}
+</style>
+
 <style lang="scss">
 @import '../assets/sass/base.scss';
 </style>
@@ -524,12 +564,8 @@ $arrowcolor: black;
   height: $header-height;
   position: absolute;
   z-index: 3;
-  // background-color :red;
-  // opacity:50%;
   .board-header-kid {
-    // margin:10px;
     display: inline-block;
-    // background:yellow;
     width: 60%;
     .card-carousel-wrapper {
       display: flex;
@@ -537,7 +573,6 @@ $arrowcolor: black;
       justify-content: center;
       .card-carousel {
         position: relative;
-        // display: flex;
         justify-content: center;
         width: 85%;
 
@@ -566,7 +601,6 @@ $arrowcolor: black;
 
         &--nav__left {
           position: relative;
-          // top: 3vh;
           transform: rotate(-135deg);
           &:active {
             transform: rotate(-135deg) scale(0.9);
@@ -575,7 +609,6 @@ $arrowcolor: black;
 
         &--nav__right {
           position: relative;
-          // top: 10vh;
           transform: rotate(45deg);
           &:active {
             transform: rotate(45deg) scale(0.9);
@@ -590,7 +623,6 @@ $arrowcolor: black;
         margin-right: 10vw;
         margin-left: 10vw;
         white-space: nowrap;
-        // width: 40vw;
         .card-carousel--card {
           margin: 0 10px;
           display: inline-block;
@@ -602,7 +634,6 @@ $arrowcolor: black;
             text-align: center;
             vertical-align: middle;
             font-size: $font-size;
-            // font-size: auto;
             width: 100%;
             z-index: 2;
           }
@@ -644,7 +675,6 @@ $arrowcolor: black;
     display: inline-block;
     width: 30%;
     margin-top: 0.5vh;
-    // float:right;
     .add-kid {
       margin-right: 10%;
       display: inline-block;
@@ -705,23 +735,14 @@ $arrowcolor: black;
   left: 0.1vw;
   height: 45vh;
   width: auto;
-  // img{
-  //   // margin-bottom: -1vh;
-  //   width:100%;
-  // }
-  // transform: translate(-50%, -50%);
   .backtomain-txt {
     width: 2.5vh * 4;
-    // height:auto;
     font-size: $font-size;
     position: absolute;
     display: block;
     bottom: 11vh;
-    // margin:auto;
     right: 8vh;
-    // right:0.1vw;
     color: black;
-    // transform: translate(0, -50%);
   }
 }
 
@@ -779,24 +800,5 @@ $arrowcolor: black;
 .modal-foot2 {
   float: right;
   font-family: GmarketSansMedium;
-}
-.mymodal > div {
-  position: fixed !important;
-  top: 0 !important;
-  left: -23vw !important;
-  width: 100vw;
-  height: 100vh;
-}
-
-.modal-dialog.modal-fullsize {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-.modal-content.modal-fullsize {
-  height: auto;
-  min-height: 100%;
-  border-radius: 0;
 }
 </style>

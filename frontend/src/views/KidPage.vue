@@ -4,10 +4,10 @@
       v-if="!isChangeProfile"
       @click="startTutorial()"
       class="page-title-img"
-      id="tutorial"
+      id="tutorial2"
       src="../../public/img/icon/question-mark1.png"
     />
-    <b-tooltip placement="top" target="tutorial" triggers="hover">
+    <b-tooltip placement="bottom" target="tutorial2" triggers="hover">
       <span
         style="font-family: GmarketSansMedium; color: #f2f2f2; font-size: 0.8vw"
         >도움말</span
@@ -59,17 +59,17 @@
 
     <!-- 첫번째 튜토리얼 -->
     <b-modal
-      modal-class="mymodal"
+      :modal-class="kidmodal[0]"
       ref="my-modal1"
       title-html="<span style='
   padding: 1vw;font-family: GmarketSansMedium; color: #263747;'>공부 시작하기</span>"
       :hide-footer="isHideFooter"
       header-border-variant="0"
-    >
+      ><div class="arrow-down"></div>
       <div class="modal-body">
         <span>
           이 버튼을 누르면 퀴즈를 시작할 수 있습니다.<br />
-          퀴즈를 풀고 경험치를 얻어 캐릭터를 변경해보세요.
+          퀴즈를 풀고 경험치를 얻어 원하는 캐릭터를 획득해보세요.
         </span>
       </div>
       <div>
@@ -106,15 +106,16 @@
 
     <!-- 두번째 튜토리얼 -->
     <b-modal
+      :modal-class="kidmodal[1]"
       ref="my-modal2"
       title-html="<span style='
   padding: 1vw;font-family: GmarketSansMedium; color: #263747;'>캐릭터 변경하기</span>"
       :hide-footer="isHideFooter"
       header-border-variant="0"
-    >
+      ><div class="arrow-right"></div>
       <div class="modal-body">
         <span>
-          이곳을 클릭하면 캐릭터를 변경할 수 있습니다.<br />
+          이곳을 클릭하면 캐릭터를 미리 보고 변경할 수 있습니다.<br />
           열심히 경험치를 쌓아 귀여운 캐릭터로 변경해보세요.<br />
         </span>
       </div>
@@ -152,12 +153,13 @@
 
     <!-- 세번째 튜토리얼 -->
     <b-modal
+      :modal-class="kidmodal[2]"
       ref="my-modal3"
       title-html="<span style='
   padding: 1vw;font-family: GmarketSansMedium; color: #263747;'>공부 끝내기</span>"
       :hide-footer="isHideFooter"
       header-border-variant="0"
-    >
+      ><div class="arrow-left"></div>
       <div class="modal-body">
         <span>
           다른 아이로 학습하고 싶다면 이곳을 클릭해주세요.<br />
@@ -215,7 +217,7 @@ export default {
       stage: 1,
       limit: 3,
       isHideFooter: true,
-      mymodal: ['mymodal'],
+      kidmodal: ['kidmodal1', 'kidmodal2', 'kidmodal3'],
     }
   },
   created() {
@@ -257,6 +259,25 @@ export default {
 }
 </script>
 
+<style>
+.kidmodal1 > div {
+  position: absolute !important;
+  top: 3vh !important;
+  left: 20vw !important;
+}
+
+.kidmodal2 > div {
+  position: absolute !important;
+  top: 25vh !important;
+  left: 37vw !important;
+}
+
+.kidmodal3 > div {
+  position: absolute !important;
+  bottom: 3vh !important;
+  left: 15vw !important;
+}
+</style>
 <style lang="scss">
 @import '../assets/sass/base.scss';
 </style>

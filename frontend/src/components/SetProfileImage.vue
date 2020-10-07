@@ -118,12 +118,13 @@
 
     <!-- 두번째 튜토리얼 -->
     <b-modal
+      :modal-class="profilemodal"
       ref="my-modal2"
       title-html="<span style='
   padding: 1vw;font-family: GmarketSansMedium; color: #263747;'>돌아가기</span>"
       :hide-footer="isHideFooter"
       header-border-variant="0"
-    >
+      ><div class="arrow-left"></div>
       <div class="modal-body">
         <span> 이곳을 클릭하면 마이페이지로 돌아갈 수 있습니다.<br /> </span>
       </div>
@@ -230,7 +231,7 @@ export default {
       stage: 1,
       limit: 2,
       isHideFooter: true,
-      mymodal: ['mymodal'],
+      profilemodal: ['profilemodal'],
     }
   },
   mounted() {
@@ -304,6 +305,13 @@ export default {
 }
 </script>
 
+<style>
+.profilemodal > div {
+  position: absolute !important;
+  bottom: 3vh !important;
+  left: 15vw !important;
+}
+</style>
 <style lang="scss">
 @import '../assets/sass/base.scss';
 </style>

@@ -213,3 +213,45 @@
   font-family: GmarketSansMedium;
   text-shadow: 3px 3px 5 px rgba(0, 0, 0, 0.5);
 }
+.arrow-up {
+  position: absolute;
+  margin-left: 205px;
+  margin-top: -90px;
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-bottom: 20px solid white;
+}
+
+.arrow-down {
+  position: absolute;
+  margin-left: 205px;
+  margin-top: 105px;
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-top: 20px solid white;
+}
+
+.arrow-right {
+  position: absolute;
+  width: 0;
+  height: 0;
+  margin-left: 440px;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  border-left: 20px solid white;
+}
+
+.arrow-left {
+  position: absolute;
+  width: 0;
+  height: 0;
+  margin-left: -30px;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+
+  border-right: 20px solid white;
+}

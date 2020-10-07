@@ -75,7 +75,7 @@
     </div>
     <!-- selectkid 첫번째 튜토리얼 -->
     <b-modal
-      modal-class="mymodal"
+      :modal-class="selectmodal[0]"
       ref="kid-modal1"
       title-html="<span style='
   padding: 1vw;font-family: GmarketSansMedium; color: #263747;'>자녀 선택</span>"
@@ -122,12 +122,13 @@
 
     <!-- selectkid 두번째 튜토리얼 -->
     <b-modal
+      :modal-class="selectmodal[1]"
       ref="kid-modal2"
       title-html="<span style='
   padding: 1vw;font-family: GmarketSansMedium; color: #263747;'>부모 페이지</span>"
       :hide-footer="isHideFooter"
       header-border-variant="0"
-    >
+      ><div class="arrow-right"></div>
       <div class="modal-body">
         <span>
           이 표지판을 클릭하면 자녀의 정보 관리와<br />
@@ -168,7 +169,7 @@
 
     <!-- selectquiz 첫번째 튜토리얼 -->
     <b-modal
-      modal-class="mymodal"
+      :modal-class="selectmodal[2]"
       ref="quiz-modal1"
       title-html="<span style='
   padding: 1vw;font-family: GmarketSansMedium; color: #263747;'>주제 선택</span>"
@@ -215,12 +216,13 @@
 
     <!-- selectquiz 두번째 튜토리얼 -->
     <b-modal
+      :modal-class="selectmodal[3]"
       ref="quiz-modal2"
       title-html="<span style='
   padding: 1vw;font-family: GmarketSansMedium; color: #263747;'>마이 페이지</span>"
       :hide-footer="isHideFooter"
       header-border-variant="0"
-    >
+      ><div class="arrow-right"></div>
       <div class="modal-body">
         <span>
           이 표지판을 클릭하면 자녀의 마이 페이지로 이동합니다.<br />
@@ -313,7 +315,12 @@ export default {
       stage: 1,
       limit: 2,
       isHideFooter: true,
-      mymodal: ['mymodal'],
+      selectmodal: [
+        'selectmodal1',
+        'selectmodal2',
+        'selectmodal3',
+        'selectmodal4',
+      ],
     }
   },
   methods: {
@@ -388,6 +395,27 @@ export default {
   },
 }
 </script>
+
+<style>
+.selectmodal1 > div {
+}
+
+.selectmodal2 > div {
+  position: absolute !important;
+  bottom: 3vh !important;
+  right: 18vw !important;
+}
+
+.selectmodal3 > div {
+}
+
+.selectmodal4 > div {
+  position: absolute !important;
+  bottom: 3vh !important;
+  right: 18vw !important;
+}
+</style>
+
 <style lang="scss">
 @import '../assets/sass/base.scss';
 </style>
