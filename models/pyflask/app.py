@@ -191,7 +191,7 @@ def custom_save():
                                                 VALUES (:image_id, :word, :boundary, :word_kor)
                                                 """), data)
 
-        return 'success', 201
+        return image_id, 201
     except:
         traceback.print_exc()
         return 'fail', 409
