@@ -5,6 +5,7 @@
       <img src="../../public/img/icon/speaker.png" />
       <span>{{ quiz.sentence_kr }}</span>
     </div>
+
     <!-- 문장 영역 끝 -->
     <!-- 답변 영역 -->
     <div class="quiz-answer">
@@ -36,8 +37,11 @@
         v-for="(answer, index) in quiz.answers"
         v-bind:key="index"
         @click="goAnswer(answer)"
-        :class="{ blank: !answer.token }"
+        :class="{ blank_font: !answer.token }"
       >
+        <span v-if="!answer.token">{{
+          quiz.remain_answers[index][1].token
+        }}</span>
         <span v-if="answer.token">{{ answer.token }}</span>
       </div>
     </div>
@@ -58,22 +62,31 @@ export default {
       selectedIndex: -1,
       answers: [],
       answer: [],
+      blanck_answers: [],
+      blanck_answer: [],
+      padding: ' ',
     }
   },
   created() {
     this.quiz = {
       url:
-        'http://j3a510.p.ssafy.io/images/' +
+        'https://j3a510.p.ssafy.io/images/' +
         this.$store.state.quiz_adv.filePath,
       sentence: this.$store.state.quiz_adv.caption,
       sentence_kr: this.$store.state.quiz_adv.captionKor,
       answers: this.$store.state.quiz_adv.tokens,
+      remain_answers: this.$store.state.quiz_adv.tokens,
     }
     for (var i = 0; i < this.quiz.answers.length; i++) {
       this.answer[this.quiz.answers[i].order] = this.quiz.answers[i].token
+      this.blanck_answer[this.quiz.answers[i].order] = this.quiz.answers[
+        i
+      ].token
     }
-    this.answer = this.answer.join(' ')
 
+    this.answer = this.answer.join(' ')
+    this.blanck_answer = this.blanck_answer.join(' ')
+    // console.log(this.blanck_answer);
     // console.log(this.$store.state.quiz_adv.tokens);
   },
   watch: {
@@ -130,6 +143,9 @@ export default {
           this.quiz.answers.splice(i, 0, answer)
         }
       }
+    },
+    changeFont(answer_list) {
+      //자 여기서 글자색을 바꿔줄 것입니다.
     },
   },
 }
@@ -243,7 +259,8 @@ function speech(txt) {
 }
 .quiz-button {
   /* 사이즈 설정 */
-  width: 7vw;
+  // width: 5vw;
+  padding: 0px 1vw 0px 1vw;
   height: 7vh;
   margin: 0.5vw;
 
@@ -264,6 +281,16 @@ function speech(txt) {
 }
 
 .blank {
+  color: rgba(0, 0, 0, 0);
   background-color: #f2f2f2;
+  opacity: 0.5;
+}
+.blank_font {
+  color: rgba(0, 0, 0, 0);
+  background-color: #f2f2f2;
+  opacity: 0.5;
+  padding: 0px 1vw 0px 1vw;
+  height: 7vh;
+  margin: 0.5vw;
 }
 </style>

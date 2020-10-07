@@ -7,7 +7,7 @@
         v-if="parseInt(i / 3) == j - 1"
       >
         <img
-          :src="'http://j3a510.p.ssafy.io/images/' + data.filePath"
+          :src="'https://j3a510.p.ssafy.io/images/' + data.filePath"
           class="img"
           :class="{ selected: selects[i].selected }"
           @click="select(i)"
@@ -30,15 +30,31 @@ export default {
   props: ['isDone'],
   created() {
     this.isDone = false;
-    this.quizapipath = '/edu/' + this.$store.state.quiz.id + '/images';
-    // console.log('퀴즈2패스 : ' + this.quizapipath);
-    http
-      .get(this.quizapipath, {
-        headers: { 'X-AUTH-TOKEN': this.$store.state.token },
-      })
-      .then((data) => {
-        this.datas = data.data;
-      });
+    if (this.$store.state.is_test) {
+      // 부모 테스트 - 커스텀 퀴즈일 때
+    } else {
+      if (this.$store.state.theme == 1) {
+        // 커스텀 퀴즈
+        this.quizapipath =
+          '/custom/' +
+          this.$store.state.quiz.word +
+          '/images/by/' +
+          this.$store.state.parent.id;
+      } else {
+        // 일반 퀴즈
+        this.quizapipath = '/edu/' + this.$store.state.quiz.id + '/images';
+      }
+      http
+        .get(this.quizapipath, {
+          headers: { 'X-AUTH-TOKEN': this.$store.state.token },
+        })
+        .then((data) => {
+          this.$store.commit('setQuizB', data.data);
+          this.setLocalVariable();
+        });
+    }
+
+    console.log(this.datas);
   },
   watch: {
     isDone: function (val) {
@@ -49,6 +65,9 @@ export default {
     },
   },
   methods: {
+    setLocalVariable() {
+      this.datas = this.$store.state.quiz_b;
+    },
     isCorrect() {
       var count = 0;
       for (var data in this.datas.images) {

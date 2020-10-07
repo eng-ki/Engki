@@ -60,7 +60,7 @@
               </span>
             </div>
           <div v-if="emotions==''" class="chart">
-              <span class="block" style="background-color:yellow">
+              <span class="block" style="background-color:#ffe26d">
                 <span class="val">데이터가 존재하지 않습니다</span>
               </span>
             </div>
@@ -181,7 +181,7 @@ export default {
     refreshdata(){
       this.events = [];
       http
-        .get('/kids/'+this.$store.state.selected_kid+'/week/'+this.thisweek, {
+        .get('/kids/'+this.$store.state.selected_kid.id+'/week/'+this.thisweek, {
           headers: { 'X-AUTH-TOKEN': this.$store.state.token },
         })
         .then(({ data }) => {
@@ -193,7 +193,6 @@ export default {
                 this.events.push({
                 name: this.temp[w],
                 start: data[val].date,
-                color: "red",
                 });
               }
           }

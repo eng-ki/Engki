@@ -266,12 +266,10 @@ export default {
       this.$swal({
         title:
           '<span style="font-family: GmarketSansMedium;font-size:1.2vw;">현재 데이터로 학습을 시작하시겠습니까?</span>',
-        type: 'warning',
         showCancelButton: true,
         confirmButtonText: '네',
         cancelButtonText: '아니요',
         showCloseButton: true,
-        showLoaderOnConfirm: true,
       }).then((result) => {
         if (result.value) {
           http
@@ -303,17 +301,34 @@ export default {
                     '<span style="font-family: GmarketSansMedium;font-size:1.2vw;">퀴즈 데이터에 성공적으로 저장되었습니다</span>',
                   showCancelButton: false,
                   confirmButtonText: '확인',
-                }).then((result) => {})
+                }).then((result) => {
+                  this.$swal({
+                    title:
+                      '<span style="font-family: GmarketSansMedium;font-size:1.2vw;">제작한 퀴즈를 테스트해보시겠습니까?</span>',
+                    showCancelButton: true,
+                    confirmButtonText: '네',
+                    cancleButtonText: '아니요',
+                  }).then((result) => {
+                    if (result.value) {
+                      this.$store.commit('setTheme', 1)
+                      this.$store.commit('setIsTest', true)
+                      this.$store.commit(
+                        'setKid',
+                        this.$store.state.selected_kid
+                      )
+                      // console.log(this.$store.token);
+                      // console.log("setQuiz : " + this.$store.state.is_test);
+                      // console.log("quiz : " + this.$store.state.theme);
+                      // console.log("kid : " + this.$store.state.kid);
+                      this.$router.push('/quiz')
+                    } else {
+                      this.isUploaded = false
+                    }
+                  })
+                })
               }
             })
-            .catch((err) => {
-              this.$swal({
-                title:
-                  '<span style="font-family: GmarketSansMedium;font-size:1.2vw;">퀴즈 데이터에 성공적으로 저장되었습니다</span>',
-                showCancelButton: false,
-                confirmButtonText: '확인',
-              }).then((result) => {})
-            })
+            .catch((err) => {})
         }
       })
     },
@@ -336,11 +351,23 @@ export default {
           },
         })
         .then(({ data }) => {
+          console.log('ai학습데이터리턴값:')
           console.log(data)
-          this.custom = data
+
           this.overlay = false
-          this.isUploaded = true
-          this.isDuplicate()
+
+          if (data.boundaries.length == 0) {
+            this.$swal({
+              title:
+                '<span style="font-family: GmarketSansMedium;font-size:1.2vw;">사진에서 개체를 찾을 수 없습니다<br>다른 사진을 등록해주세요</span>',
+              showCancelButton: false,
+              confirmButtonText: '확인',
+            }).then((result) => {})
+          } else {
+            this.custom = data
+            this.isUploaded = true
+            this.isDuplicate()
+          }
         })
         .catch((err) => {
           this.overlay = false

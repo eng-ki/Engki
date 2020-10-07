@@ -1,5 +1,19 @@
 <template>
   <div class="background">
+    <img
+      src="../../public/img/icon/exit (2).png"
+      width="90vw"
+      style="float: right; margin-top: 1vh; margin-right: 3vw"
+      id="goKid"
+      @click="goKid()"
+    />
+
+    <b-tooltip placement="bottom" target="goKid" triggers="hover">
+      <span
+        style="font-family: GmarketSansMedium; color: #f2f2f2; font-size: 0.8vw"
+        >퀴즈 그만하기</span
+      >
+    </b-tooltip>
     <vue-web-cam
       v-if="!isFinish"
       style="display: none"
@@ -172,10 +186,19 @@ export default {
   },
   mounted() {
     this.$store.state.exp = 0
-    this.onStart()
-    this.startCapture()
+    console.log(this.$store.state.is_test)
+    if (!this.$store.state.is_test) {
+      this.onStart()
+      this.startCapture()
+    }
   },
   methods: {
+    goKid() {
+      setTimeout(() => {
+        this.stopCapture()
+      }, 600)
+      this.$router.push('/kid')
+    },
     isNextStage(flag) {
       this.isDone = false
       if (flag) {
@@ -215,6 +238,7 @@ export default {
             },
           })
           .then(({ data }) => {
+            console.log(data)
             if (data == 'STOP') {
               this.isBreakTime = true
             }
@@ -224,6 +248,7 @@ export default {
     // 감정 인식 중지
     stopCapture() {
       // 캡쳐 중지
+
       clearInterval(this.camTimer)
     },
     // 모르겠어요 버튼 눌렀을때 완전 끝내기랑 다음으로가기

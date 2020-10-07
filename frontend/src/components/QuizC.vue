@@ -38,25 +38,27 @@ export default {
     };
   },
   created() {
-    this.quizapipath = '/edu/' + this.$store.state.quiz.id + '/seg';
-    // console.log('퀴즈3패스 : ' + this.quizapipath);
-    http
-      .get(this.quizapipath, {
-        headers: { 'X-AUTH-TOKEN': this.$store.state.token },
-      })
-      .then((data) => {
-        this.datas = data.data;
-        // console.log(data);
-        this.quiz = {
-          url1: 'http://j3a510.p.ssafy.io/images/' + data.data.filePath,
-          url2: 'http://j3a510.p.ssafy.io/images/' + data.data.segFilePath,
-          word: this.$store.state.quiz.word,
-          words: [this.$store.state.quiz.word, data.data.randomWord],
-        };
-        // console.log(this.quiz.url1);
-        // console.log(this.quiz.url2);
-        this.url = this.quiz.url1;
-      });
+    if (this.$store.state.is_test) {
+      // 부모 테스트 - 커스텀 퀴즈일 때
+    } else {
+      if (this.$store.state.theme == 1) {
+        this.quizapipath =
+          '/custom/' +
+          this.$store.state.quiz.word +
+          '/seg/by/' +
+          this.$store.state.parent.id;
+      } else {
+        this.quizapipath = '/edu/' + this.$store.state.quiz.id + '/seg';
+      }
+      http
+        .get(this.quizapipath, {
+          headers: { 'X-AUTH-TOKEN': this.$store.state.token },
+        })
+        .then((data) => {
+          this.$store.commit('setQuizC', data.data);
+          this.setLocalVariable();
+        });
+    }
   },
   mounted() {
     this.url = this.quiz.url2;
@@ -81,6 +83,23 @@ export default {
     },
   },
   methods: {
+    setLocalVariable() {
+      this.datas = this.$store.state.quiz_c;
+      this.quiz = {
+        url1:
+          'https://j3a510.p.ssafy.io/images/' +
+          this.$store.state.quiz_c.filePath,
+        url2:
+          'https://j3a510.p.ssafy.io/images/' +
+          this.$store.state.quiz_c.segFilePath,
+        word: this.$store.state.quiz.word,
+        words: [
+          this.$store.state.quiz.word,
+          this.$store.state.quiz_c.randomWord,
+        ],
+      };
+      this.url = this.quiz.url1;
+    },
     isCorrect() {
       // 다했어요 버튼이 클릭됐을때 호출되는 함수, 정답이 맞으면 true, 틀리면 false 리턴
       if (this.quiz.words[this.selectedIndex] == this.quiz.word) return true;
