@@ -162,7 +162,7 @@ export default {
           this.kids = data;
           console.log(this.kids);
           // console.log(this.kids[0]);
-          this.$store.commit('setSelectedKid', this.kids[0].id);
+          this.$store.commit('setSelectedKid', this.kids[0]);
         });
     },
     selectKid(index) {
@@ -170,7 +170,7 @@ export default {
       // console.log('자녀정보:');
       // console.log(this.kids[index].id);
       // this.$store.commit('getSelectedKid', this.kids[index].id);
-      this.$store.commit('setSelectedKid', this.kids[index].id);
+      this.$store.commit('setSelectedKid', this.kids[index]);
     },
     deleteKid(index) {
       this.$swal({
@@ -267,6 +267,8 @@ $arrowcolor: black;
 
         &--overflow-container {
           overflow: hidden;
+          position: relative;
+          margin-top: -10vh;
         }
 
         &--nav__left,
@@ -321,7 +323,7 @@ $arrowcolor: black;
           position: relative;
           .dataname {
             display: inline-block;
-            padding: 10px 0px;
+            margin: 10px 0px;
             position: relative;
             text-align: center;
             vertical-align: middle;
@@ -329,9 +331,14 @@ $arrowcolor: black;
             // font-size: auto;
             width: 100%;
             z-index: 2;
+            // .selected {
+            //   border-bottom: 5px solid #ffe26d;
+            // }
           }
           .selected {
-            height: 30%;
+            // height: 5.5vh;
+            position: relative;
+            height: 5vh;
             border-bottom: 5px solid #ffe26d;
             z-index: 1;
           }
