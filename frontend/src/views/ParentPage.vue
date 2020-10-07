@@ -447,14 +447,13 @@ export default {
         .then(({ data }) => {
           this.kids = data
           console.log(this.kids)
-          // console.log(this.kids[0]);
-          if (data.length != 0)
-            this.$store.commit('setSelectedKid', this.kids[0].id)
-        })
+          if (data.length != 0){
+            this.$store.commit('setSelectedKid', this.kids[0]);
+        });
     },
     selectKid(index) {
-      this.selectedIndex = index
-      this.$store.commit('setSelectedKid', this.kids[index].id)
+      this.selectedIndex = index;
+      this.$store.commit('setSelectedKid', this.kids[index]);
     },
     deleteKid(index) {
       this.$swal({
@@ -578,6 +577,8 @@ $arrowcolor: black;
 
         &--overflow-container {
           overflow: hidden;
+          position: relative;
+          margin-top: -10vh;
         }
 
         &--nav__left,
@@ -629,16 +630,21 @@ $arrowcolor: black;
           position: relative;
           .dataname {
             display: inline-block;
-            padding: 10px 0px;
+            margin: 10px 0px;
             position: relative;
             text-align: center;
             vertical-align: middle;
             font-size: $font-size;
             width: 100%;
             z-index: 2;
+            // .selected {
+            //   border-bottom: 5px solid #ffe26d;
+            // }
           }
           .selected {
-            height: 30%;
+            // height: 5.5vh;
+            position: relative;
+            height: 5vh;
             border-bottom: 5px solid #ffe26d;
             z-index: 1;
           }

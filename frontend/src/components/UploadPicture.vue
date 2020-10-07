@@ -219,7 +219,7 @@
   </div>
 </template>
 <script>
-import http from '../utils/http-common.js'
+import http from '../utils/http-common.js';
 
 export default {
   name: 'UploadPicture',
@@ -258,7 +258,7 @@ export default {
         seg_word: [],
         seg_word_kor: [],
       },
-    }
+    };
   },
   methods: {
     // 수정한 학습용 데이터 서버에 저장하기
@@ -266,7 +266,6 @@ export default {
       this.$swal({
         title:
           '<span style="font-family: GmarketSansMedium;font-size:1.2vw;">현재 데이터로 학습을 시작하시겠습니까?</span>',
-        type: 'warning',
         showCancelButton: true,
         confirmButtonText: '네',
         cancelButtonText: '아니요',
@@ -303,31 +302,48 @@ export default {
                     '<span style="font-family: GmarketSansMedium;font-size:1.2vw;">퀴즈 데이터에 성공적으로 저장되었습니다</span>',
                   showCancelButton: false,
                   confirmButtonText: '확인',
-                }).then((result) => {})
+                }).then((result) => {
+                  this.$swal({
+                    title:
+                      '<span style="font-family: GmarketSansMedium;font-size:1.2vw;">제작한 퀴즈를 테스트해보시겠습니까?</span>',
+                    showCancelButton: true,
+                    confirmButtonText: '네',
+                    cancleButtonText: '아니요',
+                  }).then((result) => {
+                    if (result.value) {
+                      this.$store.commit('setTheme', 1);
+                      this.$store.commit('setIsTest', true);
+                      this.$store.commit(
+                        'setKid',
+                        this.$store.state.selected_kid
+                      );
+                      // console.log(this.$store.token);
+                      // console.log("setQuiz : " + this.$store.state.is_test);
+                      // console.log("quiz : " + this.$store.state.theme);
+                      // console.log("kid : " + this.$store.state.kid);
+                      this.$router.push('/quiz');
+                    } else {
+                      this.isUploaded = false;
+                    }
+                  });
+                });
               }
             })
-            .catch((err) => {
-              this.$swal({
-                title:
-                  '<span style="font-family: GmarketSansMedium;font-size:1.2vw;">퀴즈 데이터에 성공적으로 저장되었습니다</span>',
-                showCancelButton: false,
-                confirmButtonText: '확인',
-              }).then((result) => {})
-            })
+            .catch((err) => {});
         }
-      })
+      });
     },
     // 이미지 등록하기
     onClickImageUpload() {
-      this.$refs.imageInput.click()
+      this.$refs.imageInput.click();
     },
     // 이미지로 학습된 정보 받아오기
     onChangeImages(e) {
-      this.overlay = !this.overlay
-      const file = e.target.files[0]
-      const frm = new FormData()
-      frm.append('files', file)
-      frm.append('parent_id', this.$store.state.parent.id)
+      this.overlay = !this.overlay;
+      const file = e.target.files[0];
+      const frm = new FormData();
+      frm.append('files', file);
+      frm.append('parent_id', this.$store.state.parent.id);
       http
         .post('https://j3a510.p.ssafy.io:8083/custom/quiz/make', frm, {
           headers: {
@@ -336,58 +352,69 @@ export default {
           },
         })
         .then(({ data }) => {
-          console.log(data)
-          this.custom = data
-          this.overlay = false
-          this.isUploaded = true
-          this.isDuplicate()
+          console.log('ai학습데이터리턴값:');
+          console.log(data);
+
+          this.overlay = false;
+
+          if (data.boundaries.length == 0) {
+            this.$swal({
+              title:
+                '<span style="font-family: GmarketSansMedium;font-size:1.2vw;">사진에서 개체를 찾을 수 없습니다<br>다른 사진을 등록해주세요</span>',
+              showCancelButton: false,
+              confirmButtonText: '확인',
+            }).then((result) => {});
+          } else {
+            this.custom = data;
+            this.isUploaded = true;
+          }
         })
         .catch((err) => {
-          this.overlay = false
+          this.overlay = false;
           this.$swal({
             title:
               '<span style="font-family: GmarketSansMedium;font-size:1.2vw;">사진에서 개체를 찾을 수 없습니다<br>다른 사진을 등록해주세요</span>',
             showCancelButton: false,
             confirmButtonText: '확인',
-          }).then((result) => {})
-        })
+          }).then((result) => {});
+        });
 
-      this.img = URL.createObjectURL(file)
+      this.img = URL.createObjectURL(file);
     },
     // 캡션 수정중
     onEditCaption() {
-      this.selectedCaption.caption = this.custom.caption
-      this.selectedCaption.caption_kor = this.custom.caption_kor
-      this.isEditCaption = true
+      this.selectedCaption.caption = this.custom.caption;
+      this.selectedCaption.caption_kor = this.custom.caption_kor;
+      this.isEditCaption = true;
     },
     // 캡션 수정완료
     editCaption() {
-      this.custom.caption = this.selectedCaption.caption
-      this.custom.caption_kor = this.selectedCaption.caption_kor
-      this.clearCaption()
+      this.custom.caption = this.selectedCaption.caption;
+      this.custom.caption_kor = this.selectedCaption.caption_kor;
+      this.clearCaption();
     },
     // 캡션 수정 모달 비우기
     clearCaption() {
-      this.isEditCaption = false
-      this.selectedCaption.caption = ''
-      this.selectedCaption.caption_kor = ''
+      this.isEditCaption = false;
+      this.selectedCaption.caption = '';
+      this.selectedCaption.caption_kor = '';
     },
     // 단어 수정중
     onEditWord(index, target) {
-      this.selectedWord.target = target
-      this.selectedWord.index = index
+      this.selectedWord.target = target;
+      this.selectedWord.index = index;
       if (target == 'caption') {
-        this.selectedWord.word = this.custom.caption_word[index]
-        this.selectedWord.word_kor = this.custom.caption_word_kor[index]
+        this.selectedWord.word = this.custom.caption_word[index];
+        this.selectedWord.word_kor = this.custom.caption_word_kor[index];
       } else {
-        this.selectedWord.word = this.custom.seg_word[index]
-        this.selectedWord.word_kor = this.custom.seg_word_kor[index]
+        this.selectedWord.word = this.custom.seg_word[index];
+        this.selectedWord.word_kor = this.custom.seg_word_kor[index];
       }
-      this.isEditWord = true
+      this.isEditWord = true;
     },
     // 단어 수정완료
     editWord() {
-      var index = this.selectedWord.index
+      var index = this.selectedWord.index;
       if (this.selectedWord.target == 'caption') {
         for (let i = 0; i < this.seg_word_duplicate.length; i++) {
           if (this.custom.caption_word[index] == this.seg_word_duplicate[i]) {
@@ -398,18 +425,18 @@ export default {
         this.custom.caption_word[index] = this.selectedWord.word
         this.custom.caption_word_kor[index] = this.selectedWord.word_kor
       } else {
-        this.custom.seg_word[index] = this.selectedWord.word
-        this.custom.seg_word_kor[index] = this.selectedWord.word_kor
+        this.custom.seg_word[index] = this.selectedWord.word;
+        this.custom.seg_word_kor[index] = this.selectedWord.word_kor;
       }
-      this.clearWord()
+      this.clearWord();
     },
     // 단어 수정 모달 비우기
     clearWord() {
-      this.isEditWord = false
-      this.selectedWord.target = ''
-      this.selectedWord.index = ''
-      this.selectedWord.word = ''
-      this.selectedWord.word_kor = ''
+      this.isEditWord = false;
+      this.selectedWord.target = '';
+      this.selectedWord.index = '';
+      this.selectedWord.word = '';
+      this.selectedWord.word_kor = '';
     },
     // 캡션 단어와 세그 단어 중복시 수정 가능한 리스트에 안보여주는 대신 단방향 바인딩
     isDuplicate() {
@@ -431,7 +458,7 @@ export default {
       }
     },
   },
-}
+};
 </script>
 <style lang="scss">
 @import '../assets/sass/base.scss';

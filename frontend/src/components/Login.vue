@@ -353,7 +353,7 @@
   </div>
 </template>
 <script>
-import http from '../utils/http-common.js'
+import http from '../utils/http-common.js';
 export default {
   data: function () {
     return {
@@ -365,7 +365,7 @@ export default {
   },
   computed: {
     getToken() {
-      return this.$store.getters.getToken
+      return this.$store.getters.getToken;
     },
   },
   mounted() {
@@ -383,16 +383,16 @@ export default {
   },
   watch: {
     getToken(val, oldVal) {
-      if (this.$store.state.isNew) this.$emit('child', true)
+      if (this.$store.state.isNew) this.$emit('child', true);
       else {
         http
           .get('parents/' + this.$store.state.parent.id + '/kids', {
             headers: { 'X-AUTH-TOKEN': this.$store.state.token },
           })
           .then(({ data }) => {
-            if (data.length == 0) this.$router.push('/parent')
-            else this.$router.push('/selectkid')
-          })
+            if (data.length == 0) this.$router.push('/parent');
+            else this.$router.push('/selectkid');
+          });
       }
     },
   },
@@ -400,12 +400,13 @@ export default {
     kakaoLogin() {
       Kakao.Auth.login({
         success: this.kakaoLoginStore,
-      })
+      });
+      this.$store.commit('setIsTest', false);
     },
     kakaoLoginStore(authObj) {
       this.$store.dispatch('kakaoLogin', {
         access_token: authObj.access_token,
-      })
+      });
     },
     calculateSectionOffsets() {
       // 한 화면 크기 저장
@@ -452,7 +453,7 @@ export default {
       this.scrollToSection(this.activeSection, true)
     },
   },
-}
+};
 </script>
 <style lang="scss">
 @import '../assets/sass/base.scss';
