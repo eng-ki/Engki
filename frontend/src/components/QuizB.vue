@@ -7,7 +7,7 @@
         v-if="parseInt(i / 3) == j - 1"
       >
         <img
-          :src="'http://j3a510.p.ssafy.io/images/' + data.filePath"
+          :src="'https://j3a510.p.ssafy.io/images/' + data.filePath"
           class="img"
           :class="{ selected: selects[i].selected }"
           @click="select(i)"
@@ -50,9 +50,10 @@ export default {
         })
         .then((data) => {
           this.$store.commit('setQuizB', data.data);
+          this.setLocalVariable();
         });
     }
-    this.datas = this.$store.state.quiz_b;
+
     console.log(this.datas);
   },
   watch: {
@@ -64,6 +65,9 @@ export default {
     },
   },
   methods: {
+    setLocalVariable() {
+      this.datas = this.$store.state.quiz_b;
+    },
     isCorrect() {
       var count = 0;
       for (var data in this.datas.images) {

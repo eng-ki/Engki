@@ -25,9 +25,9 @@ export default {
     };
   },
   created() {
-    console.log('퀴즈A 시작');
     if (this.$store.state.is_test) {
       console.log('부모 테스트 - 커스텀 퀴즈일 때');
+      setLocalVariable();
     } else {
       if (this.$store.state.theme == 1) {
         console.log('그냥 커스텀 퀴즈');
@@ -53,16 +53,9 @@ export default {
             word_eng: data.data.word,
             word_kor: data.data.wordKor,
           });
+          this.setLocalVariable();
         });
     }
-    console.log('퀴즈A 끝');
-    this.quiz = {
-      url: this.$store.state.quiz.url,
-      word_eng: this.$store.state.quiz.word,
-      word_kor: this.$store.state.quiz.wordKor,
-    };
-    this.word = this.$store.state.quiz.word;
-    this.answer = this.$store.state.quiz.word;
     setVoiceList();
   },
   watch: {
@@ -73,19 +66,30 @@ export default {
     showKorean: function (val) {
       if (this.showKorean) {
         this.word = this.quiz.word_kor;
+        console.log('클릭됨 + ' + this.word);
       } else {
         this.word = this.quiz.word_eng;
+        console.log('원상복구 + ' + this.word);
       }
     },
   },
   methods: {
+    setLocalVariable() {
+      this.quiz = {
+        url: this.$store.state.quiz.url,
+        word_eng: this.$store.state.quiz.word,
+        word_kor: this.$store.state.quiz.word_kor,
+      };
+      this.word = this.$store.state.quiz.word;
+      this.answer = this.$store.state.quiz.word;
+    },
     soundAndTranslation(word) {
       setVoiceList();
       this.showKorean = true;
       speech(word);
       setTimeout(() => {
         this.showKorean = false;
-      }, 1000);
+      }, 500);
     },
   },
 };

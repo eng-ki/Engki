@@ -6,7 +6,6 @@
       <span>{{ quiz.sentence_kr }}</span>
     </div>
 
-    {{ answer }}
     <!-- 문장 영역 끝 -->
     <!-- 답변 영역 -->
     <div class="quiz-answer">
@@ -71,7 +70,7 @@ export default {
   created() {
     this.quiz = {
       url:
-        'http://j3a510.p.ssafy.io/images/' +
+        'https://j3a510.p.ssafy.io/images/' +
         this.$store.state.quiz_adv.filePath,
       sentence: this.$store.state.quiz_adv.caption,
       sentence_kr: this.$store.state.quiz_adv.captionKor,
