@@ -13,7 +13,7 @@ public interface CustomImageCaptionRepository extends JpaRepository<CustomImageC
 		nativeQuery = true)
 	CustomImageCaption getRandomByWord(String word, long parentId);
 
-	@Query(value = "select * from image_caption ic where ic.image_id = :imageId "
+	@Query(value = "select * from custom_image_caption cic where cic.image_id = :imageId "
 		+ "limit 1",
 		nativeQuery = true)
 	CustomImageCaption getOne(long imageId);
