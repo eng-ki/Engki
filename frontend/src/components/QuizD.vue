@@ -1,7 +1,8 @@
 <template>
   <div>
     <!-- 질문 영역 -->
-    <div class="quiz-question">
+    <div class="quiz-question" :class="{ quizQuestionLong: this.calculate() }">
+      <!-- <div class="quiz-question"> -->
       <span>
         {{ quiz.sentence[0] }}
         <span
@@ -48,11 +49,13 @@ export default {
   data: () => {
     return {
       quiz: {
-        url: '',
-        sentence: '',
-        word: '',
-        words: '',
+        url: "",
+        sentence: "",
+        word: "",
+        words: "",
       },
+      originSentence: "",
+      isLong: false,
       selectedIndex: -1,
       blank: '<span>&nbsp;&nbsp;</span>',
     };
@@ -124,7 +127,7 @@ export default {
             '<div><span style="font-weight:100; font-size:2vw;">정답이 아닙니다.</span><br><span  style="font-weight:100; font-size:2vw;">다시 한번 생각해보세요.</span></div>',
 
           showCancelButton: false,
-          confirmButtonText: '확인',
+          confirmButtonText: "확인",
           timer: 1000,
         }).then((result) => {
           return true;
@@ -152,7 +155,7 @@ export default {
 };
 </script>
 <style lang="scss">
-@import '../assets/sass/base.scss';
+@import "../assets/sass/base.scss";
 </style>
 <style lang="scss" scoped>
 .quiz-img img {
@@ -188,6 +191,22 @@ export default {
   display: inline-block;
   span {
     font-size: 2.5vw;
+  }
+}
+.quizQuestionLong {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 100%;
+  // margin-top: 3vh;
+  // margin-left: 1vw;
+  // height: 15vh;
+  // text-align: left;
+  // line-height: 10vh;
+  word-break: break-all;
+  display: inline-block;
+  span {
+    font-size: 2vw;
   }
 }
 
