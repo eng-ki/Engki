@@ -1,9 +1,9 @@
 <template>
   <div class="background">
     <img
-      src="../../public/img/icon/exit.png"
-      width="60vw"
-      style="float: right; margin-top: 3vh; margin-right: 3vw"
+      src="../../public/img/icon/exit (2).png"
+      width="90vw"
+      style="float: right; margin-top: 1vh; margin-right: 3vw"
       id="goKid"
       @click="goKid()"
     />

@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ quiz }}
     <!-- 질문 영역 -->
     <div class="quiz-question">
       <span>
