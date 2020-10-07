@@ -64,40 +64,52 @@ export default {
     };
   },
   created() {
-    this.quizapipath = '/edu/' + this.$store.state.quiz.id + '/captions';
-    // console.log('퀴즈4패스 : ' + this.quizapipath);
-    http
-      .get(this.quizapipath, {
-        headers: { 'X-AUTH-TOKEN': this.$store.state.token },
-      })
-      .then((data) => {
-        // console.log(data.data);
-        this.$store.commit('setQuizAdv', {
-          caption: data.data.caption,
-          captionKor: data.data.captionKor,
-          filePath: data.data.filePath,
-          randomCaptions: data.data.randomCaptions,
-          tokens: data.data.tokens,
+    if (this.$store.state.is_test) {
+      // 부모 테스트 - 커스텀 퀴즈일 때
+    } else {
+      if (this.$store.state.theme == 1) {
+        this.quizapipath =
+          '/custom/' +
+          this.$store.state.quiz.word +
+          '/captions/by/' +
+          this.$store.state.parent.id;
+      } else {
+        this.quizapipath = '/edu/' + this.$store.state.quiz.id + '/captions';
+      }
+      http
+        .get(this.quizapipath, {
+          headers: { 'X-AUTH-TOKEN': this.$store.state.token },
+        })
+        .then((data) => {
+          // console.log(data.data);
+          this.$store.commit('setQuizAdv', {
+            caption: data.data.caption,
+            captionKor: data.data.captionKor,
+            filePath: data.data.filePath,
+            randomCaptions: data.data.randomCaptions,
+            tokens: data.data.tokens,
+          });
+          const idx = data.data.randomWords.indexOf(
+            this.$store.state.quiz.word
+          );
+          data.data.randomWords.splice(idx, 1);
+
+          this.quiz = {
+            url:
+              'http://j3a510.p.ssafy.io/images/' +
+              this.$store.state.quiz_adv.filePath,
+            sentence: this.$store.state.quiz_adv.caption,
+            word: this.$store.state.quiz.word,
+            words: [
+              this.$store.state.quiz.word,
+              data.data.randomWords[0],
+              data.data.randomWords[1],
+              data.data.randomWords[2],
+            ],
+          };
+          this.quiz.sentence = this.quiz.sentence.split(' ');
         });
-
-        const idx = data.data.randomWords.indexOf(this.$store.state.quiz.word);
-        data.data.randomWords.splice(idx, 1);
-
-        this.quiz = {
-          url:
-            'http://j3a510.p.ssafy.io/images/' +
-            this.$store.state.quiz_adv.filePath,
-          sentence: this.$store.state.quiz_adv.caption,
-          word: this.$store.state.quiz.word,
-          words: [
-            this.$store.state.quiz.word,
-            data.data.randomWords[0],
-            data.data.randomWords[1],
-            data.data.randomWords[2],
-          ],
-        };
-        this.quiz.sentence = this.quiz.sentence.split(' ');
-      });
+    }
   },
   watch: {
     isDone: function (val) {
