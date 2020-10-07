@@ -12,4 +12,8 @@ public interface CustomImageCaptionRepository extends JpaRepository<CustomImageC
 	@Query("select cic from CustomImageCaption cic where cic.id.word = :word "
 		+ "and cic.id.imageId in (select ci.id from CustomImage ci where ci.parentId = :parentId)")
 	List<CustomImageCaption> getImagesOfWord(String word, long parentId);
+
+	@Query(value = "select * from image_caption ic where ic.image_id = :imageId limit 1",
+		nativeQuery = true)
+	CustomImageCaption getOne(long imageId);
 }

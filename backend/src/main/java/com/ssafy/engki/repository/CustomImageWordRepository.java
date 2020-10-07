@@ -16,4 +16,9 @@ public interface CustomImageWordRepository extends JpaRepository<CustomImageWord
 	@Query("select ciw from CustomImageWord ciw where ciw.id.word = :word "
 		+ "and ciw.id.imageId in (select ci.id from CustomImage ci where ci.parentId = :parentId)")
 	List<CustomImageWord> getImagesOfWord(String word, long parentId);
+
+	@Query("select ciw from CustomImageWord ciw where ciw.id.word = :word "
+		+ "and ciw.id.imageId <> :imageId "
+		+ "and ciw.id.imageId in (select ci.id from CustomImage ci where ci.parentId = :parentId)")
+	List<CustomImageWord> getImagesOfWordExceptImage(String word, long parentId, long imageId);
 }
