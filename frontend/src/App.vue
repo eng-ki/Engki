@@ -17,9 +17,9 @@
   color: #2c3e50;
 }
 
-#nav {
+/* #nav {
   padding: 30px;
-}
+} */
 
 #nav a {
   font-weight: bold;

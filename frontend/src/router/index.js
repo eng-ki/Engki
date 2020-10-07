@@ -8,6 +8,7 @@ import SelectQuizPage from '../views/SelectQuizPage.vue';
 import QuizPage from '../views/QuizPage.vue';
 import WebCam from '../views/WebCam.vue';
 // import Test from '../views/Test.vue';
+import store from '../store/index.js';
 
 Vue.use(VueRouter);
 
@@ -57,6 +58,13 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes,
+});
+
+// 로그인 후에 이용 가능
+router.beforeEach((to, from, next) => {
+  if (to.name !== 'LoginPage' && store.getters.getToken == null)
+    next({ name: 'LoginPage' });
+  else next();
 });
 
 export default router;

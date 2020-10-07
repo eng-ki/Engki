@@ -25,12 +25,12 @@ export default {
     };
   },
   created() {
-    console;
+    console.log('퀴즈A 시작');
     if (this.$store.state.is_test) {
-      // 부모 테스트 - 커스텀 퀴즈일 때
+      console.log('부모 테스트 - 커스텀 퀴즈일 때');
     } else {
       if (this.$store.state.theme == 1) {
-        // 그냥 커스텀 퀴즈
+        console.log('그냥 커스텀 퀴즈');
         this.quizapipath = '/custom/by/' + this.$store.state.parent.id;
       } else {
         this.quizapipath =
@@ -55,6 +55,7 @@ export default {
           });
         });
     }
+    console.log('퀴즈A 끝');
     this.quiz = {
       url: this.$store.state.quiz.url,
       word_eng: this.$store.state.quiz.word,

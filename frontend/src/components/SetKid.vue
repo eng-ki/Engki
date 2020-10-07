@@ -2,7 +2,15 @@
   <div class="background">
     <div class="box">
       <div class="innerbox">
-        <span class="page-title">자녀 등록</span>
+        <span class="page-title"
+          ><span id="tutorial-1" style="font-family: GmarketSansMedium"
+            >자녀 등록</span
+          ><img
+            @click="startTutorial()"
+            class="page-title-img"
+            id="tutorial"
+            src="../../public/img/icon/question-mark1.png"
+        /></span>
         <div class="parent-info-page">
           <div class="container page-text">
             <div class="row">
@@ -39,6 +47,109 @@
         </button>
       </div>
     </div>
+    <b-tooltip placement="right" target="tutorial" triggers="hover">
+      <span
+        style="font-family: GmarketSansMedium; color: #f2f2f2; font-size: 0.8vw"
+        >도움말</span
+      >
+    </b-tooltip>
+
+    <!-- 첫번째 튜토리얼 -->
+    <b-modal
+      modal-class="mymodal"
+      ref="my-modal1"
+      title-html="<span style='
+  padding: 1vw;font-family: GmarketSansMedium; color: #263747;'>자녀 등록</span>"
+      :hide-footer="isHideFooter"
+      header-border-variant="0"
+    >
+      <div class="modal-body">
+        <span>
+          자녀는 한 명 이상 필수로 등록해야 합니다.<br />
+          서비스를 이용할 자녀의 이름과 생년월일을 입력해주세요.
+        </span>
+      </div>
+      <div>
+        <div style="float: left; color: gray; padding-left: 1vw">
+          {{ stage }}/2
+        </div>
+        <div style="float: right">
+          <b-button
+            size="sm"
+            variant="primary"
+            :class="{ isButtonBlock: stage == 1 }"
+            @click="prevTutorial(stage)"
+          >
+            &lt; 이전
+          </b-button>
+          <b-button
+            size="sm"
+            variant="primary"
+            v-if="stage < limit"
+            @click="nextTutorial(stage)"
+          >
+            다음 >
+          </b-button>
+          <b-button
+            size="sm"
+            variant="primary"
+            v-else
+            @click="nextTutorial(stage)"
+          >
+            종료 >
+          </b-button>
+        </div>
+      </div>
+    </b-modal>
+    <!-- 첫번째 튜토리얼 끝-->
+
+    <!-- 두번째 튜토리얼 -->
+    <b-modal
+      ref="my-modal2"
+      title-html="<span style='
+  padding: 1vw;font-family: GmarketSansMedium; color: #263747;'>등록하기</span>"
+      :hide-footer="isHideFooter"
+      header-border-variant="0"
+    >
+      <div class="modal-body">
+        <span>
+          등록한 아이로 학습을 시작할 수 있습니다.<br />
+          부모페이지에서 아이의 학습 정보를 관리해보세요.
+        </span>
+      </div>
+      <div>
+        <div style="float: left; color: gray; padding-left: 1vw">
+          {{ stage }}/2
+        </div>
+        <div style="float: right">
+          <b-button
+            size="sm"
+            variant="primary"
+            :class="{ isButtonBlock: stage == 1 }"
+            @click="prevTutorial(stage)"
+          >
+            &lt; 이전
+          </b-button>
+          <b-button
+            size="sm"
+            variant="primary"
+            v-if="stage < limit"
+            @click="nextTutorial(stage)"
+          >
+            다음 >
+          </b-button>
+          <b-button
+            size="sm"
+            variant="primary"
+            v-else
+            @click="nextTutorial(stage)"
+          >
+            종료 >
+          </b-button>
+        </div>
+      </div>
+    </b-modal>
+    <!-- 첫번째 튜토리얼 끝-->
   </div>
 </template>
 <script>
@@ -54,38 +165,58 @@ export default {
         birthday: '',
         icon: '/img/icon/fairytale/001-knight.png',
       },
+      stage: 1,
+      limit: 2,
+      isHideFooter: true,
+      mymodal: ['mymodal'],
     };
   },
   methods: {
+    prevTutorial(stage) {
+      if (stage > 1) {
+        this.$refs['my-modal' + stage].hide();
+        this.stage--;
+        this.showTutorial(this.stage);
+      }
+    },
+    nextTutorial(stage) {
+      this.$refs['my-modal' + stage].hide();
+      if (stage < this.limit) {
+        this.stage++;
+        this.showTutorial(this.stage);
+      }
+    },
+    showTutorial(index) {
+      this.$refs['my-modal' + index].show();
+    },
+    startTutorial() {
+      this.stage = 1;
+      this.$refs['my-modal1'].show();
+    },
+
     register() {
       this.$swal({
         title:
           '<div style="font-family: GmarketSansMedium;font-size:2vw;">자녀를 등록하시겠습니까?</div>',
-        type: 'warning',
         showCancelButton: true,
         confirmButtonText: '등록',
         cancelButtonText: '취소',
         showCloseButton: true,
-        showLoaderOnConfirm: true,
       }).then((result) => {
         if (result.value) {
           if (this.kid.name.length == 0) {
             this.$swal({
               title:
                 '<div style="font-family: GmarketSansMedium;font-size:1vw;">이름을 입력해주세요</div>',
-              type: 'warning',
               showCancelButton: false,
               confirmButtonText: '확인',
-              showLoaderOnConfirm: true,
             }).then((result) => {});
           } else if (!this.isValidDate(this.kid.birthday)) {
             this.$swal({
               title:
-                '<div style="font-family: GmarketSansMedium;font-size:1vw;">메일을 형식에 맞게 입력해주세요</div>',
-              type: 'warning',
+                '<div style="font-family: GmarketSansMedium;font-size:1vw;">생일을 형식에 맞게 입력해주세요</div>',
               showCancelButton: false,
               confirmButtonText: '확인',
-              showLoaderOnConfirm: true,
             }).then((result) => {});
           } else {
             http
@@ -111,65 +242,13 @@ export default {
     returnParentPage() {
       this.$emit('returnParentPage');
     },
-    isDateFormat(d) {
-      var df = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
-      return d.match(df);
-    },
-    isLeaf(year) {
-      var leaf = false;
-
-      if (year % 4 == 0) {
-        leaf = true;
-
-        if (year % 100 == 0) {
-          leaf = false;
-        }
-
-        if (year % 400 == 0) {
-          leaf = true;
-        }
-      }
-
-      return leaf;
-    },
-    isValidDate(d) {
-      // 포맷에 안맞으면 false리턴
-      if (!this.isDateFormat(d)) {
-        return false;
-      }
-
-      var month_day = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
-      var dateToken = d.split('-');
-      var year = Number(dateToken[0]);
-      var month = Number(dateToken[1]);
-      var day = Number(dateToken[2]);
-
-      // 날짜가 0이면 false
-      if (day == 0) {
-        return false;
-      }
-
-      var isValid = false;
-
-      // 윤년일때
-      if (this.isLeaf(year)) {
-        if (month == 2) {
-          if (day <= month_day[month - 1] + 1) {
-            isValid = true;
-          }
-        } else {
-          if (day <= month_day[month - 1]) {
-            isValid = true;
-          }
-        }
-      } else {
-        if (day <= month_day[month - 1]) {
-          isValid = true;
-        }
-      }
-
-      return isValid;
+    isValidDate(dateString) {
+      var regEx = /^\d{4}-\d{2}-\d{2}$/;
+      if (!dateString.match(regEx)) return false; // Invalid format
+      var d = new Date(dateString);
+      var dNum = d.getTime();
+      if (!dNum && dNum !== 0) return false; // NaN value, Invalid date
+      return d.toISOString().slice(0, 10) === dateString;
     },
   },
 };
@@ -180,6 +259,7 @@ export default {
 <style lang="scss" scoped>
 * {
   color: black;
+  font-family: GmarketSansMedium;
 }
 .background .box {
   background-color: rgba(255, 255, 255, 0.6);
@@ -215,6 +295,14 @@ export default {
   font-family: GmarketSansMedium;
 }
 
+.page-title .page-title-img {
+  width: 4%;
+  margin-left: 1vw;
+  margin-bottom: 1vh;
+  &:hover {
+    opacity: 0.6;
+  }
+}
 /* 회원가입 내용 */
 .innerbox .page-text {
   text-align: left;
@@ -284,7 +372,27 @@ export default {
   background-color: #ff9a00;
 }
 
-// .return-button {
-//   margin-left: 18vw;
-// }
+.tutorial {
+  background-color: #f2f2f2;
+}
+
+.isButtonBlock {
+  opacity: 0.6;
+  pointer-events: none;
+}
+.modal-body {
+  margin-top: -2vw;
+  margin-bottom: 1vw;
+}
+
+.modal-body span {
+  color: #263747;
+  opacity: 0.9;
+}
+
+.mymodal > div {
+  position: fixed !important;
+  top: 0 !important;
+  left: -23vw !important;
+}
 </style>

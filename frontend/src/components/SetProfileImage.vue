@@ -1,5 +1,18 @@
 <template>
   <div class="background">
+    <img
+      v-if="!isChangeProfile"
+      @click="startTutorial()"
+      class="page-title-img"
+      id="tutorial"
+      src="../../public/img/icon/question-mark1.png"
+    />
+    <b-tooltip placement="top" target="tutorial" triggers="hover">
+      <span
+        style="font-family: GmarketSansMedium; color: #f2f2f2; font-size: 0.8vw"
+        >도움말</span
+      >
+    </b-tooltip>
     <div class="box">
       <div class="innerbox">
         <div class="profile-icon">
@@ -55,10 +68,101 @@
         </div>
       </div>
     </div>
+    <!-- 첫번째 튜토리얼 -->
+    <b-modal
+      modal-class="mymodal"
+      ref="my-modal1"
+      title-html="<span style='
+  padding: 1vw;font-family: GmarketSansMedium; color: #263747;'>캐릭터 변경하기</span>"
+      :hide-footer="isHideFooter"
+      header-border-variant="0"
+    >
+      <div class="modal-body">
+        <span>
+          퀴즈를 풀고 얻은 경험치로 캐릭터를 변경해보세요.<br />
+          경험치 100을 쌓으면 레벨업을 할 수 있습니다.<br />
+          1부터 50까지의 레벨에 따라 캐릭터가 개방됩니다.
+        </span>
+      </div>
+      <div>
+        <div class="modal-foot">{{ stage }}/{{ limit }}</div>
+        <div class="modal-foot2">
+          <b-button
+            size="sm"
+            variant="primary"
+            :class="{ isButtonBlock: stage == 1 }"
+            @click="prevTutorial(stage)"
+          >
+            &lt; 이전
+          </b-button>
+          <b-button
+            size="sm"
+            variant="primary"
+            v-if="stage < limit"
+            @click="nextTutorial(stage)"
+          >
+            다음 >
+          </b-button>
+          <b-button
+            size="sm"
+            variant="primary"
+            v-else
+            @click="nextTutorial(stage)"
+          >
+            종료 >
+          </b-button>
+        </div>
+      </div>
+    </b-modal>
+    <!-- 첫번째 튜토리얼 끝-->
+
+    <!-- 두번째 튜토리얼 -->
+    <b-modal
+      :modal-class="profilemodal"
+      ref="my-modal2"
+      title-html="<span style='
+  padding: 1vw;font-family: GmarketSansMedium; color: #263747;'>돌아가기</span>"
+      :hide-footer="isHideFooter"
+      header-border-variant="0"
+      ><div class="arrow-left"></div>
+      <div class="modal-body">
+        <span> 이곳을 클릭하면 마이페이지로 돌아갈 수 있습니다.<br /> </span>
+      </div>
+      <div>
+        <div class="modal-foot">{{ stage }}/{{ limit }}</div>
+        <div class="modal-foot2">
+          <b-button
+            size="sm"
+            variant="primary"
+            :class="{ isButtonBlock: stage == 1 }"
+            @click="prevTutorial(stage)"
+          >
+            &lt; 이전
+          </b-button>
+          <b-button
+            size="sm"
+            variant="primary"
+            v-if="stage < limit"
+            @click="nextTutorial(stage)"
+          >
+            다음 >
+          </b-button>
+          <b-button
+            size="sm"
+            variant="primary"
+            v-else
+            @click="nextTutorial(stage)"
+          >
+            종료 >
+          </b-button>
+        </div>
+      </div>
+    </b-modal>
+    <!-- 두번째 튜토리얼 끝-->
   </div>
 </template>
 <script>
-import http from '../utils/http-common.js';
+import http from '../utils/http-common.js'
 export default {
   name: 'SetProfileImage',
   props: {
@@ -124,21 +228,46 @@ export default {
       max: 100,
       timer: null,
       isChangeProfile: false,
-    };
+      stage: 1,
+      limit: 2,
+      isHideFooter: true,
+      profilemodal: ['profilemodal'],
+    }
   },
   mounted() {
-    this.selectedIndex = this.fairytale.indexOf(this.$store.state.kid.icon);
-    this.level = this.kid.exp / 100 - (this.kid.exp % 100) / 100;
+    this.selectedIndex = this.fairytale.indexOf(this.$store.state.kid.icon)
+    this.level = this.kid.exp / 100 - (this.kid.exp % 100) / 100
     this.timer = setInterval(() => {
       if (this.value == this.kid.exp % 100) {
-        clearInterval(this.timer);
-        this.timer = null;
-      } else this.value = this.value + 1;
-    }, 30);
+        clearInterval(this.timer)
+        this.timer = null
+      } else this.value = this.value + 1
+    }, 30)
   },
   methods: {
+    prevTutorial(stage) {
+      if (stage > 1) {
+        this.$refs['my-modal' + stage].hide()
+        this.stage--
+        this.showTutorial(this.stage)
+      }
+    },
+    nextTutorial(stage) {
+      this.$refs['my-modal' + stage].hide()
+      if (stage < this.limit) {
+        this.stage++
+        this.showTutorial(this.stage)
+      }
+    },
+    showTutorial(index) {
+      this.$refs['my-modal' + index].show()
+    },
+    startTutorial() {
+      this.stage = 1
+      this.$refs['my-modal1'].show()
+    },
     returnKidPage() {
-      this.$emit('returnKidPage', this.fairytale[this.selectedIndex]);
+      this.$emit('returnKidPage', this.fairytale[this.selectedIndex])
     },
     setProfileImage() {
       this.$swal({
@@ -160,22 +289,29 @@ export default {
               }
             )
             .then(({ data }) => {
-              this.$store.state.kid.icon = this.fairytale[this.selectedIndex];
-              this.returnKidPage();
-            });
+              this.$store.state.kid.icon = this.fairytale[this.selectedIndex]
+              this.returnKidPage()
+            })
         }
-      });
+      })
     },
     selectProfileImage(num) {
       if (this.level >= num) {
-        this.selectedIndex = num;
-        this.profileImage = this.fairytale[this.selectedIndex];
+        this.selectedIndex = num
+        this.profileImage = this.fairytale[this.selectedIndex]
       }
     },
   },
-};
+}
 </script>
 
+<style>
+.profilemodal > div {
+  position: absolute !important;
+  bottom: 3vh !important;
+  left: 15vw !important;
+}
+</style>
 <style lang="scss">
 @import '../assets/sass/base.scss';
 </style>
@@ -242,5 +378,48 @@ export default {
 
 .block {
   opacity: 0.3;
+}
+
+.page-title-img {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 3%;
+  margin-top: 3vh;
+  margin-right: 3vw;
+  &:hover {
+    opacity: 0.6;
+  }
+  z-index: 1000;
+}
+
+.isButtonBlock {
+  opacity: 0.6;
+  pointer-events: none;
+}
+.modal-body {
+  margin-top: -2vw;
+  margin-bottom: 1vw;
+}
+
+.modal-body span {
+  color: #263747;
+  opacity: 0.9;
+  font-family: GmarketSansMedium;
+}
+.modal-foot {
+  float: left;
+  color: gray;
+  padding-left: 1vw;
+  font-family: GmarketSansMedium;
+}
+.modal-foot2 {
+  float: right;
+  font-family: GmarketSansMedium;
+}
+.mymodal > div {
+  position: fixed !important;
+  top: 0 !important;
+  left: -23vw !important;
 }
 </style>

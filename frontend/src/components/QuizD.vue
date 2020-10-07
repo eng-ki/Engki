@@ -2,22 +2,16 @@
   <div>
     <!-- 질문 영역 -->
     <div class="quiz-question">
-      <span v-for="(word, index) in quiz.sentence" v-bind:key="index">
-        <!-- 질문 빈칸 영역 -->
+      <span>
+        {{ quiz.sentence[0] }}
         <span
           class="quiz-blank"
-          v-if="
-            word == quiz.word ||
-            word == quiz.word + 's' ||
-            word == quiz.word + 'es'
-          "
+          v-for="i in quiz.word.length"
+          v-bind:key="'A' + i"
+          v-html="blank"
         >
-          <span
-            ><span v-for="i in word.length" v-bind:key="i" v-html="blank"></span
-          ></span>
         </span>
-        <span v-else>&nbsp;{{ word }}&nbsp;</span>
-        <!-- 질문 빈칸 영역 끝 -->
+        {{ quiz.sentence[1] }}
       </span>
     </div>
     <!-- 질문 영역 끝 -->
@@ -98,7 +92,10 @@ export default {
             url:
               'http://j3a510.p.ssafy.io/images/' +
               this.$store.state.quiz_adv.filePath,
-            sentence: this.$store.state.quiz_adv.caption,
+            sentence: this.insertSpanTag(
+              this.$store.state.quiz_adv.caption,
+              this.$store.state.quiz.word
+            ),
             word: this.$store.state.quiz.word,
             words: [
               this.$store.state.quiz.word,
@@ -107,7 +104,6 @@ export default {
               data.data.randomWords[2],
             ],
           };
-          this.quiz.sentence = this.quiz.sentence.split(' ');
         });
     }
   },
@@ -138,6 +134,19 @@ export default {
     },
     select(index) {
       this.selectedIndex = index;
+    },
+    insertSpanTag(caption, word) {
+      const regexp = new RegExp(
+        `${this.$store.state.quiz.word}(es)?(s)?`,
+        'gi'
+      );
+      regexp.test(caption);
+
+      const before = caption.indexOf(word);
+      const after = regexp.lastIndex;
+
+      const inserted = [caption.substring(0, before), caption.substring(after)];
+      return inserted;
     },
   },
 };
@@ -188,6 +197,7 @@ export default {
   border-bottom: 0.3vw solid #393939;
   color: #393939;
 }
+
 .quiz-answer {
   position: absolute;
   top: 10vh;

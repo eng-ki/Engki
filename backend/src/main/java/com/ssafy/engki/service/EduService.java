@@ -1,14 +1,12 @@
 package com.ssafy.engki.service;
 
+import static com.ssafy.engki.service.Util.*;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 import org.springframework.stereotype.Service;
 
@@ -54,12 +52,15 @@ public class EduService {
 		if (!words.isEmpty()) {
 			word = words.get(rand.nextInt(words.size()));
 		} else { // 배우지 않은 단어가 없음
-			// 2. 가장 오래전에 배운 단어 고르기
-			word = wordRepository.getOldestLearnedWord(themeId, kidId);
+			// 2. 랜덤 단어 고르기
+			word = wordRepository.getRandomWordByTheme(themeId);
 		}
 
 		// 이 단어에 해당하는 사진 중, 이 단어만 있는 사진(다른 word가 없는 것) 고르기
 		List<Image> images = imageRepository.getOneObjectImagesOfWord(word.getId());
+		if (images.isEmpty()) {
+			images = imageRepository.getAllByWordId(word.getId());
+		}
 		Image image = images.get(rand.nextInt(images.size()));
 
 		return EduDto.Word.builder()
@@ -77,7 +78,7 @@ public class EduService {
 
 		// word의 이미지 최대 3개
 		List<Image> wordImages = imageRepository.getOneObjectImagesOfWord(wordId);
-		getRandomNumbers(3, wordImages.size()).forEach(idx ->
+		Util.getRandomNumbers(3, wordImages.size()).forEach(idx ->
 			response.getImages().add(EduDto.Image.builder()
 				.word(word.getWord())
 				.wordKor(word.getWordKor())
@@ -89,7 +90,7 @@ public class EduService {
 		// word와 같은 theme의 이미지 중, wordId가 아닌 이미지 (6 - word 이미지 개수) 개
 		List<ImageWord> notWordImages = imageWordRepository.getOneObjectImagesFromThemeNotWord(word.getThemeId(),
 			wordId);
-		getRandomNumbers(6 - response.getAnswerNum(), notWordImages.size()).forEach(idx ->
+		Util.getRandomNumbers(6 - response.getAnswerNum(), notWordImages.size()).forEach(idx ->
 			response.getImages().add(EduDto.Image.builder()
 				.word(notWordImages.get(idx).getWord().getWord())
 				.wordKor(notWordImages.get(idx).getWord().getWordKor())
@@ -130,14 +131,14 @@ public class EduService {
 		List<Word> wordsExceptWord
 			= wordRepository.getWordsByThemeExceptWord(imageCaption.getWord().getThemeId(),
 			imageCaption.getWord().getId());
-		getRandomNumbers(3, wordsExceptWord.size()).forEach(idx ->
+		Util.getRandomNumbers(3, wordsExceptWord.size()).forEach(idx ->
 			randomWords.add(wordsExceptWord.get(idx).getWord())
 		);
 		Collections.shuffle(randomWords);
 
-		List<String> captionsExceptWord = imageCaptionRepository.findExceptWord(wordId);
+		List<String> captionsExceptWord = imageCaptionRepository.findExceptImage(imageCaption.getId().getImageId());
 		List<String> randomCaptions = new ArrayList<>(Collections.singletonList(imageCaption.getCaption()));
-		getRandomNumbers(3, captionsExceptWord.size()).forEach(idx ->
+		Util.getRandomNumbers(3, captionsExceptWord.size()).forEach(idx ->
 			randomCaptions.add(captionsExceptWord.get(idx))
 		);
 		Collections.shuffle(randomCaptions);
@@ -152,43 +153,23 @@ public class EduService {
 			.build();
 	}
 
-	private List<EduDto.Token> tokenize(String caption) {
-		caption = caption.replace(".", ""); //. 없애기
-		List<EduDto.Token> tokens = new ArrayList<>();
-
-		String[] splitCaption = caption.split(" ");
-		for (int i = 0; i < splitCaption.length; i++) {
-			tokens.add(new EduDto.Token(splitCaption[i], i));
-		}
-
-		Collections.shuffle(tokens, new Random(System.currentTimeMillis()));
-
-		return tokens;
-	}
-
 	public void completeStudy(long kidId, EduDto.Request studyInfo) {
+		Kid kid = kidRepository.getOne(kidId);
+		kid.addExp(studyInfo.getExp());
+		kidRepository.save(kid);
+
 		KidWord kidWord = KidWord.builder()
 			.kidId(kidId)
 			.word(Word.builder().id(studyInfo.getWordId()).build())
 			.studiedDate(new Date())
 			.build();
-		kidWordRepository.save(kidWord);
 
-		Kid kid = kidRepository.getOne(kidId);
-		kid.addExp(studyInfo.getExp());
-		kidRepository.save(kid);
-	}
-
-	private Stream<Integer> getRandomNumbers(int count, int upperbound) {
-		if (upperbound < count) {
-			return IntStream.range(0, upperbound).boxed();
+		try {
+			kidWordRepository.save(kidWord);
+		} catch (Exception e) {
+			if (!e.getMessage().contains("constraint [kid_word_date_uq]")) { // 중복 단어 배제(에러아님)
+				throw e;
+			}
 		}
-
-		Random rand = new Random(System.currentTimeMillis());
-		Set<Integer> set = new HashSet<>();
-		while (set.size() < count) {
-			set.add(rand.nextInt(upperbound));
-		}
-		return set.stream();
 	}
 }

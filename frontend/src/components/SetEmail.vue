@@ -2,8 +2,25 @@
   <div class="background">
     <div class="box">
       <div class="innerbox">
-        <span v-if="from == 'parent'" class="page-title">내 정보</span>
-        <span v-else class="page-title">이메일 정보 수집</span>
+        <span v-if="from == 'parent'" class="page-title"
+          >내 정보
+
+          <img
+            @click="startTutorial()"
+            class="page-title-img"
+            id="tutorial"
+            src="../../public/img/icon/question-mark1.png"
+          />
+        </span>
+        <span v-else class="page-title"
+          >이메일 정보 수집
+          <img
+            @click="startTutorial()"
+            class="page-title-img"
+            id="tutorial"
+            src="../../public/img/icon/question-mark1.png"
+          />
+        </span>
         <button v-if="from == 'parent'" @click="deleteInfo()" class="delete">
           탈퇴하기
         </button>
@@ -82,6 +99,152 @@
         </div>
       </div>
     </div>
+    <b-tooltip placement="right" target="tutorial" triggers="hover">
+      <span
+        style="font-family: GmarketSansMedium; color: #f2f2f2; font-size: 0.8vw"
+        >도움말</span
+      >
+    </b-tooltip>
+    <!-- 첫번째 튜토리얼 -->
+    <b-modal
+      modal-class="mymodal"
+      ref="my-modal1"
+      title-html="<span style='
+  padding: 1vw;font-family: GmarketSansMedium; color: #263747;'>내 정보</span>"
+      :hide-footer="isHideFooter"
+      header-border-variant="0"
+    >
+      <div class="modal-body">
+        <span>
+          부모님의 이름, 이메일 정보를 이곳에서 수정할 수 있습니다.<br />
+          또한 자녀의 학습 보고서 수신 여부를 수정할 수 있습니다.
+        </span>
+      </div>
+      <div>
+        <div class="modal-foot">{{ stage }}/{{ limit }}</div>
+        <div class="modal-foot2">
+          <b-button
+            size="sm"
+            variant="primary"
+            :class="{ isButtonBlock: stage == 1 }"
+            @click="prevTutorial(stage)"
+          >
+            &lt; 이전
+          </b-button>
+          <b-button
+            size="sm"
+            variant="primary"
+            v-if="stage < limit"
+            @click="nextTutorial(stage)"
+          >
+            다음 >
+          </b-button>
+          <b-button
+            size="sm"
+            variant="primary"
+            v-else
+            @click="nextTutorial(stage)"
+          >
+            종료 >
+          </b-button>
+        </div>
+      </div>
+    </b-modal>
+    <!-- 첫번째 튜토리얼 끝-->
+
+    <!-- 두번째 튜토리얼 -->
+    <b-modal
+      ref="my-modal2"
+      title-html="<span style='
+  padding: 1vw;font-family: GmarketSansMedium; color: #263747;'>탈퇴하기</span>"
+      :hide-footer="isHideFooter"
+      header-border-variant="0"
+    >
+      <div class="modal-body">
+        <span>
+          우측 하단의 탈퇴 버튼을 누르면 회원 정보가 영구 삭제됩니다.<br />
+          모든 자녀의 데이터도 함께 삭제되니 신중히 결정해주세요.<br />
+        </span>
+      </div>
+      <div>
+        <div class="modal-foot">{{ stage }}/{{ limit }}</div>
+        <div class="modal-foot2">
+          <b-button
+            size="sm"
+            variant="primary"
+            :class="{ isButtonBlock: stage == 1 }"
+            @click="prevTutorial(stage)"
+          >
+            &lt; 이전
+          </b-button>
+          <b-button
+            size="sm"
+            variant="primary"
+            v-if="stage < limit"
+            @click="nextTutorial(stage)"
+          >
+            다음 >
+          </b-button>
+          <b-button
+            size="sm"
+            variant="primary"
+            v-else
+            @click="nextTutorial(stage)"
+          >
+            종료 >
+          </b-button>
+        </div>
+      </div>
+    </b-modal>
+    <!-- 두번째 튜토리얼 끝-->
+
+    <!-- 처음 가입했을 때 첫번째 튜토리얼 -->
+    <b-modal
+      modal-class="mymodal"
+      ref="first-modal"
+      title-html="<span style='
+  padding: 1vw;font-family: GmarketSansMedium; color: #263747;'>이메일 정보 수집</span>"
+      :hide-footer="isHideFooter"
+      header-border-variant="0"
+    >
+      <div class="modal-body">
+        <span>
+          부모님의 이름, 이메일 정보, 이메일 수신 여부를 선택한 뒤<br />
+          가입하기 버튼을 누르면 서비스를 이용할 수 있습니다.<br />
+          부모님의 정보는 이후 언제든지 수정할 수 있습니다.
+        </span>
+      </div>
+      <div>
+        <div class="modal-foot">{{ stage }}/{{ limit }}</div>
+        <div class="modal-foot2">
+          <b-button
+            size="sm"
+            variant="primary"
+            :class="{ isButtonBlock: stage == 1 }"
+            @click="prevTutorial(stage)"
+          >
+            &lt; 이전
+          </b-button>
+          <b-button
+            size="sm"
+            variant="primary"
+            v-if="stage < limit"
+            @click="nextTutorial(stage)"
+          >
+            다음 >
+          </b-button>
+          <b-button
+            size="sm"
+            variant="primary"
+            v-else
+            @click="nextTutorial(stage)"
+          >
+            종료 >
+          </b-button>
+        </div>
+      </div>
+    </b-modal>
+    <!-- 첫번째 튜토리얼 끝-->
   </div>
 </template>
 <script>
@@ -98,6 +261,10 @@ export default {
         email: '',
         receiveEmailFlag: true,
       },
+      stage: 1,
+      limit: this.$store.state.isNew ? 1 : 2,
+      isHideFooter: true,
+      mymodal: ['mymodal'],
     };
   },
   created() {
@@ -111,17 +278,48 @@ export default {
       });
   },
   methods: {
+    prevTutorial(stage) {
+      if (stage > 1) {
+        if (this.from == null) {
+          this.$refs['first-modal'].hide();
+        } else {
+          this.$refs['my-modal' + stage].hide();
+        }
+        this.stage--;
+
+        this.showTutorial(this.stage);
+      }
+    },
+    nextTutorial(stage) {
+      if (this.from == null) {
+        this.$refs['first-modal'].hide();
+      } else {
+        this.$refs['my-modal' + stage].hide();
+      }
+      if (stage < this.limit) {
+        this.stage++;
+        this.showTutorial(this.stage);
+      }
+    },
+    showTutorial(index) {
+      if (this.from == null) {
+        this.$refs['first-modal'].show();
+      } else this.$refs['my-modal' + index].show();
+    },
+    startTutorial() {
+      this.stage = 1;
+      if (this.from == null) {
+        this.$refs['first-modal'].show();
+      } else this.$refs['my-modal1'].show();
+    },
     deleteInfo() {
       this.$swal({
         title:
           '<div style="font-family: GmarketSansMedium;font-size:2vw;">탈퇴하시겠습니까?<br><span style="font-family: GmarketSansMedium;font-size:1vw;">모든 데이터가 영구적으로 삭제됩니다.</span></div>',
-
-        type: 'warning',
         showCancelButton: true,
         confirmButtonText: '확인',
         cancelButtonText: '취소',
         showCloseButton: true,
-        showLoaderOnConfirm: true,
       }).then((result) => {
         if (result.value) {
           http
@@ -141,12 +339,10 @@ export default {
         this.$swal({
           title:
             '<div style="font-family: GmarketSansMedium;font-size:2vw;">이메일을 등록하시겠습니까?</div>',
-          type: 'warning',
           showCancelButton: true,
           confirmButtonText: '확인',
           cancelButtonText: '취소',
           showCloseButton: true,
-          showLoaderOnConfirm: true,
         }).then((result) => {
           if (result.value) {
             http
@@ -173,12 +369,10 @@ export default {
         this.$swal({
           title:
             '<div style="font-family: GmarketSansMedium;font-size:2vw;">이메일을 수정하시겠습니까?</div>',
-          type: 'warning',
           showCancelButton: true,
           confirmButtonText: '확인',
           cancelButtonText: '취소',
           showCloseButton: true,
-          showLoaderOnConfirm: true,
         }).then((result) => {
           if (result.value) {
             http
@@ -360,5 +554,43 @@ export default {
       }
     }
   }
+}
+
+.page-title .page-title-img {
+  width: 4%;
+  margin-bottom: 1vh;
+  &:hover {
+    opacity: 0.6;
+  }
+}
+
+.isButtonBlock {
+  opacity: 0.6;
+  pointer-events: none;
+}
+.modal-body {
+  margin-top: -2vw;
+  margin-bottom: 1vw;
+}
+
+.modal-body span {
+  color: #263747;
+  opacity: 0.9;
+  font-family: GmarketSansMedium;
+}
+.modal-foot {
+  float: left;
+  color: gray;
+  padding-left: 1vw;
+  font-family: GmarketSansMedium;
+}
+.modal-foot2 {
+  float: right;
+  font-family: GmarketSansMedium;
+}
+.mymodal > div {
+  position: fixed !important;
+  top: 0 !important;
+  left: -23vw !important;
 }
 </style>

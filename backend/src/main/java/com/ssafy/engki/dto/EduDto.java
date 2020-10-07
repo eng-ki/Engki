@@ -80,7 +80,7 @@ public class EduDto {
 		@ApiModelProperty(value = "classified image file path", example = "outputs/bicycle\\bicycle1_class_bicycle.png")
 		private String segFilePath;
 
-		@ApiModelProperty(value = "classified image의 word", example = "bicycle")
+		@ApiModelProperty(value = "보기로 사용할 랜덤 단어", example = "car")
 		private String randomWord;
 	}
 
