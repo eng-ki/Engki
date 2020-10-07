@@ -52,8 +52,8 @@ public class EduService {
 		if (!words.isEmpty()) {
 			word = words.get(rand.nextInt(words.size()));
 		} else { // 배우지 않은 단어가 없음
-			// 2. 가장 오래전에 배운 단어 고르기
-			word = wordRepository.getOldestLearnedWord(themeId, kidId);
+			// 2. 랜덤 단어 고르기
+			word = wordRepository.getWordsByTheme(themeId);
 		}
 
 		// 이 단어에 해당하는 사진 중, 이 단어만 있는 사진(다른 word가 없는 것) 고르기
