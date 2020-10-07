@@ -60,26 +60,26 @@
   </div>
 </template>
 <script>
-import http from '../utils/http-common.js';
+import http from "../utils/http-common.js";
 export default {
   props: {
     option: String,
   },
   created() {
-    if (this.option == 'quiz') {
-      this.msg = '학습할 주제를 선택하세요';
-      this.path = '/edu';
-    } else if (this.option == 'kid') {
-      this.$store.commit('setKid', null);
+    if (this.option == "quiz") {
+      this.msg = "학습할 주제를 선택하세요";
+      this.path = "/edu";
+    } else if (this.option == "kid") {
+      this.$store.commit("setKid", null);
       // console.log('초기화하고나서 스토어 kid값 조회 : ' + this.$store.state.kid)
-      this.msg = '학습을 시작할 프로필을 고르세요';
-      this.path = '/parents/' + this.$store.state.parent.id + '/kids';
-      this.imgpath = '';
+      this.msg = "학습을 시작할 프로필을 고르세요";
+      this.path = "/parents/" + this.$store.state.parent.id + "/kids";
+      this.imgpath = "";
     }
     // console.log('path : ' + this.path)
     http
       .get(this.path, {
-        headers: { 'X-AUTH-TOKEN': this.$store.state.token },
+        headers: { "X-AUTH-TOKEN": this.$store.state.token },
       })
       .then(({ data }) => {
         this.datas = data;
@@ -100,9 +100,9 @@ export default {
   },
   data: function () {
     return {
-      path: '',
-      imgpath: '/img/icon/',
-      msg: '',
+      path: "",
+      imgpath: "/img/icon/",
+      msg: "",
       datas: [],
       currentOffset: 0,
       windowSize: ($(window).width() * 0.7) / ($(window).height() * 0.31), // carousel에 띄워줄 아이콘 갯수! <- 반응형으로 할거면 화면에 몇개 나오는지 계산해서 여기 넣어야 공백 안생길듯
@@ -111,14 +111,14 @@ export default {
   },
   methods: {
     returnID(index) {
-      if (this.option == 'quiz') {
-        if (this.datas[index].id == 6) {
+      if (this.option == "quiz") {
+        if (this.datas[index].id == 7) {
           this.$swal({
             title:
               '<div style="font-family: GmarketSansMedium;font-size:1vw;">서비스 준비중입니다</div>',
-            type: 'warning',
+            type: "warning",
             showCancelButton: false,
-            confirmButtonText: '확인',
+            confirmButtonText: "확인",
             showLoaderOnConfirm: true,
           }).then((result) => {});
         } else if (this.datas[index].id == 7) {
@@ -126,22 +126,22 @@ export default {
           // 일단 1~5로 지정해둠
           var num = (Math.round(Math.random() * 100) % 5) + 1;
           // console.log('랜덤주제 : ' + num)
-          this.$store.commit('setQuiz', num);
-          this.$router.push('/quiz');
+          this.$store.commit("setQuiz", num);
+          this.$router.push("/quiz");
           // 랜덤주제
         } else {
-          this.$store.commit('setQuiz', this.datas[index].id);
+          this.$store.commit("setQuiz", this.datas[index].id);
           // console.log(
           //   '버튼 클릭후 스토어 quiz값 조회 : ' + this.$store.state.quiz
           // )
-          this.$router.push('/quiz');
+          this.$router.push("/quiz");
         }
-      } else if (this.option == 'kid') {
-        this.$store.commit('setKid', this.datas[index]);
+      } else if (this.option == "kid") {
+        this.$store.commit("setKid", this.datas[index]);
         // console.log(
         //   '버튼 클릭후 스토어 kid값 조회 : ' + this.$store.state.kid.name
         // );
-        this.$router.push('/kid');
+        this.$router.push("/kid");
       }
     },
     moveCarousel(direction) {
@@ -152,16 +152,16 @@ export default {
       }
     },
     gotoparent() {
-      this.$router.push('/parent');
+      this.$router.push("/parent");
     },
     gotomypage() {
-      this.$router.push('/kid');
+      this.$router.push("/kid");
     },
   },
 };
 </script>
 <style lang="scss">
-@import '../assets/sass/base.scss';
+@import "../assets/sass/base.scss";
 </style>
 <style lang="scss" scoped>
 .background .box {
