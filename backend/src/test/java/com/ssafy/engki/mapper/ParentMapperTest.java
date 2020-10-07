@@ -11,7 +11,7 @@ class ParentMapperTest {
 
 	@Test
 	void toInfo() {
-		Parent parent = new Parent(123456789, "name", "email", true, null);
+		Parent parent = new Parent(123456789, "name", "email", true, null, null);
 		ParentDto.ParentInfo parentInfo = ParentMapper.INSTANCE.to(parent);
 
 		assertEquals(parentInfo.getId(), parent.getId());
