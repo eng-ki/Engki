@@ -135,7 +135,7 @@ def custom():
     parent_id = request.form['parent_id']
     in_path, out_path, seg_word = seg(filestr, parent_id)
     sentence, caption_word = captions(in_path)
-
+    # reformat_Image(filestr)
     value = {
         'file_path': in_path,
         'boundaries': out_path,
@@ -236,10 +236,30 @@ def seg(filestr, parents_id):
         datetime.today().strftime("%m%d%H%M%S") + '.jpg'
     filestr.save(os.path.join(uploads_dir, secure_filename(filename)))
     in_path = uploads_dir + "/" + filename
-
+    reformat_Image(in_path)
     out_path, word = segmetation.custom_segmentation(in_path)
 
     return in_path, out_path, word
+
+
+def reformat_Image(ImageFilePath):
+
+    from PIL import Image
+    image = Image.open(ImageFilePath, 'r')
+    image_size = image.size
+    width = image_size[0]
+    height = image_size[1]
+
+    if(width != height):
+        bigside = width if width > height else height
+
+        background = Image.new('RGB', (bigside, bigside), (255, 255, 255, 255))
+        offset = (int(round(((bigside - width) / 2), 0)),
+                  int(round(((bigside - height) / 2), 0)))
+        background.paste(image, offset)
+
+        background.save(ImageFilePath)
+        # print("Image has been resized !")
 
 
 if __name__ == '__main__':

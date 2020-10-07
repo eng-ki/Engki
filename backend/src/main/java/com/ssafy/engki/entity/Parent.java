@@ -37,4 +37,9 @@ public class Parent {
 		cascade = CascadeType.ALL,
 		mappedBy = "parentId")
 	private List<Kid> kids;
+
+	@OneToMany(
+		cascade = CascadeType.ALL,
+		mappedBy = "parentId")
+	private List<CustomImage> customImages;
 }

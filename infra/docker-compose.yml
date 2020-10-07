@@ -35,8 +35,7 @@ services:
                 volumes:
                         - ./data/inputs:/usr/share/nginx/html/images/inputs
                         - ./data/outputs:/usr/share/nginx/html/images/outputs
-                        - ./data/custom:/usr/share/nignx/html/images/custom  
-                        - ./data/custom:/usr/share/nignx/html/images/custom
+                        - ./data/custom:/usr/share/nginx/html/images/custom
                           # 아래는 https용
                         - /var/www/letsencrypt:/var/www/letsencrypt
                         - /etc/letsencrypt:/etc/letsencrypt
