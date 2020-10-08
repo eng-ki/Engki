@@ -136,7 +136,7 @@ export default {
       background-color: #dfdfdf;
 
       /* 폰트 */
-      font-size: 2.7vh;
+      font-size: 1.2vw;
       font-weight: 100;
       text-align: center;
       color: black;
