@@ -12,7 +12,6 @@ Made by. Team 디키 (Developers for kids)
 - [기획 의도](#기획 의도)
 - [기능](#기능)
 - [유사 서비스](#유사-서비스) 
-- [향후 전망](#향후-전망)
 - [기술 스택](#기술-스택)
 - [기술 설명](#기술-설명)
 	- [ERD](#erd)
@@ -42,32 +41,59 @@ Made by. Team 디키 (Developers for kids)
 
 ## 기능
 
+### 공부 시작
+
+![selectkid](docs/images/selectkid.png)
+
+![selectquiz](docs/images/selectquiz.png)
+
+- 학습을 진행할 어린이의 프로필과 주제를 고르면 단어 학습을 시작한다.
+
 ### 단어 공부
 
-<img src="docs/images/image-20200917191927880.png" alt="image-20200917191927880" style="width:33%;" />  <img src="docs/images/image-20200917191939154.png" alt="image-20200917191939154" style="width:33%;" /><img src="docs/images/image-20200917192026131.png" alt="image-20200917192026131" style="width:33%;" />  
+![quizA](docs/images/quizA.PNG)
+
+![quizB](docs/images/quizB.PNG)
+
+![quizC](docs/images/quizC.PNG)
 
 - 사진을 보고 사물의 이름을 알 수 있다.
 
 ### 문장 공부
 
-<img src="docs/images/image-20200917192124594.png" alt="docs/image-20200917192124594" style="width:33%" /> <img src="docs/images/image-20200917192136033.png" alt="image-20200917192136033" style="width:33%" /> <img src="docs/images/image-20200917192152271.png" alt="image-20200917192152271" style="width:33%" />
+![quizD](docs/images/quizD.PNG)
+
+![quizE](docs/images/quizE.PNG)
+
+![quizF](docs/images/quizF.PNG)
 
 - 사진에 나온 사물들의 관계를 영어로 설명할 수 있다.
 
 ### 감정 인식
 
+![parent3](docs/images/parent3.PNG)
+
 - 표정으로 감정을 추출한다.
 - 학습자의 감정에 따라 학습 시간을 유동적으로 조절한다.
 
+### 어린이 페이지
+
+![profileimage](docs/images/profileimage.png)
+
+- 학습을 통한 레벨업으로 다양한 캐릭터를 프로필 이미지로 선택할 수 있다.
+
 ### 부모님 페이지
 
-<img src="docs/images/image-20200917193252304.png" alt="image-20200917193252304" style="width:33%" /> <img src="docs/images/image-20200917193418961.png" alt="image-20200917193418961" style="width:33%;" />
+![parent1](docs/images/parent1.PNG)
+
+![parent2](docs/images/parent2.PNG)
 
 - 아이의 계정을 추가 / 삭제 / 관리할 수 있다.
 - 아이의 학습 진행 상황을 볼 수 있다.
 - 아이의 감정 그래프를 볼 수 있다.
+- 우리 아이들을 위해 직접 퀴즈를 만들 수 있다.
 
-### [와이어프레임 더 자세히 보기](https://xd.adobe.com/view/42773ad3-b714-4d3e-adca-458036d3732e-1724/)
+### [와이어프레임 자세히 보기](https://xd.adobe.com/view/42773ad3-b714-4d3e-adca-458036d3732e-1724/)
 
 ## 유사 서비스
 
@@ -87,54 +113,47 @@ Made by. Team 디키 (Developers for kids)
 
    -> 아이의 감정 그래프를 제공해 부모의 유동적인 스케줄 관리가 가능하다.
 
-## 향후 전망
-
-> 부득이한 사정으로 프로젝트에 구현하지는 못했지만 보완할 점이나 추가할 점이 있다면 적어주세요
-
 ## 기술 스택
 
 ### Frontend
 
-![Vue](https://img.shields.io/badge/Vue-^2.6.11-brightgreen) ![Vue-router](https://img.shields.io/badge/Vue--router-%5E3.2.0-green) ![Vuex](https://img.shields.io/badge/Vuex-%5E3.4.0-yellowgreen) ![Vuetify](https://img.shields.io/badge/Vuetify-%5E2.2.11-9cf)
+![Vue](https://img.shields.io/badge/Vue-^2.6.11-brightgreen) ![Vue](https://img.shields.io/badge/Vue--charjs-^3.5.1-orange) ![Vue-router](https://img.shields.io/badge/Vue--router-%5E3.2.0-green) ![Vuex](https://img.shields.io/badge/Vuex-%5E3.4.0-yellowgreen) ![Vuetify](https://img.shields.io/badge/Vuetify-%5E2.2.11-9cf)
 <br>
-![Vue CLI](https://img.shields.io/badge/%40vue%2Fcli-4.4.6-yellow) 
+![Vue CLI](https://img.shields.io/badge/%40vue%2Fcli-4.5.0-yellow) 
 
 ### Backend
 
-![Spring Boot](https://img.shields.io/badge/Spring%20Boot-2.3.1-brightgreen)![MariaDB](https://img.shields.io/badge/MariaDB-10.5-green)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-2.3.4-brightgreen) ![MariaDB](https://img.shields.io/badge/MariaDB-10.5-green)
 
 ### AI
 
-![Tensorflow](https://img.shields.io/badge/Tensorflow-blue)
+![Tensorflow](https://img.shields.io/badge/Tensorflow-2.2.0-blue) ![Flask](https://img.shields.io/badge/Flask-1.1.2-skyblue)
 
 ### ETC
 
-`Docker`, `AWS EC2`, `JIRA`, `Notion`
+`Docker`, `Jenkins`, `AWS EC2`, `JIRA`, `Notion` 
 
 ## 기술 설명
 
 ### ERD
 
-> DB 및 백엔드를 구현할 때 ERD를 그려보고 리드미에 남겨주세요
+![erd](docs/images/erd.png)
 
-### 디렉토리 구조도
-
-### 기타
+### 디렉토리 구조도 
 
 ```
 ├─ ai-reference : 명세서 프로젝트 폴더
-└─ docs
-   ├─ images : 리드미에 사용된 이미지 폴더
-   ├─ icons
-   ├─ .gitmessage : commit template
-   └─ initial_set.sh : git template 설정하는 shell script
+├─ backend      : web api 서버 프로젝트 폴더
+├─ docs         : 각종 문서 폴더
+├─ frontend     : web frontend 폴더
+├─ infra        : infra 구성과 관련된 문서 폴더
+├─ models       : AI 모델 및 flask 서버 프로젝트 폴더
+└─ report       : 학습 리포트 발송 서버 프로젝트 폴더
 ```
 
 
 
 ## 테스트 방법
-[방문하기](http://j3a510.p.ssafy.io/) (아직 배포 x…)
+[방문하기](https://j3a510.p.ssafy.io/)
 
-ID:
-
-PW:
+카카오 로그인이라 테스트 계정이 따로 없습니다 :cry: <br>많은 정보를 요구하지 않으니 가입하셔도 개인정보 털릴 걱정 :x:

@@ -1,49 +1,116 @@
 <template>
   <div class="background">
+    <img
+      src="../../public/img/icon/exit (2).png"
+      width="90vw"
+      style="float: right; margin-top: 1vh; margin-right: 3vw"
+      id="goKid"
+      @click="goKid()"
+    />
+
+    <b-tooltip placement="bottom" target="goKid" triggers="hover">
+      <span
+        style="font-family: GmarketSansMedium; color: #f2f2f2; font-size: 0.8vw"
+        >퀴즈 그만하기</span
+      >
+    </b-tooltip>
+    <vue-web-cam
+      v-if="!isFinish"
+      style="display: none"
+      ref="webcam"
+      :device-id="deviceId"
+      width="0%"
+      @started="onStarted"
+      @stopped="onStopped"
+      @error="onError"
+      @cameras="onCameras"
+      @camera-change="onCameraChange"
+    />
+    <!-- etc : 종료 화면 / pause 화면 컴포넌트들 들어갈 자리-->
+    <etc
+      v-if="(isBreakTime || isFinish) && !$store.state.test_customizing"
+      :isBreakTime="isBreakTime"
+      :isFinish="isFinish"
+      v-on:continue="isBreakTime = false"
+    />
+
     <div class="whiteboard">
       <div class="board">
-        <!-- 퀴즈 컴포넌트 들어갈 자리  stage / 0~5 : 퀴즈 , 6: 종료-->
-        <quiz-a-c
+        <quiz-a
           :isDone="isDone"
-          :stage="stage"
-          v-on:correct="isNextStage(true)"
-          v-on:wrong="isNextStage(false)"
+          v-on:correct="
+            isNextStage(true)
+            playAnswer()
+          "
+          v-on:wrong="
+            isNextStage(false)
+            playWrong()
+          "
           class="quiz"
           v-if="stage == 0"
         />
         <quiz-b
           :isDone="isDone"
-          v-on:correct="isNextStage(true)"
-          v-on:wrong="isNextStage(false)"
+          v-on:correct="
+            isNextStage(true)
+            playAnswer()
+          "
+          v-on:wrong="
+            isNextStage(false)
+            playWrong()
+          "
           class="quiz"
           v-if="stage == 1"
         />
-        <quiz-a-c
+        <quiz-c
           :isDone="isDone"
-          :stage="stage"
-          v-on:correct="isNextStage(true)"
-          v-on:wrong="isNextStage(false)"
+          v-on:correct="
+            isNextStage(true)
+            playAnswer()
+          "
+          v-on:wrong="
+            isNextStage(false)
+            playWrong()
+          "
           class="quiz"
           v-if="stage == 2"
         />
         <quiz-d
           :isDone="isDone"
-          v-on:correct="isNextStage(true)"
-          v-on:wrong="isNextStage(false)"
+          v-on:correct="
+            isNextStage(true)
+            playAnswer()
+          "
+          v-on:wrong="
+            isNextStage(false)
+            playWrong()
+          "
           class="quiz"
           v-if="stage == 3"
         />
         <quiz-e
           :isDone="isDone"
-          v-on:correct="isNextStage(true)"
-          v-on:wrong="isNextStage(false)"
+          v-on:correct="
+            isNextStage(true)
+            playAnswer()
+          "
+          v-on:wrong="
+            isNextStage(false)
+            playWrong()
+          "
           class="quiz"
           v-if="stage == 4"
         />
         <quiz-f
           :isDone="isDone"
-          v-on:correct="isNextStage(true)"
-          v-on:wrong="isNextStage(false)"
+          v-on:correct="
+            isNextStage(true)
+            playAnswer()
+          "
+          v-on:wrong="
+            isNextStage(false)
+            playWrong()
+          "
           class="quiz"
           v-if="stage == 5"
         />
@@ -59,8 +126,12 @@
         >{{ subject }}</span
       >
 
-      <!-- 얘는.. 그냥 티키입니다 -->
-      <img class="tiki" src="../../public/img/icon/moving_tiki.gif" />
+      <!-- 잠깐 티키 눌렀을때 ETC (휴식) 페이지로 이동하게 해놓음 -->
+      <img
+        v-if="!isBreakTime && !isFinish"
+        class="tiki"
+        src="../../public/img/icon/moving_tiki.gif"
+      />
 
       <!--다했어요 버튼 눌렀을때 1. isDone 변경 -> 2. 컴포넌트에서 정답인지 확인 -> 3. 다음 스테이지로-->
       <img
@@ -68,54 +139,232 @@
         @click="isDone = true"
         src="../../public/img/icon/done.png"
       />
-      <!-- 모르겠어요 버튼 눌렀을때 props로 설정 줘야하는데 아직 안줌 -->
-      <img class="difficult" src="../../public/img/icon/difficult.png" />
-
-      <!-- etc : 종료 화면 / pause 화면 컴포넌트들 들어갈 자리-->
-      <!--<etc />-->
+      <!-- 모르겠어요 버튼 눌렀을때 완전 끝내기랑 다음으로가기 -->
+      <img
+        class="difficult"
+        @click="isPass()"
+        src="../../public/img/icon/difficult.png"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import QuizAC from '@/components/QuizAC.vue'
+import QuizA from '@/components/QuizA.vue'
 import QuizB from '@/components/QuizB.vue'
+import QuizC from '@/components/QuizC.vue'
 import QuizD from '@/components/QuizD.vue'
 import QuizE from '@/components/QuizE.vue'
 import QuizF from '@/components/QuizF.vue'
 import Etc from '@/components/Etc.vue'
+import http from '../utils/http-common.js'
+import { WebCam } from 'vue-web-cam'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'ParentPage',
   components: {
-    QuizAC,
+    QuizA,
     QuizB,
+    QuizC,
     QuizD,
     QuizE,
     QuizF,
     Etc,
+    'vue-web-cam': WebCam,
   },
   data: () => {
     return {
-      isDone: false,
-      stage: 0,
+      answer: '',
+      isDone: false, // 다했어요
+      isBreakTime: false, // 쉬는시간
+      isFinish: false, // 퀴즈 종료
+      stage: 0, // stage 0~5 : 퀴즈
       subjects: [
         '사진 속 단어를 배워보세요',
         '단어에 해당하는 그림을 모두 선택해주세요',
-        '단어에 해당하는 부분을 선택해주세요',
+        '색칠된 부분에 해당하는 단어를 선택해주세요',
         '빈칸에 해당하는 단어를 선택해주세요',
         '사진의 내용과 일치하는 문장을 선택해주세요',
         '사진 속 문장을 단어로 만들어보세요',
       ],
+      img: null,
+      camera: null,
+      deviceId: null,
+      devices: [],
+    }
+  },
+  watch: {
+    isBreakTime: function (val) {
+      if (val) {
+        this.stopCapture()
+      } else {
+        this.startCapture()
+      }
+    },
+    camera: function (id) {
+      this.deviceId = id
+    },
+    devices: function () {
+      const [first, ...tail] = this.devices
+      if (first) {
+        this.camera = first.deviceId
+        this.deviceId = first.deviceId
+      }
+    },
+  },
+  beforeDestroy() {
+    this.stopCapture()
+    this.$store.state.test_customizing = false
+  },
+  computed: {
+    device: function () {
+      return this.devices.find((n) => n.deviceId === this.deviceId)
+    },
+  },
+  mounted() {
+    this.$store.state.exp = 0
+    console.log(this.$store.state.test_customizing)
+    if (!this.$store.state.test_customizing) {
+      this.onStart()
+      this.startCapture()
     }
   },
   methods: {
+    ...mapMutations(['playAnswer', 'playWrong', 'playClick']),
+    goKid() {
+      setTimeout(() => {
+        this.stopCapture()
+      }, 600)
+      this.$router.push('/kid')
+    },
     isNextStage(flag) {
       this.isDone = false
-      // 정답일 경우 다음 스테이지
-      if (flag) this.stage++
-      // 모든 퀴즈가 끝날 경우 일단 자녀 페이지로 가게 해뒀습니다. (원래는 Etc-GoldBox 및 Finish 컴포넌트를 띄워야함)
-      if (this.stage == 6) this.$router.push('/kid')
+      if (flag) {
+        this.stage++
+      }
+
+      if (this.stage == 6) {
+        this.stage = 5
+        if (!this.$store.state.test_customizing) {
+          this.isFinish = true
+        } else {
+          this.$swal({
+            title:
+              '<div><span style="font-weight:100; font-size:2vw;">테스트가 완료되었습니다.</span><br><span  style="font-weight:100; font-size:2vw;">부모 페이지로 이동합니다.</span></div>',
+            showCancelButton: false,
+            confirmButtonText: '확인',
+            timer: 3000,
+          }).then((result) => {
+            this.$router.push('/parent')
+          })
+        }
+      }
+    },
+    setAnswer(answer) {
+      this.answer = answer
+    },
+    startCapture() {
+      this.camTimer = setInterval(() => {
+        this.onCapture()
+        var dt = new Date()
+
+        dt =
+          dt.getFullYear() +
+          (dt.getMonth() + 1) +
+          dt.getDate() +
+          dt.getHours() +
+          dt.getMinutes() +
+          dt.getSeconds()
+
+        var file = this.dataURLtoFile(this.img, dt)
+        var frm = new FormData()
+        frm.append('files', file)
+        frm.append('kid_id', this.$store.state.kid.id)
+
+        http
+          .post('https://j3a510.p.ssafy.io:8083/custom/emotion', frm, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          })
+          .then(({ data }) => {
+            console.log(data)
+            if (data == 'STOP') {
+              this.isBreakTime = true
+            }
+          })
+      }, 5000)
+    },
+    // 감정 인식 중지
+    stopCapture() {
+      // 캡쳐 중지
+
+      clearInterval(this.camTimer)
+    },
+    // 모르겠어요 버튼 눌렀을때 완전 끝내기랑 다음으로가기
+    isPass() {
+      this.$swal({
+        title:
+          this.stage != 5
+            ? '<div style="font-weight:100; font-size:2vw; margin-top:1vw;">다음 퀴즈로 넘어갈까요?</div>'
+            : '<div style="font-weight:100; font-size:2vw; margin-top:1vw;">퀴즈 푸는걸 그만할까요?</div>',
+        showCancelButton: true,
+        confirmButtonText:
+          '<span style="font-weight:100; font-size:1.5vw;">네</span>',
+        cancelButtonText:
+          '<span style="font-weight:100; font-size:1.5vw;">계속 풀래요</span>',
+
+        // 이거 뒤로가기 버튼 있어야 할 듯..
+        showCloseButton: true,
+      }).then((result) => {
+        if (result.value) {
+          this.isNextStage(true)
+        } else {
+          this.isNextStage(false)
+        }
+      })
+    },
+    onCapture() {
+      this.img = this.$refs.webcam.capture()
+    },
+    onStarted(stream) {
+      // console.log('On Started Event', stream)
+    },
+    onStopped(stream) {
+      // console.log('On Stopped Event', stream)
+    },
+    onStop() {
+      this.$refs.webcam.stop()
+    },
+    onStart() {
+      this.$refs.webcam.start()
+    },
+    onError(error) {
+      // console.log('On Error Event', error)
+    },
+    onCameras(cameras) {
+      this.devices = cameras
+      // console.log('On Cameras Event', cameras)
+    },
+    onCameraChange(deviceId) {
+      this.deviceId = deviceId
+      this.camera = deviceId
+      // console.log('On Camera Change Event', deviceId)
+    },
+
+    dataURLtoFile(dataurl, fileName) {
+      var arr = dataurl.split(','),
+        mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]),
+        n = bstr.length,
+        u8arr = new Uint8Array(n)
+
+      while (n--) {
+        u8arr[n] = bstr.charCodeAt(n)
+      }
+
+      return new File([u8arr], fileName, { type: mime })
     },
   },
 }
@@ -142,9 +391,9 @@ export default {
 .quiz {
   float: left;
   position: absolute;
-  left: 9vw;
+  left: 8vw;
   top: 10vh;
-  width: 65vw;
+  width: 68vw;
   height: 60vh;
   z-index: 1000;
   padding: 5px;
@@ -183,7 +432,7 @@ export default {
 }
 
 .whiteboard .difficult {
-  bottom: 14.8vh;
+  bottom: 12vh;
   right: 14vw;
   position: absolute;
   z-index: 3;

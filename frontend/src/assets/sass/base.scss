@@ -85,6 +85,40 @@
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
+.blue-button {
+  /* 사이즈 설정 */
+  width: 11vw;
+  height: 12vh;
+
+  /* 디자인 */
+  border-radius: 15vw;
+  background-color: rgba(255, 255, 255, 0.65);
+  border: 0.8vw solid #93beff;
+
+  /* 폰트 */
+  line-height: 9vh;
+  font-size: 4.5vh;
+  font-display: inherit;
+  color: #4b4b4b;
+}
+
+.green-button {
+  /* 사이즈 설정 */
+  width: 11vw;
+  height: 12vh;
+
+  /* 디자인 */
+  border-radius: 15vw;
+  background-color: rgba(255, 255, 255, 0.65);
+  border: 0.8vw solid #a9dfc7;
+
+  /* 폰트 */
+  line-height: 9vh;
+  font-size: 4.5vh;
+  font-display: inherit;
+  color: #4b4b4b;
+}
+
 /* 로그인페이지 input */
 .inputbox {
   /* 사이즈 설정 */
@@ -178,4 +212,46 @@
   font-size: 20px;
   font-family: GmarketSansMedium;
   text-shadow: 3px 3px 5 px rgba(0, 0, 0, 0.5);
+}
+.arrow-up {
+  position: absolute;
+  margin-left: 205px;
+  margin-top: -90px;
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-bottom: 20px solid white;
+}
+
+.arrow-down {
+  position: absolute;
+  margin-left: 205px;
+  margin-top: 105px;
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-top: 20px solid white;
+}
+
+.arrow-right {
+  position: absolute;
+  width: 0;
+  height: 0;
+  margin-left: 440px;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  border-left: 20px solid white;
+}
+
+.arrow-left {
+  position: absolute;
+  width: 0;
+  height: 0;
+  margin-left: -30px;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+
+  border-right: 20px solid white;
 }

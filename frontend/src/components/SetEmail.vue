@@ -2,7 +2,28 @@
   <div class="background">
     <div class="box">
       <div class="innerbox">
-        <span class="page-title">이메일 정보 수집</span>
+        <span v-if="from == 'parent'" class="page-title"
+          >내 정보
+
+          <img
+            @click="startTutorial()"
+            class="page-title-img"
+            id="tutorial"
+            src="../../public/img/icon/question-mark1.png"
+          />
+        </span>
+        <span v-else class="page-title"
+          >이메일 정보 수집
+          <img
+            @click="startTutorial()"
+            class="page-title-img"
+            id="tutorial"
+            src="../../public/img/icon/question-mark1.png"
+          />
+        </span>
+        <button v-if="from == 'parent'" @click="deleteInfo()" class="delete">
+          탈퇴하기
+        </button>
         <div class="parent-info-page">
           <div class="container page-text">
             <div class="row">
@@ -32,7 +53,9 @@
                     type="checkbox"
                     id="neumorphism"
                     checked
+                    v-model="parents.receiveEmailFlag"
                   />
+
                   <label for="neumorphism">
                     <div class="switch">
                       <div class="dot"></div>
@@ -43,23 +66,190 @@
             </div>
             <div class="row">
               <div class="col-sm-*">
+                <!-- style="width: 100%; height: 20px; background-color: yellow" -->
+                <!-- <button class="parents-button" @click="saveInfo()">
+                  수정하기
+                </button>
+                <button
+                  class="parents-button return-button"
+                  @click="returnParentPage()"
+                >
+                  돌아가기
+                </button> -->
                 <button
                   v-if="from == 'parent'"
-                  @click="$emit('visible')"
-                  class="parents-button"
+                  @click="saveInfo()"
+                  class="parents-button edit"
                 >
                   수정하기
                 </button>
-                <button v-else class="parents-button">저장하기</button>
+                <button
+                  v-if="from == 'parent'"
+                  @click="returnParentPage()"
+                  class="parents-button back"
+                >
+                  뒤로가기
+                </button>
+                <button v-else @click="saveInfo()" class="parents-button">
+                  가입하기
+                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <b-tooltip placement="right" target="tutorial" triggers="hover">
+      <span
+        style="font-family: GmarketSansMedium; color: #f2f2f2; font-size: 0.8vw"
+        >도움말</span
+      >
+    </b-tooltip>
+    <!-- 첫번째 튜토리얼 -->
+    <b-modal
+      modal-class="mymodal"
+      ref="my-modal1"
+      title-html="<span style='
+  padding: 1vw;font-family: GmarketSansMedium; color: #263747;'>내 정보</span>"
+      :hide-footer="isHideFooter"
+      header-border-variant="0"
+    >
+      <div class="modal-body">
+        <span>
+          부모님의 이름, 이메일 정보를 이곳에서 수정할 수 있습니다.<br />
+          또한 자녀의 학습 보고서 수신 여부를 수정할 수 있습니다.
+        </span>
+      </div>
+      <div>
+        <div class="modal-foot">{{ stage }}/{{ limit }}</div>
+        <div class="modal-foot2">
+          <b-button
+            size="sm"
+            variant="primary"
+            :class="{ isButtonBlock: stage == 1 }"
+            @click="prevTutorial(stage)"
+          >
+            &lt; 이전
+          </b-button>
+          <b-button
+            size="sm"
+            variant="primary"
+            v-if="stage < limit"
+            @click="nextTutorial(stage)"
+          >
+            다음 >
+          </b-button>
+          <b-button
+            size="sm"
+            variant="primary"
+            v-else
+            @click="nextTutorial(stage)"
+          >
+            종료 >
+          </b-button>
+        </div>
+      </div>
+    </b-modal>
+    <!-- 첫번째 튜토리얼 끝-->
+
+    <!-- 두번째 튜토리얼 -->
+    <b-modal
+      ref="my-modal2"
+      title-html="<span style='
+  padding: 1vw;font-family: GmarketSansMedium; color: #263747;'>탈퇴하기</span>"
+      :hide-footer="isHideFooter"
+      header-border-variant="0"
+    >
+      <div class="modal-body">
+        <span>
+          우측 하단의 탈퇴 버튼을 누르면 회원 정보가 영구 삭제됩니다.<br />
+          모든 자녀의 데이터도 함께 삭제되니 신중히 결정해주세요.<br />
+        </span>
+      </div>
+      <div>
+        <div class="modal-foot">{{ stage }}/{{ limit }}</div>
+        <div class="modal-foot2">
+          <b-button
+            size="sm"
+            variant="primary"
+            :class="{ isButtonBlock: stage == 1 }"
+            @click="prevTutorial(stage)"
+          >
+            &lt; 이전
+          </b-button>
+          <b-button
+            size="sm"
+            variant="primary"
+            v-if="stage < limit"
+            @click="nextTutorial(stage)"
+          >
+            다음 >
+          </b-button>
+          <b-button
+            size="sm"
+            variant="primary"
+            v-else
+            @click="nextTutorial(stage)"
+          >
+            종료 >
+          </b-button>
+        </div>
+      </div>
+    </b-modal>
+    <!-- 두번째 튜토리얼 끝-->
+
+    <!-- 처음 가입했을 때 첫번째 튜토리얼 -->
+    <b-modal
+      modal-class="mymodal"
+      ref="first-modal"
+      title-html="<span style='
+  padding: 1vw;font-family: GmarketSansMedium; color: #263747;'>이메일 정보 수집</span>"
+      :hide-footer="isHideFooter"
+      header-border-variant="0"
+    >
+      <div class="modal-body">
+        <span>
+          부모님의 이름, 이메일 정보, 이메일 수신 여부를 선택한 뒤<br />
+          가입하기 버튼을 누르면 서비스를 이용할 수 있습니다.<br />
+          부모님의 정보는 이후 언제든지 수정할 수 있습니다.
+        </span>
+      </div>
+      <div>
+        <div class="modal-foot">{{ stage }}/{{ limit }}</div>
+        <div class="modal-foot2">
+          <b-button
+            size="sm"
+            variant="primary"
+            :class="{ isButtonBlock: stage == 1 }"
+            @click="prevTutorial(stage)"
+          >
+            &lt; 이전
+          </b-button>
+          <b-button
+            size="sm"
+            variant="primary"
+            v-if="stage < limit"
+            @click="nextTutorial(stage)"
+          >
+            다음 >
+          </b-button>
+          <b-button
+            size="sm"
+            variant="primary"
+            v-else
+            @click="nextTutorial(stage)"
+          >
+            종료 >
+          </b-button>
+        </div>
+      </div>
+    </b-modal>
+    <!-- 첫번째 튜토리얼 끝-->
   </div>
 </template>
 <script>
+import http from '../utils/http-common.js'
+import jwt_decode from 'jwt-decode'
 export default {
   props: {
     from: null,
@@ -67,11 +257,146 @@ export default {
   data: function () {
     return {
       parents: {
-        name: '손명지',
-        email: 'ji_exitos@naver.com',
-        receive_email: true,
+        name: '',
+        email: '',
+        receiveEmailFlag: true,
       },
+      stage: 1,
+      limit: this.$store.state.isNew ? 1 : 2,
+      isHideFooter: true,
+      mymodal: ['mymodal'],
     }
+  },
+  created() {
+    var parent_id = jwt_decode(this.$store.state.token).sub
+    http
+      .get('parents/' + parent_id, {
+        headers: { 'X-AUTH-TOKEN': this.$store.state.token },
+      })
+      .then(({ data }) => {
+        this.parents = data
+      })
+  },
+  methods: {
+    prevTutorial(stage) {
+      if (stage > 1) {
+        if (this.from == null) {
+          this.$refs['first-modal'].hide()
+        } else {
+          this.$refs['my-modal' + stage].hide()
+        }
+        this.stage--
+
+        this.showTutorial(this.stage)
+      }
+    },
+    nextTutorial(stage) {
+      if (this.from == null) {
+        this.$refs['first-modal'].hide()
+      } else {
+        this.$refs['my-modal' + stage].hide()
+      }
+      if (stage < this.limit) {
+        this.stage++
+        this.showTutorial(this.stage)
+      }
+    },
+    showTutorial(index) {
+      if (this.from == null) {
+        this.$refs['first-modal'].show()
+      } else this.$refs['my-modal' + index].show()
+    },
+    startTutorial() {
+      this.stage = 1
+      if (this.from == null) {
+        this.$refs['first-modal'].show()
+      } else this.$refs['my-modal1'].show()
+    },
+    deleteInfo() {
+      this.$swal({
+        title:
+          '<div style="font-family: GmarketSansMedium;font-size:2vw;">탈퇴하시겠습니까?<br><span style="font-family: GmarketSansMedium;font-size:1vw;">모든 데이터가 영구적으로 삭제됩니다.</span></div>',
+        showCancelButton: true,
+        confirmButtonText: '확인',
+        cancelButtonText: '취소',
+        showCloseButton: true,
+      }).then((result) => {
+        if (result.value) {
+          http
+            .delete('parents/' + this.$store.state.parent.id, {
+              headers: { 'X-AUTH-TOKEN': this.$store.state.token },
+            })
+            .then(({ data }) => {
+              this.$store.commit('setParent', null)
+              this.$store.commit('setToken', null)
+              this.$router.push('/')
+            })
+        }
+      })
+    },
+    saveInfo() {
+      if (this.from == null) {
+        this.$swal({
+          title:
+            '<div style="font-family: GmarketSansMedium;font-size:2vw;">이메일을 등록하시겠습니까?</div>',
+          showCancelButton: true,
+          confirmButtonText: '확인',
+          cancelButtonText: '취소',
+          showCloseButton: true,
+        }).then((result) => {
+          if (result.value) {
+            http
+              .put(
+                'parents/' + this.$store.state.parent.id,
+                {
+                  email: this.parents.email,
+                  name: this.parents.name,
+                  receiveEmailFlag: this.parents.receiveEmailFlag,
+                },
+                {
+                  headers: { 'X-AUTH-TOKEN': this.$store.state.token },
+                }
+              )
+              .then(({ data }) => {
+                this.$router.push('/parent')
+              })
+              .catch((err) => {
+                console.error(err)
+              })
+          }
+        })
+      } else if (this.from == 'parent') {
+        this.$swal({
+          title:
+            '<div style="font-family: GmarketSansMedium;font-size:2vw;">이메일을 수정하시겠습니까?</div>',
+          showCancelButton: true,
+          confirmButtonText: '확인',
+          cancelButtonText: '취소',
+          showCloseButton: true,
+        }).then((result) => {
+          if (result.value) {
+            http
+              .put(
+                'parents/' + this.$store.state.parent.id,
+                {
+                  email: this.parents.email,
+                  name: this.parents.name,
+                  receiveEmailFlag: this.parents.receiveEmailFlag,
+                },
+                {
+                  headers: { 'X-AUTH-TOKEN': this.$store.state.token },
+                }
+              )
+              .then(({ data }) => {
+                this.$emit('visible')
+              })
+          }
+        })
+      }
+    },
+    returnParentPage() {
+      this.$emit('returnParentPage')
+    },
   },
 }
 </script>
@@ -103,15 +428,53 @@ export default {
   position: inherit;
 }
 
+.delete {
+  position: absolute;
+  bottom: 2vw;
+  right: 3vw;
+  font-size: 1.2vw;
+  font-family: GmarketSansMedium;
+  text-shadow: 3px 3px 6px rgba(255, 255, 255, 0.5);
+  &:hover {
+    opacity: 0.8;
+  }
+}
+.parents-button {
+  /* 좌표 설정 */
+  position: absolute;
+  padding-left: 1vh;
+  padding-right: 1vh;
+  top: 55vh;
+  left: 50%;
+  width: 15vw;
+  transform: translate(-50%, -50%);
+}
+.edit {
+  // position: relative;
+  left: 39%;
+}
+.back {
+  // position: relative;
+  left: 61%;
+}
+
 /* 회원가입 타이틀 */
 .page-title {
   // text-align: left;
   font-size: 8vh;
+  top: 2vh;
+  left: 4vw;
+  position: relative;
+  font-family: GmarketSansMedium;
+  color: black;
 }
 
 /* 회원가입 내용 */
-.page-text {
+.innerbox .page-text {
+  color: black;
   text-align: left;
+  margin-top: 3vh;
+  margin-left: 3vw;
 }
 
 .row {
@@ -124,14 +487,6 @@ export default {
   margin: 0px;
   font-family: GmarketSansMedium;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
-}
-
-.parent-info-page .parents-button {
-  /* 좌표 설정 */
-  position: absolute;
-  top: 60vh;
-  left: 50%;
-  transform: translate(-50%, -100%);
 }
 
 .neumorphism-toggle {
@@ -204,5 +559,43 @@ export default {
       }
     }
   }
+}
+
+.page-title .page-title-img {
+  width: 4%;
+  margin-bottom: 1vh;
+  &:hover {
+    opacity: 0.6;
+  }
+}
+
+.isButtonBlock {
+  opacity: 0.6;
+  pointer-events: none;
+}
+.modal-body {
+  margin-top: -2vw;
+  margin-bottom: 1vw;
+}
+
+.modal-body span {
+  color: #263747;
+  opacity: 0.9;
+  font-family: GmarketSansMedium;
+}
+.modal-foot {
+  float: left;
+  color: gray;
+  padding-left: 1vw;
+  font-family: GmarketSansMedium;
+}
+.modal-foot2 {
+  float: right;
+  font-family: GmarketSansMedium;
+}
+.mymodal > div {
+  position: fixed !important;
+  top: 0 !important;
+  left: -23vw !important;
 }
 </style>
