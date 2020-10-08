@@ -28,7 +28,7 @@
     />
     <!-- etc : 종료 화면 / pause 화면 컴포넌트들 들어갈 자리-->
     <etc
-      v-if="(isBreakTime || isFinish) && $store.state.test_customizing"
+      v-if="(isBreakTime || isFinish) && !$store.state.test_customizing"
       :isBreakTime="isBreakTime"
       :isFinish="isFinish"
       v-on:continue="isBreakTime = false"
@@ -114,18 +114,18 @@
 </template>
 
 <script>
-import QuizA from '@/components/QuizA.vue';
-import QuizB from '@/components/QuizB.vue';
-import QuizC from '@/components/QuizC.vue';
-import QuizD from '@/components/QuizD.vue';
-import QuizE from '@/components/QuizE.vue';
-import QuizF from '@/components/QuizF.vue';
-import Etc from '@/components/Etc.vue';
-import http from '../utils/http-common.js';
-import { WebCam } from 'vue-web-cam';
+import QuizA from "@/components/QuizA.vue";
+import QuizB from "@/components/QuizB.vue";
+import QuizC from "@/components/QuizC.vue";
+import QuizD from "@/components/QuizD.vue";
+import QuizE from "@/components/QuizE.vue";
+import QuizF from "@/components/QuizF.vue";
+import Etc from "@/components/Etc.vue";
+import http from "../utils/http-common.js";
+import { WebCam } from "vue-web-cam";
 
 export default {
-  name: 'ParentPage',
+  name: "ParentPage",
   components: {
     QuizA,
     QuizB,
@@ -134,22 +134,22 @@ export default {
     QuizE,
     QuizF,
     Etc,
-    'vue-web-cam': WebCam,
+    "vue-web-cam": WebCam,
   },
   data: () => {
     return {
-      answer: '',
+      answer: "",
       isDone: false, // 다했어요
       isBreakTime: false, // 쉬는시간
       isFinish: false, // 퀴즈 종료
       stage: 0, // stage 0~5 : 퀴즈
       subjects: [
-        '사진 속 단어를 배워보세요',
-        '단어에 해당하는 그림을 모두 선택해주세요',
-        '색칠된 부분에 해당하는 단어를 선택해주세요',
-        '빈칸에 해당하는 단어를 선택해주세요',
-        '사진의 내용과 일치하는 문장을 선택해주세요',
-        '사진 속 문장을 단어로 만들어보세요',
+        "사진 속 단어를 배워보세요",
+        "단어에 해당하는 그림을 모두 선택해주세요",
+        "색칠된 부분에 해당하는 단어를 선택해주세요",
+        "빈칸에 해당하는 단어를 선택해주세요",
+        "사진의 내용과 일치하는 문장을 선택해주세요",
+        "사진 속 문장을 단어로 만들어보세요",
       ],
       img: null,
       camera: null,
@@ -197,7 +197,7 @@ export default {
       setTimeout(() => {
         this.stopCapture();
       }, 600);
-      this.$router.push('/kid');
+      this.$router.push("/kid");
     },
     isNextStage(flag) {
       this.isDone = false;
@@ -214,10 +214,10 @@ export default {
             title:
               '<div><span style="font-weight:100; font-size:2vw;">테스트가 완료되었습니다.</span><br><span  style="font-weight:100; font-size:2vw;">부모 페이지로 이동합니다.</span></div>',
             showCancelButton: false,
-            confirmButtonText: '확인',
+            confirmButtonText: "확인",
             timer: 3000,
           }).then((result) => {
-            this.$router.push('/parent');
+            this.$router.push("/parent");
           });
         }
       }
@@ -240,18 +240,18 @@ export default {
 
         var file = this.dataURLtoFile(this.img, dt);
         var frm = new FormData();
-        frm.append('files', file);
-        frm.append('kid_id', this.$store.state.kid.id);
+        frm.append("files", file);
+        frm.append("kid_id", this.$store.state.kid.id);
 
         http
-          .post('https://j3a510.p.ssafy.io:8083/custom/emotion', frm, {
+          .post("https://j3a510.p.ssafy.io:8083/custom/emotion", frm, {
             headers: {
-              'Content-Type': 'multipart/form-data',
+              "Content-Type": "multipart/form-data",
             },
           })
           .then(({ data }) => {
             console.log(data);
-            if (data == 'STOP') {
+            if (data == "STOP") {
               this.isBreakTime = true;
             }
           });
@@ -315,7 +315,7 @@ export default {
     },
 
     dataURLtoFile(dataurl, fileName) {
-      var arr = dataurl.split(','),
+      var arr = dataurl.split(","),
         mime = arr[0].match(/:(.*?);/)[1],
         bstr = atob(arr[1]),
         n = bstr.length,
@@ -331,7 +331,7 @@ export default {
 };
 </script>
 <style lang="scss">
-@import '../assets/sass/base.scss';
+@import "../assets/sass/base.scss";
 </style>
 <style lang="scss" scoped>
 .whiteboard .board {
