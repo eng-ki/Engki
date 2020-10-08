@@ -446,7 +446,7 @@ export default {
         })
         .then(({ data }) => {
           this.kids = data;
-          console.log(this.kids);
+          // console.log(this.kids);
           if (data.length != 0) {
             this.$store.commit('setSelectedKid', this.kids[0]);
           }

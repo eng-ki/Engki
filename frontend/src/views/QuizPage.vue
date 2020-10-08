@@ -224,7 +224,7 @@ export default {
   },
   mounted() {
     this.$store.state.exp = 0
-    console.log(this.$store.state.test_customizing)
+    // console.log(this.$store.state.test_customizing)
     if (!this.$store.state.test_customizing) {
       this.onStart()
       this.startCapture()
@@ -289,7 +289,7 @@ export default {
             },
           })
           .then(({ data }) => {
-            console.log(data)
+            // console.log(data)
             if (data == 'STOP') {
               this.isBreakTime = true
             }

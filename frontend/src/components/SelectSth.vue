@@ -363,12 +363,12 @@ export default {
           // 일단 1~5로 지정해둠
           var num = (Math.round(Math.random() * 100) % 6) + 1
           this.$store.commit('setTheme', num)
-          console.log('랜덤주제 : ' + this.$store.state.theme)
+          // console.log('랜덤주제 : ' + this.$store.state.theme)
           this.$router.push('/quiz')
           // 랜덤주제
         } else {
           this.$store.commit('setTheme', this.datas[index].id)
-          console.log('일반주제 : ' + this.$store.state.theme)
+          // console.log('일반주제 : ' + this.$store.state.theme)
           this.$router.push('/quiz')
         }
       } else if (this.option == 'kid') {

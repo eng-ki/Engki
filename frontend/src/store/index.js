@@ -119,8 +119,8 @@ export default new Vuex.Store({
           var token = data.token;
           var parent_id = jwt_decode(token).sub;
 
-          console.log('parent_id : ' + parent_id);
-          console.log('jwt : ' + data.token);
+          // console.log('parent_id : ' + parent_id);
+          // console.log('jwt : ' + data.token);
 
           http
             .get('parents/' + parent_id, {
