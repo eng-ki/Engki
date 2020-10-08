@@ -38,43 +38,43 @@
       <div class="board">
         <quiz-a
           :isDone="isDone"
-          v-on:correct="isNextStage(true)"
-          v-on:wrong="isNextStage(false)"
+          v-on:correct="isNextStage(true); playAnswer()"
+          v-on:wrong="isNextStage(false); playWrong()"
           class="quiz"
           v-if="stage == 0"
         />
         <quiz-b
           :isDone="isDone"
-          v-on:correct="isNextStage(true)"
-          v-on:wrong="isNextStage(false)"
+          v-on:correct="isNextStage(true); playAnswer()"
+          v-on:wrong="isNextStage(false); playWrong()"
           class="quiz"
           v-if="stage == 1"
         />
         <quiz-c
           :isDone="isDone"
-          v-on:correct="isNextStage(true)"
-          v-on:wrong="isNextStage(false)"
+          v-on:correct="isNextStage(true); playAnswer()"
+          v-on:wrong="isNextStage(false); playWrong()"
           class="quiz"
           v-if="stage == 2"
         />
         <quiz-d
           :isDone="isDone"
-          v-on:correct="isNextStage(true)"
-          v-on:wrong="isNextStage(false)"
+          v-on:correct="isNextStage(true); playAnswer()"
+          v-on:wrong="isNextStage(false); playWrong()"
           class="quiz"
           v-if="stage == 3"
         />
         <quiz-e
           :isDone="isDone"
-          v-on:correct="isNextStage(true)"
-          v-on:wrong="isNextStage(false)"
+          v-on:correct="isNextStage(true); playAnswer()"
+          v-on:wrong="isNextStage(false); playWrong()"
           class="quiz"
           v-if="stage == 4"
         />
         <quiz-f
           :isDone="isDone"
-          v-on:correct="isNextStage(true)"
-          v-on:wrong="isNextStage(false)"
+          v-on:correct="isNextStage(true); playAnswer()"
+          v-on:wrong="isNextStage(false); playWrong()"
           class="quiz"
           v-if="stage == 5"
         />
@@ -123,6 +123,7 @@ import QuizF from '@/components/QuizF.vue'
 import Etc from '@/components/Etc.vue'
 import http from '../utils/http-common.js'
 import { WebCam } from 'vue-web-cam'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'ParentPage',
@@ -193,6 +194,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['playAnswer', 'playWrong', 'playClick']),
     goKid() {
       setTimeout(() => {
         this.stopCapture()

@@ -5,6 +5,10 @@ import jwt_decode from 'jwt-decode';
 import createPersistedState from 'vuex-persistedstate';
 Vue.use(Vuex);
 
+const answer = new Audio('https://j3a510.p.ssafy.io/audio/answer.wav')
+const wrong = new Audio('https://j3a510.p.ssafy.io/audio/wrong.wav')
+const click = new Audio('https://j3a510.p.ssafy.io/audio/click.wav')
+
 export default new Vuex.Store({
   state: {
     isNew: null,
@@ -94,6 +98,15 @@ export default new Vuex.Store({
     },
     setIsTest(state, payload) {
       state.is_test = payload;
+    },
+    playAnswer() {
+      answer.play()
+    },
+    playClick() {
+      click.play()
+    },
+    playWrong() {
+      wrong.play()
     },
   },
   actions: {
