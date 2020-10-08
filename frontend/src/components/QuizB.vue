@@ -30,8 +30,15 @@ export default {
   props: ['isDone'],
   created() {
     this.isDone = false;
-    if (this.$store.state.is_test) {
+    if (this.$store.state.test_customizing) {
       // 부모 테스트 - 커스텀 퀴즈일 때
+      this.quizapipath =
+        '/custom/test/' +
+        this.$store.state.test_customizing.image_id +
+        '/' +
+        this.$store.state.test_customizing.word +
+        '/images/by/' +
+        this.$store.state.parent.id;
     } else {
       if (this.$store.state.theme == 1) {
         // 커스텀 퀴즈
@@ -44,17 +51,16 @@ export default {
         // 일반 퀴즈
         this.quizapipath = '/edu/' + this.$store.state.quiz.id + '/images';
       }
-      http
-        .get(this.quizapipath, {
-          headers: { 'X-AUTH-TOKEN': this.$store.state.token },
-        })
-        .then((data) => {
-          this.$store.commit('setQuizB', data.data);
-          this.setLocalVariable();
-        });
     }
-
-    console.log(this.datas);
+    http
+      .get(this.quizapipath, {
+        headers: { 'X-AUTH-TOKEN': this.$store.state.token },
+      })
+      .then((data) => {
+        this.$store.commit('setQuizB', data.data);
+        this.setLocalVariable();
+        // console.log(this.datas);
+      });
   },
   watch: {
     isDone: function (val) {

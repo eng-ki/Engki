@@ -5,35 +5,36 @@
         <v-col cols="12" style="padding: 5px">
           <v-row class="row-title">
             <div class="cal-left">
-              <v-btn icon class="toprev" @click="toprevious();" >
+              <v-btn icon class="toprev" @click="toprevious()">
                 <v-icon>mdi-chevron-left</v-icon>
               </v-btn>
             </div>
             <div class="cal">
-              <v-toolbar-title v-if="$refs.calendar" style="font-size:25px">
+              <v-toolbar-title v-if="$refs.calendar" style="font-size: 25px">
                 {{ calendartitle }}
               </v-toolbar-title>
             </div>
             <div class="cal-right">
-              <v-btn icon class="tonext" @click="tonext();">
+              <v-btn icon class="tonext" @click="tonext()">
                 <v-icon>mdi-chevron-right</v-icon>
               </v-btn>
             </div>
           </v-row>
-          <v-row style="text-align:center; width:100%;">
-            <v-col style=" padding:0px;">          
-              <span style="font-size:15px" @click="today();">today</span>
+          <v-row style="text-align: center; width: 100%">
+            <v-col style="padding: 0px">
+              <span style="font-size: 15px" @click="today()">today</span>
             </v-col>
           </v-row>
           <v-row>
             <v-col cols="12" style="text-align: center">
-              <v-sheet >
+              <v-sheet>
                 <v-calendar
                   ref="calendar"
                   type="week"
                   v-model="value"
                   :weekdays="weekday"
                   :events="events"
+                  event-color="green lighten-1"
                 ></v-calendar>
               </v-sheet>
             </v-col>
@@ -43,27 +44,35 @@
       <div class="showemotion">
         <div class="x-axis">
           <div style="display: inline-block; float: left">
-            <h3 style="text-align: left">감정 그래프 
+            <h3 style="text-align: left">
+              감정 그래프
               <!-- <span style="font-size:1.5vh"> 이번주 데이터만 조회 가능합니다. </span>  -->
-              </h3>
+            </h3>
           </div>
           <div style="display: inline-block; float: right">
             <ul class="legend">
-              <li v-for="(emotion,index) in emotions" v-bind:key="index">{{emo[emotion.text]}}</li>
+              <li v-for="(emotion, index) in emotions" v-bind:key="index">
+                {{ emo[emotion.text] }}
+              </li>
             </ul>
           </div>
         </div>
         <div class="graphic">
-            <div v-if="emotions" class="chart">
-              <span v-for="(eachemotion,index) in emotions" v-bind:key="index" class="block" :title=emo[eachemotion.text]>
-                <span class="val" v-text="eachemotion.value"></span>
-              </span>
-            </div>
-          <div v-if="emotions==''" class="chart">
-              <span class="block" style="background-color:#ffe26d">
-                <span class="val">데이터가 존재하지 않습니다</span>
-              </span>
-            </div>
+          <div v-if="emotions" class="chart">
+            <span
+              v-for="(eachemotion, index) in emotions"
+              v-bind:key="index"
+              class="block"
+              :title="emo[eachemotion.text]"
+            >
+              <span class="val" v-text="eachemotion.value"></span>
+            </span>
+          </div>
+          <div v-if="emotions == ''" class="chart">
+            <span class="block" style="background-color: #ffe26d">
+              <span class="val">데이터가 존재하지 않습니다</span>
+            </span>
+          </div>
         </div>
       </div>
     </v-app>
@@ -71,145 +80,157 @@
 </template>
 
 <script>
-import http from "../utils/http-common.js";
+import http from '../utils/http-common.js';
 export default {
-  name: "Report",
+  name: 'Report',
   props: {
     kid: null,
   },
   data: function () {
     return {
-      test:0,
+      test: 0,
       thisweek: 0,
-      type: "week",
-      mode: "stack",
+      type: 'week',
+      mode: 'stack',
       weekday: [1, 2, 3, 4, 5, 6, 0],
-      value: "",
+      value: '',
       events: [],
       emotions: [],
-      temp:[],
-      emo:
-      {'angry':'분노','disgusting':'역겨움','fearful':'무서움','happy':'행복','sad':'슬픔','surprising':'놀라움','neutral':'무표정'},
-      edu: [
-        {date:'',emotion:'', words:' '},
-      ],
-      dayclicked:'',
-      calendartitle:'',
+      temp: [],
+      emo: {
+        angry: '분노',
+        disgusting: '역겨움',
+        fearful: '무서움',
+        happy: '행복',
+        sad: '슬픔',
+        surprising: '놀라움',
+        neutral: '무표정',
+      },
+      edu: [{ date: '', emotion: '', words: ' ' }],
+      dayclicked: '',
+      calendartitle: '',
     };
   },
-  watch:{
-    kid:function(){
+  watch: {
+    kid: function () {
       this.refreshdata();
-    },   
-    thisweek:function(){
+    },
+    thisweek: function () {
       this.refreshdata();
     },
   },
-  created(){   
-    this.dayclicked = new Date().getDay()-1;
-    this.refreshdata(); 
+  created() {
+    this.dayclicked = new Date().getDay() - 1;
+    this.refreshdata();
   },
-  mounted(){
-    $(".v-calendar-daily__intervals-head").remove();
-    $(".v-calendar-daily__body").remove();
+  mounted() {
+    $('.v-calendar-daily__intervals-head').remove();
+    $('.v-calendar-daily__body').remove();
     // this.$refs.calendar.checkChange()
     this.activate_button();
   },
   methods: {
-    activate_button(){
+    activate_button() {
       setTimeout(() => {
-      // console.log(this.$refs.calendar.title);
-      var datereform = this.$refs.calendar.title.split(" "); 
-      var month, year;
-      if(datereform.length==4){
-        month = datereform[0]+'/'+datereform[2];
-        year = datereform[3]+'년';
-      }else{
-        month = datereform[0];
-        year = datereform[1]+'년';
-      }
-      this.calendartitle = year + ' ' + month;
-
-      },1)
+        // console.log(this.$refs.calendar.title);
+        var datereform = this.$refs.calendar.title.split(' ');
+        var month, year;
+        if (datereform.length == 4) {
+          month = datereform[0] + '/' + datereform[2];
+          year = datereform[3] + '년';
+        } else {
+          month = datereform[0];
+          year = datereform[1] + '년';
+        }
+        this.calendartitle = year + ' ' + month;
+      }, 1);
       var vm = this;
       setTimeout(() => {
-      $(".v-calendar-daily_head-day-label button").click(function(event) {
-        vm.dayclicked = $(this).parent().parent().index();
-        // console.log('clicked')
-        vm.setEmotionGraph();
-      })},1)
+        $('.v-calendar-daily_head-day-label button').click(function (event) {
+          vm.dayclicked = $(this).parent().parent().index();
+          // console.log('clicked')
+          vm.setEmotionGraph();
+        });
+      }, 1);
     },
-    toprevious(){
+    toprevious() {
       this.thisweek++;
       this.$refs.calendar.prev();
       this.activate_button();
     },
-    tonext(){
-      if(this.thisweek>0){
+    tonext() {
+      if (this.thisweek > 0) {
         this.thisweek--;
         this.$refs.calendar.next();
         this.activate_button();
-      }else{
-      this.$swal({
+      } else {
+        this.$swal({
           title:
             '<span style="font-weight:100; font-family:GmarketSansMedium;font-size:25px; ">이번주 정보까지만 조회 가능합니다.</span>',
           confirmButtonText: '확인',
           showLoaderOnConfirm: false,
           timer: 100000,
-      }).then((result) => {
-      });
+        }).then((result) => {});
       }
     },
-    setEmotionGraph(){
-      this.emotions=[];
-      for(var val in this.edu[this.dayclicked].emotion){
-        this.emotions.push({text:val, value:this.edu[this.dayclicked].emotion[val]})
+    setEmotionGraph() {
+      this.emotions = [];
+      for (var val in this.edu[this.dayclicked].emotion) {
+        this.emotions.push({
+          text: val,
+          value: this.edu[this.dayclicked].emotion[val],
+        });
       }
-        setTimeout(() => {
-          $(function () {
-          $(".val").each(function () {
-            var text = $(this).text()+'%';
-            if(text=='데이터가 존재하지 않습니다%'){
-              $(this).parent().css("width", "100%");
-            }else{
-              $(this).parent().css("width", text);
+      setTimeout(() => {
+        $(function () {
+          $('.val').each(function () {
+            var text = $(this).text() + '%';
+            if (text == '데이터가 존재하지 않습니다%') {
+              $(this).parent().css('width', '100%');
+            } else {
+              $(this).parent().css('width', text);
             }
           });
         });
-        }, 1);
+      }, 1);
     },
-    refreshdata(){
+    refreshdata() {
       this.events = [];
       http
-        .get('/kids/'+this.$store.state.selected_kid.id+'/week/'+this.thisweek, {
-          headers: { 'X-AUTH-TOKEN': this.$store.state.token },
-        })
+        .get(
+          '/kids/' +
+            this.$store.state.selected_kid.id +
+            '/week/' +
+            this.thisweek,
+          {
+            headers: { 'X-AUTH-TOKEN': this.$store.state.token },
+          }
+        )
         .then(({ data }) => {
           this.edu = data;
           // console.log(this.edu)
-          for(var val in data){
-              this.temp = data[val].words;
-              for (var w in this.temp){
-                this.events.push({
+          for (var val in data) {
+            this.temp = data[val].words;
+            for (var w in this.temp) {
+              this.events.push({
                 name: this.temp[w],
                 start: data[val].date,
-                });
-              }
+              });
+            }
           }
           this.setEmotionGraph();
-        })
+        });
     },
-    today(){
-      this.thisweek=0;
+    today() {
+      this.thisweek = 0;
       this.value = '';
-    }
+    },
   },
 };
 </script>
 
-</script>
 <style lang="scss">
-@import "../assets/sass/base.scss";
+@import '../assets/sass/base.scss';
 $calendartitle-height: 35px;
 .v-application--wrap {
   width: auto;
@@ -226,6 +247,26 @@ $calendartitle-height: 35px;
 
 .v-calendar-daily_head-day {
   height: 40vh;
+  overflow: scroll;
+}
+.v-calendar-daily_head-day::-webkit-scrollbar {
+  width: 5px;
+}
+.v-calendar-daily_head-day::-webkit-scrollbar-thumb {
+  width: 2px;
+  background-color: transparent;
+  border-radius: 10px;
+  background-clip: padding-box;
+  border: 3px solid #66bb6a8e;
+}
+.v-calendar-daily_head-day::-webkit-scrollbar-track {
+  background-color: transparent;
+  border-radius: 30px;
+  width: 5px;
+}
+
+.v-application .primary {
+  background-color: green !important;
 }
 
 .v-calendar-daily {
@@ -251,29 +292,28 @@ $calendartitle-height: 35px;
   }
 }
 .row-title {
-  width:100%;
-  height:35px;
+  width: 100%;
+  height: 35px;
   .cal-left {
     width: 20%;
-    height:$calendartitle-height;
+    height: $calendartitle-height;
   }
   .cal {
     width: 60%;
-    .v-toolbar__title{
-      line-height:$calendartitle-height+5px;
+    .v-toolbar__title {
+      line-height: $calendartitle-height + 5px;
       vertical-align: middle;
     }
   }
   .cal-right {
     width: 20%;
-    height:$calendartitle-height;
+    height: $calendartitle-height;
   }
 }
-
 </style>
 <style lang="scss" scoped>
 * {
-  font-family: "GmarketSansMedium";
+  font-family: 'GmarketSansMedium';
   color: #4b4b4b;
   #inspire {
     background-color: transparent;
@@ -307,8 +347,6 @@ $calendartitle-height: 35px;
   right: 4px;
   margin-right: 0px;
 }
-
-
 
 .showemotion {
   width: 100%;
@@ -358,6 +396,8 @@ figure {
 .row + .row + .row .chart {
   animation-delay: 0.4s;
 }
+
+//#5a7280; #45b29d; #efc94c; #e27a3f; #df5a49; #962d3e;
 .block {
   display: block;
   height: 4.5vh;
@@ -365,7 +405,7 @@ figure {
   color: #fff;
   font-size: 0.75em;
   float: left;
-  background-color: #5a7280;
+  background-color: #949494;
   position: relative;
   overflow: hidden;
   opacity: 1;
@@ -374,23 +414,27 @@ figure {
 }
 .block:nth-of-type(2),
 .legend li:nth-of-type(2):before {
-  background-color: #45b29d;
+  background-color: #f69163;
 }
 .block:nth-of-type(3),
 .legend li:nth-of-type(3):before {
-  background-color: #efc94c;
+  background-color: #76c7f5;
 }
 .block:nth-of-type(4),
 .legend li:nth-of-type(4):before {
-  background-color: #e27a3f;
+  background-color: #def576;
 }
 .block:nth-of-type(5),
 .legend li:nth-of-type(5):before {
-  background-color: #df5a49;
+  background-color: #7683f5;
 }
 .block:nth-of-type(6),
 .legend li:nth-of-type(6):before {
-  background-color: #962d3e;
+  background-color: #f8ec48;
+}
+.block:nth-of-type(7),
+.legend li:nth-of-type(7):before {
+  background-color: #e98080;
 }
 
 .val {
@@ -424,7 +468,7 @@ figure {
   line-height: 1em;
 }
 .legend li:before {
-  content: "";
+  content: '';
   margin-right: 0.5em;
   display: inline-block;
   width: 8px;
@@ -444,8 +488,8 @@ figure {
   .legend {
     width: 100%;
   }
-  .colored{
-    background-color: red!important;
+  .colored {
+    background-color: red !important;
   }
 }
 </style>

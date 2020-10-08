@@ -38,8 +38,14 @@ export default {
     };
   },
   created() {
-    if (this.$store.state.is_test) {
+    if (this.$store.state.test_customizing) {
       // 부모 테스트 - 커스텀 퀴즈일 때
+      this.quizapipath =
+        '/custom/test/' +
+        this.$store.state.test_customizing.image_id +
+        '/' +
+        this.$store.state.test_customizing.word +
+        '/seg';
     } else {
       if (this.$store.state.theme == 1) {
         this.quizapipath =
@@ -50,15 +56,15 @@ export default {
       } else {
         this.quizapipath = '/edu/' + this.$store.state.quiz.id + '/seg';
       }
-      http
-        .get(this.quizapipath, {
-          headers: { 'X-AUTH-TOKEN': this.$store.state.token },
-        })
-        .then((data) => {
-          this.$store.commit('setQuizC', data.data);
-          this.setLocalVariable();
-        });
     }
+    http
+      .get(this.quizapipath, {
+        headers: { 'X-AUTH-TOKEN': this.$store.state.token },
+      })
+      .then((data) => {
+        this.$store.commit('setQuizC', data.data);
+        this.setLocalVariable();
+      });
   },
   mounted() {
     this.url = this.quiz.url2;
