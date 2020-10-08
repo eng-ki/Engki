@@ -32,7 +32,7 @@
   </div>
 </template>
 <script>
-import http from '../utils/http-common.js';
+import http from "../utils/http-common.js";
 export default {
   props: {
     isDone: false,
@@ -46,7 +46,7 @@ export default {
   created() {
     this.quiz = {
       url:
-        'https://j3a510.p.ssafy.io/images/' +
+        "https://j3a510.p.ssafy.io/images/" +
         this.$store.state.quiz_adv.filePath,
       sentence: this.$store.state.quiz_adv.caption,
       answers: this.$store.state.quiz_adv.randomCaptions,
@@ -55,9 +55,9 @@ export default {
   watch: {
     isDone: function (val) {
       if (this.isCorrect()) {
-        this.$store.commit('setExp', 5);
-        this.$emit('correct');
-      } else this.$emit('wrong');
+        this.$store.commit("setExp", 5);
+        this.$emit("correct");
+      } else this.$emit("wrong");
     },
   },
   methods: {
@@ -69,7 +69,7 @@ export default {
           title:
             '<div><span style="font-weight:100; font-size:2vw;">정답이 아닙니다.</span><br><span  style="font-weight:100; font-size:2vw;">다시 한번 생각해보세요.</span></div>',
           showCancelButton: false,
-          confirmButtonText: '확인',
+          confirmButtonText: "확인",
           timer: 1000,
         }).then((result) => {
           return true;
@@ -84,14 +84,14 @@ export default {
 };
 </script>
 <style lang="scss">
-@import '../assets/sass/base.scss';
+@import "../assets/sass/base.scss";
 </style>
 <style lang="scss" scoped>
 .right-side {
   position: absolute;
   // display: inline-block;
   top: 10vh;
-  left: 0px;
+  left: 5vw;
   width: 30%;
   height: 100%;
   // background-color: yellow;
@@ -101,14 +101,10 @@ export default {
       // vertical-align: middle;
       display: inline-block;
       position: relative;
-      // left: 1vw;
-      // top: 3vh;
-      // float: left;
-      // margin-top: 5vh;
-      // margin-top: auto;
       width: 100%;
       border-radius: 5vw;
-      border: 1vw solid #d5d5d5;
+      border: 0.9vw solid #d5d5d5;
+      top: 0vw;
     }
   }
 }
@@ -124,15 +120,14 @@ export default {
   .quiz-answer {
     display: inline-block;
     position: relative;
-    // top: 80%;
-    // left: 50%;
-    // right: 1vw;
-    // transform: translate(-50%, -50%);
+    top: 20vh;
+    left: 20vw;
+    transform: translate(-50%, -50%);
     // top: 6vh;
     .quiz-button {
       display: block;
       /* 사이즈 설정 */
-      width: 100%;
+      width: 36vw;
       height: 8vh;
       margin: 1vw;
 
@@ -141,7 +136,7 @@ export default {
       background-color: #dfdfdf;
 
       /* 폰트 */
-      font-size: 3vh;
+      font-size: 2.7vh;
       font-weight: 100;
       text-align: center;
       color: black;
