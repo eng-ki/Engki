@@ -353,7 +353,7 @@
   </div>
 </template>
 <script>
-import http from '../utils/http-common.js'
+import http from '../utils/http-common.js';
 export default {
   data: function () {
     return {
@@ -361,38 +361,38 @@ export default {
       activeSection: 0,
       offsets: [],
       touchStartY: 0,
-    }
+    };
   },
   computed: {
     getToken() {
-      return this.$store.getters.getToken
+      return this.$store.getters.getToken;
     },
   },
   mounted() {
-    this.calculateSectionOffsets()
-    window.addEventListener('DOMMouseScroll', this.handleMouseWheelDOM) // Mozilla Firefox
+    this.calculateSectionOffsets();
+    window.addEventListener('DOMMouseScroll', this.handleMouseWheelDOM); // Mozilla Firefox
     window.addEventListener('mousewheel', this.handleMouseWheel, {
       passive: false,
-    }) // Other browsers
+    }); // Other browsers
   },
   destroyed() {
     window.removeEventListener('mousewheel', this.handleMouseWheel, {
       passive: false,
-    }) // Other browsers
-    window.removeEventListener('DOMMouseScroll', this.handleMouseWheelDOM) // Mozilla Firefox
+    }); // Other browsers
+    window.removeEventListener('DOMMouseScroll', this.handleMouseWheelDOM); // Mozilla Firefox
   },
   watch: {
     getToken(val, oldVal) {
-      if (this.$store.state.isNew) this.$emit('child', true)
+      if (this.$store.state.isNew) this.$emit('child', true);
       else {
         http
           .get('parents/' + this.$store.state.parent.id + '/kids', {
             headers: { 'X-AUTH-TOKEN': this.$store.state.token },
           })
           .then(({ data }) => {
-            if (data.length == 0) this.$router.push('/parent')
-            else this.$router.push('/selectkid')
-          })
+            if (data.length == 0) this.$router.push('/parent');
+            else this.$router.push('/selectkid');
+          });
       }
     },
   },
@@ -400,60 +400,60 @@ export default {
     kakaoLogin() {
       Kakao.Auth.login({
         success: this.kakaoLoginStore,
-      })
-      this.$store.commit('setIsTest', false)
+      });
+      this.$store.commit('setTestCustomizing', false);
     },
     kakaoLoginStore(authObj) {
       this.$store.dispatch('kakaoLogin', {
         access_token: authObj.access_token,
-      })
+      });
     },
     calculateSectionOffsets() {
       // 한 화면 크기 저장
-      const sections = document.getElementsByClassName('fullpage')
-      const { length } = sections
+      const sections = document.getElementsByClassName('fullpage');
+      const { length } = sections;
       for (let i = 0; i < length; i += 1) {
-        const sectionOffset = sections[i].offsetTop
-        this.offsets.push(sectionOffset)
+        const sectionOffset = sections[i].offsetTop;
+        this.offsets.push(sectionOffset);
       }
     },
     scrollToSection(id, force = false) {
-      if (this.inMove && !force) return false
-      this.activeSection = id
-      this.inMove = true
+      if (this.inMove && !force) return false;
+      this.activeSection = id;
+      this.inMove = true;
       document.getElementsByClassName('fullpage')[id].scrollIntoView({
         behavior: 'smooth',
-      })
+      });
       setTimeout(() => {
-        this.inMove = false
-      }, 400)
-      return true
+        this.inMove = false;
+      }, 400);
+      return true;
     },
     handleMouseWheel(e) {
       if (e.wheelDelta < 30 && !this.inMove) {
-        this.moveUp()
+        this.moveUp();
       } else if (e.wheelDelta > 30 && !this.inMove) {
-        this.moveDown()
+        this.moveDown();
       }
-      e.preventDefault()
-      return false
+      e.preventDefault();
+      return false;
     },
     moveDown() {
-      this.inMove = true
-      this.activeSection -= 1
+      this.inMove = true;
+      this.activeSection -= 1;
       if (this.activeSection < -1) {
-        this.activeSection = 0
+        this.activeSection = 0;
       }
-      this.scrollToSection(this.activeSection, true)
+      this.scrollToSection(this.activeSection, true);
     },
     moveUp() {
-      this.inMove = true
-      this.activeSection += 1
-      if (this.activeSection > this.offsets.length - 1) this.activeSection = 0
-      this.scrollToSection(this.activeSection, true)
+      this.inMove = true;
+      this.activeSection += 1;
+      if (this.activeSection > this.offsets.length - 1) this.activeSection = 0;
+      this.scrollToSection(this.activeSection, true);
     },
   },
-}
+};
 </script>
 <style lang="scss">
 @import '../assets/sass/base.scss';

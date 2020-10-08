@@ -18,7 +18,7 @@ export default new Vuex.Store({
     kid: null,
     exp: 0,
     selected_kid: null,
-    is_test: null,
+    test_customizing: null,
   },
   getters: {
     getParent: function (state) {
@@ -54,8 +54,8 @@ export default new Vuex.Store({
     getSelectedKid: function (state) {
       return state.selected_kid;
     },
-    getIsTest: function (state) {
-      return state.is_test;
+    getTestCustomizing: function (state) {
+      return state.test_customizing;
     },
   },
   mutations: {
@@ -92,8 +92,8 @@ export default new Vuex.Store({
     setSelectedKid(state, payload) {
       state.selected_kid = payload;
     },
-    setIsTest(state, payload) {
-      state.is_test = payload;
+    setTestCustomizing(state, payload) {
+      state.test_customizing = payload;
     },
   },
   actions: {

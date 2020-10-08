@@ -25,12 +25,11 @@ export default {
     };
   },
   created() {
-    if (this.$store.state.is_test) {
-      console.log('부모 테스트 - 커스텀 퀴즈일 때');
-      setLocalVariable();
+    // imageID,
+    if (this.$store.state.test_customizing) {
+      this.setLocalVariable();
     } else {
       if (this.$store.state.theme == 1) {
-        console.log('그냥 커스텀 퀴즈');
         this.quizapipath = '/custom/by/' + this.$store.state.parent.id;
       } else {
         this.quizapipath =
@@ -45,7 +44,6 @@ export default {
         })
         .then((data) => {
           console.log(data);
-          console.log(this.$store.state.parent);
           this.$store.commit('setQuiz', {
             id: data.data.id,
             word: data.data.word,
@@ -66,15 +64,14 @@ export default {
     showKorean: function (val) {
       if (this.showKorean) {
         this.word = this.quiz.word_kor;
-        console.log('클릭됨 + ' + this.word);
       } else {
         this.word = this.quiz.word_eng;
-        console.log('원상복구 + ' + this.word);
       }
     },
   },
   methods: {
     setLocalVariable() {
+      console.log('들어옴2');
       this.quiz = {
         url: this.$store.state.quiz.url,
         word_eng: this.$store.state.quiz.word,
