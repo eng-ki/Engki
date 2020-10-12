@@ -3,7 +3,7 @@
     <!-- 문장 영역 -->
     <div class="quiz-sentence" @click="soundAndTranslation(quiz.sentence)">
       <img src="../../public/img/icon/speaker.png" />
-      <span>{{ quiz.sentence_kr }}</span>
+      <span class="quiz-sentence-kor">{{ quiz.sentence_kr }}</span>
     </div>
 
     <!-- 문장 영역 끝 -->
@@ -77,6 +77,12 @@ export default {
       answers: this.$store.state.quiz_adv.tokens,
       remain_answers: this.$store.state.quiz_adv.tokens,
     }
+
+    var sentence_kr_size = 10/this.quiz.sentence_kr.length+2;
+    setTimeout(() => {  $( document ).ready(function() {
+    $('.quiz-sentence-kor').css('font-size',  sentence_kr_size+'vw')
+    })},1)
+
     for (var i = 0; i < this.quiz.answers.length; i++) {
       this.answer[this.quiz.answers[i].order] = this.quiz.answers[i].token
       this.blanck_answer[this.quiz.answers[i].order] = this.quiz.answers[
@@ -86,8 +92,7 @@ export default {
 
     this.answer = this.answer.join(' ')
     this.blanck_answer = this.blanck_answer.join(' ')
-    // console.log(this.blanck_answer);
-    // console.log(this.$store.state.quiz_adv.tokens);
+
   },
   watch: {
     isDone: function (val) {
@@ -201,9 +206,7 @@ function speech(txt) {
   position: absolute;
   top: 7%;
   left: 50%;
-  margin-left: 10vw;
-  transform: translate(-50%, -50%);
-  font-size: 2.8vw;
+  transform: translate(-37%, -50%);
   width: 100%;
   display: inline-block;
   &:hover {
@@ -211,13 +214,14 @@ function speech(txt) {
   }
 }
 .quiz-sentence img {
-  width: 4vw;
+  width: 3.3vw;
   float: left;
   margin-right: 2vw;
 }
-.quiz-sentence span {
+.quiz-sentence-kor {
   float: left;
   color: #393939;
+  text-align:center;
 }
 
 .quiz-answer {

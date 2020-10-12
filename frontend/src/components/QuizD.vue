@@ -193,15 +193,11 @@ export default {
   top: 0px;
   right: 0px;
   width: 100%;
-  // margin-top: 3vh;
-  // margin-left: 1vw;
-  // height: 15vh;
-  // text-align: left;
-  // line-height: 10vh;
+  transform: translate(0%, 0%);
   word-break: break-all;
   display: inline-block;
   span {
-    font-size: 2.5vw;
+    font-size: 2vw;
   }
 }
 .quizQuestionLong {
@@ -209,11 +205,6 @@ export default {
   top: 0px;
   right: 0px;
   width: 100%;
-  // margin-top: 3vh;
-  // margin-left: 1vw;
-  // height: 15vh;
-  // text-align: left;
-  // line-height: 10vh;
   word-break: break-all;
   display: inline-block;
   span {
@@ -239,21 +230,21 @@ export default {
 .quiz-button {
   /* 사이즈 설정 */
   width: 30vw;
-  height: 10vh;
+  height: 11vh;
   /* 디자인 */
   border-radius: 15vw;
-  margin: 1vw;
+  margin: 0.8vw;
   background-color: #dfdfdf;
 
   display: block;
   /* 폰트 */
   line-height: 8vh;
-  font-size: 5vh;
+  font-size: 4.8vh;
   font-display: inherit;
   color: black;
 }
 
 .selected {
-  border: 1vw solid #f4b759;
+  border: 0.7vw solid #f4b759;
 }
 </style>

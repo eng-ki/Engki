@@ -1,17 +1,17 @@
 <template>
   <div>
-    <!-- 오른쪽 영역 -->
-    <div class="right-side">
+    <!-- 왼쪽 영역 -->
+    <div class="left-side">
       <!-- 사진 -->
       <div class="quiz-img">
         <img :src="quiz.url" />
       </div>
       <!-- 사진 끝-->
     </div>
-    <!-- 오른쪽 영역 끝-->
+    <!-- 왼쪽 영역 끝-->
 
-    <!-- 왼쪽 영역 -->
-    <div class="left-side">
+    <!-- 오른쪽 영역 -->
+    <div class="right-side">
       <!-- 답변 영역 -->
       <div class="quiz-text">
         <div class="quiz-answer">
@@ -28,7 +28,7 @@
       </div>
       <!-- 답변 영역 끝 -->
     </div>
-    <!--왼쪽 영역 끝-->
+    <!--오른쪽 영역 끝-->
   </div>
 </template>
 <script>
@@ -87,18 +87,15 @@ export default {
 @import "../assets/sass/base.scss";
 </style>
 <style lang="scss" scoped>
-.right-side {
+.left-side {
   position: absolute;
-  // display: inline-block;
-  top: 10vh;
-  left: 5vw;
-  width: 30%;
+  top: 0vh;
+  left: 0vw;
+  transform: translate(12%, 12%);
+  width: 33%;
   height: 100%;
-  // background-color: yellow;
   .quiz-img {
-    line-height: 100%;
     img {
-      // vertical-align: middle;
       display: inline-block;
       position: relative;
       width: 100%;
@@ -108,35 +105,33 @@ export default {
     }
   }
 }
-.left-side {
-  position: absolute;
-  display: inline-block;
-  top: 10vh;
-  right: 0px;
+.right-side {
+   position: absolute;
+  top: 0vh;
+  left: 0vw;
+  transform: translate(48%, 12%);
   width: 70%;
   height: 100%;
-  // background-color: red;
 
   .quiz-answer {
     display: inline-block;
     position: relative;
-    top: 20vh;
-    left: 20vw;
+    top: 23vh;
+    left: 21vw;
     transform: translate(-50%, -50%);
-    // top: 6vh;
     .quiz-button {
       display: block;
       /* 사이즈 설정 */
-      width: 36vw;
-      height: 8vh;
-      margin: 1vw;
+      width: 39vw;
+      height: 8.5vh;
+      margin: 1.3vw;
 
       /* 디자인 */
       border-radius: 15vw;
       background-color: #dfdfdf;
 
       /* 폰트 */
-      font-size: 1.2vw;
+      font-size: 1.3vw;
       font-weight: 100;
       text-align: center;
       color: black;
