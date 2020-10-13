@@ -472,7 +472,7 @@ export default {
 }
 
 .pointerdown img {
-  width: 5.6vw;
+  width: 8.0vh;
   opacity: 0.82;
   animation: pointers 1.5s linear 1.5s infinite alternate running;
 }

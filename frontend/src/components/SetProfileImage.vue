@@ -59,10 +59,10 @@
           </table>
           <div class="change-button">
             <div class="button-1">
-              <v-btn rounded @click="setProfileImage()">변경하기</v-btn>
+              <v-btn rounded style="font-size:3vh; margin:1vh; padding: 2vh 3vh;" @click="setProfileImage()">변경하기</v-btn>
             </div>
             <div class="button-2">
-              <v-btn rounded @click="returnKidPage()">돌아가기</v-btn>
+              <v-btn rounded style="font-size:3vh; margin:1vh;  padding: 2vh 3vh;" @click="returnKidPage()">돌아가기</v-btn>
             </div>
           </div>
         </div>
@@ -370,7 +370,6 @@ export default {
 .button-2 {
   float: left;
 }
-
 .active {
   border: 3px solid #8ebf43;
   border-style: dotted;
@@ -422,4 +421,6 @@ export default {
   top: 0 !important;
   left: -23vw !important;
 }
+
+
 </style>

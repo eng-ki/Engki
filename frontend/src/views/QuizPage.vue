@@ -240,7 +240,7 @@ export default {
   },
   mounted() {
     this.$store.state.exp = 0
-    if (!this.$store.state.test_customizing) {
+    if (this.$store.state.test_customizing===false) {
       this.onStart()
       this.startCapture()
     }

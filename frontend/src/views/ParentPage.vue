@@ -1,21 +1,6 @@
 <template>
   <div class="background">
-    <set-email
-      v-on:returnParentPage="isMypage = false"
-      v-on:visible="
-        selectKid(0);
-        isMypage = false;
-      "
-      from="parent"
-      v-if="isMypage"
-    />
-    <set-kid
-      v-on:returnParentPage="isAddKid = false"
-      v-on:update="updateKid"
-      v-else-if="kids.length == 0 || isAddKid"
-    />
-    <div v-else class="board">
-      <img
+    <img v-if="isAddKid != true && isMypage != true"
         @click="startTutorial()"
         class="page-title-img"
         id="tutorial"
@@ -31,6 +16,37 @@
           >도움말</span
         >
       </b-tooltip>
+    <set-email
+      v-on:returnParentPage="isMypage = false"
+      v-on:visible="
+        selectKid(0);
+        isMypage = false;
+      "
+      from="parent"
+      v-if="isMypage"
+    />
+    <set-kid
+      v-on:returnParentPage="isAddKid = false"
+      v-on:update="updateKid"
+      v-else-if="kids.length == 0 || isAddKid"
+    />
+    <div v-else class="board">
+      <!-- <img
+        @click="startTutorial()"
+        class="page-title-img"
+        id="tutorial"
+        src="../../public/img/icon/question-mark1.png"
+      />
+      <b-tooltip placement="top" target="tutorial" triggers="hover">
+        <span
+          style="
+            font-family: GmarketSansMedium;
+            color: #f2f2f2;
+            font-size: 0.8vw;
+          "
+          >도움말</span
+        >
+      </b-tooltip> -->
       <div class="board-header">
         <div class="board-header-kid">
           <div class="card-carousel-wrapper">
@@ -433,7 +449,7 @@ export default {
     showTutorial(index) {
       this.$refs['my-modal' + index].show();
       let $ref = this.$refs['my-modal' + index];
-      $ref.style.backgroundColor = '#66bb6a';
+      // $ref.style.backgroundColor = '#66bb6a';
     },
     startTutorial() {
       this.stage = 1;
@@ -773,17 +789,31 @@ $arrowcolor: black;
   z-index: 5;
   position: absolute;
 }
+// .page-title-img {
+//   position: absolute;
+//   top: 0px;
+//   right: 0px;
+//   width: 3%;
+//   margin-right: 3vw;
+//   &:hover {
+//     opacity: 0.6;
+//   }
+//   z-index: 1000;
+// }
+
 .page-title-img {
   position: absolute;
   top: 0px;
   right: 0px;
   width: 3%;
+  margin-top: 3vh;
   margin-right: 3vw;
   &:hover {
     opacity: 0.6;
   }
   z-index: 1000;
 }
+
 
 .isButtonBlock {
   opacity: 0.6;

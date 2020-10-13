@@ -289,11 +289,9 @@ export default {
 
 /* 프로필 변경 버튼, 프로필 아이콘, 인벤토리 아이콘 영역*/
 .kid {
-  width: 35%;
-  height: 35%;
-  bottom: 45%;
-  right: -1.9%;
-  position: inherit;
+  bottom:0px;
+  right:1vw;
+  position: absolute;
 }
 
 .profile-image img {
@@ -306,9 +304,10 @@ export default {
   margin-top: -5%;
   position: relative;
 }
+
 .inventory-wrap img {
   margin-top: 0px;
-  width: 90%;
+  // width: 90%;
   height: 100%;
   object-fit: cover;
   vertical-align: middle;
