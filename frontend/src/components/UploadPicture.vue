@@ -88,17 +88,18 @@
 
       <!-- 이미지 & 학습 저장 버튼 -->
       <div class="custom-bg">
-        <div class="custom-img">
+        <div class="custom-img" >
           <img :src="img" />
-          <button @click="test()" id="custom-save">학습 정보 저장하기</button>
-          <b-tooltip placement="top" target="custom-save" triggers="hover">
+          <button class="custom-save-btn" @click="test()" id="custom-save">학습 정보 저장하기</button>
+          <b-tooltip placement="top" target="custom-save" triggers="hover" style="width:30vw">
             <span
               style="
-                font-family: GmarketSansMedium;
+                font-family: GmarketSansMedium !important;
                 color: #f2f2f2;
-                font-size: 0.8vw;
+                font-size: 1vw;
+                font-weight:100;
               "
-              >저장된 정보는 퀴즈에 사용됩니다</span
+              >저장된 정보는<br>퀴즈에 사용됩니다</span
             >
           </b-tooltip>
         </div>
@@ -266,7 +267,7 @@ export default {
     test() {
       this.$swal({
         title:
-          '<span style="font-family: GmarketSansMedium;font-size:1.2vw;">현재 데이터로 학습을 시작하시겠습니까?</span>',
+          '<span style="font-family: GmarketSansMedium;font-size:1.1vw;">현재 데이터로 학습을 시작하시겠습니까?</span>',
         showCancelButton: true,
         confirmButtonText: '네',
         showCloseButton: true,
@@ -466,6 +467,7 @@ export default {
 </script>
 <style lang="scss">
 @import '../assets/sass/base.scss';
+
 </style>
 <style lang="scss" scoped>
 * {
@@ -514,35 +516,42 @@ export default {
 
 .custom-img {
   float: right;
-  width: 35%;
-  height: 100%;
+  margin-left: 2%;
+  width: 30%;
+  height: 60vh;
   background-color: white;
   overflow: hidden;
-}
-.custom-img img {
-  width: 22vw;
-  height: 22vw;
-  max-height: 21vw;
-  border: 10px solid white;
-  border-radius: 20%;
-  float: right;
-}
 
-.custom-img button {
-  margin-top: 10%;
-  width: 100%;
+  button {
+  position: absolute;
+  bottom: 0;
+  width: 27%;
   height: 15%;
   font-size: 1.7vw;
   text-align: center;
   background-color: yellowgreen;
   float: bottom;
   color: darkgreen;
+  
+  border-radius: 10px;
 
   &:hover {
     opacity: 0.8;
     transition: all 0.1s;
   }
 }
+}
+
+.custom-img img {
+  width:100%; 
+  height:auto;
+  max-height: 21vw;
+  // border: 10px solid white;
+  border-radius: 10px;
+  float: right;
+}
+
+
 .custom-edu {
   float: right;
   width: 65%;
@@ -577,4 +586,5 @@ export default {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
 </style>
