@@ -34,7 +34,22 @@
       v-on:continue="isBreakTime = false"
     />
 
+      <b-tooltip placement="bottom" target="cameraon" triggers="hover">
+      <span
+        style="font-family: GmarketSansMedium; color: #f2f2f2; font-size: 0.7vw"
+        >감정 인식을 위해 실시간 녹화가<br>이루어지고 있습니다. 녹화 자료는 저장되지 않으며 수치상으로 표현됩니다.</span
+      >
+    </b-tooltip>
+      <b-tooltip placement="bottom" target="cameraoff" triggers="hover">
+      <span
+        style="font-family: GmarketSansMedium; color: #f2f2f2; font-size: 0.8vw"
+        >감정 인식을 위한 실시간 녹화가 중지되었습니다.</span
+      >
+    </b-tooltip>
+
     <div class="whiteboard">
+      <img id="cameraon" src="../../public/img/icon/camera-on.png" v-if="isCameraOn" class="rec"/>
+      <img id="cameraoff" src="../../public/img/icon/camera-off.png" v-else class="rec"/>
       <div class="board">
         <quiz-a
           :isDone="isDone"
@@ -126,7 +141,7 @@
         >{{ subject }}</span
       >
 
-    
+
       <img
         v-if="!isBreakTime && !isFinish"
         class="tiki"
@@ -177,8 +192,9 @@ export default {
     return {
       answer: '',
       isDone: false,
-      isBreakTime: false, 
+      isBreakTime: false,
       isFinish: false, 
+      isCameraOn : false,
       stage: 0,
       subjects: [
         '사진 속 단어를 배워보세요',
@@ -326,9 +342,11 @@ export default {
     },
     onStop() {
       this.$refs.webcam.stop()
+      this.isCameraOn = false
     },
     onStart() {
       this.$refs.webcam.start()
+      this.isCameraOn = true
     },
     onError(error) {
     },
@@ -384,6 +402,15 @@ export default {
   height: 60vh;
   z-index: 1000;
   padding: 5px;
+}
+
+.rec{
+  z-index:3;
+  width:6vw;
+  top: 15vh;
+  right: 13vw;
+  position: absolute;
+  margin:0px;
 }
 
 .whiteboard .tiki {
