@@ -26,7 +26,7 @@
       @cameras="onCameras"
       @camera-change="onCameraChange"
     />
-    <!-- etc : 종료 화면 / pause 화면 컴포넌트들 들어갈 자리-->
+ 
     <etc
       v-if="(isBreakTime || isFinish) && !$store.state.test_customizing"
       :isBreakTime="isBreakTime"
@@ -126,20 +126,20 @@
         >{{ subject }}</span
       >
 
-      <!-- 잠깐 티키 눌렀을때 ETC (휴식) 페이지로 이동하게 해놓음 -->
+    
       <img
         v-if="!isBreakTime && !isFinish"
         class="tiki"
         src="../../public/img/icon/moving_tiki.gif"
       />
 
-      <!--다했어요 버튼 눌렀을때 1. isDone 변경 -> 2. 컴포넌트에서 정답인지 확인 -> 3. 다음 스테이지로-->
+      
       <img
         class="done"
         @click="isDone = true"
         src="../../public/img/icon/done.png"
       />
-      <!-- 모르겠어요 버튼 눌렀을때 완전 끝내기랑 다음으로가기 -->
+      
       <img
         class="difficult"
         @click="isPass()"
@@ -176,10 +176,10 @@ export default {
   data: () => {
     return {
       answer: '',
-      isDone: false, // 다했어요
-      isBreakTime: false, // 쉬는시간
-      isFinish: false, // 퀴즈 종료
-      stage: 0, // stage 0~5 : 퀴즈
+      isDone: false,
+      isBreakTime: false, 
+      isFinish: false, 
+      stage: 0,
       subjects: [
         '사진 속 단어를 배워보세요',
         '단어에 해당하는 그림을 모두 선택해주세요',
@@ -224,7 +224,6 @@ export default {
   },
   mounted() {
     this.$store.state.exp = 0
-    // console.log(this.$store.state.test_customizing)
     if (!this.$store.state.test_customizing) {
       this.onStart()
       this.startCapture()
@@ -261,9 +260,6 @@ export default {
         }
       }
     },
-    setAnswer(answer) {
-      this.answer = answer
-    },
     startCapture() {
       this.camTimer = setInterval(() => {
         this.onCapture()
@@ -289,17 +285,14 @@ export default {
             },
           })
           .then(({ data }) => {
-            // console.log(data)
             if (data == 'STOP') {
               this.isBreakTime = true
             }
           })
       }, 5000)
     },
-    // 감정 인식 중지
+    // 캡쳐 중지
     stopCapture() {
-      // 캡쳐 중지
-
       clearInterval(this.camTimer)
     },
     // 모르겠어요 버튼 눌렀을때 완전 끝내기랑 다음으로가기
@@ -315,7 +308,6 @@ export default {
         cancelButtonText:
           '<span style="font-weight:100; font-size:1.5vw;">계속 풀래요</span>',
 
-        // 이거 뒤로가기 버튼 있어야 할 듯..
         showCloseButton: true,
       }).then((result) => {
         if (result.value) {
@@ -329,10 +321,8 @@ export default {
       this.img = this.$refs.webcam.capture()
     },
     onStarted(stream) {
-      // console.log('On Started Event', stream)
     },
     onStopped(stream) {
-      // console.log('On Stopped Event', stream)
     },
     onStop() {
       this.$refs.webcam.stop()
@@ -341,16 +331,13 @@ export default {
       this.$refs.webcam.start()
     },
     onError(error) {
-      // console.log('On Error Event', error)
     },
     onCameras(cameras) {
       this.devices = cameras
-      // console.log('On Cameras Event', cameras)
     },
     onCameraChange(deviceId) {
       this.deviceId = deviceId
       this.camera = deviceId
-      // console.log('On Camera Change Event', deviceId)
     },
 
     dataURLtoFile(dataurl, fileName) {
