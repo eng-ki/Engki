@@ -236,7 +236,7 @@ export default {
   },
   mounted() {
     this.selectedIndex = this.fairytale.indexOf(this.$store.state.kid.icon)
-    this.level = this.kid.exp / 100 - (this.kid.exp % 100) / 100
+    this.level = Math.ceil(this.kid.exp / 100 - (this.kid.exp % 100) / 100)
     this.timer = setInterval(() => {
       if (this.value == this.kid.exp % 100) {
         clearInterval(this.timer)

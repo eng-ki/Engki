@@ -342,7 +342,6 @@ export default {
     },
     onStop() {
       this.$refs.webcam.stop()
-      this.isCameraOn = false
     },
     onStart() {
       this.$refs.webcam.start()
@@ -352,10 +351,12 @@ export default {
     },
     onCameras(cameras) {
       this.devices = cameras
+      
     },
     onCameraChange(deviceId) {
       this.deviceId = deviceId
       this.camera = deviceId
+     
     },
 
     dataURLtoFile(dataurl, fileName) {
