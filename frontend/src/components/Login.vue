@@ -52,8 +52,7 @@
           </v-col>
           <v-col cols="12" sm="8" md="6" align="center" justify="center">
             <v-carousel
-              reverse-transition="fade-transition"
-              transition="fade-transition"
+            transition="fade-transition"
               hide-delimiters
               :next-icon="false"
               :prev-icon="false"
