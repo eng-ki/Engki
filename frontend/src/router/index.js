@@ -34,11 +34,6 @@ const routes = [
     component: KidPage,
   },
   {
-    path: '/webcam',
-    name: 'WebCam',
-    component: WebCam,
-  },
-  {
     path: '/selectquiz',
     name: 'SelectQuizPage',
     component: SelectQuizPage,

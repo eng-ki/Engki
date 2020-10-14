@@ -247,7 +247,7 @@ export default {
       ],
       img: null,
       camera: null,
-      cameras: null,
+      cameras_: null,
       deviceId: null,
       devices: [],
     }
@@ -266,10 +266,12 @@ export default {
       this.deviceId = id
     },
     devices: function () {
+      if(this.devices!=null){
       const [first, ...tail] = this.devices
       if (first) {
         this.camera = first.deviceId
         this.deviceId = first.deviceId
+      }
       }
     },
   },
@@ -399,16 +401,17 @@ export default {
       }, 600)
     },
     onStart() {
-      
+      setTimeout(() => {
       this.isCameraOn = true
-      this.onCameras(this.cameras)
-      this.$refs.webcam.start();
+      this.onCameras(this.cameras_)
+      }, 300)
+      this.$refs.webcam.start()
     },
     onCameras(cameras) {
       if(this.isCameraOn){
-      this.devices = cameras;
+      this.devices = cameras
       }else{
-      this.cameras = cameras
+      this.cameras_ = cameras
       }
     },
     onCameraChange(deviceId) {
