@@ -121,7 +121,6 @@ export default {
   },
   created() {
     this.dayclicked = new Date().getDay() - 1;
-    this.refreshdata();
   },
   mounted() {
     $('.v-calendar-daily__intervals-head').remove();
