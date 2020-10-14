@@ -17,7 +17,7 @@
       <div class="innerbox">
         <div class="profile-icon">
           <img :src="kid.icon" />
-          <div class="name">김싸피</div>
+          <div class="name">{{kid.name}}</div>
           <div class="bar" v-if="!isChangeProfile">
             <b-progress
               :value="value"
@@ -342,6 +342,8 @@ export default {
 }
 .profile-icon .name {
   margin-top: -1vw;
+  font-size:3vh;
+
 }
 .profile-icon .bar {
   position: relative;
