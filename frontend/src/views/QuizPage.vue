@@ -20,9 +20,6 @@
       ref="webcam"
       :device-id="deviceId"
       width="0%"
-      @started="onStarted"
-      @stopped="onStopped"
-      @error="onError"
       @cameras="onCameras"
       @camera-change="onCameraChange"
     />
@@ -34,10 +31,10 @@
       v-on:continue="isBreakTime = false"
     />
 
-      <b-tooltip placement="bottom" target="cameraon" triggers="hover">
+      <b-tooltip placement="bottom" target="cameraon" v-if="isCameraOn" triggers="hover">
       <span
         style="font-family: GmarketSansMedium; color: #f2f2f2; font-size: 0.7vw"
-        >감정 인식을 위해 실시간 녹화가<br>이루어지고 있습니다. 녹화 자료는 저장되지 않으며 수치상으로 표현됩니다.</span
+        >감정 인식을 위해 실시간으로<br>녹화가 이루어지고 있습니다.<br>인식 후 숫자로만 기록됩니다.</span
       >
     </b-tooltip>
       <b-tooltip placement="bottom" target="cameraoff" triggers="hover">
@@ -161,6 +158,48 @@
         src="../../public/img/icon/difficult.png"
       />
     </div>
+
+    <!-- 개인정보 제공동의 모달 -->
+    <b-modal
+      ref="personalAccept"
+      :no-close-on-backdrop="isHideHeaderClose"
+      title-html="<span style='
+  padding: 1vw;font-family: GmarketSansMedium; color: #263747;'>개인 정보를 제공하는데 동의하시겠습니까?</span>"
+      :hide-footer="isHideFooter"
+      :hide-header-close="isHideHeaderClose"
+      header-border-variant="0"
+      >
+      <div class="modal-body">
+          <span style="font-size:0.8vw;">
+          ENGKI 에서 {{this.$store.state.kid.name}} 님의 서비스 이용 중 감정 인식을 위해 실시간 녹화 정보를 <br>
+          제공받습니다. 녹화 자료는 수치상으로만 기록되어 탈퇴 전까지 보관됩니다.</span>
+      </div>
+      <div>
+        <div class="modal-foot2">
+          <b-button
+            size="sm"
+            variant="warning"
+            pill 
+            :class="{ isButtonBlock: stage == 1 }"
+            @click="accept();"
+          >
+             <span style="margin-left:1vw;"></span>
+             동의하기<span style="margin-right:1vw;"></span>
+          </b-button>
+          <span style="margin-right:3vw;"></span>
+          <b-button
+            size="sm"
+            pill 
+            @click="decline();"
+          >
+             <span style="margin-left:1vw;"></span>
+             취소하기<span style="margin-right:1vw;"></span>
+          </b-button>
+        </div>
+      </div>
+    </b-modal>
+<!-- 개인정보 제공동의 모달 -->
+
   </div>
 </template>
 
@@ -195,6 +234,8 @@ export default {
       isBreakTime: false,
       isFinish: false, 
       isCameraOn : false,
+      isHideFooter : true,
+      isHideHeaderClose : true,
       stage: 0,
       subjects: [
         '사진 속 단어를 배워보세요',
@@ -206,6 +247,7 @@ export default {
       ],
       img: null,
       camera: null,
+      cameras: null,
       deviceId: null,
       devices: [],
     }
@@ -214,8 +256,10 @@ export default {
     isBreakTime: function (val) {
       if (val) {
         this.stopCapture()
+        this.onStop()
       } else {
         this.startCapture()
+        this.onStart()
       }
     },
     camera: function (id) {
@@ -238,15 +282,26 @@ export default {
       return this.devices.find((n) => n.deviceId === this.deviceId)
     },
   },
+  created() {
+    this.onStop()
+  },
   mounted() {
     this.$store.state.exp = 0
     if (this.$store.state.test_customizing===false) {
-      this.onStart()
-      this.startCapture()
+      this.$refs['personalAccept'].show()
     }
   },
   methods: {
     ...mapMutations(['playAnswer', 'playWrong', 'playClick']),
+    accept(){
+      this.onStart()
+      this.startCapture()
+      this.$refs['personalAccept'].hide()
+    },
+    decline(){
+      this.onStop()
+      this.$refs['personalAccept'].hide()
+    },
     goKid() {
       setTimeout(() => {
         this.stopCapture()
@@ -262,6 +317,7 @@ export default {
       if (this.stage == 6) {
         this.stage = 5
         if (!this.$store.state.test_customizing) {
+          this.stopCapture()
           this.isFinish = true
         } else {
           this.$swal({
@@ -336,29 +392,29 @@ export default {
     onCapture() {
       this.img = this.$refs.webcam.capture()
     },
-    onStarted(stream) {
-    },
-    onStopped(stream) {
-    },
     onStop() {
-      this.$refs.webcam.stop()
+      setTimeout(() => {
+      this.isCameraOn = false
+      this.$refs.webcam.stop();
+      }, 600)
     },
     onStart() {
-      this.$refs.webcam.start()
+      
       this.isCameraOn = true
-    },
-    onError(error) {
+      this.onCameras(this.cameras)
+      this.$refs.webcam.start();
     },
     onCameras(cameras) {
-      this.devices = cameras
-      
+      if(this.isCameraOn){
+      this.devices = cameras;
+      }else{
+      this.cameras = cameras
+      }
     },
     onCameraChange(deviceId) {
       this.deviceId = deviceId
       this.camera = deviceId
-     
     },
-
     dataURLtoFile(dataurl, fileName) {
       var arr = dataurl.split(','),
         mime = arr[0].match(/:(.*?);/)[1],
@@ -452,5 +508,20 @@ export default {
   position: absolute;
   z-index: 3;
   width: 8%;
+}
+
+.modal-body {
+  margin-top: -2vw;
+  margin-bottom: 0.5vw;
+}
+
+.modal-body span {
+  color: #263747;
+  opacity: 0.9;
+  font-family: GmarketSansMedium;
+}
+.modal-foot2 {
+  text-align:center;
+  font-family: GmarketSansMedium;
 }
 </style>
