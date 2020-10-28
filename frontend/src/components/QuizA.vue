@@ -43,7 +43,7 @@ export default {
           headers: { 'X-AUTH-TOKEN': this.$store.state.token },
         })
         .then((data) => {
-          console.log(data);
+          // console.log(data);
           this.$store.commit('setQuiz', {
             id: data.data.id,
             word: data.data.word,
@@ -71,7 +71,7 @@ export default {
   },
   methods: {
     setLocalVariable() {
-      console.log('들어옴2');
+      // console.log('들어옴2');
       this.quiz = {
         url: this.$store.state.quiz.url,
         word_eng: this.$store.state.quiz.word,

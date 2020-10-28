@@ -9,9 +9,6 @@
             ref="webcam"
             :device-id="deviceId"
             width="100%"
-            @started="onStarted"
-            @stopped="onStopped"
-            @error="onError"
             @cameras="onCameras"
             @camera-change="onCameraChange"
           />
@@ -64,8 +61,10 @@ export default {
     return {
       img: null,
       camera: null,
+      cameras: null,
       deviceId: null,
       devices: [],
+      isCameraOn:false,
     };
   },
   computed: {
@@ -75,9 +74,10 @@ export default {
   },
   watch: {
     camera: function (id) {
-      this.deviceId = id;
+        this.deviceId = id;
     },
     devices: function () {
+     
       // Once we have a list select the first one
       const [first, ...tail] = this.devices;
       if (first) {
@@ -90,23 +90,24 @@ export default {
     onCapture() {
       this.img = this.$refs.webcam.capture();
     },
-    onStarted(stream) {
-      // console.log('On Started Event', stream)
-    },
-    onStopped(stream) {
-      // console.log('On Stopped Event', stream)
-    },
     onStop() {
+      setTimeout(() => {
+      this.isCameraOn = false
       this.$refs.webcam.stop();
+      }, 600)
+      
     },
     onStart() {
+      this.isCameraOn = true
+      this.onCameras(this.cameras)
       this.$refs.webcam.start();
     },
-    onError(error) {
-      // console.log('On Error Event', error)
-    },
     onCameras(cameras) {
+      if(this.isCameraOn){
       this.devices = cameras;
+      }else{
+        this.cameras = cameras
+      }
       // console.log('On Cameras Event', cameras)
     },
     onCameraChange(deviceId) {

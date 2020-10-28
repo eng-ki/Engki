@@ -17,7 +17,7 @@
       <div class="innerbox">
         <div class="profile-icon">
           <img :src="kid.icon" />
-          <div class="name">김싸피</div>
+          <div class="name">{{kid.name}}</div>
           <div class="bar" v-if="!isChangeProfile">
             <b-progress
               :value="value"
@@ -59,10 +59,10 @@
           </table>
           <div class="change-button">
             <div class="button-1">
-              <v-btn rounded @click="setProfileImage()">변경하기</v-btn>
+              <v-btn rounded style="font-size:3vh; margin:1vh; padding: 2vh 3vh;" @click="setProfileImage()">변경하기</v-btn>
             </div>
             <div class="button-2">
-              <v-btn rounded @click="returnKidPage()">돌아가기</v-btn>
+              <v-btn rounded style="font-size:3vh; margin:1vh;  padding: 2vh 3vh;" @click="returnKidPage()">돌아가기</v-btn>
             </div>
           </div>
         </div>
@@ -236,7 +236,7 @@ export default {
   },
   mounted() {
     this.selectedIndex = this.fairytale.indexOf(this.$store.state.kid.icon)
-    this.level = this.kid.exp / 100 - (this.kid.exp % 100) / 100
+    this.level = Math.ceil(this.kid.exp / 100 - (this.kid.exp % 100) / 100)
     this.timer = setInterval(() => {
       if (this.value == this.kid.exp % 100) {
         clearInterval(this.timer)
@@ -342,6 +342,8 @@ export default {
 }
 .profile-icon .name {
   margin-top: -1vw;
+  font-size:3vh;
+
 }
 .profile-icon .bar {
   position: relative;
@@ -370,7 +372,6 @@ export default {
 .button-2 {
   float: left;
 }
-
 .active {
   border: 3px solid #8ebf43;
   border-style: dotted;
@@ -422,4 +423,6 @@ export default {
   top: 0 !important;
   left: -23vw !important;
 }
+
+
 </style>

@@ -52,8 +52,7 @@
           </v-col>
           <v-col cols="12" sm="8" md="6" align="center" justify="center">
             <v-carousel
-              reverse-transition="fade-transition"
-              transition="fade-transition"
+            transition="fade-transition"
               hide-delimiters
               :next-icon="false"
               :prev-icon="false"
@@ -472,7 +471,7 @@ export default {
 }
 
 .pointerdown img {
-  width: 5.6vw;
+  width: 8.0vh;
   opacity: 0.82;
   animation: pointers 1.5s linear 1.5s infinite alternate running;
 }

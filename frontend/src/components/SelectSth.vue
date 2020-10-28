@@ -1,16 +1,13 @@
 <template>
   <div class="background">
     <div class="box">
-      <div class="card-carousel-wrapper">
-        <div class="title-with-tiki">
-          <span class="showbox">{{ msg }} </span>
-          <img
+      <img
             @click="startTutorial()"
             class="page-title-img"
             id="tutorial"
             src="../../public/img/icon/question-mark1.png"
           />
-          <b-tooltip placement="top" target="tutorial" triggers="hover">
+          <b-tooltip placement="bottom" target="tutorial" triggers="hover">
             <span
               style="
                 font-family: GmarketSansMedium;
@@ -20,6 +17,10 @@
               >도움말</span
             >
           </b-tooltip>
+      <div class="card-carousel-wrapper">
+        <div class="title-with-tiki">
+          <span class="showbox">{{ msg }} </span>
+          
         </div>
         <div
           class="card-carousel--nav__left"
@@ -363,12 +364,12 @@ export default {
           // 일단 1~5로 지정해둠
           var num = (Math.round(Math.random() * 100) % 6) + 1
           this.$store.commit('setTheme', num)
-          console.log('랜덤주제 : ' + this.$store.state.theme)
+          // console.log('랜덤주제 : ' + this.$store.state.theme)
           this.$router.push('/quiz')
           // 랜덤주제
         } else {
           this.$store.commit('setTheme', this.datas[index].id)
-          console.log('일반주제 : ' + this.$store.state.theme)
+          // console.log('일반주제 : ' + this.$store.state.theme)
           this.$router.push('/quiz')
         }
       } else if (this.option == 'kid') {
@@ -548,9 +549,18 @@ $arrowcolor: #ffffff;
 }
 
 .page-title-img {
-  width: 4.9%;
-  margin-left: 2.5vw;
-  margin-bottom: 3.5vh;
+  // width: 4.9%;
+  position: absolute;
+  margin:1vh;
+  padding:1vh;
+  right:6vw;
+  top:10vh;
+  height: 4vw;
+  // 10vh 6vw 10vh 6vw
+  // margin-top: 2.5vh;
+  // margin-left: 2.5vw;
+  // transform: translate(0, -50%);
+  // margin-bottom: 1vh;
   &:hover {
     opacity: 0.6;
   }

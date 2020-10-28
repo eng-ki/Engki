@@ -20,13 +20,10 @@
       ref="webcam"
       :device-id="deviceId"
       width="0%"
-      @started="onStarted"
-      @stopped="onStopped"
-      @error="onError"
       @cameras="onCameras"
       @camera-change="onCameraChange"
     />
-    <!-- etc : 종료 화면 / pause 화면 컴포넌트들 들어갈 자리-->
+ 
     <etc
       v-if="(isBreakTime || isFinish) && !$store.state.test_customizing"
       :isBreakTime="isBreakTime"
@@ -34,7 +31,22 @@
       v-on:continue="isBreakTime = false"
     />
 
+      <b-tooltip placement="bottom" target="cameraon" v-if="isCameraOn" triggers="hover">
+      <span
+        style="font-family: GmarketSansMedium; color: #f2f2f2; font-size: 0.7vw"
+        >감정 인식을 위해 실시간으로<br>녹화가 이루어지고 있습니다.<br>인식 후 숫자로만 기록됩니다.</span
+      >
+    </b-tooltip>
+      <b-tooltip placement="bottom" target="cameraoff" triggers="hover">
+      <span
+        style="font-family: GmarketSansMedium; color: #f2f2f2; font-size: 0.8vw"
+        >감정 인식을 위한 실시간 녹화가 중지되었습니다.</span
+      >
+    </b-tooltip>
+
     <div class="whiteboard">
+      <img id="cameraon" src="../../public/img/icon/camera-on.png" v-if="isCameraOn" class="rec"/>
+      <img id="cameraoff" src="../../public/img/icon/camera-off.png" v-else class="rec"/>
       <div class="board">
         <quiz-a
           :isDone="isDone"
@@ -126,26 +138,68 @@
         >{{ subject }}</span
       >
 
-      <!-- 잠깐 티키 눌렀을때 ETC (휴식) 페이지로 이동하게 해놓음 -->
+
       <img
         v-if="!isBreakTime && !isFinish"
         class="tiki"
         src="../../public/img/icon/moving_tiki.gif"
       />
 
-      <!--다했어요 버튼 눌렀을때 1. isDone 변경 -> 2. 컴포넌트에서 정답인지 확인 -> 3. 다음 스테이지로-->
+      
       <img
         class="done"
         @click="isDone = true"
         src="../../public/img/icon/done.png"
       />
-      <!-- 모르겠어요 버튼 눌렀을때 완전 끝내기랑 다음으로가기 -->
+      
       <img
         class="difficult"
         @click="isPass()"
         src="../../public/img/icon/difficult.png"
       />
     </div>
+
+    <!-- 개인정보 제공동의 모달 -->
+    <b-modal
+      ref="personalAccept"
+      :no-close-on-backdrop="isHideHeaderClose"
+      title-html="<span style='
+  padding: 1vw;font-family: GmarketSansMedium; color: #263747;'>개인 정보를 제공하는데 동의하시겠습니까?</span>"
+      :hide-footer="isHideFooter"
+      :hide-header-close="isHideHeaderClose"
+      header-border-variant="0"
+      >
+      <div class="modal-body">
+          <span style="font-size:0.8vw;">
+          ENGKI 에서 {{this.$store.state.kid.name}} 님의 서비스 이용 중 감정 인식을 위해 실시간 녹화 정보를 <br>
+          제공받습니다. 녹화 자료는 수치상으로만 기록되어 탈퇴 전까지 보관됩니다.</span>
+      </div>
+      <div>
+        <div class="modal-foot2">
+          <b-button
+            size="sm"
+            variant="warning"
+            pill 
+            :class="{ isButtonBlock: stage == 1 }"
+            @click="accept();"
+          >
+             <span style="margin-left:1vw;"></span>
+             동의하기<span style="margin-right:1vw;"></span>
+          </b-button>
+          <span style="margin-right:3vw;"></span>
+          <b-button
+            size="sm"
+            pill 
+            @click="decline();"
+          >
+             <span style="margin-left:1vw;"></span>
+             취소하기<span style="margin-right:1vw;"></span>
+          </b-button>
+        </div>
+      </div>
+    </b-modal>
+<!-- 개인정보 제공동의 모달 -->
+
   </div>
 </template>
 
@@ -176,10 +230,13 @@ export default {
   data: () => {
     return {
       answer: '',
-      isDone: false, // 다했어요
-      isBreakTime: false, // 쉬는시간
-      isFinish: false, // 퀴즈 종료
-      stage: 0, // stage 0~5 : 퀴즈
+      isDone: false,
+      isBreakTime: false,
+      isFinish: false, 
+      isCameraOn : false,
+      isHideFooter : true,
+      isHideHeaderClose : true,
+      stage: 0,
       subjects: [
         '사진 속 단어를 배워보세요',
         '단어에 해당하는 그림을 모두 선택해주세요',
@@ -190,6 +247,7 @@ export default {
       ],
       img: null,
       camera: null,
+      cameras_: null,
       deviceId: null,
       devices: [],
     }
@@ -198,18 +256,22 @@ export default {
     isBreakTime: function (val) {
       if (val) {
         this.stopCapture()
+        this.onStop()
       } else {
         this.startCapture()
+        this.onStart()
       }
     },
     camera: function (id) {
       this.deviceId = id
     },
     devices: function () {
+      if(this.devices!=null){
       const [first, ...tail] = this.devices
       if (first) {
         this.camera = first.deviceId
         this.deviceId = first.deviceId
+      }
       }
     },
   },
@@ -222,16 +284,26 @@ export default {
       return this.devices.find((n) => n.deviceId === this.deviceId)
     },
   },
+  created() {
+    this.onStop()
+  },
   mounted() {
     this.$store.state.exp = 0
-    console.log(this.$store.state.test_customizing)
-    if (!this.$store.state.test_customizing) {
-      this.onStart()
-      this.startCapture()
+    if (this.$store.state.test_customizing===false) {
+      this.$refs['personalAccept'].show()
     }
   },
   methods: {
     ...mapMutations(['playAnswer', 'playWrong', 'playClick']),
+    accept(){
+      this.onStart()
+      this.startCapture()
+      this.$refs['personalAccept'].hide()
+    },
+    decline(){
+      this.onStop()
+      this.$refs['personalAccept'].hide()
+    },
     goKid() {
       setTimeout(() => {
         this.stopCapture()
@@ -247,6 +319,7 @@ export default {
       if (this.stage == 6) {
         this.stage = 5
         if (!this.$store.state.test_customizing) {
+          this.stopCapture()
           this.isFinish = true
         } else {
           this.$swal({
@@ -260,9 +333,6 @@ export default {
           })
         }
       }
-    },
-    setAnswer(answer) {
-      this.answer = answer
     },
     startCapture() {
       this.camTimer = setInterval(() => {
@@ -289,17 +359,14 @@ export default {
             },
           })
           .then(({ data }) => {
-            console.log(data)
             if (data == 'STOP') {
               this.isBreakTime = true
             }
           })
       }, 5000)
     },
-    // 감정 인식 중지
+    // 캡쳐 중지
     stopCapture() {
-      // 캡쳐 중지
-
       clearInterval(this.camTimer)
     },
     // 모르겠어요 버튼 눌렀을때 완전 끝내기랑 다음으로가기
@@ -315,7 +382,6 @@ export default {
         cancelButtonText:
           '<span style="font-weight:100; font-size:1.5vw;">계속 풀래요</span>',
 
-        // 이거 뒤로가기 버튼 있어야 할 듯..
         showCloseButton: true,
       }).then((result) => {
         if (result.value) {
@@ -328,31 +394,30 @@ export default {
     onCapture() {
       this.img = this.$refs.webcam.capture()
     },
-    onStarted(stream) {
-      // console.log('On Started Event', stream)
-    },
-    onStopped(stream) {
-      // console.log('On Stopped Event', stream)
-    },
     onStop() {
-      this.$refs.webcam.stop()
+      setTimeout(() => {
+      this.isCameraOn = false
+      this.$refs.webcam.stop();
+      }, 600)
     },
     onStart() {
+      setTimeout(() => {
+      this.isCameraOn = true
+      this.onCameras(this.cameras_)
+      }, 300)
       this.$refs.webcam.start()
     },
-    onError(error) {
-      // console.log('On Error Event', error)
-    },
     onCameras(cameras) {
+      if(this.isCameraOn){
       this.devices = cameras
-      // console.log('On Cameras Event', cameras)
+      }else{
+      this.cameras_ = cameras
+      }
     },
     onCameraChange(deviceId) {
       this.deviceId = deviceId
       this.camera = deviceId
-      // console.log('On Camera Change Event', deviceId)
     },
-
     dataURLtoFile(dataurl, fileName) {
       var arr = dataurl.split(','),
         mime = arr[0].match(/:(.*?);/)[1],
@@ -399,6 +464,15 @@ export default {
   padding: 5px;
 }
 
+.rec{
+  z-index:3;
+  width:6vw;
+  top: 15vh;
+  right: 13vw;
+  position: absolute;
+  margin:0px;
+}
+
 .whiteboard .tiki {
   width: 18%;
   position: absolute;
@@ -437,5 +511,20 @@ export default {
   position: absolute;
   z-index: 3;
   width: 8%;
+}
+
+.modal-body {
+  margin-top: -2vw;
+  margin-bottom: 0.5vw;
+}
+
+.modal-body span {
+  color: #263747;
+  opacity: 0.9;
+  font-family: GmarketSansMedium;
+}
+.modal-foot2 {
+  text-align:center;
+  font-family: GmarketSansMedium;
 }
 </style>

@@ -69,7 +69,7 @@
             </span>
           </div>
           <div v-if="emotions == ''" class="chart">
-            <span class="block" style="background-color: #ffe26d">
+            <span class="block" style="background-color: #F4B759">
               <span class="val">데이터가 존재하지 않습니다</span>
             </span>
           </div>
@@ -121,7 +121,6 @@ export default {
   },
   created() {
     this.dayclicked = new Date().getDay() - 1;
-    this.refreshdata();
   },
   mounted() {
     $('.v-calendar-daily__intervals-head').remove();
@@ -224,6 +223,7 @@ export default {
     today() {
       this.thisweek = 0;
       this.value = '';
+      this.activate_button();
     },
   },
 };
